@@ -1,0 +1,23 @@
+# Product Advisory
+
+> Product Advisory, LLC is a product management consulting firm in Chicago, Illinois that helps startups and enterprises build market driven products: turning market insight into roadmaps teams can defend, and products people actually want. Founded by Robert Merrell (Fractional CPO). Over 50 years of combined technology and product experience across healthcare, data strategy and enterprise software.
+
+## Services
+- [Product Strategy Development](https://www.productadvisory.co/services.html#strategy): for when your roadmap doesn't connect to business goals.
+- [Product Lifecycle Management](https://www.productadvisory.co/services.html#lifecycle): for when strategy and execution operate in silos.
+- [AI Enablement](https://www.productadvisory.co/services.html#ai): turning scattered individual AI use into organizational capability.
+- [Market Research and Analysis](https://www.productadvisory.co/services.html#research): for when decisions are based on guesses, not evidence.
+- [Agile Transformation](https://www.productadvisory.co/services.html#agile): for when speed doesn't translate into building the right things.
+- [Product Team Coaching and Development](https://www.productadvisory.co/services.html#coaching): for teams with the will, but not yet the process.
+- [Custom Assessments & Interactive Learning](https://www.productadvisory.co/services.html#assessments): skill assessments and learning built around a team's real gaps.
+- [Service packages](https://www.productadvisory.co/services.html#packages): Fractional CPO+, Training & Education, Market Validation, Go to Market, Security & Compliance, Contracting & Legal, Sales & Marketing, UX/UI Design.
+
+## Free resources
+- [Toolkits](https://www.productadvisory.co/toolkits.html): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
+- [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
+
+## Contact
+- [Book a free 30-minute call](https://calendly.com/productadvisory/30min)
+- Email: info@productadvisory.co (sales: sales@productadvisory.co)
+- [About](https://www.productadvisory.co/about.html) · [Contact](https://www.productadvisory.co/contact.html)
+- [LinkedIn](https://www.linkedin.com/company/productadvisory) · [Product+ newsletter](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482) · [Slack community](https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ)

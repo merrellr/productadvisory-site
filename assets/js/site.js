@@ -1,0 +1,743 @@
+/* ================================================================
+   Product Advisory: site behaviour (no dependencies)
+   - theme toggle, sticky nav, mobile menu, reveal-on-scroll, counters
+   - "Ask" search over every page's [data-ask] blocks, with an optional
+     AI answer and a hand-off to a call when the site can't answer
+   - ⌘K / Ctrl+K command menu
+   - "Make it yours": preferences, the "Where are you today?" lens
+   - home "Sound familiar?" picker, services engagement finder,
+     toolkit level filter, contact form
+   ================================================================ */
+(function () {
+  "use strict";
+
+  /* ---------- settings: change these in one place ---------- */
+  var EMAIL = "info@productadvisory.co";
+  var CALENDLY = "https://calendly.com/productadvisory/30min";
+  var ASSESSMENT = "https://assessment.productadvisory.co/";
+  var NEWSLETTER = "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482";
+  // A Google Apps Script web app that writes AI answers and receives contact messages
+  // (same pattern as the portfolio's apps-script/ask.gs). Leave empty and Ask is a plain
+  // site search, and the contact form opens a pre-filled email instead.
+  var ASK_ENDPOINT = "";
+  var PAGES = ["index.html", "services.html", "toolkits.html", "about.html", "contact.html"];
+  var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "about.html": "About", "contact.html": "Contact" };
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  function store(key, val) {
+    try {
+      if (val === undefined) return localStorage.getItem(key);
+      if (val === null) localStorage.removeItem(key); else localStorage.setItem(key, val);
+    } catch (e) { return null; }
+  }
+  function currentPage() {
+    var p = location.pathname.split("/").pop();
+    if (!p) return "index.html";
+    return p.indexOf(".html") > -1 ? p : p + ".html";
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function reducedMotion() {
+    return (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ||
+      document.documentElement.getAttribute("data-motion") === "reduced";
+  }
+
+  /* ---------- analytics (only if a GA tag is on the page) ---------- */
+  function track(name, params) {
+    try { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); } catch (e) { /* never break the page */ }
+  }
+
+  /* ---------- toast ---------- */
+  var toastEl;
+  function toast(msg) {
+    if (!toastEl) { toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role", "status"); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function () { toastEl.classList.remove("show"); }, 2000);
+  }
+  function copyText(text, msg) {
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { toast(msg); }, function () { toast("Select the text and copy it"); });
+    else toast("Select the text and copy it");
+  }
+
+  /* ---------- theme ---------- */
+  function isDark() {
+    var t = document.documentElement.getAttribute("data-theme");
+    if (t) return t === "dark";
+    return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function toggleTheme() {
+    var next = isDark() ? "light" : "dark";
+    if (window.SitePrefs) window.SitePrefs.setMode(next);
+    else document.documentElement.setAttribute("data-theme", next);
+    track("theme", { mode: next });
+    syncPrefControls();
+  }
+
+  /* ---------- nav ---------- */
+  function initNav() {
+    var nav = $(".nav");
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle("scrolled", window.scrollY > 8); };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    var menu = $(".menu-btn");
+    if (menu) menu.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      menu.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    $$("[data-action]").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        var a = b.getAttribute("data-action");
+        if (a === "theme") toggleTheme();
+        if (a === "palette") openPalette();
+        if (a === "copy-email") { e.preventDefault(); copyText(b.getAttribute("data-email") || EMAIL, "Email copied"); }
+      });
+    });
+    var mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    $$(".mod-key").forEach(function (k) { k.textContent = mac ? "⌘" : "Ctrl"; });
+  }
+
+  /* ---------- reveal, counters, bars ---------- */
+  function animateCount(el) {
+    var target = parseFloat(el.getAttribute("data-count"));
+    var suf = el.getAttribute("data-suffix") || "";
+    var start = null, dur = 1400;
+    function step(ts) {
+      if (!start) start = ts;
+      var k = Math.min(1, (ts - start) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - k, 3))) + suf;
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function initReveal() {
+    var targets = $$(".reveal, [data-count], .fill[data-w]");
+    var finish = function (el) {
+      el.classList.add("in");
+      if (el.hasAttribute("data-w")) el.style.width = el.getAttribute("data-w");
+    };
+    if (!("IntersectionObserver" in window) || reducedMotion()) { targets.forEach(finish); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        finish(en.target);
+        if (en.target.hasAttribute("data-count")) animateCount(en.target);
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.12 });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- in-page index that follows the scroll ---------- */
+  function initScrollSpy() {
+    var links = $$(".side-index a, .sticky-tabs a");
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    var map = {};
+    links.forEach(function (a) { var id = a.getAttribute("href").split("#")[1]; if (id && document.getElementById(id)) map[id] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove("on"); a.removeAttribute("aria-current"); });
+        var a = map[en.target.id];
+        if (a) { a.classList.add("on"); if (a.closest(".tabs")) a.setAttribute("aria-current", "true"); }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
+  }
+
+  /* ================================================================
+     Ask: a small search engine over every block marked [data-ask].
+     Each page is fetched once, split into blocks, and ranked with a
+     BM25-style score plus product-management synonyms. Answers link
+     back to the exact block. Nothing leaves the browser unless
+     ASK_ENDPOINT is set.
+     ================================================================ */
+  var STOP = "a an and are as at be been but by can could did do does for from had has have he her his how i if in into is it its me my of on or our she so than that the their them then there these they this to was we were what when where which who why will with would you your about any ever us tell show give product advisory".split(" ");
+  var STOPSET = {}; STOP.forEach(function (w) { STOPSET[w] = 1; });
+  var SYN = {
+    ai: ["copilot", "agents", "agentic", "llm", "automation", "fluency", "enablement"],
+    agents: ["ai", "agentic", "copilot"],
+    copilot: ["ai", "enablement", "adoption"],
+    adoption: ["enablement", "ai", "habits", "governance"],
+    roadmap: ["strategy", "prioritization", "planning", "roadmaps"],
+    roadmaps: ["roadmap", "strategy"],
+    strategy: ["roadmap", "vision", "positioning"],
+    prioritize: ["prioritization", "trade-offs", "roadmap", "decision"],
+    prioritization: ["prioritize", "trade-offs", "impact"],
+    research: ["discovery", "interviews", "market", "validation", "customer"],
+    discovery: ["research", "interviews", "validation", "customer"],
+    customer: ["users", "market", "buyers", "research"],
+    launch: ["go-to-market", "gtm", "launches", "sales", "marketing"],
+    gtm: ["go-to-market", "launch", "positioning"],
+    hire: ["fractional", "cpo", "leadership"],
+    cpo: ["fractional", "chief", "leadership", "executive"],
+    fractional: ["cpo", "leadership", "embedded"],
+    leader: ["leadership", "executive", "cpo"],
+    team: ["teams", "coaching", "training", "organization"],
+    training: ["education", "workshops", "learning", "coaching", "courses"],
+    learn: ["learning", "courses", "training", "assessment"],
+    course: ["courses", "learning", "training"],
+    test: ["assessment", "skill", "check"],
+    assessment: ["skill", "check", "benchmark", "competencies"],
+    skills: ["assessment", "competencies", "training", "gaps"],
+    agile: ["scrum", "sprint", "retrospectives", "rituals"],
+    scrum: ["agile", "sprint"],
+    template: ["toolkit", "toolkits", "tools", "pdf", "sheet"],
+    templates: ["toolkit", "toolkits", "tools"],
+    tool: ["toolkit", "toolkits", "template"],
+    free: ["toolkit", "free", "assessment"],
+    price: ["cost", "budget", "free", "packages", "engagement"],
+    cost: ["price", "budget", "packages"],
+    pricing: ["price", "budget", "packages", "engagement"],
+    security: ["compliance", "privacy", "regulations"],
+    compliance: ["security", "regulations", "privacy"],
+    legal: ["contracting", "contracts", "ip"],
+    contract: ["contracting", "legal", "vendor"],
+    design: ["ux", "ui", "wireframes", "usability"],
+    ux: ["design", "ui", "usability"],
+    build: ["buy", "partner", "decision", "matrix"],
+    buy: ["build", "partner", "vendor"],
+    healthcare: ["health", "life", "sciences"],
+    startup: ["startups", "early-stage", "founder"],
+    enterprise: ["enterprises", "organization", "scale"],
+    contact: ["call", "email", "phone", "schedule"],
+    call: ["schedule", "calendly", "consultation", "free"],
+    newsletter: ["linkedin", "insights", "product+"],
+    chicago: ["based", "located", "illinois"],
+    experience: ["years", "combined", "background"]
+  };
+  function tokens(s) {
+    return (s.toLowerCase().replace(/[’']/g, "").match(/[a-z0-9][a-z0-9+\-.]*[a-z0-9+]|[a-z0-9]/g) || [])
+      .filter(function (t) { return !STOPSET[t]; });
+  }
+  function stem(t) { return t.length > 4 ? t.replace(/(ing|ed|es|s)$/, "") : t; }
+  var KIND_WEIGHT = { "Service": 1.25, "Package": 1.1, "Toolkit": 1.15, "Learning": 1.1, "Home": 0.8 };
+
+  var index = null, indexing = null;
+  function chunksFrom(doc, page) {
+    return $$("[data-ask]", doc).map(function (el) {
+      var anchor = el.id ? el : el.closest("[id]");
+      var title = el.getAttribute("data-ask") || ((el.querySelector("h1,h2,h3,h4") || {}).textContent || PAGE_NAMES[page]);
+      var text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      return {
+        title: title.trim(),
+        kind: el.getAttribute("data-kind") || PAGE_NAMES[page],
+        url: page + (anchor && anchor.id ? "#" + anchor.id : ""),
+        text: text,
+        toks: tokens(title + " " + title + " " + (el.getAttribute("data-keywords") || "") + " " + text).map(stem)
+      };
+    });
+  }
+  function buildIndex() {
+    if (index) return Promise.resolve(index);
+    if (indexing) return indexing;
+    var here = currentPage();
+    var jobs = PAGES.map(function (p) {
+      if (p === here) return Promise.resolve(chunksFrom(document, p));
+      return fetch(p).then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
+        return html ? chunksFrom(new DOMParser().parseFromString(html, "text/html"), p) : [];
+      }).catch(function () { return []; });
+    });
+    indexing = Promise.all(jobs).then(function (lists) {
+      var docs = [].concat.apply([], lists), df = {};
+      docs.forEach(function (d) {
+        var seen = {};
+        d.tf = {};
+        d.toks.forEach(function (t) { d.tf[t] = (d.tf[t] || 0) + 1; if (!seen[t]) { seen[t] = 1; df[t] = (df[t] || 0) + 1; } });
+        d.len = d.toks.length;
+      });
+      var avg = docs.reduce(function (s, d) { return s + d.len; }, 0) / Math.max(1, docs.length);
+      index = { docs: docs, df: df, avg: avg, n: docs.length };
+      return index;
+    });
+    return indexing;
+  }
+  function search(q) {
+    return buildIndex().then(function (ix) {
+      var terms = {};
+      tokens(q).forEach(function (t) {
+        terms[stem(t)] = 1;
+        (SYN[t] || SYN[stem(t)] || []).forEach(function (s) { tokens(s).forEach(function (x) { if (!terms[stem(x)]) terms[stem(x)] = 0.45; }); });
+      });
+      var k1 = 1.4, b = 0.7;
+      var scored = ix.docs.map(function (d) {
+        var s = 0, hits = 0;
+        Object.keys(terms).forEach(function (t) {
+          var f = d.tf[t];
+          if (!f) return;
+          var idf = Math.log(1 + (ix.n - ix.df[t] + 0.5) / (ix.df[t] + 0.5));
+          s += terms[t] * idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * d.len / ix.avg));
+          if (terms[t] === 1) hits++;
+        });
+        return { d: d, s: s * (1 + 0.35 * hits) * (KIND_WEIGHT[d.kind] || 1) };
+      }).filter(function (r) { return r.s > 0.6; });
+      scored.sort(function (a, c) { return c.s - a.s; });
+      var titles = {};
+      scored = scored.filter(function (r) { if (titles[r.d.title]) return false; titles[r.d.title] = 1; return true; });
+      return { results: scored.slice(0, 5).map(function (r) { return r.d; }), terms: Object.keys(terms) };
+    });
+  }
+  function snippet(text, terms) {
+    var sentences = text.split(/(?<=[.!?])\s+/);
+    var best = sentences[0] || "", bestScore = -1;
+    sentences.forEach(function (s) {
+      var toks = tokens(s).map(stem), sc = 0;
+      terms.forEach(function (t) { if (toks.indexOf(t) > -1) sc++; });
+      if (sc > bestScore) { bestScore = sc; best = s; }
+    });
+    if (best.length > 240) best = best.slice(0, 237) + "…";
+    var out = esc(best);
+    terms.filter(function (t) { return t.length > 2; }).forEach(function (t) {
+      out = out.replace(new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*)", "gi"), "<mark>$1</mark>");
+    });
+    return out;
+  }
+  // Questions that sound like someone with a project get a direct route to a person.
+  var INTENT = /\b(help (us|our|me|my)|hire|we need|i need|our (team|company|product|roadmap|startup)|my (team|company)|cost|price|pricing|budget|engage|work with|available|proposal|quote)\b/i;
+  function handoff(q, strong) {
+    var href = "contact.html?topic=" + encodeURIComponent(q) + "#message";
+    return '<div class="ask-handoff"><p>' + (strong ? "Sounds like a project. Tell us about it, or book a free 30-minute call." : "Want a straight answer from a person?") +
+      '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call</a></div></div>';
+  }
+
+  function initAsk() {
+    var box = $("#ask");
+    if (!box) return;
+    var form = $(".ask-form", box), input = $("input", form), out = $(".ask-out");
+    var seq = 0;
+    function run(q) {
+      q = q.trim();
+      if (!q) return;
+      input.value = q;
+      var mine = ++seq;
+      track("ask_question", { mode: ASK_ENDPOINT ? "ai" : "search" });
+      search(q).then(function (r) {
+        if (mine !== seq) return;
+        var strong = INTENT.test(q);
+        var html = '<div class="ask-q">“' + esc(q) + '”</div>';
+        if (!r.results.length) {
+          out.innerHTML = html + '<p class="muted">Nothing on the site answers that directly yet.</p>' + handoff(q, true);
+          return;
+        }
+        if (ASK_ENDPOINT) html += '<div class="ask-answer" aria-busy="true"><span class="ask-ai">AI answer</span><p class="ask-thinking">Reading the sections below…</p></div>';
+        html += '<div class="ask-src-label">' + (ASK_ENDPOINT ? "Sources" : "Best matches on the site") + "</div>";
+        html += r.results.map(function (d, i) {
+          return '<a class="ask-hit" href="' + d.url + '"><small>' + (ASK_ENDPOINT ? "[" + (i + 1) + "] " : "") + esc(d.kind) + "</small><b>" + esc(d.title) + "</b><p>" + snippet(d.text, r.terms) + "</p></a>";
+        }).join("");
+        html += handoff(q, strong);
+        out.innerHTML = html;
+        out.scrollTop = 0;
+        if (ASK_ENDPOINT) aiAnswer(q, r.results, mine);
+      });
+    }
+    function aiAnswer(q, results, mine) {
+      var slot = $(".ask-answer", out);
+      fetch(ASK_ENDPOINT, {
+        method: "POST",
+        // text/plain keeps this a "simple" request, which Apps Script accepts without a CORS preflight
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ q: q, cid: visitorId(), sources: results.map(function (d) { return { url: d.url, title: d.title, text: d.text.slice(0, 1600) }; }) })
+      }).then(function (res) { return res.json(); }).then(function (data) {
+        if (mine !== seq || !slot) return;
+        slot.removeAttribute("aria-busy");
+        track("ask_answer", { outcome: data && data.ok ? "answered" : (data && data.error) || "error" });
+        if (data && data.ok && data.answer) {
+          slot.innerHTML = '<span class="ask-ai">AI answer</span>' + renderAnswer(data.answer, results) +
+            '<p class="ask-fine">Written by AI from the sections below. Check the linked sources for the detail.</p>' +
+            '<button type="button" class="ask-share">Copy a link to this question</button>';
+          $(".ask-share", slot).addEventListener("click", function () { copyText(askLink(q), "Link copied. It opens the site and asks this question"); });
+        } else {
+          slot.innerHTML = '<p class="ask-fine">' + (data && data.error === "daily_limit" ? "AI answers have reached today's limit." : "The AI answer isn't available right now.") + " The best matches are below.</p>";
+        }
+      }).catch(function () {
+        if (mine !== seq || !slot) return;
+        slot.removeAttribute("aria-busy");
+        slot.innerHTML = '<p class="ask-fine">The AI answer isn\'t available right now. The best matches are below.</p>';
+      });
+    }
+    form.addEventListener("submit", function (e) { e.preventDefault(); run(input.value); });
+    $$(".ask-suggest button", box).forEach(function (b) { b.addEventListener("click", function () { run(b.textContent); }); });
+    input.addEventListener("focus", function () { buildIndex(); }, { once: true });
+    var q = new URLSearchParams(location.search).get("ask");
+    if (q) { run(q); setTimeout(function () { box.scrollIntoView({ block: "center" }); }, 50); }
+    box._run = run;
+  }
+  function askLink(q) { var u = new URL("./", location.href); u.searchParams.set("ask", q); return u.toString(); }
+  /* Citations like [2] or [1, 3] become links to the matching source. */
+  function renderAnswer(text, results) {
+    return esc(text).split(/\n{2,}/).map(function (para) {
+      para = para.replace(/\[(\d+(?:\s*,\s*\d+)*)\]/g, function (m, nums) {
+        return nums.split(/\s*,\s*/).map(function (n) {
+          var d = results[+n - 1];
+          return d ? '<a class="cite" href="' + d.url + '" title="' + esc(d.title) + '">' + n + "</a>" : "";
+        }).join("");
+      });
+      return "<p>" + para.replace(/\n/g, "<br>") + "</p>";
+    }).join("");
+  }
+  function visitorId() {
+    var id = store("pa_vid");
+    if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); store("pa_vid", id); }
+    return id || "";
+  }
+  function goAsk(q) {
+    var box = $("#ask");
+    if (box && box._run) {
+      box.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "center" });
+      if (q) box._run(q); else setTimeout(function () { $("input", box).focus(); }, 300);
+    } else {
+      location.href = "index.html?ask=" + encodeURIComponent(q || "");
+    }
+  }
+
+  /* ================================================================
+     Command menu (⌘K, Ctrl+K or /)
+     ================================================================ */
+  var pal, palInput, palList, palItems = [], palSel = 0, lastFocus;
+  function go(url) { return function () { location.href = url; }; }
+  function open(url) { return function () { window.open(url, "_blank", "noopener"); }; }
+  var ACTIONS = [
+    { g: "Go to", t: "Home", i: "⌂", run: go("index.html") },
+    { g: "Go to", t: "Services", i: "◆", run: go("services.html") },
+    { g: "Go to", t: "Service packages", i: "▤", run: go("services.html#packages") },
+    { g: "Go to", t: "Find the right engagement", i: "?", run: go("services.html#finder") },
+    { g: "Go to", t: "Toolkits", i: "▣", run: go("toolkits.html") },
+    { g: "Go to", t: "Learning & skill check", i: "◎", run: go("toolkits.html#learning") },
+    { g: "Go to", t: "About", i: "i", run: go("about.html") },
+    { g: "Go to", t: "Contact", i: "✉", run: go("contact.html") },
+    { g: "Do", t: "Book a free 30-minute call", i: "☎", hint: "Calendly", run: open(CALENDLY) },
+    { g: "Do", t: "Take the PM + AI skill assessment", i: "↗", hint: "assessment.productadvisory.co", run: open(ASSESSMENT) },
+    { g: "Do", t: "Copy our email address", i: "@", hint: EMAIL, run: function () { copyText(EMAIL, "Email copied: " + EMAIL); } },
+    { g: "Do", t: "Follow the newsletter on LinkedIn", i: "+", run: open(NEWSLETTER) },
+    { g: "Do", t: "Request a new tool", i: "✚", run: open(ASSESSMENT + "tool-requests.html") },
+    { g: "Make it yours", t: "Toggle light / dark", i: "◐", run: toggleTheme },
+    { g: "Make it yours", t: "Reading depth: Brief", i: "≡", run: function () { setPref("depth", "brief"); toast("Brief view: summaries only"); } },
+    { g: "Make it yours", t: "Reading depth: Full", i: "≣", run: function () { setPref("depth", "full"); toast("Full view"); } },
+    { g: "Make it yours", t: "Style: Classic", i: "Aa", run: function () { setPref("style", "classic"); } },
+    { g: "Make it yours", t: "Style: Editorial", i: "Aa", run: function () { setPref("style", "editorial"); } },
+    { g: "Make it yours", t: "Style: Boardroom", i: "Aa", run: function () { setPref("style", "boardroom"); } },
+    { g: "Make it yours", t: "Style: Lab", i: "Aa", run: function () { setPref("style", "lab"); } },
+    { g: "Make it yours", t: "Open all preferences", i: "⚙", run: go("preferences.html") }
+  ];
+  function contentItems() {
+    if (!index) return [];
+    return index.docs.filter(function (d) { return /#/.test(d.url) && ["Service", "Package", "Toolkit", "Learning"].indexOf(d.kind) > -1; })
+      .map(function (d) { return { g: d.kind === "Package" ? "Packages" : d.kind === "Service" ? "Services" : d.kind === "Toolkit" ? "Toolkits" : "Learning", t: d.title, s: d.text.slice(0, 200), i: "›", run: go(d.url) }; });
+  }
+  function buildPalette() {
+    pal = document.createElement("div");
+    pal.className = "palette-backdrop";
+    pal.innerHTML = '<div class="palette" role="dialog" aria-modal="true" aria-label="Command menu">' +
+      '<input type="text" placeholder="Jump to a service, a toolkit, or ask a question…" aria-label="Search commands" autocomplete="off">' +
+      '<ul role="listbox"></ul>' +
+      '<div class="foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div></div>';
+    document.body.appendChild(pal);
+    palInput = $("input", pal); palList = $("ul", pal);
+    pal.addEventListener("click", function (e) { if (e.target === pal) closePalette(); });
+    palInput.addEventListener("input", renderPalette);
+    palInput.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); palSel = Math.min(palItems.length - 1, palSel + 1); markSel(); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); palSel = Math.max(0, palSel - 1); markSel(); }
+      else if (e.key === "Enter") { e.preventDefault(); if (palItems[palSel]) { var it = palItems[palSel]; closePalette(); it.run(); } }
+      else if (e.key === "Escape") { closePalette(); }
+      else if (e.key === "Tab") { e.preventDefault(); }
+    });
+  }
+  function renderPalette() {
+    var q = palInput.value.trim().toLowerCase();
+    palItems = ACTIONS.concat(contentItems()).filter(function (a) { return !q || (a.t + " " + (a.hint || "") + " " + a.g + " " + (a.s || "")).toLowerCase().indexOf(q) > -1; });
+    if (q) palItems.push({ g: "Ask", t: "Ask: “" + palInput.value.trim() + "”", i: "?", run: function () { goAsk(palInput.value.trim()); } });
+    palSel = 0;
+    var html = "", grp = "";
+    palItems.forEach(function (a, n) {
+      if (a.g !== grp) { grp = a.g; html += '<li class="grp" role="presentation">' + esc(grp) + "</li>"; }
+      html += '<li><button type="button" role="option" data-n="' + n + '"><span class="pi">' + esc(a.i) + "</span>" + esc(a.t) + (a.hint ? "<small>" + esc(a.hint) + "</small>" : "") + "</button></li>";
+    });
+    palList.innerHTML = html;
+    $$("button", palList).forEach(function (b) {
+      b.addEventListener("click", function () { var it = palItems[+b.getAttribute("data-n")]; closePalette(); it.run(); });
+      b.addEventListener("mousemove", function () { palSel = +b.getAttribute("data-n"); markSel(); });
+    });
+    markSel();
+  }
+  function markSel() {
+    $$("button", palList).forEach(function (b) {
+      var on = +b.getAttribute("data-n") === palSel;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      if (on) b.scrollIntoView({ block: "nearest" });
+    });
+  }
+  function openPalette() {
+    if (!pal) buildPalette();
+    track("command_menu_open");
+    lastFocus = document.activeElement;
+    pal.classList.add("open");
+    palInput.value = "";
+    renderPalette();
+    palInput.focus();
+    buildIndex().then(function () { if (pal.classList.contains("open")) renderPalette(); });
+  }
+  function closePalette() {
+    if (!pal) return;
+    pal.classList.remove("open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener("keydown", function (e) {
+    if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) { e.preventDefault(); if (pal && pal.classList.contains("open")) closePalette(); else openPalette(); }
+    else if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || "") && !(pal && pal.classList.contains("open"))) { e.preventDefault(); openPalette(); }
+  });
+
+  /* ================================================================
+     Preferences and the "Where are you today?" lens
+     ================================================================ */
+  var LENS = {
+    starter: { name: "Starter", t: "New to product, or to this kind of decision", p: "Start with the free skill check to see where you stand, then pick a Starter toolkit. Plain language, clear steps.", a: "Take the free skill check", href: ASSESSMENT },
+    practitioner: { name: "Practitioner", t: "You make product decisions every week", p: "The toolkits give you a repeatable way to score options and defend the call. The Organizational Impact Score is a good first one.", a: "Browse the toolkits", href: "toolkits.html#tools" },
+    leader: { name: "Leader", t: "You guide a team or a portfolio", p: "Benchmark your team across the seven competencies, then close the gaps with coaching and training built around what you find.", a: "See team coaching", href: "services.html#coaching" },
+    executive: { name: "Executive", t: "You set direction and funding", p: "A Fractional CPO gives you senior product leadership without a full-time hire: vision, roadmap discipline and a team that can run without us.", a: "See Fractional CPO+", href: "services.html#pkg-cpo" }
+  };
+  function setPref(key, value) {
+    if (!window.SitePrefs) return;
+    var p = window.SitePrefs.current();
+    p[key] = value;
+    window.SitePrefs.save(p);
+    track("pref_change", { pref: key, value: value || "default" });
+    syncPrefControls();
+  }
+  function syncPrefControls() {
+    if (!window.SitePrefs) return;
+    var p = window.SitePrefs.current();
+    var theme = window.SitePrefs.mode();
+    $$("[data-pref]").forEach(function (group) {
+      var key = group.getAttribute("data-pref");
+      var cur = key === "theme" ? theme : p[key];
+      $$("[role=radio]", group).forEach(function (b) {
+        var on = b.getAttribute("data-value") === cur;
+        b.setAttribute("aria-checked", on ? "true" : "false");
+        b.tabIndex = on || (!cur && b === $("[role=radio]", group)) ? 0 : -1;
+      });
+    });
+    applyLens(p.lens);
+  }
+  /* Everything that reacts to the lens: start-here cards, toolkit highlights. */
+  function applyLens(lens) {
+    $$("[data-start-here]").forEach(function (box) {
+      var L = LENS[lens];
+      box.hidden = !L;
+      if (!L) return;
+      box.innerHTML = '<div class="start-card"><div><div class="eyebrow">Start here · ' + esc(L.name) + "</div><h3>" + esc(L.t) + "</h3><p>" + esc(L.p) +
+        '</p></div><a class="btn" href="' + L.href + '"' + (/^https?:/.test(L.href) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(L.a) + " →</a></div>";
+    });
+    $$("[data-levels]").forEach(function (el) {
+      var hit = !lens || (" " + el.getAttribute("data-levels") + " ").indexOf(" " + lens + " ") > -1;
+      el.classList.toggle("dim", !hit);
+      $$(".tag[data-level]", el).forEach(function (t) { t.classList.toggle("on", t.getAttribute("data-level") === lens); });
+    });
+    $$("[data-lens-label]").forEach(function (el) { el.textContent = LENS[lens] ? LENS[lens].name : "Everyone"; });
+  }
+  function initPrefs() {
+    $$("[data-pref]").forEach(function (group) {
+      var key = group.getAttribute("data-pref");
+      $$("[role=radio]", group).forEach(function (b) {
+        b.addEventListener("click", function () {
+          var v = b.getAttribute("data-value");
+          // clicking the chosen level again clears it
+          if (key === "lens" && b.getAttribute("aria-checked") === "true" && group.hasAttribute("data-toggle")) v = "";
+          if (key === "theme") { window.SitePrefs.setMode(v); track("pref_change", { pref: "theme", value: v || "system" }); syncPrefControls(); }
+          else setPref(key, v);
+        });
+      });
+      radioKeys(group);
+    });
+    var reset = $("#prefs-reset");
+    if (reset) reset.addEventListener("click", function () { window.SitePrefs.reset(); syncPrefControls(); toast("Back to the defaults"); });
+    var share = $("#prefs-share");
+    if (share) share.addEventListener("click", function () {
+      var url = window.SitePrefs.shareUrl(window.SitePrefs.current(), window.SitePrefs.mode());
+      var outEl = $("#prefs-share-url");
+      outEl.value = url; outEl.hidden = false; outEl.select();
+      copyText(url, "Link copied. Anyone who opens it sees the site this way");
+    });
+    syncPrefControls();
+  }
+  /* Arrow keys move between options in a radiogroup, as screen-reader users expect. */
+  function radioKeys(group) {
+    group.addEventListener("keydown", function (e) {
+      if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].indexOf(e.key) < 0) return;
+      var radios = $$("[role=radio]", group);
+      var i = radios.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      var next = radios[(i + (e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : radios.length - 1)) % radios.length];
+      next.focus(); next.click();
+    });
+  }
+  var STYLE_NAMES = { classic: "Classic", editorial: "Editorial", boardroom: "Boardroom", lab: "Lab" };
+  var LENS_NAMES = { starter: "Starter view", practitioner: "Practitioner view", leader: "Leader view", executive: "Executive view" };
+  function initSharedBar() {
+    var sp = window.SitePrefs, s = sp && sp.shared();
+    if (!s) return;
+    // A link that only sets the lens (e.g. ?lens=executive in an email) needs no bar.
+    var looks = Object.keys(s.prefs).filter(function (k) { return k !== "lens"; });
+    if (!looks.length && !s.mode) return;
+    var p = sp.current(), bits = [];
+    if (s.prefs.style) bits.push(STYLE_NAMES[p.style]);
+    if (s.prefs.accent) bits.push(p.accent.charAt(0).toUpperCase() + p.accent.slice(1));
+    if (s.prefs.depth) bits.push(p.depth === "brief" ? "Brief" : "Full");
+    if (s.mode) bits.push(s.mode === "dark" ? "Dark" : "Light");
+    if (s.prefs.lens) bits.push(LENS_NAMES[p.lens]);
+    var bar = document.createElement("div");
+    bar.className = "shared-bar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Shared view");
+    bar.innerHTML = "<span>You're seeing a shared view" + (bits.length ? ": <b>" + esc(bits.join(" · ")) + "</b>" : "") + ".</span>" +
+      '<button type="button" class="btn sm" data-k="keep">Keep it</button><button type="button" class="btn sm ghost" data-k="drop">Use my own</button>';
+    document.body.appendChild(bar);
+    bar.addEventListener("click", function (e) {
+      var k = e.target.getAttribute && e.target.getAttribute("data-k");
+      if (!k) return;
+      if (k === "keep") { sp.keepShared(); toast("Saved as your view"); } else { sp.dropShared(); }
+      bar.remove();
+      syncPrefControls();
+    });
+  }
+
+  /* ================================================================
+     Home: "Sound familiar?" picks a problem and names the fix
+     ================================================================ */
+  function initProblems() {
+    var wrap = $("#problems");
+    if (!wrap) return;
+    var cards = $$(".problem", wrap), out = $("#prescription");
+    cards.forEach(function (c) {
+      c.addEventListener("click", function () {
+        var on = c.getAttribute("aria-pressed") !== "true";
+        cards.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+        if (!on) { out.hidden = true; return; }
+        $("h3", out).textContent = c.getAttribute("data-fix");
+        $("p", out).textContent = c.getAttribute("data-fix-text");
+        var a = $("a.btn", out);
+        a.href = c.getAttribute("data-href");
+        a.textContent = c.getAttribute("data-cta") + " →";
+        out.hidden = false;
+        track("problem_pick", { problem: c.getAttribute("data-problem") });
+      });
+    });
+  }
+
+  /* ================================================================
+     Services: three questions point to a starting engagement
+     ================================================================ */
+  var PACKAGES = {
+    cpo: { t: "Fractional CPO+", p: "Senior product leadership embedded in your team: vision, roadmap process and mentoring, scaled to your stage and budget.", id: "pkg-cpo" },
+    validation: { t: "Market Validation", p: "Customer interviews, competitive positioning and demand signals, so you know you're building the right thing before you build it.", id: "pkg-validation" },
+    training: { t: "Training & Education", p: "Hands-on workshops and a curriculum built around where your team actually is, starting with a skills benchmark.", id: "pkg-training" },
+    gtm: { t: "Go to Market", p: "Positioning, messaging, channel strategy and launch sequencing, so the release lands with impact.", id: "pkg-gtm" },
+    ai: { t: "AI Enablement", p: "Turn scattered AI experiments into an organizational capability: the right first use case, a real pilot, and habits that stick.", id: "ai" }
+  };
+  function initFinder() {
+    var f = $("#finder");
+    if (!f) return;
+    var picks = {};
+    $$("[data-q]", f).forEach(function (group) {
+      $$(".chip", group).forEach(function (c) {
+        c.addEventListener("click", function () {
+          $$(".chip", group).forEach(function (x) { x.setAttribute("aria-checked", x === c ? "true" : "false"); });
+          picks[group.getAttribute("data-q")] = c.getAttribute("data-v");
+          decide();
+        });
+      });
+      radioKeys(group);
+    });
+    function decide() {
+      var res = $(".finder-result", f);
+      if (!picks.problem) return;
+      var key = picks.problem === "guess" ? "validation" : picks.problem === "launch" ? "gtm" : picks.problem === "ai" ? "ai" : picks.problem === "skills" ? "training" : "cpo";
+      if (picks.problem === "direction" && picks.help === "train") key = "training";
+      if (picks.problem === "skills" && picks.help === "lead") key = "cpo";
+      if (picks.problem === "guess" && picks.help === "lead" && picks.stage !== "enterprise") key = "cpo";
+      var P = PACKAGES[key];
+      var stage = { early: "an early-stage team", scaling: "a scaling team", enterprise: "an enterprise team" }[picks.stage];
+      $("h3", res).textContent = P.t;
+      $("p", res).textContent = P.p + (stage ? " A common starting point for " + stage + "." : "");
+      $("a.btn.ghost", res).href = "#" + P.id;
+      $("a.btn:not(.ghost)", res).href = "contact.html?topic=" + encodeURIComponent("Interested in " + P.t) + "#message";
+      res.hidden = false;
+      $$(".pkg").forEach(function (el) { el.classList.toggle("hl", el.id === P.id); });
+      track("finder_result", { result: key });
+    }
+  }
+
+  /* ---------- contact form ---------- */
+  function initContact() {
+    var form = $("#contact-form");
+    if (!form) return;
+    var started = Date.now();
+    var reason = "";
+    var reasons = $$("[data-reason]", form);
+    var status = $(".form-status", form);
+    var F = form.elements;
+    var topic = new URLSearchParams(location.search).get("topic");
+    if (topic) F.message.value = topic + "\n\n";
+    reasons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        reason = b.getAttribute("data-reason");
+        reasons.forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); });
+      });
+    });
+    $$("[role=radiogroup]", form).forEach(radioKeys);
+    function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
+    function mailto(d) {
+      var body = d.message + "\n\n" + [d.name, d.company].filter(Boolean).join("\n");
+      return "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Website: " + (d.reasonLabel || "Hello")) + "&body=" + encodeURIComponent(body);
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = {
+        type: "contact", reason: reason || "other",
+        name: F.name.value.trim(), email: F.email.value.trim(), company: F.company.value.trim(),
+        message: F.message.value.trim(), website: F.website.value, elapsed: Date.now() - started
+      };
+      var picked = reasons.filter(function (b) { return b.getAttribute("data-reason") === d.reason; })[0];
+      d.reasonLabel = picked ? picked.textContent : "Hello";
+      F.email.removeAttribute("aria-invalid"); F.message.removeAttribute("aria-invalid");
+      if (!d.message) { F.message.setAttribute("aria-invalid", "true"); F.message.focus(); return say("Please add a message.", true); }
+      if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) {
+        F.email.setAttribute("aria-invalid", "true"); F.email.focus();
+        return say(d.email ? "That email address doesn't look right." : "Please add your email so we can reply.", true);
+      }
+      if (!ASK_ENDPOINT) { location.href = mailto(d); say("Your email app should open with the message filled in."); return; }
+      var btn = $("button[type=submit]", form);
+      btn.disabled = true; say("Sending…");
+      fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(d) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error("failed");
+          track("contact_submit", { reason: d.reason });
+          form.innerHTML = "<h3>Thanks" + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>Your message is on its way, and we'll reply to " + esc(d.email) +
+            '. If it\'s easier to talk, <a href="' + CALENDLY + '" target="_blank" rel="noopener">book a free 30-minute call</a>.</p>';
+        })
+        .catch(function () {
+          btn.disabled = false;
+          status.innerHTML = "That didn't send. <a href=\"" + esc(mailto(d)) + "\">Email it instead</a>; your message will be filled in.";
+          status.classList.add("err");
+        });
+    });
+  }
+
+  /* ---------- go ---------- */
+  document.addEventListener("DOMContentLoaded", function () {
+    initNav();
+    initReveal();
+    initScrollSpy();
+    initAsk();
+    initPrefs();
+    initSharedBar();
+    initProblems();
+    initFinder();
+    initContact();
+    var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
+  });
+})();
