@@ -51,6 +51,10 @@ custom properties, with light and dark values for every style and accent. New pa
 
 - **Where are you today?** uses the same four levels as the toolkits. It shows a "Start here" card on the home page
   and highlights the toolkits that fit. Mark a toolkit with `data-levels="leader executive"`.
+- **Shared with the other sites:** style, accent, text size, density, motion and colour mode are also kept in one
+  preference cookie on `.productadvisory.co` (`pa_look`), which assessment.productadvisory.co and the portfolio read
+  and write too, so a look chosen on one site opens the others the same way. Only the settings that change are
+  written. The portfolio shares everything except style (its styles are different). Lens and depth stay on this site.
 - **Reading depth:** anything with `class="deep"` is hidden in Brief mode; `class="brief-only"` shows only there.
 
 ### Links that carry a view

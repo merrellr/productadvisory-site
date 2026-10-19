@@ -47,8 +47,45 @@
   }
   function parse(json) { try { return JSON.parse(json || "null"); } catch (e) { return null; } }
 
+  /* ---- the look shared across productadvisory.co sites ----
+     www.productadvisory.co, assessment.productadvisory.co and the portfolio keep the
+     visitor's look in one preference cookie on .productadvisory.co ("pa_look"), so a
+     choice made on one site opens the others the same way. Only the settings that
+     change are written. No personal data. */
+  var LOOK = "pa_look";
+  function lookDomain() {
+    var h = location.hostname;
+    return h === "productadvisory.co" || /\.productadvisory\.co$/.test(h) ? "productadvisory.co" : "";
+  }
+  function readLook() {
+    var m = (document.cookie || "").match(/(?:^|;\s*)pa_look=([^;]*)/);
+    var v = m ? parse(decodeURIComponent(m[1])) : null;
+    if (!v && !lookDomain()) v = parse(get("localStorage", LOOK));
+    return v && typeof v === "object" ? v : null;
+  }
+  function writeLook(changes) {
+    var keys = Object.keys(changes);
+    if (!keys.length) return;
+    var v = readLook() || {};
+    keys.forEach(function (k) { v[k] = changes[k]; });
+    var d = lookDomain();
+    if (d) {
+      try { document.cookie = LOOK + "=" + encodeURIComponent(JSON.stringify(v)) + "; Domain=" + d + "; Path=/; Max-Age=31536000; SameSite=Lax; Secure"; } catch (e) { /* cookies blocked */ }
+    } else set("localStorage", LOOK, JSON.stringify(v));
+  }
+  function clearLook() {
+    var d = lookDomain();
+    if (d) { try { document.cookie = LOOK + "=; Domain=" + d + "; Path=/; Max-Age=0; SameSite=Lax; Secure"; } catch (e) { /* ignore */ } }
+    else set("localStorage", LOOK, null);
+  }
+  var SHARED = ["style", "accent", "text", "density", "motion"];
+
   /** The visitor's own saved choices. */
-  function read() { return clean(parse(get("localStorage", "pa_prefs")) || {}); }
+  function read() {
+    var p = parse(get("localStorage", "pa_prefs")) || {}, look = readLook();
+    if (look) SHARED.forEach(function (k) { if (k in look) p[k] = look[k]; });
+    return clean(p);
+  }
 
   /** Settings shared through the URL (this visit only), or null. */
   function shared() { return parse(get("sessionStorage", "pa_shared")); }
@@ -65,6 +102,8 @@
   function mode() {
     var s = shared();
     if (s && s.mode) return s.mode;
+    var look = readLook();
+    if (look && "mode" in look) return MODES.indexOf(look.mode) > -1 ? look.mode : "";
     var t = get("localStorage", "pa_theme");
     return MODES.indexOf(t) > -1 ? t : "";
   }
@@ -82,14 +121,18 @@
 
   /** Saving your own choice replaces any shared settings. */
   function save(p) {
+    var before = read(), after = clean(p), changes = {};
+    SHARED.forEach(function (k) { if (after[k] !== before[k]) changes[k] = after[k]; });
+    writeLook(changes);
     set("sessionStorage", "pa_shared", null);
-    set("localStorage", "pa_prefs", JSON.stringify(clean(p)));
+    set("localStorage", "pa_prefs", JSON.stringify(after));
     apply(current());
   }
 
   function setMode(m) {
     if (shared()) keepShared();
     set("localStorage", "pa_theme", MODES.indexOf(m) > -1 ? m : null);
+    writeLook({ mode: MODES.indexOf(m) > -1 ? m : "" });
     apply(current());
   }
 
@@ -97,7 +140,7 @@
     var s = shared();
     if (!s) return;
     var p = current();
-    if (s.mode) set("localStorage", "pa_theme", s.mode);
+    if (s.mode) { set("localStorage", "pa_theme", s.mode); writeLook({ mode: s.mode }); }
     save(p);
   }
 
@@ -109,6 +152,7 @@
   function reset() {
     set("localStorage", "pa_prefs", null);
     set("localStorage", "pa_theme", null);
+    clearLook();
     dropShared();
   }
 
