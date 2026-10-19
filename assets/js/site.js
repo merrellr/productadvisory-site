@@ -43,9 +43,16 @@
       document.documentElement.getAttribute("data-motion") === "reduced";
   }
 
-  /* ---------- analytics (only if a GA tag is on the page) ---------- */
+  /* ---------- analytics ----------
+     Google Tag Manager (GTM-N854VT4C) is in every page's <head>. These events
+     go to its dataLayer, so a GA4 event tag in GTM can pick them up by name.
+     Question text is never sent. */
   function track(name, params) {
-    try { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); } catch (e) { /* never break the page */ }
+    try {
+      var data = { event: name };
+      Object.keys(params || {}).forEach(function (k) { data[k] = params[k]; });
+      (window.dataLayer = window.dataLayer || []).push(data);
+    } catch (e) { /* never break the page */ }
   }
 
   /* ---------- toast ---------- */

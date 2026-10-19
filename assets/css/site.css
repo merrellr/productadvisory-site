@@ -146,7 +146,7 @@ kbd { font: 600 .72rem var(--sans); border: 1px solid var(--line); border-bottom
 /* ---------- the logo ---------- */
 .wm { display: inline-flex; align-items: center; gap: .42em; font-family: var(--logo); font-weight: 600; color: var(--navy); text-decoration: none; line-height: 1; font-size: 1.3rem; letter-spacing: .01em; }
 .wm:hover { color: var(--navy); }
-.wm-box { border: 2px solid currentColor; border-radius: .26em; padding: .16em .28em .2em; }
+.wm-box { border: 2px solid currentColor; border-radius: .26em; padding: .25em .31em .11em .25em; } /* Comfortaa sits high on its line box; this centres the ink */
 .wm-a { font-family: var(--logo); }
 .wm.lg { font-size: clamp(2.2rem, 6vw, 3.6rem); gap: .36em; }
 .wm.lg .wm-box { border-width: 3px; }
@@ -423,7 +423,7 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-co
 .tool:last-of-type { border-bottom: 0; }
 @media (max-width: 820px) { .tool { grid-template-columns: 1fr; gap: 20px; } }
 .tool.dim { opacity: .45; }
-.tool-thumb { display: block; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: #fff; transition: transform .2s, box-shadow .2s; }
+.tool-thumb { display: block; transition: transform .2s; } /* the card images carry their own frame and shadow */
 .tool-thumb:hover { transform: translateY(-3px); }
 .tool-thumb img { width: 100%; height: auto; }
 .tool-doc { aspect-ratio: 4 / 3; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 18px; color: #1c4587; display: flex; flex-direction: column; gap: 8px; }

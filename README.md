@@ -61,8 +61,9 @@ custom properties, with light and dark values for every style and accent. New pa
 
 ## To fill in before going live
 
-- [ ] Google Analytics: add the GA4 snippet to each page's `<head>` (the Privacy Policy says the site uses it).
-      `site.js` already sends events through `gtag` when it's present.
+- [ ] In Google Tag Manager (container `GTM-N854VT4C`), add a **Google Analytics: GA4 Configuration** (Google tag)
+      firing on All Pages, then **Submit / Publish** the container. Optional: GA4 event tags for the site's own
+      events (below).
 - [ ] Turn on AI answers and the contact form backend (below).
 - [ ] Review the Privacy Policy hosting lines (marked `HOSTING` in the source): Google Sites was replaced with
       GitHub Pages. Update the effective date if you change it.
@@ -92,6 +93,13 @@ One-time setup:
 Every question is logged to the sheet's **Questions** tab (time, question, sections used, outcome). Limits are 60
 answers a day overall and 8 per visitor (top of `ask.gs`). To change the script later: paste the new version, then
 **Deploy → Manage deployments → pencil → Version: New version → Deploy**. The URL stays the same.
+
+## Analytics
+
+Google Tag Manager (`GTM-N854VT4C`) is in every page: the script at the top of `<head>` and the `<noscript>` frame
+right after `<body>`. New pages need both. `site.js` pushes these events to `dataLayer`, so a GTM trigger of type
+**Custom Event** with the same name can forward them to GA4: `ask_question`, `ask_answer`, `command_menu_open`,
+`problem_pick`, `finder_result`, `pref_change`, `theme` and `contact_submit`. Question text is never sent.
 
 ## Preview locally
 
