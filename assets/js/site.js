@@ -424,7 +424,7 @@
     { g: "Do", t: "Take the PM + AI skill assessment", i: "↗", hint: "assessment.productadvisory.co", run: open(ASSESSMENT) },
     { g: "Do", t: "Copy our email address", i: "@", hint: EMAIL, run: function () { copyText(EMAIL, "Email copied: " + EMAIL); } },
     { g: "Do", t: "Follow the newsletter on LinkedIn", i: "+", run: open(NEWSLETTER) },
-    { g: "Do", t: "Request a new tool", i: "✚", run: open(ASSESSMENT + "tool-requests.html#suggest") },
+    { g: "Do", t: "Request a new tool", i: "✚", run: open(ASSESSMENT + "tool-requests#suggest") },
     { g: "Make it yours", t: "Toggle light / dark", i: "◐", run: toggleTheme },
     { g: "Make it yours", t: "Reading depth: Brief", i: "≡", run: function () { setPref("depth", "brief"); toast("Brief view: summaries only"); } },
     { g: "Make it yours", t: "Reading depth: Full", i: "≣", run: function () { setPref("depth", "full"); toast("Full view"); } },

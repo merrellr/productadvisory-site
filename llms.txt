@@ -14,7 +14,7 @@
 
 ## Free resources
 - [Toolkits](https://www.productadvisory.co/toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
-- Coming soon: Feature Prioritization Scorecard, Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests.html)
+- Coming soon: Feature Prioritization Scorecard, Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Contact
