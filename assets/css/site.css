@@ -223,10 +223,10 @@ section { padding: var(--section) 0; }
 .page-head .wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
 .page-head h1 { margin-bottom: .35em; }
 .page-head p { font-size: 1.25rem; margin: 0; max-width: 46ch; }
-.page-head .art { justify-self: end; width: min(320px, 100%); color: var(--navy); }
+.page-head .art { justify-self: end; width: min(380px, 100%); color: var(--navy); }
 @media (max-width: 720px) {
   .page-head .wrap { grid-template-columns: 1fr; }
-  .page-head .art { justify-self: start; width: 200px; order: -1; }
+  .page-head .art { justify-self: start; width: min(300px, 100%); order: -1; }
 }
 
 /* ---------- hero (home) ---------- */
@@ -257,10 +257,48 @@ section { padding: var(--section) 0; }
 :root[data-motion="reduced"] .net *, :root[data-motion="reduced"] .net { animation: none !important; stroke-dashoffset: 0 !important; opacity: initial; }
 :root[data-motion="reduced"] .net .pop { opacity: 1; }
 :root[data-motion="reduced"] .net circle.ring { display: none; }
+/* page-head illustrations (art.py): paths, labels, orbit, open toolkit */
+:is(.art-path, .art-orbit, .art-toolkit, .art-signal) :is(path, rect) { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.net .noise line { opacity: .22; }
+.net .noise circle.node { opacity: .5; stroke-width: 1.8; }
+.net path.route { stroke-width: 4; }
+.net path.jitter { stroke-width: 2; opacity: .5; }
+.net path.axis { stroke-width: 1.6; opacity: .3; }
+.net circle.stop { stroke-width: 3.2; }
+.net text.lbl { font: 700 15px/1 var(--sans); fill: currentColor; stroke: none; letter-spacing: .01em; }
+.net text.small { font-size: 11px; font-weight: 600; opacity: .8; }
+.net text.core-lbl { font-size: 13px; fill: #fff; }
+.net text.doc-t { font-size: 11px; }
+.art-path, .art-signal { overflow: visible; }
+.net circle.traveler { fill: var(--cyan); offset-distance: 0%; opacity: 0; animation: travel 6s cubic-bezier(.45, 0, .55, 1) 2.4s infinite; }
+@keyframes travel { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+.net circle.orbit-ring { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-dasharray: 4 7; opacity: .45; animation: none; }
+.net circle.core { fill: var(--navy); stroke: none; }
+.net .spin, .net .counter { transform-box: view-box; }
+.net .spin { transform-origin: 200px 150px; animation: spin 80s linear infinite; }
+.net .counter { animation: spin 80s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.net circle.sat-dot { stroke-width: 2; }
+.net .glyph * { fill: none; stroke: currentColor; stroke-width: 3.4; opacity: 1; }
+.net .glyph .dot { fill: var(--cyan); stroke: none; }
+.net rect.hot { fill: var(--cyan); stroke: none; }
+.net path.tick { stroke: var(--cyan); stroke-width: 6; }
+.net rect.case { stroke-width: 6; fill: var(--bg); }
+.net .doc rect:first-child { fill: var(--bg); stroke-width: 2.4; }
+.net .doc path { stroke-width: 2; opacity: .5; }
+.net .doc rect.doc-band { fill: var(--cyan); stroke: none; }
+.net .doc rect.doc-box { stroke-width: 1.6; opacity: .6; }
+.net rect.slot { stroke-width: 1.8; stroke-dasharray: 4 4; opacity: .55; }
+.net .rise { opacity: 0; animation: rise .9s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: var(--d, 0s); }
+@keyframes rise { from { opacity: 0; transform: translateY(70px); } to { opacity: 1; transform: none; } }
+:root[data-motion="reduced"] .net .rise { opacity: 1; }
+:root[data-motion="reduced"] .net circle.traveler { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .net *, .net { animation: none !important; stroke-dashoffset: 0 !important; }
   .net .pop { opacity: 1; }
   .net circle.ring { display: none; }
+  .net .rise { opacity: 1; }
+  .net circle.traveler { display: none; }
 }
 
 /* ---------- Ask ---------- */
