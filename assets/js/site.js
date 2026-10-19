@@ -39,6 +39,9 @@
     if (!p) return "index.html";
     return p.indexOf(".html") > -1 ? p : p + ".html";
   }
+  // Pages are known by file name ("services.html#ai", which is also what the Ask script accepts as a source);
+  // links show the clean address ("/services#ai"). GitHub Pages serves services.html for /services.
+  function clean(u) { return String(u).replace(/^index\.html/, "/").replace(/^([a-z-]+)\.html/, "/$1"); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function reducedMotion() {
     return (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ||
@@ -307,7 +310,7 @@
   // Questions that sound like someone with a project get a direct route to a person.
   var INTENT = /\b(help (us|our|me|my)|hire|we need|i need|our (team|company|product|roadmap|startup)|my (team|company)|cost|price|pricing|budget|engage|work with|available|proposal|quote)\b/i;
   function handoff(q, strong) {
-    var href = "contact.html?topic=" + encodeURIComponent(q) + "#message";
+    var href = "/contact?topic=" + encodeURIComponent(q) + "#message";
     return '<div class="ask-handoff"><p>' + (strong ? "Sounds like a project. Tell us about it, or book a free 30-minute call." : "Want a straight answer from a person?") +
       '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call' + NEW_TAB + '</a></div></div>';
   }
@@ -334,7 +337,7 @@
         if (ASK_ENDPOINT) html += '<div class="ask-answer" aria-busy="true"><span class="ask-ai">AI answer</span><p class="ask-thinking">Reading the sections below…</p></div>';
         html += '<div class="ask-src-label">' + (ASK_ENDPOINT ? "Sources" : "Best matches on the site") + "</div>";
         html += r.results.map(function (d, i) {
-          return '<a class="ask-hit" href="' + d.url + '"><small>' + (ASK_ENDPOINT ? "[" + (i + 1) + "] " : "") + esc(d.kind) + "</small><b>" + esc(d.title) + "</b><p>" + snippet(d.text, r.terms) + "</p></a>";
+          return '<a class="ask-hit" href="' + clean(d.url) + '"><small>' + (ASK_ENDPOINT ? "[" + (i + 1) + "] " : "") + esc(d.kind) + "</small><b>" + esc(d.title) + "</b><p>" + snippet(d.text, r.terms) + "</p></a>";
         }).join("");
         html += handoff(q, strong);
         out.innerHTML = html;
@@ -381,7 +384,7 @@
       para = para.replace(/\[(\d+(?:\s*,\s*\d+)*)\]/g, function (m, nums) {
         return nums.split(/\s*,\s*/).map(function (n) {
           var d = results[+n - 1];
-          return d ? '<a class="cite" href="' + d.url + '" title="' + esc(d.title) + '">' + n + "</a>" : "";
+          return d ? '<a class="cite" href="' + clean(d.url) + '" title="' + esc(d.title) + '">' + n + "</a>" : "";
         }).join("");
       });
       return "<p>" + para.replace(/\n/g, "<br>") + "</p>";
@@ -398,7 +401,7 @@
       box.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "center" });
       if (q) box._run(q); else setTimeout(function () { $("input", box).focus(); }, 300);
     } else {
-      location.href = "index.html?ask=" + encodeURIComponent(q || "");
+      location.href = "/?ask=" + encodeURIComponent(q || "");
     }
   }
 
@@ -406,7 +409,7 @@
      Command menu (⌘K, Ctrl+K or /)
      ================================================================ */
   var pal, palInput, palList, palItems = [], palSel = 0, lastFocus;
-  function go(url) { return function () { location.href = url; }; }
+  function go(url) { return function () { location.href = clean(url); }; }
   function open(url) { return function () { window.open(url, "_blank", "noopener"); }; }
   var ACTIONS = [
     { g: "Go to", t: "Home", i: "⌂", run: go("index.html") },
@@ -421,7 +424,7 @@
     { g: "Do", t: "Take the PM + AI skill assessment", i: "↗", hint: "assessment.productadvisory.co", run: open(ASSESSMENT) },
     { g: "Do", t: "Copy our email address", i: "@", hint: EMAIL, run: function () { copyText(EMAIL, "Email copied: " + EMAIL); } },
     { g: "Do", t: "Follow the newsletter on LinkedIn", i: "+", run: open(NEWSLETTER) },
-    { g: "Do", t: "Request a new tool", i: "✚", run: open(ASSESSMENT + "tool-requests.html") },
+    { g: "Do", t: "Request a new tool", i: "✚", run: open(ASSESSMENT + "tool-requests.html#suggest") },
     { g: "Make it yours", t: "Toggle light / dark", i: "◐", run: toggleTheme },
     { g: "Make it yours", t: "Reading depth: Brief", i: "≡", run: function () { setPref("depth", "brief"); toast("Brief view: summaries only"); } },
     { g: "Make it yours", t: "Reading depth: Full", i: "≣", run: function () { setPref("depth", "full"); toast("Full view"); } },
@@ -504,8 +507,8 @@
      ================================================================ */
   var LENS = {
     starter: { name: "Starter", t: "New to product, or to this kind of decision", p: "Start with the free skill check to see where you stand, then pick a Starter toolkit. Plain language, clear steps.", a: "Take the free skill check", href: ASSESSMENT },
-    practitioner: { name: "Practitioner", t: "You make product decisions every week", p: "The toolkits give you a repeatable way to score options and defend the call. The Organizational Impact Score is a good first one.", a: "Browse the toolkits", href: "toolkits.html#tools" },
-    leader: { name: "Leader", t: "You guide a team or a portfolio", p: "Benchmark your team across the seven competencies, then close the gaps with coaching and training built around what you find.", a: "See team coaching", href: "services.html#coaching" },
+    practitioner: { name: "Practitioner", t: "You make product decisions every week", p: "The toolkits give you a repeatable way to score options and defend the call. The Organizational Impact Score is a good first one.", a: "Browse the toolkits", href: "/toolkits#tools" },
+    leader: { name: "Leader", t: "You guide a team or a portfolio", p: "Benchmark your team across the seven competencies, then close the gaps with coaching and training built around what you find.", a: "See team coaching", href: "/services#coaching" },
     executive: { name: "Executive", t: "You set direction and funding", p: "A Fractional CPO gives you senior product leadership without a full-time hire: vision, roadmap discipline and a team that can run without us.", a: "See Fractional CPO+", href: "services.html#pkg-cpo" }
   };
   function setPref(key, value) {
@@ -672,7 +675,7 @@
       $("h3", res).textContent = P.t;
       $("p", res).textContent = P.p + (stage ? " A common starting point for " + stage + "." : "");
       $("a.btn.ghost", res).href = "#" + P.id;
-      $("a.btn:not(.ghost)", res).href = "contact.html?topic=" + encodeURIComponent("Interested in " + P.t) + "#message";
+      $("a.btn:not(.ghost)", res).href = "/contact?topic=" + encodeURIComponent("Interested in " + P.t) + "#message";
       res.hidden = false;
       $$(".pkg").forEach(function (el) { el.classList.toggle("hl", el.id === P.id); });
       track("finder_result", { result: key });
@@ -750,7 +753,7 @@
           form.innerHTML = '<div class="sent"><h3>Thanks' + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>" +
             (d.reason === "feedback" ? "Your feedback is on its way to us. It helps make this site better." :
               "Your message is on its way, and we'll reply to " + esc(d.email) + " within one business day. You'll also get a short confirmation by email.") +
-            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call' + NEW_TAB + '</a><a class="btn ghost" href="index.html">Back to home</a></div></div>';
+            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call' + NEW_TAB + '</a><a class="btn ghost" href="/">Back to home</a></div></div>';
         })
         .catch(function () {
           btn.disabled = false;
@@ -775,7 +778,7 @@
       bar.className = "consent"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Cookies and analytics");
       var cur = C.choice();
       if (C.privacySignal && C.privacySignal()) { toast("Your browser asks sites not to track you, so analytics cookies stay off."); return; }
-      bar.innerHTML = '<div class="consent-text"><b>Cookies and analytics</b><p>We use Google Analytics to see which pages are used, so we can improve the site, the toolkits and the free assessment. It sets cookies on your device. We don\'t use it for advertising. <a href="privacy-policy.html#cookies">Privacy Policy</a></p>' +
+      bar.innerHTML = '<div class="consent-text"><b>Cookies and analytics</b><p>We use Google Analytics to see which pages are used, so we can improve the site, the toolkits and the free assessment. It sets cookies on your device. We don\'t use it for advertising. <a href="/privacy-policy#cookies">Privacy Policy</a></p>' +
         (cur ? '<p class="consent-now">Your current choice: ' + (cur === "granted" ? "Accepted" : "Declined") + ".</p>" : "") + "</div>" +
         '<div class="btn-row"><button type="button" class="btn sm" data-c="granted">Accept</button><button type="button" class="btn sm ghost" data-c="denied">Decline</button></div>';
       document.body.appendChild(bar);

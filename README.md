@@ -57,15 +57,23 @@ custom properties, with light and dark values for every style and accent. New pa
   written. The portfolio shares everything except style (its styles are different). Lens and depth stay on this site.
 - **Reading depth:** anything with `class="deep"` is hidden in Brief mode; `class="brief-only"` shows only there.
 
+### Clean addresses
+
+Pages are files (`services.html`), but every link, the canonical tags and the sitemap use the clean address
+(`/services`, and `/` for the home page). GitHub Pages serves `services.html` for `/services`. The generator does this in
+`clean_links()`; an old link to `/services.html` still works, and a line at the top of each page shows it as `/services`
+in the address bar. Inside `site.js` pages are still known by file name (the Ask script accepts sources such as
+`services.html#ai`), and `clean()` turns those into links.
+
 ### Links that carry a view
 
 | Link | What it does |
 | --- | --- |
 | `/?lens=executive` | Opens with the executive "Start here" card (also `starter`, `practitioner`, `leader`) |
 | `/?style=boardroom&accent=gold&mode=dark` | A shared look. The visitor can keep it or go back to their own |
-| `/services.html?depth=brief` | Opens Services with the one-line summaries only |
+| `/services?depth=brief` | Opens Services with the one-line summaries only |
 | `/?ask=What is a Fractional CPO` | Opens the home page and asks that question |
-| `/contact.html?topic=Market validation#message` | Opens the contact form with the message started |
+| `/contact?topic=Market validation#message` | Opens the contact form with the message started |
 
 ## To fill in before going live
 

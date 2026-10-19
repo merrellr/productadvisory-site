@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="assets/js/consent.js"></script>
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js"></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -16,20 +18,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:title" content="Toolkits & Learning · Product Advisory">
 <meta property="og:description" content="Free fillable toolkits for product decisions, and a free 14-question product + AI skill check matched to a learning path.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.productadvisory.co/toolkits.html">
+<meta property="og:url" content="https://www.productadvisory.co/toolkits">
 <meta property="og:image" content="https://www.productadvisory.co/assets/img/og.png">
 <meta property="og:site_name" content="Product Advisory">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://www.productadvisory.co/toolkits.html">
+<link rel="canonical" href="https://www.productadvisory.co/toolkits">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
-<script src="assets/js/prefs.js"></script>
-<script src="assets/js/site.js" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/prefs.js"></script>
+<script src="/assets/js/site.js" defer></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -39,11 +41,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap">
-    <a class="wm" href="index.html" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
-    <nav class="nav-links" aria-label="Main"><a href="index.html">Home</a><a href="services.html">Services</a><a href="toolkits.html" aria-current="page">Toolkits</a><a href="about.html">About</a><a href="contact.html">Contact</a><a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a free call<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></nav>
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits" aria-current="page">Toolkits</a><a href="/about">About</a><a href="/contact">Contact</a><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a free call<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></nav>
     <div class="nav-tools">
       <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
-      <a class="icon-btn prefs-btn" href="preferences.html" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
       <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
       <a class="btn sm nav-cta" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a call<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
       <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -75,7 +77,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="section-head reveal"><div class="eyebrow">Find your starting point</div><h2>Where are you today?</h2><p>Pick one and the tools that fit you are highlighted. Showing tools for: <b data-lens-label>Everyone</b>. Click again to show all.</p></div>
     <div class="levels" role="radiogroup" aria-label="Where are you today?" data-pref="lens" data-toggle><button type="button" role="radio" class="level" data-value="starter"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 42V22"/><path d="M24 26c0-7-5-11-13-11 0 7 5 11 13 11zM24 22c0-7 5-12 13-12 0 8-5 12-13 12z"/><path d="M14 42h20"/><circle class="dot" cx="37" cy="10" r="2.5"/></svg><b>Starter</b><span>New to product or new to this kind of decision. You'll get plain language and clear steps.</span></button><button type="button" role="radio" class="level" data-value="practitioner"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="6"/><path d="M24 5v6M24 37v6M5 24h6M37 24h6M10.6 10.6l4.2 4.2M33.2 33.2l4.2 4.2M10.6 37.4l4.2-4.2M33.2 14.8l4.2-4.2"/><circle class="dot" cx="24" cy="24" r="2.5"/></svg><b>Practitioner</b><span>You make product decisions regularly and want a more consistent process.</span></button><button type="button" role="radio" class="level" data-value="leader"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="10" r="5"/><circle cx="10" cy="36" r="5"/><circle class="dot" cx="24" cy="30" r="5"/><circle cx="38" cy="36" r="5"/><path d="M24 15v10M14.5 34l5-2.5M33.5 34l-5-2.5"/></svg><b>Leader</b><span>You guide a team or a portfolio and need to align people and defend choices.</span></button><button type="button" role="radio" class="level" data-value="executive"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 42 20 16l8 12 5-7 11 21z"/><path d="M20 16V5l9 3.5-9 3.5"/><circle class="dot" cx="33" cy="21" r="2.5"/></svg><b>Executive</b><span>You set direction and funding and need a clear view of tradeoffs and risk.</span></button></div>
     <div style="margin-top:28px"><article class="tool reveal" id="build-buy-partner" data-levels="practitioner leader executive" data-ask="Build, Buy, or Partner Decision Matrix" data-kind="Toolkit">
-  <a class="tool-thumb" href="assets/toolkits/build-buy-partner-matrix.pdf" target="_blank" rel="noopener"><img src="assets/toolkits/build-buy-partner-matrix-card.webp" alt="First page of the Build, Buy, or Partner Decision Matrix PDF" width="900" height="706" loading="lazy"><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="tool-thumb" href="/assets/toolkits/build-buy-partner-matrix.pdf" target="_blank" rel="noopener"><img src="/assets/toolkits/build-buy-partner-matrix-card.webp" alt="First page of the Build, Buy, or Partner Decision Matrix PDF" width="900" height="706" loading="lazy"><span class="sr-only"> (opens in a new tab)</span></a>
   <div>
     <h3 style="font-size:1.5rem">Build, Buy, or Partner Decision Matrix</h3>
     <div><span class="tag" data-level="practitioner">Practitioner</span><span class="tag" data-level="leader">Leader</span><span class="tag" data-level="executive">Executive</span></div>
@@ -83,10 +85,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.</p>
     <p class="deep"><b>Use it when:</b> You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.</p>
     <p class="deep"><b>You walk away with:</b> A scored comparison, a cost view, and a written decision you can share.</p>
-    <div class="btn-row"><a class="btn sm" href="assets/toolkits/build-buy-partner-matrix.pdf" target="_blank" rel="noopener">Download the PDF<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm" href="https://docs.google.com/spreadsheets/d/1yKCvFQXL19Sg9dJs4z6Ws2IGVWYPJJdy/copy" target="_blank" rel="noopener">Get the Google Sheet<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm ghost" href="assets/toolkits/build-buy-partner-matrix.xlsx" download>Excel version</a><a class="btn sm ghost" href="assets/toolkits/build-buy-partner-worked-example.pdf" target="_blank" rel="noopener">See the worked example<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div>
+    <div class="btn-row"><a class="btn sm" href="/assets/toolkits/build-buy-partner-matrix.pdf" target="_blank" rel="noopener">Download the PDF<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm" href="https://docs.google.com/spreadsheets/d/1yKCvFQXL19Sg9dJs4z6Ws2IGVWYPJJdy/copy" target="_blank" rel="noopener">Get the Google Sheet<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm ghost" href="/assets/toolkits/build-buy-partner-matrix.xlsx" download>Excel version</a><a class="btn sm ghost" href="/assets/toolkits/build-buy-partner-worked-example.pdf" target="_blank" rel="noopener">See the worked example<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div>
   </div>
 </article><article class="tool reveal" id="impact-score" data-levels="leader executive" data-ask="Organizational Impact Score" data-kind="Toolkit">
-  <a class="tool-thumb" href="assets/toolkits/organizational-impact-score.pdf" target="_blank" rel="noopener"><img src="assets/toolkits/organizational-impact-score-card.webp" alt="First page of the Organizational Impact Score PDF" width="900" height="706" loading="lazy"><span class="sr-only"> (opens in a new tab)</span></a>
+  <a class="tool-thumb" href="/assets/toolkits/organizational-impact-score.pdf" target="_blank" rel="noopener"><img src="/assets/toolkits/organizational-impact-score-card.webp" alt="First page of the Organizational Impact Score PDF" width="900" height="706" loading="lazy"><span class="sr-only"> (opens in a new tab)</span></a>
   <div>
     <h3 style="font-size:1.5rem">Organizational Impact Score</h3>
     <div><span class="tag" data-level="leader">Leader</span><span class="tag" data-level="executive">Executive</span></div>
@@ -94,7 +96,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most.</p>
     <p class="deep"><b>Use it when:</b> You are building a roadmap, defending budget, or choosing between competing projects.</p>
     <p class="deep"><b>You walk away with:</b> A ranked list, a clear next action for each initiative, and a record of why.</p>
-    <div class="btn-row"><a class="btn sm" href="assets/toolkits/organizational-impact-score.pdf" target="_blank" rel="noopener">Download the PDF<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm" href="https://docs.google.com/spreadsheets/d/1gZ5SUzbziFUkfTPQURxJnZqwg7kqFKR8/copy" target="_blank" rel="noopener">Get the Google Sheet<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm ghost" href="assets/toolkits/organizational-impact-score.xlsx" download>Excel version</a><a class="btn sm ghost" href="assets/toolkits/organizational-impact-score-worked-example.pdf" target="_blank" rel="noopener">See the worked example<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div>
+    <div class="btn-row"><a class="btn sm" href="/assets/toolkits/organizational-impact-score.pdf" target="_blank" rel="noopener">Download the PDF<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm" href="https://docs.google.com/spreadsheets/d/1gZ5SUzbziFUkfTPQURxJnZqwg7kqFKR8/copy" target="_blank" rel="noopener">Get the Google Sheet<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn sm ghost" href="/assets/toolkits/organizational-impact-score.xlsx" download>Excel version</a><a class="btn sm ghost" href="/assets/toolkits/organizational-impact-score-worked-example.pdf" target="_blank" rel="noopener">See the worked example<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div>
   </div>
 </article></div>
     <div id="coming-soon" style="margin-top:56px">
@@ -122,13 +124,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="grid g2" style="margin-top:20px">
       <div class="card reveal"><h3>Download everything</h3><p>Grab every tool in one ZIP once the library is ready.</p><a class="btn sm ghost" aria-disabled="true">Download all (coming soon)</a></div>
-      <div class="card reveal"><h3>Have a tool you'd like built for your team?</h3><p>We build custom tools and assessments for clients, too.</p><a class="btn sm ghost" href="contact.html?reason=toolkits#message">Talk to us</a></div>
+      <div class="card reveal"><h3>Have a tool you'd like built for your team?</h3><p>We build custom tools and assessments for clients, too.</p><a class="btn sm ghost" href="/contact?reason=toolkits#message">Talk to us</a></div>
     </div>
     <div class="cta-band reveal" style="margin-top:32px" data-ask="Free toolkits, with no strings" data-kind="Toolkit" data-keywords="free cost price license">
       <div><h2 style="font-size:1.6rem">Free, with no strings</h2><p>We built these because good tools shouldn't depend on a big budget. Use them, share them with your team, and adapt them to your work. If you want a second set of eyes on a decision, or help building a product practice, we're happy to talk.</p></div>
       <a class="btn" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a free 30-minute call<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
     </div>
-    <p class="muted" style="font-size:.9rem;margin-top:20px"><i>Free to use and share for personal and internal business purposes. Please keep the Product Advisory branding. Not for resale. Our tools support decision making and are not legal, financial, or tax advice. See the <a href="terms-of-use.html">Terms of Use</a>.</i></p>
+    <p class="muted" style="font-size:.9rem;margin-top:20px"><i>Free to use and share for personal and internal business purposes. Please keep the Product Advisory branding. Not for resale. Our tools support decision making and are not legal, financial, or tax advice. See the <a href="/terms-of-use">Terms of Use</a>.</i></p>
   </div>
 </section>
 
@@ -187,18 +189,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="wm" href="index.html" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
         <span class="tagline">Building Market Driven Products</span>
         <p>Product management consulting for startups and enterprises.</p>
       </div>
-      <div><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Skill assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Skill assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
       <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
-      <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
     </div>
     <div class="foot-base">
       <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
-      <span><a href="preferences.html">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
     </div>
   </div>
 </footer>

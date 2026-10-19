@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
 <script src="/assets/js/consent.js"></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -16,11 +18,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:title" content="Page not found · Product Advisory">
 <meta property="og:description" content="This page could not be found.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.productadvisory.co/404.html">
+<meta property="og:url" content="https://www.productadvisory.co/404">
 <meta property="og:image" content="https://www.productadvisory.co/assets/img/og.png">
 <meta property="og:site_name" content="Product Advisory">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://www.productadvisory.co/404.html">
+<link rel="canonical" href="https://www.productadvisory.co/404">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
@@ -39,11 +41,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap">
-    <a class="wm" href="index.html" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
-    <nav class="nav-links" aria-label="Main"><a href="index.html">Home</a><a href="services.html">Services</a><a href="toolkits.html">Toolkits</a><a href="about.html">About</a><a href="contact.html">Contact</a><a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a free call<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></nav>
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/about">About</a><a href="/contact">Contact</a><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a free call<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></nav>
     <div class="nav-tools">
       <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
-      <a class="icon-btn prefs-btn" href="preferences.html" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
       <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
       <a class="btn sm nav-cta" href="https://calendly.com/productadvisory/30min" target="_blank" rel="noopener">Book a call<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
       <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -59,12 +61,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 <section><div class="wrap"><p class="lede" id="nf-msg">Try the search (<kbd class="mod-key">⌘</kbd> <kbd>K</kbd>), or head to one of these:</p>
-<div class="btn-row"><a class="btn" href="index.html">Home</a><a class="btn ghost" href="services.html">Services</a><a class="btn ghost" href="toolkits.html">Toolkits</a><a class="btn ghost" href="contact.html">Contact</a></div></div></section>
+<div class="btn-row"><a class="btn" href="/">Home</a><a class="btn ghost" href="/services">Services</a><a class="btn ghost" href="/toolkits">Toolkits</a><a class="btn ghost" href="/contact">Contact</a></div></div></section>
 <script>
   // Old Google Sites paths go to their new homes.
   (function () {
-    var map = { "home": "index.html", "learning": "toolkits.html#learning", "toolkit": "toolkits.html", "about-us": "about.html", "contact-us": "contact.html",
-      "privacy": "privacy-policy.html", "privacy-policy": "privacy-policy.html", "terms": "terms-of-use.html", "terms-of-use": "terms-of-use.html", "partners": "about.html" };
+    var map = { "home": "", "learning": "toolkits#learning", "toolkit": "toolkits", "about-us": "about", "contact-us": "contact",
+      "privacy": "privacy-policy", "terms": "terms-of-use", "partners": "about" };
     var slug = location.pathname.replace(/^\/+|\/+$/g, "").split("/").pop().toLowerCase();
     if (map[slug]) location.replace("/" + map[slug]);
   })();
@@ -74,18 +76,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="wm" href="index.html" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
         <span class="tagline">Building Market Driven Products</span>
         <p>Product management consulting for startups and enterprises.</p>
       </div>
-      <div><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Skill assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Skill assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
       <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
-      <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
     </div>
     <div class="foot-base">
       <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
-      <span><a href="preferences.html">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
     </div>
   </div>
 </footer>
