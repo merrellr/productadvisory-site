@@ -19,6 +19,9 @@ Plain HTML, CSS and JavaScript, with no build step and no dependencies. To chang
 
 - **Styles:** `assets/css/site.css`. Brand colours are tokens at the top (navy `#1c4587`, cyan `#35c2e8`, grey band,
   pale blue cards), and dark mode redefines them. Fonts: Lato for text, Comfortaa for the logo.
+- **Icons:** `assets/img/favicon.svg` is the boxed PΛ monogram drawn as a vector; the PNG icons are rendered from it.
+- **Toolkit files:** `assets/toolkits/` holds PDFs served from the site and their first-page thumbnails (640px JPG).
+  A tool card shows the thumbnail when one is given, otherwise a drawn placeholder.
 - **Logo:** the boxed "Product" + "Λdvisory" wordmark is HTML text in every header and footer (`.wm`). To use the
   original logo file instead, replace those `<a class="wm">` contents with an `<img>` or inline SVG.
 - **Behaviour:** `assets/js/site.js`: theme toggle, mobile menu, reveal on scroll, the **Ask** search, the
@@ -58,8 +61,6 @@ custom properties, with light and dark values for every style and accent. New pa
 
 ## To fill in before going live
 
-- [ ] Organizational Impact Score PDF: its "Download the PDF" link uses the same Drive file id as the Build, Buy, or
-      Partner PDF (`14ZBqliIZBEY7Z1x7Xdx-YFi-QtVqRCKN`). Swap in the right id on `toolkits.html`.
 - [ ] Google Analytics: add the GA4 snippet to each page's `<head>` (the Privacy Policy says the site uses it).
       `site.js` already sends events through `gtag` when it's present.
 - [ ] Turn on AI answers and the contact form backend (below).
