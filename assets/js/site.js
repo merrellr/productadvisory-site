@@ -23,6 +23,8 @@
   var PAGES = ["index.html", "services.html", "toolkits.html", "about.html", "contact.html"];
   var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "about.html": "About", "contact.html": "Contact" };
 
+  // Links that open a new tab show ↗ and say so to screen readers (pages get this from the build).
+  var NEW_TAB = '<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>';
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
@@ -307,7 +309,7 @@
   function handoff(q, strong) {
     var href = "contact.html?topic=" + encodeURIComponent(q) + "#message";
     return '<div class="ask-handoff"><p>' + (strong ? "Sounds like a project. Tell us about it, or book a free 30-minute call." : "Want a straight answer from a person?") +
-      '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call</a></div></div>';
+      '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call' + NEW_TAB + '</a></div></div>';
   }
 
   function initAsk() {
@@ -536,7 +538,7 @@
       box.hidden = !L;
       if (!L) return;
       box.innerHTML = '<div class="start-card"><div><div class="eyebrow">Start here · ' + esc(L.name) + "</div><h3>" + esc(L.t) + "</h3><p>" + esc(L.p) +
-        '</p></div><a class="btn" href="' + L.href + '"' + (/^https?:/.test(L.href) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(L.a) + " →</a></div>";
+        '</p></div><a class="btn" href="' + L.href + '"' + (/^https?:/.test(L.href) ? ' target="_blank" rel="noopener">' + esc(L.a) + NEW_TAB : ">" + esc(L.a) + " →") + "</a></div>";
     });
     $$("[data-levels]").forEach(function (el) {
       var hit = !lens || (" " + el.getAttribute("data-levels") + " ").indexOf(" " + lens + " ") > -1;
@@ -748,7 +750,7 @@
           form.innerHTML = '<div class="sent"><h3>Thanks' + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>" +
             (d.reason === "feedback" ? "Your feedback is on its way to us. It helps make this site better." :
               "Your message is on its way, and we'll reply to " + esc(d.email) + " within one business day. You'll also get a short confirmation by email.") +
-            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call</a><a class="btn ghost" href="index.html">Back to home</a></div></div>';
+            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call' + NEW_TAB + '</a><a class="btn ghost" href="index.html">Back to home</a></div></div>';
         })
         .catch(function () {
           btn.disabled = false;

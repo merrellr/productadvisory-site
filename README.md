@@ -24,6 +24,10 @@ Plain HTML, CSS and JavaScript, with no build step and no dependencies. To chang
   A tool card shows the thumbnail when one is given, otherwise a drawn placeholder.
 - **Logo:** the boxed "Product" + "Λdvisory" wordmark is HTML text in every header and footer (`.wm`). To use the
   original logo file instead, replace those `<a class="wm">` contents with an `<img>` or inline SVG.
+- **Links that open a new tab** (the assessment, Tool Roadmap, Calendly, LinkedIn, downloads) show a small ↗ and
+  carry hidden "(opens in a new tab)" text for screen readers. The pages get this automatically from the build
+  (`mark_new_tabs`); links written by `site.js` use its `NEW_TAB` snippet. Add it by hand to any new
+  `target="_blank"` link.
 - **Behaviour:** `assets/js/site.js`: theme toggle, mobile menu, reveal on scroll, the **Ask** search, the
   **⌘K command menu**, the home page "Sound familiar?" picker, the services engagement finder, the toolkit level
   filter and the contact form. Links and settings (email, Calendly, newsletter, `ASK_ENDPOINT`) are at the top.
