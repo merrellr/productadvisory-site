@@ -11,7 +11,8 @@
    and a device time zone in Europe. A saved choice, Accept or Decline,
    is remembered in this browser and the banner is never shown again;
    "Cookie settings" in the footer lets anyone change it.
-   Advertising storage is always denied: the site doesn't advertise.
+   Do Not Track or Global Privacy Control: analytics cookies stay off and
+   the banner never shows. Advertising storage is always denied.
    ================================================================ */
 (function () {
   "use strict";
@@ -46,16 +47,24 @@
       /^(Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe)|Asia\/(Nicosia|Famagusta)|Arctic\/Longyearbyen)$/.test(tz);
   }
 
+  // Do Not Track or Global Privacy Control: analytics cookies stay off and the visitor is never asked.
+  function privacySignal() {
+    var n = navigator || {};
+    return n.doNotTrack === "1" || n.doNotTrack === "yes" || window.doNotTrack === "1" || n.globalPrivacyControl === true;
+  }
+
   var saved = read();
-  if (saved) gtag("consent", "update", { analytics_storage: saved.v });
+  if (privacySignal()) gtag("consent", "update", { analytics_storage: "denied" });
+  else if (saved) gtag("consent", "update", { analytics_storage: saved.v });
 
   window.PAConsent = {
     choice: function () { var c = read(); return c ? c.v : ""; },
-    needsPrompt: function () { return !read() && inStrictZone(); },
+    privacySignal: privacySignal,
+    needsPrompt: function () { return !privacySignal() && !read() && inStrictZone(); },
     set: function (v) {
       v = v === "granted" ? "granted" : "denied";
       try { localStorage.setItem(KEY, JSON.stringify({ v: v, t: new Date().toISOString().slice(0, 10) })); } catch (e) { /* storage blocked: applies to this page only */ }
-      gtag("consent", "update", { analytics_storage: v });
+      gtag("consent", "update", { analytics_storage: privacySignal() ? "denied" : v });
       window.dataLayer.push({ event: "consent_update", analytics_consent: v });
     }
   };

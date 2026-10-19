@@ -772,6 +772,7 @@
       bar = document.createElement("div");
       bar.className = "consent"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Cookies and analytics");
       var cur = C.choice();
+      if (C.privacySignal && C.privacySignal()) { toast("Your browser asks sites not to track you, so analytics cookies stay off."); return; }
       bar.innerHTML = '<div class="consent-text"><b>Cookies and analytics</b><p>We use Google Analytics to see which pages are used, so we can improve the site, the toolkits and the free assessment. It sets cookies on your device. We don\'t use it for advertising. <a href="privacy-policy.html#cookies">Privacy Policy</a></p>' +
         (cur ? '<p class="consent-now">Your current choice: ' + (cur === "granted" ? "Accepted" : "Declined") + ".</p>" : "") + "</div>" +
         '<div class="btn-row"><button type="button" class="btn sm" data-c="granted">Accept</button><button type="button" class="btn sm ghost" data-c="denied">Decline</button></div>';
