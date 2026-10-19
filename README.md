@@ -102,6 +102,15 @@ right after `<body>`. New pages need both. `site.js` pushes these events to `dat
 **Custom Event** with the same name can forward them to GA4: `ask_question`, `ask_answer`, `command_menu_open`,
 `problem_pick`, `finder_result`, `pref_change`, `theme` and `contact_submit`. Question text is never sent.
 
+## Cookie consent
+
+`assets/js/consent.js` loads in `<head>` before Google Tag Manager and sets Google Consent Mode v2 defaults:
+analytics cookies are **off until Accept** for visitors in the EEA, UK and Switzerland (Google applies this by IP),
+and **on** everywhere else. Advertising storage is always denied. The banner (in `site.js`) appears only when the
+visitor has no saved choice and their device time zone is in Europe. Accept or Decline is saved in `localStorage`
+(`pa_consent`), so the banner is never shown again; **Cookie settings** in the footer reopens it. New pages need the
+`consent.js` script tag above the GTM snippet.
+
 ## Preview locally
 
 ```

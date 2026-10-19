@@ -758,6 +758,37 @@
     });
   }
 
+  /* ---------- cookie consent banner ----------
+     consent.js (in <head>) sets the Consent Mode defaults by region and
+     decides whether this visitor needs asking. The banner shows only then,
+     or when someone clicks "Cookie settings". A choice is remembered. */
+  function initConsent() {
+    var C = window.PAConsent;
+    if (!C) return;
+    var bar;
+    function close() { if (bar) { bar.remove(); bar = null; document.body.classList.remove("has-consent"); } }
+    function show() {
+      if (bar) return;
+      bar = document.createElement("div");
+      bar.className = "consent"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Cookies and analytics");
+      var cur = C.choice();
+      bar.innerHTML = '<div class="consent-text"><b>Cookies and analytics</b><p>We use Google Analytics to see which pages are used, so we can improve the site, the toolkits and the free assessment. It sets cookies on your device. We don\'t use it for advertising. <a href="privacy-policy.html#cookies">Privacy Policy</a></p>' +
+        (cur ? '<p class="consent-now">Your current choice: ' + (cur === "granted" ? "Accepted" : "Declined") + ".</p>" : "") + "</div>" +
+        '<div class="btn-row"><button type="button" class="btn sm" data-c="granted">Accept</button><button type="button" class="btn sm ghost" data-c="denied">Decline</button></div>';
+      document.body.appendChild(bar);
+      document.body.classList.add("has-consent");
+      bar.addEventListener("click", function (e) {
+        var v = e.target.getAttribute && e.target.getAttribute("data-c");
+        if (!v) return;
+        C.set(v);
+        close();
+        toast(v === "granted" ? "Thanks. Analytics cookies are on." : "Analytics cookies are off.");
+      });
+    }
+    $$("[data-action=cookies]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); show(); }); });
+    if (C.needsPrompt()) show();
+  }
+
   /* ---------- go ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
@@ -769,6 +800,7 @@
     initProblems();
     initFinder();
     initContact();
+    initConsent();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();
