@@ -191,6 +191,7 @@ var CONTACT_REASONS_ = {
   advisory: "An advisory project",
   team: "Team training or assessment",
   toolkits: "Toolkits",
+  feedback: "Feedback on the site",
   other: "Something else"
 };
 
@@ -204,10 +205,11 @@ function answerContact_(body) {
   var email = String(body.email || "").trim().slice(0, 200);
   var company = String(body.company || "").replace(/\s+/g, " ").trim().slice(0, 120);
   var message = String(body.message || "").trim().slice(0, 4000);
+  var rating = String(body.rating || "").replace(/[^a-z]/g, "").slice(0, 10);
 
   if (message.length < 2) return { ok: false, error: "empty" };
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: "bad_email" };
-  if (!email) return { ok: false, error: "need_email" };
+  if (reason !== "feedback" && !email) return { ok: false, error: "need_email" };
 
   if (!takeContactQuota_()) return { ok: false, error: "daily_limit" };
 
@@ -218,6 +220,7 @@ function answerContact_(body) {
       "Name: " + (name || "(not given)"),
       "Email: " + (email || "(not given)"),
       company ? "Company: " + company : null,
+      rating ? "Site rating: " + rating : null,
       "",
       message,
       "",
@@ -237,8 +240,8 @@ function answerContact_(body) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     if (ss) {
       var sheet = ss.getSheetByName("Messages") || ss.insertSheet("Messages");
-      if (sheet.getLastRow() === 0) sheet.appendRow(["Time", "Reason", "Name", "Email", "Company", "Message", "Emailed"]);
-      sheet.appendRow([new Date(), CONTACT_REASONS_[reason], name, email, company, message, emailed]);
+      if (sheet.getLastRow() === 0) sheet.appendRow(["Time", "Reason", "Name", "Email", "Company", "Rating", "Message", "Emailed"]);
+      sheet.appendRow([new Date(), CONTACT_REASONS_[reason], name, email, company, rating, message, emailed]);
     }
   } catch (err) { /* the email may still have gone */ }
 
@@ -263,7 +266,9 @@ function sendThanks_(email, name, reason) {
 
     var first = (name.split(" ")[0] || "").replace(/[^A-Za-zÀ-ÿ'-]/g, "").slice(0, 30);
     var hello = first ? "Hi " + first + "," : "Hi,";
-    var line = "Thanks for reaching out to Product Advisory. We've received your message and will reply within one business day.";
+    var line = reason === "feedback"
+      ? "Thanks for the feedback on our website. We read every note, and it helps us make the site better."
+      : "Thanks for reaching out to Product Advisory. We've received your message and will reply within one business day.";
     var site = "https://www.productadvisory.co";
     var calendly = "https://calendly.com/productadvisory/30min";
     var text = [hello, "", line, "",

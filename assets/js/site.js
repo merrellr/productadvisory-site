@@ -670,41 +670,63 @@
     }
   }
 
-  /* ---------- contact form ---------- */
+  /* ---------- contact form ----------
+     Reason chips change the form: "Feedback on the site" asks for a rating,
+     hides Company and makes Email optional. ?reason=team and ?topic=… pre-fill it. */
+  var PLACEHOLDERS = {
+    advisory: "What you're building and where you're stuck…",
+    team: "Team size, roles, and what you'd like them to get better at…",
+    toolkits: "Which toolkit, and what you're using it for…",
+    feedback: "What worked, what didn't, what you'd add…",
+    other: ""
+  };
   function initContact() {
     var form = $("#contact-form");
     if (!form) return;
     var started = Date.now();
-    var reason = "";
-    var reasons = $$("[data-reason]", form);
-    var status = $(".form-status", form);
     var F = form.elements;
-    var topic = new URLSearchParams(location.search).get("topic");
-    if (topic) F.message.value = topic + "\n\n";
-    reasons.forEach(function (b) {
+    var q = new URLSearchParams(location.search);
+    var reason = q.get("reason") || "", rating = "";
+    var reasons = $$("[data-reason]", form), ratings = $$("[data-rating]", form);
+    var status = $(".form-status", form);
+    if (q.get("topic")) F.message.value = q.get("topic") + "\n\n";
+    function pickReason(r) {
+      reason = r;
+      reasons.forEach(function (b) { var on = b.getAttribute("data-reason") === r; b.setAttribute("aria-checked", on ? "true" : "false"); b.tabIndex = on || !r ? 0 : -1; });
+      var fb = r === "feedback";
+      $(".rating-field", form).hidden = !fb;
+      $(".company-field", form).hidden = fb;
+      $$(".opt", F.email.parentNode).forEach(function (o) { o.hidden = !fb; });
+      F.message.placeholder = PLACEHOLDERS[r] || "";
+    }
+    reasons.forEach(function (b) { b.addEventListener("click", function () { pickReason(b.getAttribute("data-reason")); }); });
+    ratings.forEach(function (b) {
       b.addEventListener("click", function () {
-        reason = b.getAttribute("data-reason");
-        reasons.forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); });
+        rating = b.getAttribute("data-rating");
+        ratings.forEach(function (x) { x.setAttribute("aria-checked", x === b ? "true" : "false"); });
       });
     });
     $$("[role=radiogroup]", form).forEach(radioKeys);
+    pickReason(reasons.some(function (b) { return b.getAttribute("data-reason") === reason; }) ? reason : "");
+
     function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
     function mailto(d) {
-      var body = d.message + "\n\n" + [d.name, d.company].filter(Boolean).join("\n");
+      var body = d.message + "\n\n" + [d.name, d.company, d.rating ? "Site rating: " + d.rating : ""].filter(Boolean).join("\n");
       return "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Website: " + (d.reasonLabel || "Hello")) + "&body=" + encodeURIComponent(body);
     }
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var d = {
-        type: "contact", reason: reason || "other",
-        name: F.name.value.trim(), email: F.email.value.trim(), company: F.company.value.trim(),
+        type: "contact", reason: reason || "other", rating: reason === "feedback" ? rating : "",
+        name: F.name.value.trim(), email: F.email.value.trim(), company: reason === "feedback" ? "" : F.company.value.trim(),
         message: F.message.value.trim(), website: F.website.value, elapsed: Date.now() - started
       };
       var picked = reasons.filter(function (b) { return b.getAttribute("data-reason") === d.reason; })[0];
-      d.reasonLabel = picked ? picked.textContent : "Hello";
+      d.reasonLabel = picked ? picked.textContent : "Something else";
       F.email.removeAttribute("aria-invalid"); F.message.removeAttribute("aria-invalid");
       if (!d.message) { F.message.setAttribute("aria-invalid", "true"); F.message.focus(); return say("Please add a message.", true); }
-      if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) {
+      var needEmail = d.reason !== "feedback";
+      if ((needEmail && !d.email) || (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email))) {
         F.email.setAttribute("aria-invalid", "true"); F.email.focus();
         return say(d.email ? "That email address doesn't look right." : "Please add your email so we can reply.", true);
       }
@@ -716,8 +738,10 @@
         .then(function (res) {
           if (!res || !res.ok) throw new Error("failed");
           track("contact_submit", { reason: d.reason });
-          form.innerHTML = "<h3>Thanks" + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>Your message is on its way, and we'll reply to " + esc(d.email) +
-            '. If it\'s easier to talk, <a href="' + CALENDLY + '" target="_blank" rel="noopener">book a free 30-minute call</a>.</p>';
+          form.innerHTML = '<div class="sent"><h3>Thanks' + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>" +
+            (d.reason === "feedback" ? "Your feedback is on its way to us. It helps make this site better." :
+              "Your message is on its way, and we'll reply to " + esc(d.email) + " within one business day. You'll also get a short confirmation by email.") +
+            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call</a><a class="btn ghost" href="index.html">Back to home</a></div></div>';
         })
         .catch(function () {
           btn.disabled = false;
