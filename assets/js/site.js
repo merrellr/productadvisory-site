@@ -19,7 +19,7 @@
   // A Google Apps Script web app that writes AI answers and receives contact messages
   // (same pattern as the portfolio's apps-script/ask.gs). Leave empty and Ask is a plain
   // site search, and the contact form opens a pre-filled email instead.
-  var ASK_ENDPOINT = "";
+  var ASK_ENDPOINT = "https://script.google.com/macros/s/AKfycbwIIKsHd6DgmFlZzM63i5icHLft3GAoIR_yEAOxEOpDmi_csZnUtSo5ZWNWuxOwiFY9bQ/exec";
   var PAGES = ["index.html", "services.html", "toolkits.html", "about.html", "contact.html"];
   var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "about.html": "About", "contact.html": "Contact" };
 

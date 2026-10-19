@@ -64,7 +64,6 @@ custom properties, with light and dark values for every style and accent. New pa
 - [ ] In Google Tag Manager (container `GTM-N854VT4C`), add a **Google Analytics: GA4 Configuration** (Google tag)
       firing on All Pages, then **Submit / Publish** the container. Optional: GA4 event tags for the site's own
       events (below).
-- [ ] Turn on AI answers and the contact form backend (below).
 - [ ] Review the Privacy Policy hosting lines (marked `HOSTING` in the source): Google Sites was replaced with
       GitHub Pages. Update the effective date if you change it.
 
@@ -77,6 +76,12 @@ its daily limit, Ask quietly falls back to search results. The same endpoint rec
 is saved to a **Messages** tab, emailed to `info@productadvisory.co` with Reply-To set to the sender, and the sender
 gets a short thank-you. Without an endpoint, the form opens a pre-filled email instead.
 
+**Which address sends the emails.** Apps Script sends as the Google account that owns the script. If that account
+has `info@productadvisory.co` as a "Send mail as" address (Gmail → Settings → See all settings → Accounts →
+Send mail as), or the script is owned by info@ itself, emails go out from info@ (`SENDER_EMAIL_` in `ask.gs`).
+Otherwise they come from the owner's address with Reply-To set to info@. `testContactEmail` reports which one
+it used. The live endpoint is set in `ASK_ENDPOINT` in `assets/js/site.js`.
+
 One-time setup:
 1. Create a Google Sheet named **Product Advisory site log**, then open **Extensions → Apps Script**.
 2. Replace the contents of `Code.gs` with `apps-script/ask.gs` and save.
@@ -85,10 +90,6 @@ One-time setup:
 5. **Deploy → New deployment** → type **Web app** → Execute as **Me**, Who has access **Anyone** → **Deploy**. Copy
    the **Web app URL** (ends in `/exec`).
 6. Paste that URL into `ASK_ENDPOINT` in `assets/js/site.js` and push.
-7. Add a line to the Privacy Policy, for example under "What we collect": *Ask. Questions you type into Ask are sent
-   with the matching sections of this site to an AI service to write an answer, and logged so we can improve the
-   site. Please don't include confidential information.* Also add "answers Ask questions" to the AI service
-   provider line under "Who we share it with".
 
 Every question is logged to the sheet's **Questions** tab (time, question, sections used, outcome). Limits are 60
 answers a day overall and 8 per visitor (top of `ask.gs`). To change the script later: paste the new version, then
