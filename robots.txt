@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /src/
+Disallow: /apps-script/
 
 Sitemap: https://www.productadvisory.co/sitemap.xml
