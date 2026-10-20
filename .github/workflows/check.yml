@@ -1,0 +1,21 @@
+# Checks that the committed pages are exactly what src/ builds, so a hand edit to a page (which the next rebuild
+# would silently undo) is caught. Runs on every pull request and every push to main.
+name: Pages match src
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 src/build.py --check
