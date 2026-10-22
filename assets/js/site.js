@@ -864,6 +864,12 @@
       if (act === "cancel") { askCancel(); return; }
       if (act === "cancel-yes") { doCancel(t); return; }
       if (act === "cancel-no") { openManage(); return; }
+      if (act === "assist") { writeNote(t); return; }
+      if (t.classList.contains("chip") && t.closest("#book-assist")) { t.setAttribute("aria-pressed", t.getAttribute("aria-pressed") === "true" ? "false" : "true"); return; }
+      if (t.getAttribute("role") === "radio" && t.closest('[data-assist="timing"]')) {
+        $$('[data-assist="timing"] [role=radio]', card).forEach(function (r) { r.setAttribute("aria-checked", r === t ? "true" : "false"); });
+        return;
+      }
     });
 
     /* ----- step 2: details, then book ----- */
@@ -882,6 +888,7 @@
       if (moving) { d.replace = moving.b; d.k = moving.k; }
       else {
         d.name = F.name.value.trim(); d.email = F.email.value.trim(); d.company = F.company.value.trim(); d.topic = F.topic.value.trim();
+        var a = answers(); d.wins = a.wins; d.needs = a.needs; d.services = a.services; d.timing = a.timing;
         F.name.removeAttribute("aria-invalid"); F.email.removeAttribute("aria-invalid");
         if (!d.name) { F.name.setAttribute("aria-invalid", "true"); F.name.focus(); return say("Please add your name.", true); }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { F.email.setAttribute("aria-invalid", "true"); F.email.focus(); return say(d.email ? "That email address doesn't look right." : "Please add your email for the invitation.", true); }
@@ -917,6 +924,37 @@
       moving = null;
       show("done"); el.focus();
       if (manage) history.replaceState(null, "", location.pathname);
+    }
+
+    /* ----- "Not sure what to write?": a few quick questions, turned into a note by AI ----- */
+    function answers() {
+      var chosen = function (k) { return $$('[data-assist="' + k + '"] [aria-pressed="true"]', card).map(function (b) { return b.getAttribute("data-value"); }); };
+      var t = $('[data-assist="timing"] [aria-checked="true"]', card);
+      return { wins: $("#a-wins").value.trim(), needs: chosen("needs"), services: chosen("services"), timing: t ? t.getAttribute("data-value") : "", extra: $("#a-extra").value.trim() };
+    }
+    // Without the AI (or if it is busy), the answers are written out plainly instead.
+    function plainNote(a) {
+      var when = { now: "this month", quarter: "this quarter", exploring: "" }[a.timing];
+      return [a.wins ? "What's going well: " + a.wins + "." : "",
+        a.needs.length ? "I'd like help with " + a.needs.join(", ") + "." : "",
+        a.services.length ? "I'm interested in " + a.services.join(", ") + "." : "",
+        when ? "We'd like to get started " + when + "." : a.timing === "exploring" ? "We're just exploring for now." : "",
+        a.extra].filter(Boolean).join(" ").replace(/\.\./g, ".");
+    }
+    function writeNote(btn) {
+      var a = answers(), out = $(".assist-status", card);
+      if (!a.wins && !a.needs.length && !a.services.length && !a.extra) { out.textContent = "Answer at least one question first."; return; }
+      btn.disabled = true; out.textContent = "Writing your note…";
+      var fill = function (text, ai) {
+        F.topic.value = text.slice(0, 1000);
+        btn.disabled = false;
+        out.textContent = ai ? "Done. Your note is in the box above: edit anything you like." : "Your answers are in the box above: edit anything you like.";
+        F.topic.focus();
+        track("booking_assist", { ai: ai ? "yes" : "no" });
+      };
+      call({ type: "bookAssist", wins: a.wins, needs: a.needs, services: a.services, timing: a.timing, extra: a.extra, company: F.company.value.trim(), cid: visitorId() })
+        .then(function (r) { if (r && r.ok && r.text) fill(r.text, true); else fill(plainNote(a), false); })
+        .catch(function () { fill(plainNote(a), false); });
     }
 
     /* ----- the link from the confirmation email: see, cancel or move a booking ----- */

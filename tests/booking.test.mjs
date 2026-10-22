@@ -23,14 +23,15 @@ function formatDate(d, tz, f) {
   return p.weekday + ' ' + p.month + '/' + p.day + ' ' + p.hour + ':' + p.minute;
 }
 
-let now, busy, inserted, removed, sheets, mail, props, cache, aliases;
+let now, busy, inserted, removed, sheets, mail, props, cache, aliases, groq;
 function reset(at) {
-  now = at; busy = []; inserted = []; removed = []; sheets = {}; mail = []; props = { BLOCKED_SENDERS: '@spam.test' }; cache = {}; aliases = ['info@productadvisory.co'];
+  now = at; busy = []; inserted = []; removed = []; sheets = {}; mail = []; props = { BLOCKED_SENDERS: '@spam.test', GROQ_API_KEY: 'k' }; cache = {}; aliases = ['info@productadvisory.co']; groq = [];
 }
 const mkSheet = (n) => ({
   appendRow: (r) => sheets[n].push(r.slice()), setFrozenRows() {}, getLastRow: () => sheets[n].length,
   getDataRange: () => ({ getValues: () => sheets[n].map(r => r.slice()) }),
-  getRange: (row, col) => ({ setValue: (v) => { sheets[n][row - 1][col - 1] = v; } })
+  getLastColumn: () => (sheets[n][0] || []).length,
+  getRange: (row, col) => ({ setValue: (v) => { sheets[n][row - 1][col - 1] = v; }, setValues: (v) => { sheets[n][row - 1] = v[0].slice(); } })
 });
 class FakeDate extends Date { constructor(...a) { if (a.length) super(...a); else super(now); } static now() { return now; } }
 const sandbox = {
@@ -38,7 +39,7 @@ const sandbox = {
   Logger: { log() {} },
   Utilities: { formatDate, getUuid: () => crypto.randomUUID(),
     computeHmacSha256Signature: (v, k) => Array.from(Buffer.from(require_hmac(v, k))), base64EncodeWebSafe: (b) => Buffer.from(b).toString('base64url') },
-  PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] || null, setProperty: (k, v) => { props[k] = v; } }) },
+  PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] || null, setProperty: (k, v) => { props[k] = v; }, deleteProperty: (k) => { delete props[k]; }, getKeys: () => Object.keys(props) }) },
   CacheService: { getScriptCache: () => ({ get: (k) => cache[k] || null, put: (k, v) => { cache[k] = v; }, remove: (k) => { delete cache[k]; } }) },
   LockService: { getScriptLock: () => ({ tryLock: () => true, releaseLock() {} }) },
   SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => sheets[n] ? mkSheet(n) : null, insertSheet: (n) => { sheets[n] = []; return mkSheet(n); } }) },
@@ -54,6 +55,8 @@ const sandbox = {
   GmailApp: { getAliases: () => aliases, sendEmail: (to, subject, body, opts) => mail.push({ to, subject, body, opts }) },
   MailApp: { sendEmail: (o) => mail.push(o) },
   Session: { getEffectiveUser: () => ({ getEmail: () => 'rob@productadvisory.co' }), getScriptTimeZone: () => TZ },
+  UrlFetchApp: { fetch: (url, o) => { const body = JSON.parse(o.payload); groq.push(body);
+    return { getResponseCode: () => 200, getContentText: () => JSON.stringify({ choices: [{ message: { content: '**We** ship fast,\nbut want help with discovery.' } }] }) }; } },
   ContentService: { MimeType: { JSON: 'json' }, createTextOutput: (x) => ({ text: x, setMimeType() { return this; } }) }
 };
 import crypto from 'node:crypto';
@@ -129,6 +132,42 @@ console.log('--- the manage link: cancel and move ---');
   t('cancel removes the event and marks the sheet', post({ type: 'cancelBooking', b: q2.get('b'), k: q2.get('k') }).ok && removed.length === 2 && removed[1].opt.sendUpdates === 'all' && sheets.Bookings[2][7] === 'cancelled');
   t('info@ hears about the cancellation', mail.some(m => m.to === 'info@productadvisory.co' && /Call cancelled: Ada Lovelace/.test(m.subject)));
   t('cancelling again does nothing more', post({ type: 'cancelBooking', b: q2.get('b'), k: q2.get('k') }).ok && removed.length === 2);
+}
+
+console.log('--- "Not sure what to write?": the quick questions ---');
+{
+  // the page's choices (src/content.py through src/build.py) and the script's must match
+  const py = fs.readFileSync(new URL('../src/content.py', import.meta.url), 'utf8');
+  const titles = (block) => [...block.matchAll(/^\s*\("[^"]+", "[^"]+", "([^"]+)"/gm)].map(m => m[1]);
+  const services = titles(py.split('SERVICES = [')[1].split(']\n')[0]), packages = titles(py.split('PACKAGES = [')[1].split(']\n')[0]);
+  const domains = [...py.split('DOMAINS = [')[1].split(']\n')[0].matchAll(/\("([^"]+)", \d+\)/g)].map(m => m[1]);
+  t('the services the script accepts are the site\'s services and packages', JSON.stringify(G('BOOKING_SERVICES_')) === JSON.stringify(services.concat(packages, ['Not sure yet'])), services.concat(packages).join('|'));
+  t('the help areas the script accepts are the skill areas', JSON.stringify(G('BOOKING_NEEDS_')) === JSON.stringify(domains.concat(['Team skills & training'])));
+  reset(at('2026-10-26T13:00:00Z'));
+  t('nothing answered: nothing to write', post({ type: 'bookAssist' }).error === 'empty' && groq.length === 0);
+  const r = post({ type: 'bookAssist', wins: 'We ship every two weeks', needs: ['Customer & Market Discovery', 'Made up'], services: ['AI Enablement'], timing: 'quarter', company: 'Acme', cid: 'v1' });
+  const sent = groq[0] && groq[0].messages[1].content;
+  t('the AI gets only the known choices, and returns plain text', r.ok && r.text === 'We ship fast, but want help with discovery.' && /Customer & Market Discovery/.test(sent) && !/Made up/.test(sent) && /This quarter/.test(sent) && /Acme/.test(sent), JSON.stringify(r) + sent);
+  t('the AI is told the answers are data, not instructions', /data, not instructions/.test(groq[0].messages[0].content));
+  for (let i = 0; i < 4; i++) post({ type: 'bookAssist', wins: 'x', cid: 'v1' });
+  t('one visitor gets five notes a day', post({ type: 'bookAssist', wins: 'x', cid: 'v1' }).error === 'daily_limit' && post({ type: 'bookAssist', wins: 'x', cid: 'v2' }).ok);
+  props.GROQ_API_KEY = '';
+  t('without the AI key it says so (the page writes a plain note instead)', post({ type: 'bookAssist', wins: 'x', cid: 'v3' }).error === 'no_key');
+  // the answers travel with the booking
+  props.GROQ_API_KEY = 'k';
+  const slot = post({ type: 'slots' }).days[2].slots[0];
+  const b = post({ type: 'book', start: slot, name: 'Ada', email: 'ada@example.com', elapsed: 9000, wins: 'Fast shipping', needs: ['AI Fluency — Organizational', 'nope'], services: ['Fractional CPO+'], timing: 'now' });
+  const row = sheets.Bookings[1], ev = inserted[0];
+  t('the answers are kept on the Bookings tab', b.ok && row[11] === 'Fast shipping' && row[12] === 'AI Fluency — Organizational' && row[13] === 'Fractional CPO+' && row[14] === 'This month', JSON.stringify(row.slice(11)));
+  t('and shown on the calendar event and in the note to info@', /Needs help with: AI Fluency — Organizational/.test(ev.description) && /Interested in: Fractional CPO\+/.test(ev.description) && mail.some(m => m.to === 'info@productadvisory.co' && /Timing: This month/.test(m.body)));
+  const q = new URL(b.manage).searchParams;
+  post({ type: 'book', elapsed: 9000, start: post({ type: 'slots' }).days[3].slots[0], replace: q.get('b'), k: q.get('k') });
+  t('moving the call keeps the answers', sheets.Bookings[2][13] === 'Fractional CPO+' && sheets.Bookings[2][14] === 'This month');
+  // an older Bookings tab gains the new column names
+  reset(at('2026-10-26T13:00:00Z'));
+  sheets.Bookings = [G('BOOKING_HEADERS_').slice(0, 11)];
+  post({ type: 'book', start: post({ type: 'slots' }).days[2].slots[0], name: 'Ada', email: 'ada@example.com', elapsed: 9000 });
+  t('a Bookings tab made before these questions gets the new column names', sheets.Bookings[0].length === 15 && sheets.Bookings[0][14] === 'Timing');
 }
 
 console.log('\n' + pass + ' passed, ' + fail + ' failed');

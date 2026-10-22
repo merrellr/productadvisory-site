@@ -594,6 +594,16 @@ def contact():
     write("contact.html", page("contact.html", "Contact Us", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body))
 
 
+# The booking page's quick questions. The same choices are listed in apps-script/ask.gs (BOOKING_NEEDS_ and
+# BOOKING_SERVICES_), which only keeps answers it knows; tests/booking.test.mjs checks the two lists match.
+BOOKING_NEEDS = [d[0] for d in DOMAINS] + ["Team skills & training"]
+BOOKING_SERVICES = [s[2] for s in SERVICES] + [p[2] for p in PACKAGES] + ["Not sure yet"]
+
+
+def assist_chips(items):
+    return "".join(f'<button type="button" class="chip" aria-pressed="false" data-value="{escape(x)}">{escape(x)}</button>' for x in items)
+
+
 # ---------------------------------------------------------------- book a call
 def book():
     """The booking page. assets/js/site.js (initBooking) asks the Apps Script for open times from the Google
@@ -629,6 +639,17 @@ def book():
         </div>
         <div class="field"><label for="b-company">Company <span class="opt">(optional)</span></label><input id="b-company" name="company" autocomplete="organization" maxlength="120"></div>
         <div class="field"><label for="b-topic">What would you like to talk about? <span class="opt">(optional)</span></label><textarea id="b-topic" name="topic" rows="4" maxlength="1000"></textarea></div>
+        <details class="assist" id="book-assist">
+          <summary><span class="assist-spark" aria-hidden="true">✦</span> Not sure what to write? Answer a few quick questions</summary>
+          <div class="assist-body">
+            <div class="field"><label for="a-wins">What's going well for your product team?</label><input id="a-wins" maxlength="400" placeholder="For example: we ship every two weeks and customers love the new onboarding"></div>
+            <fieldset class="assist-q"><legend>Where would you like help? <span class="opt">(choose any)</span></legend><div class="chip-row" data-assist="needs">{assist_chips(BOOKING_NEEDS)}</div></fieldset>
+            <fieldset class="assist-q"><legend>Which services interest you? <span class="opt">(choose any)</span></legend><div class="chip-row" data-assist="services">{assist_chips(BOOKING_SERVICES)}</div></fieldset>
+            <fieldset class="assist-q"><legend>How soon?</legend><div class="seg" role="radiogroup" aria-label="How soon" data-assist="timing"><button type="button" role="radio" aria-checked="false" data-value="now">This month</button><button type="button" role="radio" aria-checked="false" data-value="quarter">This quarter</button><button type="button" role="radio" aria-checked="false" data-value="exploring">Just exploring</button></div></fieldset>
+            <div class="field"><label for="a-extra">Anything else? <span class="opt">(optional)</span></label><input id="a-extra" maxlength="400"></div>
+            <div class="assist-foot"><button type="button" class="btn sm" data-book="assist">✦ Write my note</button><p class="assist-status" role="status" aria-live="polite"></p></div>
+          </div>
+        </details>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-foot"><button class="btn" type="submit">Book the call</button><p class="form-status" role="status" aria-live="polite"></p></div>
         <p class="muted" style="font-size:.85rem;margin:0">We use your details only for this call. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>

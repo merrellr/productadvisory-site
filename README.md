@@ -179,5 +179,11 @@ free 30-minute call. It talks to the same Apps Script as the contact form (`apps
   Everything is kept on the **Bookings** tab of the script's sheet.
 - **Setup:** in the Apps Script editor, Services (+) → Google Calendar API → Add; run `testBooking` once; deploy a new
   version (Manage deployments → New version, so the address stays the same).
+- **"Not sure what to write?"** Under the topic box, a few quick questions (what's going well, where they want help, which
+  services interest them, how soon). "Write my note" asks the AI (`bookAssist`, same Groq key as Ask; 40 a day, 5 per
+  visitor) to turn the answers into a short note in the visitor's words, which they can edit; without the AI the answers
+  are written out plainly. The answers also go with the booking: on the calendar event, in the note to info@, and in the
+  Going well / Needs help with / Interested in / Timing columns of the Bookings tab. The choices come from `content.py`
+  and must match `BOOKING_NEEDS_` and `BOOKING_SERVICES_` in the script (the test checks).
 - If the calendar can't be reached, the page offers the old Calendly page as a backup.
 - Tests: `node tests/booking.test.mjs` (also run by the GitHub check).
