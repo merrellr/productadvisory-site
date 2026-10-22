@@ -159,3 +159,7 @@ Then open http://localhost:8000. Ask needs to run over http so it can read the o
 Old Google Sites paths `/services`, `/toolkits`, `/about` and `/contact` keep working because GitHub Pages serves
 `services.html` for `/services`. `404.html` sends `/home`, `/learning`, `/privacy`, `/terms` and similar to their
 new pages.
+
+## Blocking a contact-form sender
+
+**Blocking a sender.** Add the script property `BLOCKED_SENDERS` (Apps Script → Project Settings → Script properties) with addresses or whole domains, separated by commas, e.g. `someone@example.com, @spam-domain.com`. A blocked sender still sees "sent", but nothing is emailed to anyone (no notice, no thank-you); the message is only kept on the **Messages** tab with "blocked" in the last column. No code change or redeploy is needed.
