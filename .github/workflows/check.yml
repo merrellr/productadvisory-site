@@ -19,3 +19,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 src/build.py --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/booking.test.mjs

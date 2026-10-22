@@ -41,7 +41,7 @@ def mark_new_tabs(html):
     return re.sub(r'(<a\b[^>]*target="_blank"[^>]*>)(.*?)</a>', fix, html, flags=re.S)
 
 
-PAGE_FILES = ("index", "services", "toolkits", "about", "contact", "preferences", "privacy-policy", "terms-of-use")
+PAGE_FILES = ("index", "services", "toolkits", "about", "contact", "book", "preferences", "privacy-policy", "terms-of-use")
 
 
 def clean_links(html):
@@ -77,7 +77,7 @@ def cta_band(h="Have a project in mind? Let's talk.", p="Whether you're validati
     <div class="cta-band reveal">
       {net()}
       <div><h2>{h}</h2><p>{p}</p></div>
-      <div class="btn-row"><a class="btn" href="{CALENDLY}" {EXT}>Book a free 30-minute call</a><a class="btn ghost" href="contact.html">Send a message</a></div>
+      <div class="btn-row"><a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="contact.html">Send a message</a></div>
     </div>
   </div>
 </section>'''
@@ -167,7 +167,7 @@ def home():
       </div>
       <div class="ask-suggest"><span>Try:</span><button type="button">How do you help with AI adoption?</button><button type="button">What is a Fractional CPO?</button><button type="button">Do you have free templates?</button></div>
       <div class="ask-out" aria-live="polite"></div>
-      <div class="btn-row" style="margin-top:28px"><a class="btn" href="{CALENDLY}" {EXT}>Book a free 30-minute call</a><a class="btn ghost" href="services.html">Explore services</a></div>
+      <div class="btn-row" style="margin-top:28px"><a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="services.html">Explore services</a></div>
     </div>
     <div class="hero-art">{path_art()}</div>
   </div>
@@ -180,7 +180,7 @@ def home():
       <h2>Great execution can't fix a roadmap built on guesses</h2>
       <p>When strategy isn't grounded in real evidence, and teams move fast without a clear line to business goals, even great execution ends up building the wrong things. Product Advisory fixes that, from strategy through delivery.</p>
     </div>
-    <a class="btn" href="{CALENDLY}" {EXT}>Schedule a call</a>
+    <a class="btn" href="{BOOK}">Schedule a call</a>
   </div>
 </section>
 
@@ -452,7 +452,7 @@ def toolkits():
     </div>
     <div class="cta-band reveal" style="margin-top:32px" data-ask="Free toolkits, with no strings" data-kind="Toolkit" data-keywords="free cost price license">
       <div><h2 style="font-size:1.6rem">Free, with no strings</h2><p>We built these because good tools shouldn't depend on a big budget. Use them, share them with your team, and adapt them to your work. If you want a second set of eyes on a decision, or help building a product practice, we're happy to talk.</p></div>
-      <a class="btn" href="{CALENDLY}" {EXT}>Book a free 30-minute call</a>
+      <a class="btn" href="{BOOK}">Book a free 30-minute call</a>
     </div>
     <p class="muted" style="font-size:.9rem;margin-top:20px"><i>Free to use and share for personal and internal business purposes. Please keep the Product Advisory branding. Not for resale. Our tools support decision making and are not legal, financial, or tax advice. See the <a href="terms-of-use.html">Terms of Use</a>.</i></p>
   </div>
@@ -493,7 +493,7 @@ def toolkits():
   </div>
 </section>
 {cta_band("Ready to see where you stand?", "Take the free skill check in about ten minutes, or talk to us about benchmarking your whole team.")}'''
-    body = body.replace(f'<a class="btn" href="{CALENDLY}" {EXT}>Book a free 30-minute call</a><a class="btn ghost" href="contact.html">Send a message</a></div>\n    </div>\n  </div>\n</section>',
+    body = body.replace(f'<a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="contact.html">Send a message</a></div>\n    </div>\n  </div>\n</section>',
                         f'<a class="btn" href="{ASSESS}" {EXT}>Take the assessment</a><a class="btn ghost" href="{ASSESS}request-info?src=site-learning&amp;who=org" {EXT}>Team assessments</a></div>\n    </div>\n  </div>\n</section>')
     write("toolkits.html", page("toolkits.html", "Toolkits & Learning", "Free fillable toolkits for product decisions, and a free 14-question product + AI skill check matched to a learning path.", body))
 
@@ -572,10 +572,10 @@ def contact():
     </form>
 
     <aside class="contact-side">
-      <div class="card tint reveal" data-ask="Contact Product Advisory: call, phone, email" data-kind="Contact" data-keywords="email phone schedule call calendly linkedin slack newsletter chicago">
+      <div class="card tint reveal" data-ask="Contact Product Advisory: call, phone, email" data-kind="Contact" data-keywords="email phone schedule call book booking calendar meeting linkedin slack newsletter chicago">
         <h3>Rather talk?</h3>
         <p>Book a free 30-minute consultation at a time that suits you.</p>
-        <a class="btn" href="{CALENDLY}" {EXT}>Book a free call</a>
+        <a class="btn" href="{BOOK}">Book a free call</a>
         <hr class="rule">
         <h3>Prefer email?</h3>
         <p>General: <a href="mailto:info@productadvisory.co">info@productadvisory.co</a><br>Sales: <a href="mailto:sales@productadvisory.co">sales@productadvisory.co</a></p>
@@ -592,6 +592,72 @@ def contact():
   </div>
 </section>'''
     write("contact.html", page("contact.html", "Contact Us", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body))
+
+
+# ---------------------------------------------------------------- book a call
+def book():
+    """The booking page. assets/js/site.js (initBooking) asks the Apps Script for open times from the Google
+    Calendar, then books one; a link in the confirmation email (?b=…&k=…) opens this page to cancel or move it."""
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Book a call</div><h1>Book a free 30-minute call.</h1><p>Pick a time that suits you. We'll talk through what you're working on and where we could help, on Google Meet. No preparation needed.</p></div>
+    <div class="art">{conversation()}</div>
+  </div>
+</header>
+
+<section id="book">
+  <div class="wrap contact-grid">
+    <div class="card book-card reveal" id="booking" data-ready="0">
+      <div class="book-step" data-step="pick">
+        <div class="book-top">
+          <h2 class="book-h" id="book-days-h">Pick a day</h2>
+          <div class="book-weeknav"><button type="button" class="icon-btn" data-week="-1" aria-label="Earlier weeks">‹</button><span class="book-range" id="book-range" aria-live="polite"></span><button type="button" class="icon-btn" data-week="1" aria-label="Later weeks">›</button></div>
+        </div>
+        <div class="book-days" id="book-days" role="group" aria-labelledby="book-days-h"><p class="muted book-loading">Loading open times…</p></div>
+        <div class="book-times-wrap" id="book-times-wrap" hidden>
+          <h3 class="book-h" id="book-times-h"></h3>
+          <div class="book-times" id="book-times" role="group" aria-labelledby="book-times-h"></div>
+        </div>
+        <p class="muted book-tz" id="book-tz"></p>
+      </div>
+
+      <form class="book-step contact-form" data-step="details" id="book-form" novalidate hidden>
+        <div class="book-picked"><span class="book-picked-ico" aria-hidden="true">{CLOCK}</span><div><b id="book-picked-when"></b><span>30 minutes · Google Meet</span></div><button type="button" class="btn ghost sm" data-book="back">Change</button></div>
+        <div class="row">
+          <div class="field"><label for="b-name">Name</label><input id="b-name" name="name" autocomplete="name" maxlength="100" required></div>
+          <div class="field"><label for="b-email">Email</label><input id="b-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+        </div>
+        <div class="field"><label for="b-company">Company <span class="opt">(optional)</span></label><input id="b-company" name="company" autocomplete="organization" maxlength="120"></div>
+        <div class="field"><label for="b-topic">What would you like to talk about? <span class="opt">(optional)</span></label><textarea id="b-topic" name="topic" rows="4" maxlength="1000"></textarea></div>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-foot"><button class="btn" type="submit">Book the call</button><p class="form-status" role="status" aria-live="polite"></p></div>
+        <p class="muted" style="font-size:.85rem;margin:0">We use your details only for this call. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+      </form>
+
+      <div class="book-step book-done" data-step="done" hidden tabindex="-1"></div>
+      <div class="book-step book-manage" data-step="manage" hidden tabindex="-1"></div>
+      <noscript><p>The booking calendar needs JavaScript. Email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a> and we'll find a time.</p></noscript>
+    </div>
+
+    <aside class="contact-side">
+      <div class="card tint reveal">
+        <h3>What to expect</h3>
+        <ul class="book-list">
+          <li><b>30 minutes</b> on Google Meet. The link is in your calendar invitation.</li>
+          <li><b>A real conversation</b> about your product, team or roadmap. No sales script.</li>
+          <li><b>Clear next steps</b>, whether that's working together, a free toolkit, or a pointer elsewhere.</li>
+        </ul>
+        <hr class="rule">
+        <h3>Need to change it?</h3>
+        <p>Your confirmation email has a link to cancel or pick another time.</p>
+        <hr class="rule">
+        <h3>Rather write?</h3>
+        <p><a href="contact.html">Send a message</a> or email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a>.</p>
+      </div>
+    </aside>
+  </div>
+</section>'''
+    write("book.html", page("book.html", "Book a free call", "Book a free 30-minute call with Product Advisory: pick a time that suits you and talk it through on Google Meet.", body))
 
 
 # ---------------------------------------------------------------- preferences
@@ -671,7 +737,7 @@ def notfound():
 
 
 def build_all():
-    home(); services(); toolkits(); about(); contact(); preferences(); legal(); notfound()
+    home(); services(); toolkits(); about(); contact(); book(); preferences(); legal(); notfound()
 
 
 if __name__ == "__main__":

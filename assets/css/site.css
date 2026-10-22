@@ -1029,6 +1029,62 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .foot-base a { color: var(--muted); }
 @media (max-width: 860px) { .foot-grid { grid-template-columns: repeat(2, 1fr); } .foot-brand { grid-column: 1 / -1; } }
 
+/* book a call (book.html; behaviour in site.js initBooking) */
+.book-card { min-height: 420px; }
+.book-card .book-step[hidden] { display: none; }
+.book-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.book-h { font-size: 1.15rem; margin: 0; }
+.book-weeknav { display: inline-flex; align-items: center; gap: 6px; }
+.book-weeknav .icon-btn { font-size: 1.3rem; line-height: 1; }
+.book-weeknav .icon-btn:disabled { opacity: .35; cursor: default; }
+.book-range { font-size: .9rem; color: var(--muted); min-width: 9.5em; text-align: center; }
+.book-dow, .book-week { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.book-dow { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 6px; }
+.book-week + .book-week { margin-top: 8px; }
+.book-day { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 10px 4px 9px; font: inherit; color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.book-day b { font-size: 1.25rem; line-height: 1.1; }
+.book-day .bd-m { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.book-day small { font-size: .72rem; color: var(--muted); min-height: 1.2em; }
+.book-day:not(:disabled):hover { border-color: var(--cyan); transform: translateY(-1px); }
+.book-day:not(:disabled) small { color: var(--navy); font-weight: 600; }
+.book-day.is-today { box-shadow: inset 0 -3px 0 var(--cyan); }
+.book-day[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: var(--card); }
+.book-day[aria-pressed="true"] b { color: var(--card); }
+.book-day[aria-pressed="true"] .bd-m, .book-day[aria-pressed="true"] small { color: var(--card); opacity: .85; }
+.book-day:disabled { background: var(--band); color: var(--muted); cursor: default; opacity: .7; }
+.book-day:focus-visible, .book-time:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.book-times-wrap { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.book-times-wrap[hidden] { display: none; }
+.book-times-wrap .book-h { font-size: 1rem; margin-bottom: 12px; }
+.book-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.book-time { font: inherit; font-weight: 700; color: var(--navy); background: var(--card); border: 1.5px solid color-mix(in srgb, var(--navy) 35%, var(--line)); border-radius: 10px; padding: 10px 6px; cursor: pointer; transition: background .15s, border-color .15s; }
+.book-time:hover { border-color: var(--cyan); background: var(--tint); }
+.book-tz { font-size: .85rem; margin: 18px 0 0; }
+.book-loading { padding: 40px 0; text-align: center; }
+.book-fail { background: var(--tint); border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--navy); text-decoration: underline; cursor: pointer; }
+.book-picked { display: flex; align-items: center; gap: 14px; background: var(--tint); border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; }
+.book-picked > div { flex: 1; min-width: 0; }
+.book-picked b { display: block; font-size: 1.05rem; color: var(--navy); }
+.book-picked span { font-size: .88rem; color: var(--muted); }
+.book-picked-ico { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--card); color: var(--navy); flex-shrink: 0; }
+.book-picked-ico svg { width: 22px; height: 22px; }
+#book-form.is-move .row, #book-form.is-move .field { display: none; }
+.book-done, .book-manage { padding: 12px 0; outline: none; }
+.book-done h2, .book-manage h2 { font-size: 1.5rem; margin: 0 0 6px; }
+.book-ok { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--cyan); color: #fff; font-size: 1.6rem; font-weight: 800; margin-bottom: 14px; }
+.book-when-big { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+.book-done .btn-row + p, .book-manage .btn-row + p { margin-top: 16px; }
+.book-list { margin: 0 0 6px; padding-left: 1.1em; }
+.book-list li { margin-bottom: 8px; }
+@media (max-width: 560px) {
+  .book-dow, .book-week { gap: 5px; }
+  .book-day { padding: 8px 2px; border-radius: 10px; }
+  .book-day small { font-size: .65rem; }
+  .book-picked { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .book-day, .book-time { transition: none; } .book-day:not(:disabled):hover { transform: none; } }
+
 @media print {
   .nav, .palette-backdrop, .shared-bar, footer.site .foot-grid ul, .ask { display: none !important; }
   .reveal { opacity: 1; transform: none; }

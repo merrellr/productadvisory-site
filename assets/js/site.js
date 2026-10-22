@@ -13,7 +13,7 @@
 
   /* ---------- settings: change these in one place ---------- */
   var EMAIL = "info@productadvisory.co";
-  var CALENDLY = "https://calendly.com/productadvisory/30min";
+  var BOOK = "/book";   // the booking page: a free 30-minute call, times from the Google Calendar (see initBooking)
   var ASSESSMENT = "https://assessment.productadvisory.co/";
   var NEWSLETTER = "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482";
   // A Google Apps Script web app that writes AI answers and receives contact messages
@@ -312,7 +312,7 @@
   function handoff(q, strong) {
     var href = "/contact?topic=" + encodeURIComponent(q) + "#message";
     return '<div class="ask-handoff"><p>' + (strong ? "Sounds like a project. Tell us about it, or book a free 30-minute call." : "Want a straight answer from a person?") +
-      '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call' + NEW_TAB + '</a></div></div>';
+      '</p><div class="btn-row"><a class="btn sm" href="' + href + '">Send this question</a><a class="btn sm ghost" href="' + BOOK + '">Book a call</a></div></div>';
   }
 
   function initAsk() {
@@ -420,7 +420,7 @@
     { g: "Go to", t: "Learning & skill check", i: "◎", run: go("toolkits.html#learning") },
     { g: "Go to", t: "About", i: "i", run: go("about.html") },
     { g: "Go to", t: "Contact", i: "✉", run: go("contact.html") },
-    { g: "Do", t: "Book a free 30-minute call", i: "☎", hint: "Calendly", run: open(CALENDLY) },
+    { g: "Do", t: "Book a free 30-minute call", i: "☎", hint: "Pick a time", run: go("book.html") },
     { g: "Do", t: "Take the PM + AI skill assessment", i: "↗", hint: "assessment.productadvisory.co", run: open(ASSESSMENT) },
     { g: "Do", t: "Copy our email address", i: "@", hint: EMAIL, run: function () { copyText(EMAIL, "Email copied: " + EMAIL); } },
     { g: "Do", t: "Follow the newsletter on LinkedIn", i: "+", run: open(NEWSLETTER) },
@@ -753,7 +753,7 @@
           form.innerHTML = '<div class="sent"><h3>Thanks' + (d.name ? ", " + esc(d.name.split(" ")[0]) : "") + ".</h3><p>" +
             (d.reason === "feedback" ? "Your feedback is on its way to us. It helps make this site better." :
               "Your message is on its way, and we'll reply to " + esc(d.email) + " within one business day. You'll also get a short confirmation by email.") +
-            '</p><div class="btn-row"><a class="btn" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a free 30-minute call' + NEW_TAB + '</a><a class="btn ghost" href="/">Back to home</a></div></div>';
+            '</p><div class="btn-row"><a class="btn" href="' + BOOK + '">Book a free 30-minute call</a><a class="btn ghost" href="/">Back to home</a></div></div>';
         })
         .catch(function () {
           btn.disabled = false;
@@ -761,6 +761,216 @@
           status.classList.add("err");
         });
     });
+  }
+
+  /* ---------- book a call (book.html) ----------
+     Open times come from the Google Calendar through the Apps Script (apps-script/ask.gs, "Booking"),
+     shown in the visitor's own time zone. ?b=…&k=… (the link in the confirmation email) opens the
+     booking to cancel it or pick another time. */
+  function initBooking() {
+    var card = $("#booking");
+    if (!card) return;
+    var steps = $$(".book-step", card), form = $("#book-form"), F = form.elements, status = $(".form-status", form);
+    var q = new URLSearchParams(location.search);
+    var manage = q.get("b") && q.get("k") ? { b: q.get("b"), k: q.get("k") } : null;
+    var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { /* older browser */ }
+    var started = Date.now(), weeks = [], page = 0, dayKey = null, picked = null, moving = null, byDay = {};
+    var PER_PAGE = 2;   // weeks shown at once
+
+    function show(name) { steps.forEach(function (st) { st.hidden = st.getAttribute("data-step") !== name; }); card.setAttribute("data-at", name); }
+    function call(body) {
+      return fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) })
+        .then(function (r) { return r.json(); });
+    }
+    function key(ms) { var d = new Date(ms); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+    function at(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+    function time(ms) { return new Date(ms).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); }
+    function when(ms) { return new Date(ms).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) + " at " + time(ms); }
+    function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
+    // If the calendar can't be reached, the old booking page still works as a backup.
+    var BACKUP = "https://calendly.com/productadvisory/30min";
+    var FAIL = 'use our <a href="' + BACKUP + '" target="_blank" rel="noopener">backup booking page' + NEW_TAB + '</a>, or email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> and we\'ll find a time.';
+
+    /* ----- step 1: pick a day and a time ----- */
+    function load() {
+      $("#book-days").innerHTML = '<p class="muted book-loading">Loading open times…</p>';
+      $("#book-times-wrap").hidden = true;
+      return call({ type: "slots" }).then(function (r) {
+        if (!r || !r.ok || !r.days) throw new Error("no slots");
+        build(r.days);
+      }).catch(function () {
+        $("#book-days").innerHTML = '<p class="book-fail">The calendar didn\'t load just now. <button type="button" class="linkish" data-book="retry">Try again</button>, ' + FAIL + "</p>";
+      });
+    }
+    // Server days are in the calendar's zone; the visitor sees weekdays in theirs, grouped by their own date.
+    function build(days) {
+      byDay = {};
+      days.forEach(function (d) { d.slots.forEach(function (ms) { (byDay[key(ms)] = byDay[key(ms)] || []).push(ms); }); });
+      if (!days.length) return;
+      var first = at(days[0].date), last = at(days[days.length - 1].date);
+      var monday = new Date(first); monday.setDate(first.getDate() - ((first.getDay() + 6) % 7));
+      weeks = [];
+      for (var w = new Date(monday); w <= last; w.setDate(w.getDate() + 7)) {
+        var row = [];
+        for (var i = 0; i < 5; i++) { var d = new Date(w); d.setDate(w.getDate() + i); row.push(key(d.getTime())); }
+        weeks.push(row);
+      }
+      var firstOpen = null;
+      weeks.some(function (row, wi) { return row.some(function (k) { if ((byDay[k] || []).length) { firstOpen = { k: k, w: wi }; return true; } return false; }); });
+      if (!firstOpen) {
+        $("#book-days").innerHTML = '<p class="book-fail">No open times in the next four weeks. Please ' + FAIL + "</p>";
+        return;
+      }
+      page = Math.floor(firstOpen.w / PER_PAGE);
+      dayKey = dayKey && (byDay[dayKey] || []).length ? dayKey : firstOpen.k;
+      paintDays(); paintTimes();
+    }
+    function paintDays() {
+      var rows = weeks.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE), today = key(Date.now());
+      $("#book-days").innerHTML = '<div class="book-dow" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>' +
+        rows.map(function (row) {
+          return '<div class="book-week">' + row.map(function (k) {
+            var n = (byDay[k] || []).length, d = at(k), before = k < today;
+            var label = d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) + (n ? ", " + n + (n === 1 ? " time" : " times") : ", no times");
+            return '<button type="button" class="book-day' + (k === today ? " is-today" : "") + '" data-day="' + k + '" aria-pressed="' + (k === dayKey) + '"' + (n ? "" : " disabled") +
+              ' aria-label="' + esc(label) + '"><span class="bd-m">' + d.toLocaleDateString(undefined, { month: "short" }) + '</span><b>' + d.getDate() + "</b><small>" +
+              (before ? "" : n ? n + (n === 1 ? " time" : " times") : "Full") + "</small></button>";
+          }).join("") + "</div>";
+        }).join("");
+      var a = at(rows[0][0]), b = at(rows[rows.length - 1][4]);
+      $("#book-range").textContent = a.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " – " + b.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      $('[data-week="-1"]', card).disabled = page === 0;
+      $('[data-week="1"]', card).disabled = (page + 1) * PER_PAGE >= weeks.length;
+    }
+    function paintTimes() {
+      var list = (byDay[dayKey] || []).slice().sort(function (x, y) { return x - y; });
+      $("#book-times-wrap").hidden = !list.length;
+      if (!list.length) return;
+      $("#book-times-h").textContent = at(dayKey).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+      $("#book-times").innerHTML = list.map(function (ms) { return '<button type="button" class="book-time" data-ms="' + ms + '">' + esc(time(ms)) + "</button>"; }).join("");
+    }
+    $("#book-tz").textContent = "Times are in your time zone" + (tz ? " (" + tz.replace(/_/g, " ") + ")" : "") + ". Each call is 30 minutes on Google Meet.";
+
+    card.addEventListener("click", function (e) {
+      var t = e.target.closest("button");
+      if (!t || !card.contains(t)) return;
+      if (t.hasAttribute("data-week")) { page += +t.getAttribute("data-week"); paintDays(); return; }
+      if (t.hasAttribute("data-day")) { dayKey = t.getAttribute("data-day"); paintDays(); paintTimes(); var firstTime = $("#book-times button"); if (firstTime) firstTime.focus(); return; }
+      if (t.hasAttribute("data-ms")) { pick(+t.getAttribute("data-ms")); return; }
+      var act = t.getAttribute("data-book");
+      if (act === "back") { show("pick"); var again = $('.book-time[data-ms="' + picked + '"]'); if (again) again.focus(); return; }
+      if (act === "retry") { load(); return; }
+      if (act === "move") { startMove(); return; }
+      if (act === "cancel") { askCancel(); return; }
+      if (act === "cancel-yes") { doCancel(t); return; }
+      if (act === "cancel-no") { openManage(); return; }
+    });
+
+    /* ----- step 2: details, then book ----- */
+    function pick(ms) {
+      picked = ms;
+      $("#book-picked-when").textContent = when(ms);
+      form.classList.toggle("is-move", !!moving);
+      $("button[type=submit]", form).textContent = moving ? "Move my call to this time" : "Book the call";
+      say("");
+      show("details");
+      (moving ? $("button[type=submit]", form) : F.name).focus();
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = { type: "book", start: picked, tz: tz, website: F.website.value, elapsed: Date.now() - started };
+      if (moving) { d.replace = moving.b; d.k = moving.k; }
+      else {
+        d.name = F.name.value.trim(); d.email = F.email.value.trim(); d.company = F.company.value.trim(); d.topic = F.topic.value.trim();
+        F.name.removeAttribute("aria-invalid"); F.email.removeAttribute("aria-invalid");
+        if (!d.name) { F.name.setAttribute("aria-invalid", "true"); F.name.focus(); return say("Please add your name.", true); }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { F.email.setAttribute("aria-invalid", "true"); F.email.focus(); return say(d.email ? "That email address doesn't look right." : "Please add your email for the invitation.", true); }
+      }
+      var btn = $("button[type=submit]", form);
+      btn.disabled = true; say(moving ? "Moving your call…" : "Booking…");
+      call(d).then(function (r) {
+        btn.disabled = false;
+        if (r && r.ok) { done(r, d); return; }
+        var err = r && r.error;
+        if (err === "taken") { say(""); show("pick"); load().then(function () { var p = $("#book-days"); p.insertAdjacentHTML("afterbegin", '<p class="book-fail" role="alert">Sorry, that time was just taken. Please pick another.</p>'); }); return; }
+        if (err === "too_many") return say("You already have two calls booked. Use the link in your confirmation email to change one.", true);
+        if (err === "bad_email") return say("That email address doesn't look right.", true);
+        if (err === "too_fast") return say("That was quick! Please try again.", true);
+        if (err === "bad_link") return say("That booking link no longer works. Book a new time instead.", true);
+        status.innerHTML = "Booking isn't available just now. Please " + FAIL; status.classList.add("err");
+      }).catch(function () {
+        btn.disabled = false;
+        status.innerHTML = "That didn't go through. Please " + FAIL; status.classList.add("err");
+      });
+    });
+    function done(r, d) {
+      track(moving ? "booking_moved" : "booking_made", {});
+      var el = $('[data-step="done"]', card);
+      var first = (d.name || "").split(" ")[0];
+      el.innerHTML = '<div class="book-ok" aria-hidden="true">✓</div><h2>' + (moving ? "Your call has moved." : "You're booked" + (first ? ", " + esc(first) : "") + ".") + "</h2>" +
+        '<p class="book-when-big">' + esc(when(r.start)) + "</p>" +
+        "<p>" + (moving ? "We've updated the calendar invitation and sent a new confirmation." :
+          "A calendar invitation with the Google Meet link is on its way to <b>" + esc(d.email) + "</b>, with a confirmation from " + EMAIL + ".") + "</p>" +
+        '<div class="btn-row">' + (r.meet ? '<a class="btn" href="' + esc(r.meet) + '" target="_blank" rel="noopener">Google Meet link' + NEW_TAB + "</a>" : "") +
+        '<a class="btn ghost" href="/">Back to home</a></div>' +
+        '<p class="muted" style="font-size:.88rem">Need to change it? Use the link in your confirmation email.</p>';
+      moving = null;
+      show("done"); el.focus();
+      if (manage) history.replaceState(null, "", location.pathname);
+    }
+
+    /* ----- the link from the confirmation email: see, cancel or move a booking ----- */
+    var current = null;
+    function openManage() {
+      var el = $('[data-step="manage"]', card);
+      show("manage");
+      if (!current) { el.innerHTML = '<p class="muted">Loading your booking…</p>'; }
+      (current ? Promise.resolve(current) : call({ type: "booking", b: manage.b, k: manage.k })).then(function (r) {
+        if (!r || !r.ok) throw new Error((r && r.error) || "failed");
+        current = r;
+        if (r.status !== "booked" || r.past) {
+          el.innerHTML = "<h2>" + (r.past ? "This call has already happened." : r.status === "moved" ? "This call was moved." : "This call was cancelled.") + "</h2>" +
+            "<p>" + (r.status === "moved" ? "Your newer confirmation email has the current time." : "Want to talk again? Pick a new time below.") + "</p>" +
+            '<div class="btn-row"><a class="btn" href="/book">Book a call</a></div>';
+          return;
+        }
+        el.innerHTML = '<div class="eyebrow">Your call</div><h2>' + esc(when(r.start)) + "</h2><p>30 minutes on Google Meet" + (r.name ? ", booked by " + esc(r.name) : "") + ".</p>" +
+          '<div class="btn-row">' + (r.meet ? '<a class="btn" href="' + esc(r.meet) + '" target="_blank" rel="noopener">Google Meet link' + NEW_TAB + "</a>" : "") +
+          '<button type="button" class="btn ghost" data-book="move">Pick another time</button><button type="button" class="btn ghost" data-book="cancel">Cancel the call</button></div>';
+        el.focus();
+      }).catch(function () {
+        el.innerHTML = "<h2>That link doesn't work.</h2><p>It may have been copied only in part. Open it again from your confirmation email, or " + FAIL + '</p><div class="btn-row"><a class="btn" href="/book">Book a new time</a></div>';
+      });
+    }
+    function startMove() {
+      moving = manage;
+      $("#book-days-h").textContent = "Pick a new day";
+      show("pick"); load();
+    }
+    function askCancel() {
+      var el = $('[data-step="manage"]', card);
+      el.innerHTML = "<h2>Cancel your call on " + esc(when(current.start)) + "?</h2><p>We'll take it off the calendar and let you know.</p>" +
+        '<div class="btn-row"><button type="button" class="btn" data-book="cancel-yes">Yes, cancel it</button><button type="button" class="btn ghost" data-book="cancel-no">Keep it</button></div>';
+      $('[data-book="cancel-yes"]', el).focus();
+    }
+    function doCancel(btn) {
+      btn.disabled = true;
+      var el = $('[data-step="manage"]', card);
+      call({ type: "cancelBooking", b: manage.b, k: manage.k }).then(function (r) {
+        if (!r || !r.ok) throw new Error("failed");
+        track("booking_cancelled", {});
+        current = null;
+        el.innerHTML = "<h2>Your call is cancelled.</h2><p>It's off the calendar, and Google will let you know too. Whenever you're ready, pick a new time.</p>" +
+          '<div class="btn-row"><a class="btn" href="/book">Book a new time</a><a class="btn ghost" href="/">Back to home</a></div>';
+        history.replaceState(null, "", location.pathname);
+        el.focus();
+      }).catch(function () {
+        btn.disabled = false;
+        el.insertAdjacentHTML("beforeend", '<p class="book-fail" role="alert">That didn\'t go through. Please ' + FAIL + "</p>");
+      });
+    }
+
+    if (manage) openManage(); else { show("pick"); load(); }
   }
 
   /* ---------- cookie consent banner ----------
@@ -806,6 +1016,7 @@
     initProblems();
     initFinder();
     initContact();
+    initBooking();
     initConsent();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

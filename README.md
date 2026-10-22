@@ -163,3 +163,21 @@ new pages.
 ## Blocking a contact-form sender
 
 **Blocking a sender.** Add the script property `BLOCKED_SENDERS` (Apps Script → Project Settings → Script properties) with addresses or whole domains, separated by commas, e.g. `someone@example.com, @spam-domain.com`. A blocked sender still sees "sent", but nothing is emailed to anyone (no notice, no thank-you); the message is only kept on the **Messages** tab with "blocked" in the last column. No code change or redeploy is needed.
+
+
+## Book a call (`/book`)
+
+`book.html` (built by `book()` in `src/build.py`, behaviour in `initBooking` in `assets/js/site.js`) lets visitors book a
+free 30-minute call. It talks to the same Apps Script as the contact form (`apps-script/ask.gs`, section "Booking"):
+
+- **Open times** come from the Google Calendar of the account that owns the script: weekdays 9:00 to 17:00 in the
+  calendar's time zone, 12 hours' notice, 15 minutes free around other events, up to 4 weeks ahead, at most 4 calls a
+  day. Change these in `BOOKING_` at the top of the section. Extra calendars to check (for example a personal one shared
+  with rob@) go in the script property `BOOKING_CALENDARS`, comma-separated.
+- **A booking** becomes a calendar event with a Google Meet link; Google sends the guest the invitation. The guest also
+  gets a confirmation from info@ with a link (`/book?b=…&k=…`) to cancel or pick another time, and info@ gets a note.
+  Everything is kept on the **Bookings** tab of the script's sheet.
+- **Setup:** in the Apps Script editor, Services (+) → Google Calendar API → Add; run `testBooking` once; deploy a new
+  version (Manage deployments → New version, so the address stays the same).
+- If the calendar can't be reached, the page offers the old Calendly page as a backup.
+- Tests: `node tests/booking.test.mjs` (also run by the GitHub check).

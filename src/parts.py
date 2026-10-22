@@ -1,5 +1,5 @@
 # Shared pieces for the page generator: settings, icons, header, footer.
-CALENDLY = "https://calendly.com/productadvisory/30min"
+BOOK = "book.html"   # the booking page (book a free 30-minute call), built by book() in build.py
 ASSESS = "https://assessment.productadvisory.co/"
 NEWSLETTER = "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482"
 LINKEDIN = "https://www.linkedin.com/company/productadvisory"
@@ -68,6 +68,7 @@ SEARCH = tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')
 SLIDERS = tiny('<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>')
 MOON = tiny('<path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/>')
 MENU = tiny('<path d="M4 7h16M4 12h16M4 17h16"/>')
+CLOCK = tiny('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')
 
 WORDMARK = '<span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span>'
 
@@ -134,12 +135,12 @@ def header(page):
 <header class="nav">
   <div class="wrap">
     <a class="wm" href="index.html" aria-label="Product Advisory, home">{WORDMARK}</a>
-    <nav class="nav-links" aria-label="Main">{links}<a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{CALENDLY}" {EXT}>Book a free call ↗</a></nav>
+    <nav class="nav-links" aria-label="Main">{links}<a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{BOOK}">Book a free call</a></nav>
     <div class="nav-tools">
       <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)">{SEARCH}<span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
       <a class="icon-btn prefs-btn" href="preferences.html" aria-label="Make it yours: change how this site looks" title="Make it yours">{SLIDERS}</a>
       <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark">{MOON}</button>
-      <a class="btn sm nav-cta" href="{CALENDLY}" {EXT}>Book a call</a>
+      <a class="btn sm nav-cta" href="{BOOK}">Book a call</a>
       <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false">{MENU}</button>
     </div>
   </div>
