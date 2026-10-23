@@ -208,7 +208,20 @@
       track("scorecard_csv"); return;
     }
     if (act === "print") { track("scorecard_print"); window.print(); }
+    if (act === "expand") { expand(!root.classList.contains("is-expanded")); }
   });
+  /* Full screen: the scoring table fills the window, with the ranking alongside, so nothing needs scrolling past. */
+  function expand(on) {
+    var b = root.querySelector('[data-sc="expand"]');
+    root.classList.toggle("is-expanded", on);
+    document.documentElement.classList.toggle("sc-lock", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.innerHTML = on ? '<span aria-hidden="true">✕</span> Close full screen' : '<span aria-hidden="true">⤢</span> Full screen';
+    b.focus();
+    if (on) track("scorecard_fullscreen");
+  }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && root.classList.contains("is-expanded")) expand(false); });
+
   // Arrow keys move along the template choices, as in any radio group.
   root.querySelector(".sc-templates").addEventListener("keydown", function (e) {
     var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];

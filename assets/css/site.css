@@ -1168,6 +1168,18 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .sc-close-note { font-size: .82rem; margin: 14px 0 0; }
 .sc-none { padding: 6px 0; }
 @media (max-width: 980px) { .sc-grid { grid-template-columns: minmax(0, 1fr); } .sc-side { position: static; } }
+.sc-step > div { flex: 1; min-width: 0; }
+.sc-expand { flex-shrink: 0; white-space: nowrap; }
+/* full screen: the scoring table and the ranking side by side over the page */
+.sc-lock, .sc-lock body { overflow: hidden; }
+.sc.is-expanded .sc-grid { position: fixed; inset: 0; z-index: 250; margin: 0; padding: 18px 20px; overflow: auto; background: var(--bg);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 18px; align-items: start; }
+.sc.is-expanded .sc-crit-card, .sc.is-expanded .sc-tips { display: none; }
+.sc.is-expanded .sc-feat-card { margin: 0; }
+.sc.is-expanded .sc-side { position: sticky; top: 0; }
+.sc.is-expanded .sc-table-wrap { overflow: visible; }
+@media (max-width: 760px) { .sc.is-expanded .sc-grid { grid-template-columns: minmax(0, 1fr); padding: 12px; } .sc.is-expanded .sc-table-wrap { overflow-x: auto; } .sc.is-expanded .sc-side { position: static; } }
+@media print { .sc.is-expanded .sc-grid { position: static; } }
 @media (max-width: 560px) {
   .sc-crit { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name x" "weight dir"; row-gap: 6px; }
   .sc-crit-name { grid-area: name; }
@@ -1175,10 +1187,12 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
   .sc-weight { grid-area: weight; }
   .sc-dir { grid-area: dir; }
   .sc-actions .btn { flex: 1 1 auto; }
+  .sc-step { flex-wrap: wrap; }
+  .sc-expand { margin-left: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { .sc-bar-track span { transition: none; } }
 @media print {
-  .sc-actions, .sc-share, .sc-templates, [data-sc], .sc-x, .sc-side .card.tint, .page-head .art { display: none !important; }
+  .sc-actions, .sc-share, .sc-templates, [data-sc], .sc-x, .sc-side .card.tint, .page-head .art, .sc-expand { display: none !important; }
   .sc-grid { grid-template-columns: 1fr; }
   .sc-side { position: static; }
   .sc-card { break-inside: avoid; box-shadow: none; }

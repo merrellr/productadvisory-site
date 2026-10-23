@@ -645,15 +645,16 @@ def scorecard():
 
     <div class="sc-grid">
       <div>
-        <div class="card sc-card">
+        <div class="card sc-card sc-crit-card">
           <div class="sc-step"><span class="num">1</span><div><h2>Choose what matters</h2><p class="muted">Start from a template, then rename, reweight, add or remove criteria. Weight 0 switches one off.</p></div></div>
           <div class="seg sc-templates" role="radiogroup" aria-label="Start from a template">{tmpl}</div>
           <div class="sc-criteria" id="sc-criteria"></div>
           <button type="button" class="btn sm ghost" data-sc="add-criterion">+ Add a criterion</button>
         </div>
 
-        <div class="card sc-card">
-          <div class="sc-step"><span class="num">2</span><div><h2>Score your features</h2><p class="muted">1 is low and 5 is high. For criteria marked <b>lower is better</b>, like effort or risk, 5 means a lot of it. Tip: have two people score on their own, then compare.</p></div></div>
+        <div class="card sc-card sc-feat-card" id="sc-features" role="region" aria-labelledby="sc-feat-h">
+          <div class="sc-step"><span class="num">2</span><div><h2 id="sc-feat-h">Score your features</h2><p class="muted">1 is low and 5 is high. For criteria marked <b>lower is better</b>, like effort or risk, 5 means a lot of it. Tip: have two people score on their own, then compare.</p></div>
+            <button type="button" class="btn sm ghost sc-expand" data-sc="expand" aria-pressed="false" title="Open the table full screen, with the ranking alongside"><span aria-hidden="true">⤢</span> Full screen</button></div>
           <div class="sc-table-wrap"><table class="sc-table" id="sc-table"></table></div>
           <div class="btn-row"><button type="button" class="btn sm ghost" data-sc="add-feature">+ Add a feature</button><button type="button" class="btn sm ghost" data-sc="examples">Fill in an example</button></div>
         </div>
@@ -665,7 +666,7 @@ def scorecard():
           <ol class="sc-results" id="sc-results" aria-live="polite"></ol>
           <p class="muted sc-close-note" id="sc-close-note" hidden><span class="sc-chip">Close call</span> These are within 5 points of each other. Talk them through rather than trusting the decimals.</p>
         </div>
-        <div class="card tint">
+        <div class="card tint sc-tips">
           <h3>Make it stick</h3>
           <ul class="book-list">
             <li><b>Argue about weights, not scores.</b> Agree what matters first; the ranking follows.</li>
