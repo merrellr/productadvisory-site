@@ -332,6 +332,8 @@
         var html = '<div class="ask-q">“' + esc(q) + '”</div>';
         if (!r.results.length) {
           out.innerHTML = html + '<p class="muted">Nothing on the site answers that directly yet.</p>' + handoff(q, true);
+          // so the question shows up on the "Unanswered questions" tab (fire and forget)
+          if (ASK_ENDPOINT) fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ type: "unanswered", q: q, cid: visitorId() }) }).catch(function () {});
           return;
         }
         if (ASK_ENDPOINT) html += '<div class="ask-answer" aria-busy="true"><span class="ask-ai">AI answer</span><p class="ask-thinking">Reading the sections below…</p></div>';

@@ -187,3 +187,13 @@ free 30-minute call. It talks to the same Apps Script as the contact form (`apps
   and must match `BOOKING_NEEDS_` and `BOOKING_SERVICES_` in the script (the test checks).
 - If the calendar can't be reached, the page offers the old Calendly page as a backup.
 - Tests: `node tests/booking.test.mjs` (also run by the GitHub check).
+
+## Unanswered questions and monthly insights
+
+- **Unanswered questions:** when Ask finds nothing on the site, or the AI says the site doesn't cover a question, the
+  question goes on the **Unanswered questions** tab of the site log (time, question, why, sections it looked at). Only
+  the question is kept. Page reports are capped at 200 a day.
+- **Monthly insights:** on the 1st of each month info@ gets a summary of the month before: calls booked (and cancelled),
+  who booked, what they want help with, the services they're interested in, how soon, busiest days, contact messages
+  by reason, questions asked and the ones the site couldn't answer. Set up once by running `installInsights` in the
+  Apps Script editor; `sendInsightsNow` sends this month so far. Tested in `tests/booking.test.mjs`.

@@ -19,11 +19,14 @@ function formatDate(d, tz, f) {
     return (off < 0 ? '-' : '+') + String(Math.floor(a / 60)).padStart(2, '0') + String(a % 60).padStart(2, '0');
   }
   if (f === 'z') return p.timeZoneName;
+  if (f === 'EEEE') return p.weekday;
+  if (f === 'MMMM yyyy') return new Intl.DateTimeFormat('en-US', { timeZone: tz, month: 'long', year: 'numeric' }).format(new Date(ms));
+  if (f === 'yyyyMMdd') return p.year + p.month + p.day;
   if (f === 'h:mm a') return ((+p.hour % 12) || 12) + ':' + p.minute + (+p.hour < 12 ? ' AM' : ' PM');
   return p.weekday + ' ' + p.month + '/' + p.day + ' ' + p.hour + ':' + p.minute;
 }
 
-let now, busy, inserted, removed, sheets, mail, props, cache, aliases, groq;
+let now, busy, inserted, removed, sheets, mail, props, cache, aliases, groq, groqReply = '**We** ship fast,\nbut want help with discovery.', triggers = [];
 function reset(at) {
   now = at; busy = []; inserted = []; removed = []; sheets = {}; mail = []; props = { BLOCKED_SENDERS: '@spam.test', GROQ_API_KEY: 'k' }; cache = {}; aliases = ['info@productadvisory.co']; groq = [];
 }
@@ -56,7 +59,9 @@ const sandbox = {
   MailApp: { sendEmail: (o) => mail.push(o) },
   Session: { getEffectiveUser: () => ({ getEmail: () => 'rob@productadvisory.co' }), getScriptTimeZone: () => TZ },
   UrlFetchApp: { fetch: (url, o) => { const body = JSON.parse(o.payload); groq.push(body);
-    return { getResponseCode: () => 200, getContentText: () => JSON.stringify({ choices: [{ message: { content: '**We** ship fast,\nbut want help with discovery.' } }] }) }; } },
+    return { getResponseCode: () => 200, getContentText: () => JSON.stringify({ choices: [{ message: { content: groqReply } }] }) }; } },
+  ScriptApp: { getProjectTriggers: () => triggers, deleteTrigger: (t) => { triggers = triggers.filter(x => x !== t); },
+    newTrigger: (fn) => { const t = { fn, getHandlerFunction: () => fn }; const b = { timeBased: () => b, onMonthDay: (d) => { t.day = d; return b; }, atHour: (h) => { t.hour = h; return b; }, create: () => { triggers.push(t); return t; } }; return b; } },
   ContentService: { MimeType: { JSON: 'json' }, createTextOutput: (x) => ({ text: x, setMimeType() { return this; } }) }
 };
 import crypto from 'node:crypto';
@@ -168,6 +173,49 @@ console.log('--- "Not sure what to write?": the quick questions ---');
   sheets.Bookings = [G('BOOKING_HEADERS_').slice(0, 11)];
   post({ type: 'book', start: post({ type: 'slots' }).days[2].slots[0], name: 'Ada', email: 'ada@example.com', elapsed: 9000 });
   t('a Bookings tab made before these questions gets the new column names', sheets.Bookings[0].length === 15 && sheets.Bookings[0][14] === 'Timing');
+}
+
+console.log('--- unanswered questions ---');
+{
+  reset(at('2026-10-26T13:00:00Z'));
+  t('the page reports a question nothing on the site matched', post({ type: 'unanswered', q: 'Do you do SOC 2 audits?', cid: 'v1' }).ok && sheets['Unanswered questions'][1][1] === 'Do you do SOC 2 audits?' && sheets['Unanswered questions'][1][2] === 'Nothing on the site matched');
+  t('a too-short question is refused', post({ type: 'unanswered', q: 'x' }).error === 'bad_question');
+  t('a formula is stored as text', post({ type: 'unanswered', q: '=IMPORTXML("x","y")' }).ok && sheets['Unanswered questions'][2][1] === '\'=IMPORTXML("x","y")');
+  groqReply = '[NO-ANSWER] Our site does not list prices; book a free call to talk it through.';
+  const r = post({ q: 'How much does a Fractional CPO cost?', cid: 'v2', sources: [{ url: 'services.html#packages', title: 'Service packages', text: 'Fractional CPO+ gives you senior leadership.' }] });
+  const row = sheets['Unanswered questions'][3];
+  t('when the AI says the site does not cover it, the visitor still gets the reply, without the marker', r.ok && r.answer === 'Our site does not list prices; book a free call to talk it through.', JSON.stringify(r));
+  t('and the question is logged with the sections it looked at', row[1] === 'How much does a Fractional CPO cost?' && row[2] === "The site doesn't cover it" && row[3] === 'Service packages');
+  groqReply = 'We offer Fractional CPO+ [1].';
+  post({ q: 'Do you offer a fractional CPO?', cid: 'v2', sources: [{ url: 'services.html#packages', title: 'Service packages', text: 'Fractional CPO+.' }] });
+  t('an answered question is not logged as unanswered', sheets['Unanswered questions'].length === 4);
+  for (let i = 0; i < 200; i++) cache['unans_' + '20261026'] = String(200);
+  t('page reports stop after 200 a day', post({ type: 'unanswered', q: 'One more question' }).error === 'daily_limit');
+}
+
+console.log('--- monthly insights ---');
+{
+  reset(at('2026-11-01T14:00:00Z'));
+  const H = (n) => [Array.from({ length: n }, (_, i) => 'h' + i)];
+  const bk = (created, start, name, company, status, needs, ints, timing) => [new Date(created), 'id', start, name, 'x@y.com', company, '', status, 'ev', '', 'tz', '', needs, ints, timing];
+  sheets.Bookings = H(15).concat([
+    bk('2026-10-05T15:00:00Z', '2026-10-07T15:00:00Z', 'Ada', 'Engines', 'booked', 'AI Fluency — Organizational; Execution & Delivery', 'AI Enablement', 'This month'),
+    bk('2026-10-09T15:00:00Z', '2026-10-14T15:00:00Z', 'Bo', '', 'cancelled', 'AI Fluency — Organizational', 'AI Enablement; Fractional CPO+', 'This quarter'),
+    bk('2026-10-10T15:00:00Z', '2026-10-15T15:00:00Z', 'Bo', '', 'moved', '', '', ''),
+    bk('2026-09-20T15:00:00Z', '2026-09-22T15:00:00Z', 'Old', '', 'booked', 'Execution & Delivery', '', '')
+  ]);
+  sheets['Unanswered questions'] = H(4).concat([[new Date('2026-10-02T12:00:00Z'), 'Pricing?'], [new Date('2026-10-03T12:00:00Z'), 'pricing'], [new Date('2026-10-04T12:00:00Z'), 'Do you do SOC 2?']]);
+  sheets.Questions = H(4).concat([[new Date('2026-10-02T12:00:00Z'), 'a'], [new Date('2026-10-03T12:00:00Z'), 'b'], [new Date('2026-09-03T12:00:00Z'), 'c']]);
+  sheets.Messages = H(8).concat([[new Date('2026-10-12T12:00:00Z'), 'An advisory project'], [new Date('2026-10-13T12:00:00Z'), 'An advisory project']]);
+  G('sendMonthlyInsights')();
+  const m = mail[mail.length - 1];
+  t('on the 1st, last month\'s insights go to info@', m && m.to === 'info@productadvisory.co' && /October 2026 \(2 calls, 2 unanswered questions\)/.test(m.subject), m && m.subject);
+  t('calls booked, with cancellations, not counting moves or other months', /CALLS BOOKED: 2 \(1 cancelled\)/.test(m.body) && /Ada, Engines/.test(m.body) && /Bo \(cancelled\)/.test(m.body) && !/Old/.test(m.body));
+  t('what they want help with and are interested in, most asked first', /help with:\n  • AI Fluency — Organizational \(2\)\n  • Execution & Delivery/.test(m.body) && /interested in:\n  • AI Enablement \(2\)\n  • Fractional CPO\+/.test(m.body), m.body);
+  t('questions asked and the unanswered ones, grouped', /QUESTIONS ON THE SITE: 2 asked/.test(m.body) && /  • Pricing\? \(2\)\n  • Do you do SOC 2\?/.test(m.body));
+  t('contact messages by reason', /CONTACT MESSAGES:\n  • An advisory project \(2\)/.test(m.body));
+  G('installInsights')(); G('installInsights')();
+  t('installing the schedule twice leaves one monthly run, on the 1st at 8', triggers.length === 1 && triggers[0].fn === 'sendMonthlyInsights' && triggers[0].day === 1 && triggers[0].hour === 8);
 }
 
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
