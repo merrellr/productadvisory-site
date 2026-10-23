@@ -41,7 +41,7 @@ def mark_new_tabs(html):
     return re.sub(r'(<a\b[^>]*target="_blank"[^>]*>)(.*?)</a>', fix, html, flags=re.S)
 
 
-PAGE_FILES = ("index", "services", "toolkits", "about", "contact", "book", "preferences", "privacy-policy", "terms-of-use")
+PAGE_FILES = ("index", "services", "toolkits", "about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")
 
 
 def clean_links(html):
@@ -371,7 +371,22 @@ def toolkits():
     <div class="btn-row"><a class="btn sm" href="{links[0]}" {EXT}>Download the PDF</a><a class="btn sm" href="{links[1]}" {EXT}>Get the Google Sheet</a><a class="btn sm ghost" href="{links[3]}" download>Excel version</a><a class="btn sm ghost" href="{links[2]}" {EXT}>See the worked example</a></div>
   </div>
 </article>'''
-    tools = tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
+    # The first interactive toolkit, built from the top vote on the Tool Roadmap (scorecard.html).
+    sc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["starter", "practitioner", "leader"])
+    sc_rows = "".join(f'<span class="sc-thumb-row"><b>{n}</b><i style="--w:{w}%"></i><em>{w}</em></span>' for n, w in [(1, 82), (2, 74), (3, 71), (4, 48), (5, 30)])
+    interactive = f'''<article class="tool reveal" id="feature-prioritization-scorecard" data-levels="starter practitioner leader" data-ask="Feature Prioritization Scorecard: rank features with criteria you can change" data-kind="Toolkit" data-keywords="prioritize prioritization prioritise rank features roadmap weighted scoring ice rice backlog">
+  <a class="tool-thumb sc-thumb" href="scorecard.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{sc_rows}</a>
+  <div>
+    <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">New · Interactive</span></h3>
+    <div>{sc_tags}</div>
+    <ul class="meta"><li><b>Time needed:</b> About 20 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <p>Rank features with criteria you can change, so your roadmap reflects your goals and not the loudest voice. Weight what matters, score each feature, and watch the ranking update as you go.</p>
+    <p class="deep"><b>Use it when:</b> the backlog is longer than the quarter, and every stakeholder thinks their feature is first.</p>
+    <p class="deep"><b>You walk away with:</b> a ranked list, the criteria behind it, and a link or file you can share.</p>
+    <div class="btn-row"><a class="btn sm" href="scorecard.html">Open the scorecard</a></div>
+  </div>
+</article>'''
+    tools = interactive + tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
                  "Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.",
                  "You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.",
                  "A scored comparison, a cost view, and a written decision you can share.", 3,
@@ -394,9 +409,7 @@ def toolkits():
         return (f'<article class="card soon reveal" id="soon-{i}" data-levels="{" ".join(levels)}" data-ask="{title} (coming soon)" data-kind="Toolkit">'
                 f'{icon(ic)}<span class="pill">Planned</span><h3>{title}</h3><p>{desc}</p><div class="soon-for"><small>Best for</small>{tags}</div>'
                 f'<a class="btn sm ghost" href="{ASSESS}tool-requests?tool={i}&amp;src=site-toolkits" {EXT}>Vote for this</a></article>')
-    soon = soon_card("feature-prioritization-scorecard", "scale", "Feature Prioritization Scorecard",
-                     "Rank features with criteria you can change, so your roadmap reflects your goals and not the loudest voice.", ["starter", "practitioner"]) + \
-        soon_card("product-strategy-one-pager", "strategy", "Product Strategy One Pager",
+    soon = soon_card("product-strategy-one-pager", "strategy", "Product Strategy One Pager",
                   "Put your strategy on a single page the whole team can read, from the problem you solve to how you will know it worked.", ["practitioner", "leader"]) + \
         soon_card("ai-use-case-prioritization", "ai", "AI Use Case Prioritization",
                   "Choose where AI is worth the effort first, by weighing value, data readiness, risk, and cost.", ["practitioner", "leader", "executive"])
@@ -604,6 +617,74 @@ def assist_chips(items):
     return "".join(f'<button type="button" class="chip" aria-pressed="false" data-value="{escape(x)}">{escape(x)}</button>' for x in items)
 
 
+# ---------------------------------------------------------------- feature prioritization scorecard
+def scorecard():
+    """The first interactive toolkit (top voted on the Tool Roadmap). The scoring is assets/js/scorecard-core.js,
+    the page behaviour assets/js/scorecard.js; everything stays in the visitor's browser."""
+    tmpl = "".join(f'<button type="button" role="radio" aria-checked="false" data-template="{k}">{n}</button>'
+                   for k, n in [("balanced", "Balanced"), ("customer", "Customer-led"), ("growth", "Growth"), ("ice", "ICE")])
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div class="art">{toolkit_open()}</div>
+  </div>
+</header>
+
+<section style="padding-top:28px">
+  <div class="wrap sc" id="scorecard">
+    <div class="sc-bar">
+      <div class="field sc-title"><label for="sc-title">Name this scorecard</label><input id="sc-title" maxlength="80" placeholder="For example: Q3 roadmap"></div>
+      <div class="sc-actions">
+        <button type="button" class="btn sm" data-sc="share">Share a link</button>
+        <button type="button" class="btn sm ghost" data-sc="csv">Download CSV</button>
+        <button type="button" class="btn sm ghost" data-sc="print">Print or save as PDF</button>
+        <button type="button" class="btn sm ghost" data-sc="reset">Start over</button>
+      </div>
+      <div class="sc-share" id="sc-share" hidden><label for="sc-share-url">Anyone with this link sees a copy of this scorecard:</label><input id="sc-share-url" readonly><p class="form-status" id="sc-share-status" role="status"></p></div>
+    </div>
+
+    <div class="sc-grid">
+      <div>
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">1</span><div><h2>Choose what matters</h2><p class="muted">Start from a template, then rename, reweight, add or remove criteria. Weight 0 switches one off.</p></div></div>
+          <div class="seg sc-templates" role="radiogroup" aria-label="Start from a template">{tmpl}</div>
+          <div class="sc-criteria" id="sc-criteria"></div>
+          <button type="button" class="btn sm ghost" data-sc="add-criterion">+ Add a criterion</button>
+        </div>
+
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">2</span><div><h2>Score your features</h2><p class="muted">1 is low and 5 is high. For criteria marked <b>lower is better</b>, like effort or risk, 5 means a lot of it. Tip: have two people score on their own, then compare.</p></div></div>
+          <div class="sc-table-wrap"><table class="sc-table" id="sc-table"></table></div>
+          <div class="btn-row"><button type="button" class="btn sm ghost" data-sc="add-feature">+ Add a feature</button><button type="button" class="btn sm ghost" data-sc="examples">Fill in an example</button></div>
+        </div>
+      </div>
+
+      <div class="sc-side">
+        <div class="card sc-card sc-results-card">
+          <div class="sc-step"><span class="num">3</span><div><h2>Your ranking</h2><p class="muted">Updates as you go. Scores run from 0 to 100.</p></div></div>
+          <ol class="sc-results" id="sc-results" aria-live="polite"></ol>
+          <p class="muted sc-close-note" id="sc-close-note" hidden><span class="sc-chip">Close call</span> These are within 5 points of each other. Talk them through rather than trusting the decimals.</p>
+        </div>
+        <div class="card tint">
+          <h3>Make it stick</h3>
+          <ul class="book-list">
+            <li><b>Argue about weights, not scores.</b> Agree what matters first; the ranking follows.</li>
+            <li><b>Write down why.</b> The CSV or PDF is your record when someone asks later.</li>
+            <li><b>Re-run it each quarter.</b> Goals change, and so should the weights.</li>
+          </ul>
+          <hr class="rule">
+          <p>Want a hand running this with your team?</p>
+          <a class="btn sm" href="{BOOK}">Book a free 30-minute call</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="assets/js/scorecard-core.js"></script>
+<script src="assets/js/scorecard.js"></script>'''
+    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weight your criteria, score your features, and get a ranked roadmap you can share, download or print.", body))
+
+
 # ---------------------------------------------------------------- book a call
 def book():
     """The booking page. assets/js/site.js (initBooking) asks the Apps Script for open times from the Google
@@ -758,7 +839,7 @@ def notfound():
 
 
 def build_all():
-    home(); services(); toolkits(); about(); contact(); book(); preferences(); legal(); notfound()
+    home(); services(); toolkits(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound()
 
 
 if __name__ == "__main__":

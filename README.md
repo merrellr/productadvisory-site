@@ -197,3 +197,12 @@ free 30-minute call. It talks to the same Apps Script as the contact form (`apps
   who booked, what they want help with, the services they're interested in, how soon, busiest days, contact messages
   by reason, questions asked and the ones the site couldn't answer. Set up once by running `installInsights` in the
   Apps Script editor; `sendInsightsNow` sends this month so far. Tested in `tests/booking.test.mjs`.
+
+## Feature Prioritization Scorecard (`/scorecard`)
+
+The first interactive toolkit (top voted on the Tool Roadmap). `scorecard.html` is built by `scorecard()` in
+`src/build.py`; the scoring is `assets/js/scorecard-core.js` (tested by `tests/scorecard.test.mjs`) and the page is
+`assets/js/scorecard.js`. Criteria have a weight (0–5) and a direction (a cost such as effort counts the other way);
+features are scored 1–5; the score is the weighted average as 0–100, with "close calls" within 5 points. Templates:
+Balanced, Customer-led, Growth, ICE. Saved in the browser (`localStorage`), shared as a link (the scorecard in the
+`#s=` part, never sent to a server), downloaded as CSV, or printed/saved as PDF. Limits: 8 criteria, 30 features.
