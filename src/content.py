@@ -53,3 +53,21 @@ DOMAINS = [
     ("Customer & Market Discovery", 72), ("Product Strategy & Roadmapping", 58), ("Prioritization & Trade-offs", 64),
     ("Execution & Delivery", 81), ("Stakeholder Communication & Influence", 90), ("AI Fluency — Individual", 55), ("AI Fluency — Organizational", 38),
 ]
+
+# Questions people ask about working with us: shown on the Services page and marked up as FAQPage for search.
+SERVICES_FAQ = [
+    ("What does a product management consultant do?",
+     "We help a company decide what to build and why, then make sure it gets built and launched well. That can mean an evidence-based product strategy, a roadmap tied to business goals, market and customer research, a repeatable lifecycle process, or coaching your product managers. We work alongside your team rather than replacing it."),
+    ("What is a Fractional CPO, and when do we need one?",
+     "A Fractional Chief Product Officer is senior product leadership for part of the week instead of a full-time executive hire. It fits when you have no clear product strategy or owner, your roadmap and growth goals live in separate documents, or your product team needs a leader to mentor them. Our Fractional CPO+ package sets product vision, builds your roadmap process and mentors your team, scaled to your stage and budget."),
+    ("How do you help a company adopt AI?",
+     "We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide."),
+    ("Do you work with startups or enterprises?",
+     "Both. Our service packages are scoped for early-stage startups and for enterprises, and we scale our involvement from a single focused project to an embedded, end-to-end product partnership."),
+    ("Where are you based? Do you work remotely?",
+     "Product Advisory is based in Chicago, Illinois, and works with teams around the world, remotely and on site."),
+    ("How do we get started?",
+     "Book a free 30-minute call. We will talk through what you are working on and where we could help. If you are not sure which service fits, the three-question finder on the Services page suggests a starting point."),
+    ("Can we see how your assessments work before we commit?",
+     "Yes. Our PM + AI skill assessment is live: 14 questions across seven product and AI skill areas, with a personalized learning path at the end. It is free to take at assessment.productadvisory.co."),
+]

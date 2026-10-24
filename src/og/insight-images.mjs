@@ -178,6 +178,23 @@ const ARTS = {
         return s + '</svg>';
       })() },
     figures: {
+      'key-ideas': { title: 'Beyond automation at a glance', sub: 'Three roles, one thesis and three levels of human impact.',
+        css: `.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}.c{background:#fff;border-radius:16px;padding:22px 22px 24px}
+          .pill{display:inline-block;font-family:'JetBrains Mono';font-size:13px;letter-spacing:.12em;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+          .c h3{font-family:Fraunces,serif;font-size:25px;color:${C.navy};margin-bottom:8px;line-height:1.15}.c p{font-size:17.5px;line-height:1.5;color:${C.soft}}
+          .two{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}.q{background:#fff;border-radius:16px;padding:26px 28px;border-left:7px solid ${C.violet}}
+          .q blockquote{font-family:Fraunces,serif;font-style:italic;font-size:25px;line-height:1.38;color:${C.navy}}.q small{display:block;margin-top:14px;font-size:15px;color:${C.mute}}
+          .lv{background:#fff;border-radius:16px;padding:22px 26px}.lv h4{font-family:'JetBrains Mono';font-weight:500;font-size:14px;letter-spacing:.16em;color:${C.mute};margin-bottom:12px}
+          .lv div{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:10px 0;border-top:1px solid #ece8e0;font-size:17.5px;line-height:1.4}.lv i{width:12px;height:12px;border-radius:50%;margin-top:6px}`,
+        html: `<div class="three">
+          <div class="c"><span class="pill" style="background:#dcefe9;color:${C.teal}">AI ROLE</span><h3>The engine of scale</h3><p>AI handles the "what": 24/7 availability, data-driven personalization, smart routing, and instant summaries that get agents up to speed in seconds.</p></div>
+          <div class="c"><span class="pill" style="background:#ebe8fb;color:#5a49b8">HUMAN ROLE</span><h3>The heart of the relationship</h3><p>People handle the "how": empathy, creative problem solving, rapport, and the moments of genuine care that turn satisfied customers into loyal advocates.</p></div>
+          <div class="c"><span class="pill" style="background:#f8edd0;color:#8a5f12">THE MODEL</span><h3>Co-pilot, not replacement</h3><p>AI spots the perfect moment to hand off. A person steps in with a quick win. The result is an experience no competitor can easily copy.</p></div></div>
+          <div class="two"><div class="q"><blockquote>The real magic happens when AI isn't just a replacement but an amplifier, enabling your team to deliver the small, quick wins that build a customer relationship for life.</blockquote><small>The article's key idea</small></div>
+          <div class="lv"><h4>THREE LEVELS OF HUMAN IMPACT</h4>
+            <div><i style="background:${C.violet}"></i><span><b>Quick win:</b> proactive, personal outreach in the moment</span></div>
+            <div><i style="background:${C.teal}"></i><span><b>Empathetic escalation:</b> ownership when frustration peaks</span></div>
+            <div><i style="background:#d39b2a"></i><span><b>Deep research:</b> consultative value that astonishes customers</span></div></div></div>` },
       'automation-vs-collaboration': { title: 'Automation alone vs collaborative intelligence', sub: 'The difference isn\'t the technology. It\'s whether AI replaces your team or amplifies it.',
         css: `.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.col{background:#fff;border-radius:16px;padding:24px 26px;border-top:7px solid}.col h3{font-family:'JetBrains Mono';font-weight:500;font-size:15px;letter-spacing:.18em;margin-bottom:14px}
           .col ul{list-style:none;padding:0;display:grid;gap:12px}.col li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:19px;line-height:1.45;color:${C.ink}}

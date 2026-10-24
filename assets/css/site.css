@@ -334,7 +334,7 @@ section { padding: var(--section) 0; }
 .art-signal .hot-pill text.lbl { fill: #0b1b33; }
 .art-signal text.cap { font: 700 10px/1 var(--sans); letter-spacing: .18em; fill: currentColor; opacity: .55; }
 .art-lens { overflow: visible; }
-.art-lens :is(path, rect) { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+:is(.art-path, .art-orbit, .art-toolkit, .art-signal, .art-contact, .art-lens) :is(path, rect) { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .art-lens rect.page { fill: var(--bg); }
 .art-lens text.masthead { font-size: 17px; }
 .art-lens path.plus { stroke: var(--cyan); stroke-width: 4.5; }

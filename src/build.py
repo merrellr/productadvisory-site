@@ -13,7 +13,7 @@ import sys
 from html import escape
 
 from parts import *  # noqa
-from content import SERVICES, PACKAGES, LEVELS, DOMAINS
+from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ
 from legal import PRIVACY, TERMS
 from art import path_art, orbit, toolkit_open, signal, conversation, insight_lens
 from insights import ARTICLES, CATEGORIES, category
@@ -71,6 +71,30 @@ def page_head(title, sub, art):
     <div class="art">{art}</div>
   </div>
 </header>'''
+
+
+# ---------------------------------------------------------------- structured data (schema.org JSON-LD) for search and AI answers
+ORG = {"@id": SITE + "#org"}
+
+
+def ld(*nodes, crumbs=None):
+    """One JSON-LD script: the given nodes, plus a breadcrumb trail when crumbs is [(name, path), ...]."""
+    import json
+    graph = list(nodes)
+    if crumbs:
+        trail = [("Home", "")] + crumbs
+        graph.append({"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": n, "name": name, "item": SITE + path} for n, (name, path) in enumerate(trail, 1)]})
+    return f'<script type="application/ld+json">{json.dumps({"@context": "https://schema.org", "@graph": graph})}</script>\n'
+
+
+def faq_ld(faq):
+    return {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": plain(a)}} for q, a in faq]}
+
+
+def og(name):
+    """The page's own sharing image (rendered by src/og/pages.py)."""
+    return f"assets/img/og/{name}.jpg"
 
 
 def cta_band(h="Have a project in mind? Let's talk.", p="Whether you're validating your first product idea or scaling an enterprise platform, we'd love to hear what you're working on."):
@@ -146,10 +170,10 @@ def home():
              ("Launch", "Go to market: sales, integration, education and communications.")]
     steps_html = "".join(f'<div class="step reveal"><div class="pin">{n}</div><h3>{t}</h3><p>{d}</p></div>' for n, (t, d) in enumerate(steps, 1))
     jsonld = f'''<script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"ProfessionalService","name":"Product Advisory, LLC","url":"{SITE}","slogan":"Building Market Driven Products",
+{{"@context":"https://schema.org","@type":"ProfessionalService","@id":"{SITE}#org","name":"Product Advisory, LLC","alternateName":"Product Advisory","url":"{SITE}","logo":"{SITE}assets/img/favicon-192.png","image":"{SITE}assets/img/og.png","sameAs":["{LINKEDIN}"],"slogan":"Building Market Driven Products",
 "description":"Product management consulting for startups and enterprises: product strategy, lifecycle management, AI enablement, market research, agile transformation, team coaching, and custom skill assessments.",
 "email":"info@productadvisory.co","telephone":"+1-727-386-6815","areaServed":"Worldwide","address":{{"@type":"PostalAddress","addressLocality":"Chicago","addressRegion":"IL","addressCountry":"US"}},
-"founder":{{"@type":"Person","name":"Robert Merrell","url":"{PORTFOLIO}"}},
+"founder":{{"@type":"Person","@id":"{SITE}about#robert-merrell","name":"Robert Merrell","jobTitle":"Founder and Fractional CPO","url":"{PORTFOLIO}"}},
 "hasOfferCatalog":{{"@type":"OfferCatalog","name":"Services","itemListElement":[{",".join('{"@type":"Offer","itemOffered":{"@type":"Service","name":"%s"}}' % t for _, _, t, *_ in SERVICES)}]}}}}
 </script>
 '''
@@ -288,7 +312,7 @@ def home():
 
 # ---------------------------------------------------------------- services
 def services():
-    index_links = "".join(f'<a href="#{i}">{t}</a>' for i, _, t, *_ in SERVICES) + '<a href="#finder">Find your fit</a><a href="#packages">Service packages</a><a href="#also">Also ask us about</a>'
+    index_links = "".join(f'<a href="#{i}">{t}</a>' for i, _, t, *_ in SERVICES) + '<a href="#finder">Find your fit</a><a href="#packages">Service packages</a><a href="#also">Also ask us about</a><a href="#faq">FAQ</a>'
     details = "".join(f'''<article class="svc-detail reveal" id="{i}" data-ask="{t}" data-kind="Service">
   {icon(ic)}
   <div>
@@ -360,8 +384,19 @@ def services():
     </div>
   </div>
 </section>
+<section class="band" id="faq" data-ask="Questions people ask about working with us" data-kind="Service" data-keywords="faq fractional cpo consultant remote startups enterprise get started pricing">
+  <div class="wrap narrow">
+    <div class="section-head reveal"><div class="eyebrow">FAQ</div><h2>Questions people ask</h2></div>
+    <div class="prose services-faq">{"".join(f'<h3>{escape(q)}</h3><p>{escape(a)}</p>' for q, a in SERVICES_FAQ)}</div>
+  </div>
+</section>
 {cta_band()}'''
-    write("services.html", page("services.html", "Services", "Product strategy, lifecycle management, AI enablement, market research, agile transformation, team coaching, custom assessments, and service packages including Fractional CPO+.", body))
+    services_ld = ld({"@type": "ItemList", "name": "Product Advisory services", "itemListElement": [
+        {"@type": "ListItem", "position": n, "item": {"@type": "Service", "name": t, "description": fw, "url": f"{SITE}services#{i}", "provider": ORG, "areaServed": "Worldwide"}}
+        for n, (i, _, t, fw, *_) in enumerate(SERVICES + [(k, None, t, plain(d).split(". ")[0] + ".") for k, _, t, d, _ in PACKAGES], 1)]},
+        faq_ld(SERVICES_FAQ), crumbs=[("Services", "services")])
+    write("services.html", page("services.html", "Services", "Product strategy, lifecycle management, AI enablement, market research, agile transformation, team coaching, custom assessments, and service packages including Fractional CPO+.", body,
+                                extra_head=services_ld, image=og("services")))
 
 
 # ---------------------------------------------------------------- toolkits + learning
@@ -520,7 +555,14 @@ def toolkits():
 {cta_band("Ready to see where you stand?", "Take the free skill check in about ten minutes, or talk to us about benchmarking your whole team.")}'''
     body = body.replace(f'<a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="contact.html">Send a message</a></div>\n    </div>\n  </div>\n</section>',
                         f'<a class="btn" href="{ASSESS}" {EXT}>Take the assessment</a><a class="btn ghost" href="{ASSESS}request-info?src=site-learning&amp;who=org" {EXT}>Team assessments</a></div>\n    </div>\n  </div>\n</section>')
-    write("toolkits.html", page("toolkits.html", "Toolkits & Learning", "Free fillable toolkits for product decisions, and a free 14-question product + AI skill check matched to a learning path.", body))
+    write("toolkits.html", page("toolkits.html", "Toolkits & Learning", "Free fillable toolkits for product decisions, and a free 14-question product + AI skill check matched to a learning path.", body,
+          extra_head=ld({"@type": "CollectionPage", "name": "Toolkits & Learning", "url": SITE + "toolkits", "publisher": ORG, "hasPart": [
+              {"@type": "WebApplication", "name": "Feature Prioritization Scorecard", "url": SITE + "scorecard", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
+              {"@type": "DigitalDocument", "name": "Which prioritization method? cheat sheet", "url": SITE + "assets/toolkits/which-prioritization-method.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
+              {"@type": "DigitalDocument", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "assets/toolkits/build-buy-partner-matrix.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
+              {"@type": "DigitalDocument", "name": "Organizational Impact Score", "url": SITE + "assets/toolkits/organizational-impact-score.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
+              {"@type": "WebApplication", "name": "PM + AI skill assessment", "url": ASSESS, "applicationCategory": "EducationalApplication", "isAccessibleForFree": True}]},
+              crumbs=[("Toolkits", "toolkits")]), image=og("toolkits")))
 
 
 # ---------------------------------------------------------------- about
@@ -557,7 +599,11 @@ def about():
   </div>
 </section>
 {cta_band()}'''
-    write("about.html", page("about.html", "About Us", "Product Advisory is a product management consulting firm that helps startups and enterprises turn market insight into products people actually want.", body))
+    write("about.html", page("about.html", "About Us", "Product Advisory is a product management consulting firm that helps startups and enterprises turn market insight into products people actually want.", body,
+          extra_head=ld({"@type": "AboutPage", "name": "About Product Advisory", "url": SITE + "about", "about": ORG, "mainEntity": ORG},
+                        {"@type": "Person", "@id": SITE + "about#robert-merrell", "name": "Robert Merrell", "jobTitle": "Founder and Fractional CPO",
+                         "worksFor": ORG, "url": PORTFOLIO, "homeLocation": {"@type": "Place", "name": "Chicago, Illinois"}},
+                        crumbs=[("About", "about")]), image=og("about")))
 
 
 # ---------------------------------------------------------------- contact
@@ -616,7 +662,8 @@ def contact():
     </aside>
   </div>
 </section>'''
-    write("contact.html", page("contact.html", "Contact Us", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body))
+    write("contact.html", page("contact.html", "Contact Us", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body,
+          extra_head=ld({"@type": "ContactPage", "name": "Contact Product Advisory", "url": SITE + "contact", "about": ORG}, crumbs=[("Contact", "contact")]), image=og("contact")))
 
 
 # The booking page's quick questions. The same choices are listed in apps-script/ask.gs (BOOKING_NEEDS_ and
@@ -730,7 +777,12 @@ def scorecard():
 </section>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
-    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight your criteria, score your features, compare the rankings, and share, download or print the result.", body))
+    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight your criteria, score your features, compare the rankings, and share, download or print the result.", body,
+          extra_head=ld({"@type": "WebApplication", "name": "Feature Prioritization Scorecard", "url": SITE + "scorecard", "applicationCategory": "BusinessApplication",
+                         "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                         "description": "Rank product features with weighted scoring or RICE, compare the two rankings side by side, and share, download or print the result.",
+                         "featureList": ["Weighted scoring with criteria you can change", "RICE scoring (reach, impact, confidence, effort)", "Side-by-side comparison of both rankings", "Share link, CSV download and print"],
+                         "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("Feature Prioritization Scorecard", "scorecard")]), image=og("scorecard")))
 
 
 # ---------------------------------------------------------------- book a call
@@ -807,7 +859,7 @@ def book():
     </aside>
   </div>
 </section>'''
-    write("book.html", page("book.html", "Book a free call", "Book a free 30-minute call with Product Advisory: pick a time that suits you and talk it through on Google Meet.", body))
+    write("book.html", page("book.html", "Book a free call", "Book a free 30-minute call with Product Advisory: pick a time that suits you and talk it through on Google Meet.", body, image=og("book")))
 
 
 # ---------------------------------------------------------------- preferences
@@ -1005,23 +1057,25 @@ def insights():
   </div>
 </section>
 {cta_band()}'''
-    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body))
+    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body,
+          extra_head=ld({"@type": "Blog", "@id": SITE + "insights#blog", "name": "Product+ insights", "url": SITE + "insights", "publisher": ORG,
+                         "blogPost": [{"@type": "BlogPosting", "headline": a["title"], "url": f"{SITE}insights/{a['slug']}", "datePublished": a["date"],
+                                       "image": f"{SITE}assets/insights/{a['slug']}/og.jpg"} for a in full if a.get("body")]},
+                        crumbs=[("Insights", "insights")]), image=og("insights")))
     for a in full + [a for a in ARTICLES if a.get("draft") and a.get("body")]:
         article_page(a, full)
 
 
 def article_page(a, full):
-    import json
     url = f"{SITE}insights/{a['slug']}"
-    ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["dek"],
-          "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "mainEntityOfPage": url,
-          "author": {"@type": "Organization", "name": "Product Advisory", "url": SITE},
-          "publisher": {"@type": "Organization", "name": "Product Advisory", "url": SITE}}
-    if a.get("updated"):
-        ld["dateModified"] = a["updated"]
-    if a.get("faq"):
-        ld = {"@context": "https://schema.org", "@graph": [dict((k, v) for k, v in ld.items() if k != "@context"),
-              {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in a["faq"]]}]}
+    art = {"@type": "BlogPosting", "headline": a["title"], "description": a["dek"],
+           "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "dateModified": a.get("updated") or a["date"],
+           "mainEntityOfPage": url, "articleSection": a["topic"], "author": ORG, "publisher": ORG, "isPartOf": {"@id": SITE + "insights#blog"}}
+    if a.get("keywords"):
+        art["keywords"] = ", ".join(a["keywords"].split())
+    if a.get("linkedin"):
+        art["sameAs"] = [a["linkedin"]]
+    head_ld = ld(art, *([faq_ld(a["faq"])] if a.get("faq") else []), crumbs=[("Insights", "insights"), (a["title"], f"insights/{a['slug']}")])
     takeaways = (f'<aside class="takeaways cat-{category(a)}" aria-labelledby="tk-{a["slug"]}"><h2 id="tk-{a["slug"]}">Key takeaways</h2>'
                  f'<ul>{"".join(f"<li>{escape(t)}</li>" for t in a["takeaways"])}</ul></aside>') if a.get("takeaways") else ""
     faq = (f'<section class="post-faq"><h2>Questions people ask</h2>'
@@ -1061,16 +1115,57 @@ def article_page(a, full):
   </div>
 </section>'''
     write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a["title"], a["dek"], body,
-          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + f'<script type="application/ld+json">{json.dumps(ld)}</script>\n',
+          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld,
           image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
 
 
 def sitemap():
-    pages = ["", "services", "toolkits", "insights"] + [f"insights/{a['slug']}" for a in published()] + \
-            ["about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use"]
-    urls = "\n".join(f"  <url><loc>{SITE}{p}</loc></url>" for p in pages)
+    """Every public page; articles carry their date (or last update), and the Insights list its newest article's."""
+    arts = published()
+    newest = max((a.get("updated") or a["date"] for a in arts), default="")
+    pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
+            [(p, "") for p in ("about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")]
+    urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
+
+
+def llms():
+    """llms.txt: a plain summary of the site for AI assistants (llmstxt.org), rebuilt from the same content as the pages."""
+    svc = "\n".join(f"- [{t}]({SITE}services#{i}): {fw[0].lower() + fw[1:]}" for i, _, t, fw, *_ in SERVICES)
+    pk = ", ".join(t for _, _, t, _, _ in PACKAGES)
+    arts = "\n".join(f"- [{a['title']}]({SITE}insights/{a['slug']}): {a['dek']}" for a in published() if a.get("body"))
+    faq = "\n".join(f"- **{q}** {a}" for q, a in SERVICES_FAQ)
+    text = f"""# Product Advisory
+
+> Product Advisory, LLC is a product management consulting firm in Chicago, Illinois that helps startups and enterprises build market driven products: turning market insight into roadmaps teams can defend, and products people actually want. Founded by Robert Merrell (Fractional CPO). Over 50 years of combined technology and product experience across healthcare, data strategy and enterprise software.
+
+## Services
+{svc}
+- [Service packages]({SITE}services#packages): {pk}.
+
+## Free resources
+- [Toolkits]({SITE}toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
+- [Feature Prioritization Scorecard]({SITE}scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
+- [Which prioritization method? cheat sheet]({SITE}assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.
+- Coming soon: Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool]({ASSESS}tool-requests)
+- [PM + AI skill assessment]({ASSESS}): 14 questions across seven product and AI competencies, with a personalized learning path.
+
+## Insights (Product+ articles)
+- [Insights]({SITE}insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
+{arts}
+
+## Questions people ask
+{faq}
+
+## Contact
+- [Book a free 30-minute call]({SITE}book)
+- Email: info@productadvisory.co (sales: sales@productadvisory.co)
+- [About]({SITE}about) · [Contact]({SITE}contact)
+- [LinkedIn]({LINKEDIN}) · [Product+ newsletter]({NEWSLETTER}) · [Slack community]({SLACK})
+"""
+    with open(os.path.join(OUT, "llms.txt"), "w") as f:
+        f.write(text)
 
 
 def check_search_pages():
@@ -1083,7 +1178,7 @@ def check_search_pages():
 
 def build_all():
     check_search_pages()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound(); sitemap()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound(); sitemap(); llms()
 
 
 if __name__ == "__main__":

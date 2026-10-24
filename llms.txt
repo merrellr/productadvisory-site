@@ -5,11 +5,11 @@
 ## Services
 - [Product Strategy Development](https://www.productadvisory.co/services#strategy): for when your roadmap doesn't connect to business goals.
 - [Product Lifecycle Management](https://www.productadvisory.co/services#lifecycle): for when strategy and execution operate in silos.
-- [AI Enablement](https://www.productadvisory.co/services#ai): turning scattered individual AI use into organizational capability.
+- [AI Enablement](https://www.productadvisory.co/services#ai): for when AI adoption is scattered across a few individuals instead of built into how your team actually works.
 - [Market Research and Analysis](https://www.productadvisory.co/services#research): for when decisions are based on guesses, not evidence.
 - [Agile Transformation](https://www.productadvisory.co/services#agile): for when speed doesn't translate into building the right things.
 - [Product Team Coaching and Development](https://www.productadvisory.co/services#coaching): for teams with the will, but not yet the process.
-- [Custom Assessments & Interactive Learning](https://www.productadvisory.co/services#assessments): skill assessments and learning built around a team's real gaps.
+- [Custom Assessments & Interactive Learning](https://www.productadvisory.co/services#assessments): for when you don't actually know where your team's skill gaps are, or your training doesn't target them.
 - [Service packages](https://www.productadvisory.co/services#packages): Fractional CPO+, Training & Education, Market Validation, Go to Market, Security & Compliance, Contracting & Legal, Sales & Marketing, UX/UI Design.
 
 ## Free resources
@@ -21,13 +21,22 @@
 
 ## Insights (Product+ articles)
 - [Insights](https://www.productadvisory.co/insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
-- [A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)](https://www.productadvisory.co/insights/day-in-the-life)
-- [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): why Copilot Studio is the bridge from individual to organizational AI enablement.
-- [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): when to use each, a worked example where the same four features rank almost in reverse, and how to combine them.
-- [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): value density, bet maps and the OEM loop (Outcome, Evidence, Minimum).
-- [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents)
-- [From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job](https://www.productadvisory.co/insights/roadmaps-to-rituals): how agents take the first pass on backlog grooming, market research, experiment design and KPI reviews.
-- [Beyond Automation: Win Customers for Life](https://www.productadvisory.co/insights/beyond-automation): AI handles the volume and spots the moment; people deliver the quick wins and deep value that turn customers into lifelong advocates.
+- [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.
+- [A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)](https://www.productadvisory.co/insights/day-in-the-life): Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.
+- [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): From novice to organization: why Copilot Studio is the bridge to real AI enablement.
+- [Beyond Automation: Win Customers for Life](https://www.productadvisory.co/insights/beyond-automation): How AI supercharges the human factor, and why the real magic happens when technology amplifies your team instead of replacing it.
+- [From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job](https://www.productadvisory.co/insights/roadmaps-to-rituals): Agents can own the first pass of backlog grooming, market research, experiment design and KPI reviews. The PM's job moves to orchestration and sense making.
+- [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents): How to shape LLMs to improve product judgment, decision quality and outcomes.
+- [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): Why shipping more isn't helping your users, and what to do instead.
+
+## Questions people ask
+- **What does a product management consultant do?** We help a company decide what to build and why, then make sure it gets built and launched well. That can mean an evidence-based product strategy, a roadmap tied to business goals, market and customer research, a repeatable lifecycle process, or coaching your product managers. We work alongside your team rather than replacing it.
+- **What is a Fractional CPO, and when do we need one?** A Fractional Chief Product Officer is senior product leadership for part of the week instead of a full-time executive hire. It fits when you have no clear product strategy or owner, your roadmap and growth goals live in separate documents, or your product team needs a leader to mentor them. Our Fractional CPO+ package sets product vision, builds your roadmap process and mentors your team, scaled to your stage and budget.
+- **How do you help a company adopt AI?** We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide.
+- **Do you work with startups or enterprises?** Both. Our service packages are scoped for early-stage startups and for enterprises, and we scale our involvement from a single focused project to an embedded, end-to-end product partnership.
+- **Where are you based? Do you work remotely?** Product Advisory is based in Chicago, Illinois, and works with teams around the world, remotely and on site.
+- **How do we get started?** Book a free 30-minute call. We will talk through what you are working on and where we could help. If you are not sure which service fits, the three-question finder on the Services page suggests a starting point.
+- **Can we see how your assessments work before we commit?** Yes. Our PM + AI skill assessment is live: 14 questions across seven product and AI skill areas, with a personalized learning path at the end. It is free to take at assessment.productadvisory.co.
 
 ## Contact
 - [Book a free 30-minute call](https://www.productadvisory.co/book)

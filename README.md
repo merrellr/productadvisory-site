@@ -13,7 +13,14 @@ python3 src/build.py --check   # fails if a committed page differs from what src
 `src/build.py` holds the pages, `src/parts.py` the header, footer, head tags and icons, `src/content.py` the services
 and packages, `src/legal.py` the privacy policy and terms, and `src/art.py` the page-head illustrations. Commit both
 the source and the rebuilt pages. `assets/` (CSS, JavaScript, images, toolkit files) is edited directly.
-`src/og/` has the sharing image.
+`src/og/` has the sharing images: `og.html` for the home page, and `pages.py` for one per main page
+(`assets/img/og/<page>.jpg`, the page's title and its page-head art; rerun it after changing a page head or its art).
+`llms.txt` and `sitemap.xml` are built too: edit the content, not those files.
+
+**Structured data.** Every main page carries schema.org JSON-LD with a breadcrumb trail (the `ld()` helper in
+build.py): the home page the organization, Services its services and FAQ (`SERVICES_FAQ` in content.py, also shown
+on the page and in llms.txt), Toolkits and the Scorecard their free tools, Insights the article list, About the
+founder, Contact a contact page.
 
 | Page | File |
 | --- | --- |
@@ -63,7 +70,8 @@ To add one:
 3. Run `python3 src/build.py`. It writes the article page, updates the Insights page and adds it to `sitemap.xml`.
 4. After it's live, ask Google Search Console to index the new address (URL Inspection → Request indexing).
 
-Each article page carries Article structured data (for search), its own sharing image and a canonical address.
+Each article page carries BlogPosting structured data (with its FAQ and breadcrumbs), its own sharing image and a
+canonical address, and its date (or `updated`) is its `lastmod` in the sitemap.
 
 **Written to be quoted (search and AI assistants).** An article can have `takeaways` (shown first as "Key takeaways")
 and `faq` (question and answer pairs shown at the end as "Questions people ask", and marked up as FAQPage next to the
