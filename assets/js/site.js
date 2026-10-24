@@ -21,7 +21,7 @@
   // site search, and the contact form opens a pre-filled email instead.
   var ASK_ENDPOINT = "https://script.google.com/macros/s/AKfycbzhpNvZQUpdchS4ZwXtD7uAV2pYic728ktZkAT5hDGjrg680BYeg98zBAPNaVahXSPyyg/exec";
   var PAGES = ["index.html", "services.html", "toolkits.html", "insights.html", "about.html", "contact.html",
-    "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/roadmaps-to-rituals.html", "insights/rice-vs-weighted-scoring.html", "insights/product-focused-ai-agents.html"];
+    "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/roadmaps-to-rituals.html", "insights/rice-vs-weighted-scoring.html", "insights/beyond-automation.html", "insights/product-focused-ai-agents.html"];
   var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "insights.html": "Insights", "about.html": "About", "contact.html": "Contact" };
 
   // Links that open a new tab show ↗ and say so to screen readers (pages get this from the build).

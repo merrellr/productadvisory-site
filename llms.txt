@@ -27,6 +27,7 @@
 - [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): value density, bet maps and the OEM loop (Outcome, Evidence, Minimum).
 - [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents)
 - [From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job](https://www.productadvisory.co/insights/roadmaps-to-rituals): how agents take the first pass on backlog grooming, market research, experiment design and KPI reviews.
+- [Beyond Automation: Win Customers for Life](https://www.productadvisory.co/insights/beyond-automation): AI handles the volume and spots the moment; people deliver the quick wins and deep value that turn customers into lifelong advocates.
 
 ## Contact
 - [Book a free 30-minute call](https://www.productadvisory.co/book)
