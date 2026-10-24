@@ -87,6 +87,6 @@ CONTACT_HELP = {
     "team": ["A skill assessment for the team", "Training & workshops", "Coaching for product managers", "AI skills for the team",
              "Learning paths for each person", "Coaching for product leaders"],
     "toolkits": ["Build, Buy, or Partner Decision Matrix", "Organizational Impact Score", "Feature Prioritization Scorecard",
-                 "Which prioritization method? cheat sheet", "Help using a toolkit with my team", "An idea for a new toolkit"],
+                 "AI Use Case Prioritization", "Which prioritization method? cheat sheet", "Help using a toolkit with my team", "An idea for a new toolkit"],
     "other": ["Speaking or a podcast", "Product+ or writing", "A partnership or integration", "An introduction", "Something else"],
 }

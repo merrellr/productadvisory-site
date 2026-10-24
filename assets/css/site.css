@@ -302,6 +302,10 @@ section { padding: var(--section) 0; }
 .net .doc path { stroke-width: 2; opacity: .5; }
 .net rect.doc-band { fill: var(--cyan); stroke: none; }
 .net circle.doc-dot { fill: var(--cyan); stroke: none; }
+.art-toolkit path.lid-face { fill: color-mix(in srgb, currentColor 7%, var(--bg)); stroke: none; }
+.art-toolkit path.handle { stroke-width: 6; }
+.art-toolkit path.lid { stroke-width: 4; }
+.art-toolkit rect.hingeplate { fill: var(--bg); stroke-width: 3; }
 .net circle.doc-dot.faint { fill: currentColor; opacity: .35; }
 .net .doc rect.doc-box { stroke-width: 1.6; opacity: .6; }
 .net rect.slot { stroke-width: 1.8; stroke-dasharray: 4 4; opacity: .55; }

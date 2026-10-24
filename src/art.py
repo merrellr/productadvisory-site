@@ -52,29 +52,33 @@ def orbit():
 
 
 def toolkit_open():
-    """Toolkits: the briefcase opens and the four tools rise out: two templates, the scorecard and the AI use case map."""
+    """Toolkits: an open toolbox, lid up with its carry handle; the four tools rise out of it: two templates, the
+    scorecard and the AI use case map."""
     out = []
-    # lid, hinged open behind the case
-    out.append('<path class="lid draw" style="--len:560;--d:.2s" d="M50 150 L70 70 a10 10 0 0 1 9.7-7.6 H320.3 a10 10 0 0 1 9.7 7.6 L350 150"/>')
-    docs = [(52, ("Build, Buy", "or Partner")), (122, ("Impact", "Score")), (192, ("Feature", "Scorecard")), (262, ("AI Use", "Cases"))]
+    # the lid, open behind the box, with its inside face and the carry handle on top
+    out.append('<path class="lid-face" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150 Z"/>')
+    out.append('<path class="lid draw" style="--len:600;--d:.2s" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150"/>')
+    out.append('<path class="handle draw" style="--len:120;--d:.5s" d="M168 50 V38 a10 10 0 0 1 10-10 H222 a10 10 0 0 1 10 10 V50"/>')
+    docs = [(68, ("Build,", "Buy")), (136, ("Impact", "Score")), (204, ("Feature", "Score")), (272, ("AI Use", "Cases"))]
     for i, (x, (t1, t2)) in enumerate(docs):
         if i < 2:      # templates: two lines and two boxes
-            inner = (f'<path d="M{x + 8} 92h50M{x + 8} 102h40"/>'
-                     f'<rect class="doc-box" x="{x + 8}" y="112" width="23" height="18" rx="3"/><rect class="doc-box" x="{x + 35}" y="112" width="23" height="18" rx="3"/>')
+            inner = (f'<path d="M{x + 8} 112h44M{x + 8} 120h32"/>'
+                     f'<rect class="doc-box" x="{x + 8}" y="127" width="20" height="13" rx="3"/><rect class="doc-box" x="{x + 32}" y="127" width="20" height="13" rx="3"/>')
         elif i == 2:   # the scorecard: a ranked list
-            inner = "".join(f'<rect class="doc-band" x="{x + 8}" y="{90 + 13 * k}" width="{w}" height="6" rx="3"/>' for k, w in enumerate((50, 38, 28, 16)))
+            inner = "".join(f'<rect class="doc-band" x="{x + 8}" y="{110 + 8 * k}" width="{w}" height="5" rx="2.5"/>' for k, w in enumerate((44, 34, 26, 14)))
         else:          # the AI use case map: value against feasibility, a dot in quick wins
-            inner = (f'<rect class="doc-box" x="{x + 8}" y="88" width="50" height="44" rx="3"/><path d="M{x + 33} 88v44M{x + 8} 110h50"/>'
-                     f'<circle class="doc-dot" cx="{x + 47}" cy="98" r="4.5"/><circle class="doc-dot faint" cx="{x + 19}" cy="121" r="3"/>')
-        out.append(f'<g class="doc rise" style="--d:{0.9 + 0.22 * i:.2f}s"><rect x="{x}" y="34" width="66" height="116" rx="6"/>'
-                   f'<rect class="doc-band" x="{x + 8}" y="42" width="24" height="5" rx="2"/>'
-                   f'<text class="lbl doc-t" x="{x + 8}" y="64">{t1}</text><text class="lbl doc-t" x="{x + 8}" y="77">{t2}</text>{inner}</g>')
-    # the case in front
+            inner = (f'<rect class="doc-box" x="{x + 8}" y="108" width="44" height="34" rx="3"/><path d="M{x + 30} 108v34M{x + 8} 125h44"/>'
+                     f'<circle class="doc-dot" cx="{x + 42}" cy="116" r="4"/><circle class="doc-dot faint" cx="{x + 17}" cy="134" r="2.8"/>')
+        out.append(f'<g class="doc rise" style="--d:{0.9 + 0.2 * i:.2f}s"><rect x="{x}" y="72" width="60" height="78" rx="6"/>'
+                   f'<rect class="doc-band" x="{x + 8}" y="79" width="20" height="4" rx="2"/>'
+                   f'<text class="lbl doc-t" x="{x + 8}" y="94">{t1}</text><text class="lbl doc-t" x="{x + 8}" y="104">{t2}</text>{inner}</g>')
+    # the box in front: body, lid seam, clasp, and two hinges
     out.append('<rect class="case draw" style="--len:760;--d:0s" x="40" y="150" width="320" height="122" rx="20"/>')
-    out.append('<path class="draw" style="--len:330;--d:.3s" d="M40 196 H360"/>')
-    out.append('<rect class="hot pop" style="--d:.8s" x="182" y="182" width="36" height="28" rx="6"/>')
-    out.append('<path class="tick draw" style="--len:60;--d:2.1s" d="m84 230 12 12 22-22"/><path class="tick draw" style="--len:60;--d:2.3s" d="m282 230 12 12 22-22"/>')
-    return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolkit with the Build, Buy, or Partner matrix, the Organizational Impact Score, the Feature Prioritization Scorecard and AI Use Case Prioritization">{"".join(out)}</svg>'
+    out.append('<path class="draw" style="--len:330;--d:.3s" d="M40 190 H360"/>')
+    out.append('<rect class="hingeplate pop" style="--d:.7s" x="78" y="143" width="26" height="12" rx="3"/><rect class="hingeplate pop" style="--d:.7s" x="296" y="143" width="26" height="12" rx="3"/>')
+    out.append('<rect class="hot pop" style="--d:.8s" x="182" y="176" width="36" height="28" rx="6"/>')
+    out.append('<path class="tick draw" style="--len:60;--d:2.1s" d="m84 228 12 12 22-22"/><path class="tick draw" style="--len:60;--d:2.3s" d="m282 228 12 12 22-22"/>')
+    return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolbox with four tools: the Build, Buy, or Partner matrix, the Organizational Impact Score, the Feature Prioritization Scorecard and AI Use Case Prioritization">{"".join(out)}</svg>'
 
 
 def signal():
