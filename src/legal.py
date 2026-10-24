@@ -19,7 +19,7 @@ PRIVACY = """
 <h2>What we collect</h2>
 <p>What we hold depends on which part of the site you use.</p>
 <p><b>Browsing the site.</b> Google Analytics records standard visit data such as pages viewed, approximate location, device and browser type, and referring site. GitHub Pages, which hosts our main site, also keeps basic server logs.</p><!-- HOSTING: was "Google Sites, which hosts our main site" -->
-<p><b>Contact form, email, and scheduling.</b> If you write to us or book a call, we receive your name, email address, any message you send, and the details you give when scheduling through Calendly, such as your company and what you want to discuss.</p>
+<p><b>Contact form, email, and scheduling.</b> If you write to us or book a call, we receive your name, email address, any message you send, and the details you give when booking a call, such as your company and what you want to discuss.</p>
 <p><b>Ask (site search).</b> When you type a question into Ask, the question and the matching sections of this site are sent to a third party AI service to write a short answer, and the question is logged so we can improve the site. We do not collect your name or email with it. Please do not include confidential information.</p>
 <p><b>Toolkits.</b> Toolkit PDFs and Google Sheets are free to download. The PDFs are filled in locally in your PDF reader, and what you enter is never sent to us. If you make your own copy of a Google Sheet, that copy lives in your Google account, not ours.</p>
 <p><b>Request a tool and voting page.</b> When you vote or suggest a tool, we collect an anonymous browser based ID, your votes, and the text of any suggestion. Giving an email address is optional and is used only to tell you when a tool you asked for is ready. Suggestions are reviewed before they appear publicly.</p>
@@ -46,10 +46,9 @@ PRIVACY = """
 <h2>Who we share it with</h2>
 <p>We share information only with the service providers that run the site and tools, and only as needed for them to do that job. We do not sell your information.</p>
 <ul>
-<li><b>Google (Analytics, Drive, Sheets, Firebase):</b> measures visits, stores files and results, and runs sign in. It may see visit data, assessment records, and account details.</li><!-- HOSTING: was "Google (Sites, Analytics, Drive, Sheets, Firebase): hosts the site, measures visits, ..." -->
+<li><b>Google (Analytics, Drive, Sheets, Calendar, Meet, Firebase):</b> measures visits, stores files and results, schedules calls and their video links, and runs sign in. It may see visit data, assessment records, booking details, and account details.</li><!-- HOSTING: was "Google (Sites, Analytics, Drive, Sheets, Firebase): hosts the site, measures visits, ..." -->
 <li><b>GitHub Pages:</b> hosts the main site and the assessment, learning, and portfolio pages. It may see standard request data such as your IP address.</li><!-- HOSTING: added "the main site" -->
-<li><b>Calendly:</b> schedules calls. It sees your name, email, and what you enter when booking.</li>
-<li><b>AI service provider:</b> grades free text assessment answers and writes answers to Ask questions. It sees the text of those answers and questions.</li>
+<li><b>AI service provider:</b> grades free text assessment answers, writes answers to Ask questions, and writes a short note from what you tell us when booking a call. It sees the text of those answers, questions, and booking notes.</li>
 <li><b>LinkedIn:</b> hosts our newsletter and company page. It sees whatever you do on LinkedIn.</li>
 </ul>
 <p>We may also disclose information if the law requires it, to protect our rights or safety, or as part of a sale or merger of the business, in which case we will tell you if your information is affected.</p>
@@ -72,7 +71,7 @@ PRIVACY = """
 <h2>Children, transfers, links, changes, and contact</h2>
 <p><b>Children.</b> Our site and tools are built for business professionals and are not directed to anyone under 18. We do not knowingly collect information from children. If you think we have, tell us and we will delete it.</p>
 <p><b>International transfers.</b> We are based in the United States, and our providers process data in the United States and other countries. If you use the site from elsewhere, your information will be transferred there.</p>
-<p><b>Third party links.</b> The site links to other sites, such as LinkedIn and Calendly. We do not control them and are not responsible for their privacy practices.</p>
+<p><b>Third party links.</b> The site links to other sites, such as LinkedIn and GitHub. We do not control them and are not responsible for their privacy practices.</p>
 <p><b>Changes.</b> If we change this policy we will update the date at the top, and for material changes we will post a notice on the site.</p>
 <p><b>Contact.</b> Product Advisory, LLC. Email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a></p>
 """
@@ -107,7 +106,7 @@ TERMS = """
 
 <h2>Advice, third parties, warranties, and liability</h2>
 <p><b>No professional advice.</b> Content on the Site is general information about product management. It is not legal, financial, tax, medical, or other professional advice, and using the Site does not create a consulting relationship. That begins only when we both sign a written agreement.</p>
-<p><b>Third party services and links.</b> The Site relies on and links to services we do not control, such as Google, Calendly, GitHub, and LinkedIn. Their terms and privacy practices apply when you use them, and we are not responsible for them.</p>
+<p><b>Third party services and links.</b> The Site relies on and links to services we do not control, such as Google, GitHub, and LinkedIn. Their terms and privacy practices apply when you use them, and we are not responsible for them.</p>
 <p><b>Disclaimer.</b> The Site and everything on it are provided "as is" and "as available," without warranties of any kind, express or implied, including fitness for a particular purpose, accuracy, and uninterrupted availability. You use the toolkits and any results at your own risk and should check them before relying on them for a decision.</p>
 <p><b>Limitation of liability.</b> To the fullest extent the law allows, Product Advisory, LLC and its owners will not be liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, data, or business, arising from your use of the Site. Our total liability for any claim is limited to the amount you paid us for the specific service involved, which is $0 for free toolkits, assessments, and learning content. Paid consulting work is covered by its own written agreement. Some places do not allow these limits, so they may not apply to you.</p>
 <p><b>Indemnity.</b> You agree to cover claims, losses, and costs that arise from your misuse of the Site or your violation of these Terms.</p>

@@ -440,12 +440,12 @@ function sendThanks_(email, name, reason) {
       ? "Thanks for the feedback on our website. We read every note, and it helps us make the site better."
       : "Thanks for reaching out to Product Advisory. We've received your message and will reply within one business day.";
     var site = "https://www.productadvisory.co";
-    var calendly = "https://calendly.com/productadvisory/30min";
+    var book = site + "/book";
     var text = [hello, "", line, "",
-      "If it's easier to talk, you can book a free 30-minute call: " + calendly + ". In the meantime, our free toolkits are at " + site + "/toolkits.html",
+      "If it's easier to talk, you can book a free 30-minute call: " + book + ". In the meantime, our free toolkits are at " + site + "/toolkits.html",
       "", "Best,", "Product Advisory", "www.productadvisory.co"].join("\n");
     var html = "<p>" + hello + "</p><p>" + line + "</p>" +
-      "<p>If it's easier to talk, you can <a href=\"" + calendly + "\">book a free 30-minute call</a>. In the meantime, " +
+      "<p>If it's easier to talk, you can <a href=\"" + book + "\">book a free 30-minute call</a>. In the meantime, " +
       "our <a href=\"" + site + "/toolkits.html\">free toolkits</a> are ready to use.</p>" +
       "<p>Best,<br>Product Advisory<br><a href=\"" + site + "\">www.productadvisory.co</a></p>";
 

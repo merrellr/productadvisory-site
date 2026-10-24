@@ -216,7 +216,7 @@
     startup: ["startups", "early-stage", "founder"],
     enterprise: ["enterprises", "organization", "scale"],
     contact: ["call", "email", "phone", "schedule"],
-    call: ["schedule", "calendly", "consultation", "free"],
+    call: ["schedule", "book", "consultation", "free"],
     newsletter: ["linkedin", "insights", "product+"],
     chicago: ["based", "located", "illinois"],
     experience: ["years", "combined", "background"]
@@ -789,9 +789,8 @@
     function time(ms) { return new Date(ms).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); }
     function when(ms) { return new Date(ms).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) + " at " + time(ms); }
     function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
-    // If the calendar can't be reached, the old booking page still works as a backup.
-    var BACKUP = "https://calendly.com/productadvisory/30min";
-    var FAIL = 'use our <a href="' + BACKUP + '" target="_blank" rel="noopener">backup booking page' + NEW_TAB + '</a>, or email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> and we\'ll find a time.';
+    // If the calendar can't be reached, email still works.
+    var FAIL = 'email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> and we\'ll find a time.';
 
     /* ----- step 1: pick a day and a time ----- */
     function load() {

@@ -35,13 +35,13 @@ the source and the rebuilt pages. `assets/` (CSS, JavaScript, images, toolkit fi
   A tool card shows the thumbnail when one is given, otherwise a drawn placeholder.
 - **Logo:** the boxed "Product" + "Λdvisory" wordmark is HTML text in every header and footer (`.wm`). To use the
   original logo file instead, replace those `<a class="wm">` contents with an `<img>` or inline SVG.
-- **Links that open a new tab** (the assessment, Tool Roadmap, Calendly, LinkedIn, downloads) show a small ↗ and
+- **Links that open a new tab** (the assessment, Tool Roadmap, LinkedIn, downloads) show a small ↗ and
   carry hidden "(opens in a new tab)" text for screen readers. The pages get this automatically from the build
   (`mark_new_tabs`); links written by `site.js` use its `NEW_TAB` snippet. Add it by hand to any new
   `target="_blank"` link.
 - **Behaviour:** `assets/js/site.js`: theme toggle, mobile menu, reveal on scroll, the **Ask** search, the
   **⌘K command menu**, the home page "Sound familiar?" picker, the services engagement finder, the toolkit level
-  filter and the contact form. Links and settings (email, Calendly, newsletter, `ASK_ENDPOINT`) are at the top.
+  filter and the contact form. Links and settings (email, newsletter, `ASK_ENDPOINT`) are at the top.
 - **Ask / ⌘K content:** any element with `data-ask="Title"` is searchable, on any page listed in `PAGES` in
   `site.js`. `data-kind="Service"`, `"Package"`, `"Toolkit"` or `"Learning"` also lists it in the command menu, and
   `data-keywords` adds search words that aren't in the visible text. When the question sounds like a project ("can
@@ -185,7 +185,7 @@ free 30-minute call. It talks to the same Apps Script as the contact form (`apps
   are written out plainly. The answers also go with the booking: on the calendar event, in the note to info@, and in the
   Going well / Needs help with / Interested in / Timing columns of the Bookings tab. The choices come from `content.py`
   and must match `BOOKING_NEEDS_` and `BOOKING_SERVICES_` in the script (the test checks).
-- If the calendar can't be reached, the page offers the old Calendly page as a backup.
+- If the calendar can't be reached, the page asks people to email us and we find a time.
 - Tests: `node tests/booking.test.mjs` (also run by the GitHub check).
 
 ## Unanswered questions and monthly insights
