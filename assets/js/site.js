@@ -21,7 +21,7 @@
   // site search, and the contact form opens a pre-filled email instead.
   var ASK_ENDPOINT = "https://script.google.com/macros/s/AKfycbzhpNvZQUpdchS4ZwXtD7uAV2pYic728ktZkAT5hDGjrg680BYeg98zBAPNaVahXSPyyg/exec";
   var PAGES = ["index.html", "services.html", "toolkits.html", "insights.html", "about.html", "contact.html",
-    "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/roadmaps-to-rituals.html", "insights/rice-vs-weighted-scoring.html", "insights/beyond-automation.html", "insights/product-focused-ai-agents.html"];
+    "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/roadmaps-to-rituals.html", "insights/rice-vs-weighted-scoring.html", "insights/beyond-automation.html", "insights/product-focused-ai-agents.html", "insights/150-hot-dog.html"];
   var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "insights.html": "Insights", "about.html": "About", "contact.html": "Contact" };
 
   // Links that open a new tab show ↗ and say so to screen readers (pages get this from the build).
@@ -1234,6 +1234,38 @@
     show(start, false);
   }
 
+  /* ---------- Product+ email signup (Insights pages) ----------
+     Posts { type: "subscribe" } to ASK_ENDPOINT; apps-script/ask.gs keeps the address on the Subscribers
+     tab with its own unsubscribe link and sends a short welcome. */
+  function initSubscribe() {
+    $$("form[data-subscribe]").forEach(function (form) {
+      var started = Date.now(), input = form.elements.email, status = $(".form-status", form), btn = $("button[type=submit]", form);
+      function say(t, err) { status.textContent = t; status.classList.toggle("err", !!err); }
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var email = input.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say("Please enter a valid email address.", true); input.focus(); return; }
+        if (!ASK_ENDPOINT) { window.open(NEWSLETTER, "_blank", "noopener"); return; }
+        btn.disabled = true; say("Subscribing…");
+        fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ type: "subscribe", email: email, page: location.pathname, website: form.elements.website.value, elapsed: Date.now() - started, cid: visitorId() }) })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res && res.ok) {
+              track("subscribe", { page: location.pathname });
+              form.classList.add("done");
+              say(res.already ? "You're already subscribed. Thanks for reading!" : "You're subscribed. Check your inbox for a welcome email.");
+              input.value = "";
+            } else {
+              say(res && res.error === "bad_email" ? "Please enter a valid email address." : "That didn't go through. Please try again, or email info@productadvisory.co.", true);
+            }
+          })
+          .catch(function () { say("That didn't go through. Please try again, or email info@productadvisory.co.", true); })
+          .then(function () { btn.disabled = false; });
+      });
+    });
+  }
+
   function initConsent() {
     var C = window.PAConsent;
     if (!C) return;
@@ -1276,6 +1308,7 @@
     initBooking();
     initInsightFilter();
     initInsightFinder();
+    initSubscribe();
     initConsent();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

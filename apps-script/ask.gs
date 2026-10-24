@@ -20,6 +20,9 @@
  *   Deploy → New deployment → Web app → Execute as: Me · Who has access: Anyone.
  *   Paste the /exec URL into ASK_ENDPOINT at the top of assets/js/site.js.
  *
+ * 3. Email signup for new articles: saves each address to the "Subscribers" tab
+ *    with its own unsubscribe link, and sends a short welcome (see subscribe_).
+ *
  * Every question is logged to the "Questions" tab of the spreadsheet this
  * script is attached to (time, question, which sections were used, outcome),
  * so you can see what prospects ask. No names, emails or IP addresses are
@@ -58,6 +61,7 @@ function doPost(e) {
   var body = {};
   try { body = JSON.parse((e && e.postData && e.postData.contents) || "{}"); } catch (err) { return askOut_({ ok: false, error: "bad_request" }); }
   if (body.type === "contact") return askOut_(answerContact_(body));
+  if (body.type === "subscribe") return askOut_(safely_(function () { return subscribe_(body); }));
   if (body.type === "slots") return askOut_(safely_(bookingSlotsEndpoint_));
   if (body.type === "unanswered") return askOut_(safely_(function () { return unansweredReport_(body); }));
   if (body.type === "bookAssist") return askOut_(safely_(function () { return bookingAssist_(body); }));
@@ -70,7 +74,10 @@ function doPost(e) {
 }
 
 // A GET shows the endpoint is alive, which helps when checking the deployment.
-function doGet() {
+// With ?unsubscribe=<token> it is the unsubscribe link in every Product+ email (see subscribe_).
+function doGet(e) {
+  var token = e && e.parameter && e.parameter.unsubscribe;
+  if (token) return unsubscribePage_(unsubscribe_(String(token)));
   return askOut_({ ok: true, service: "productadvisory-ask", model: ASK_MODEL_ });
 }
 
@@ -511,6 +518,115 @@ function takeContactQuota_() {
 function safeCell_(v) {
   if (typeof v !== "string") return v;
   return /^[=+\-@\t\r]/.test(v) && !/^[+-]?[\d\s().-]+$/.test(v) ? "'" + v : v;
+}
+
+/* ================= Email signup: new Product+ articles by email =================
+ *
+ * The signup box on the Insights pages posts { type: "subscribe", email, page }. Each address is kept
+ * once on the "Subscribers" tab: Time, Email, Status (subscribed / unsubscribed), Signed up from, and
+ * an Unsubscribe link that is unique to that person. The subscriber gets a short welcome with that link.
+ *
+ * Sending a new issue: filter the tab to Status = subscribed, and include each person's own
+ * Unsubscribe link (and the business's postal address) in every email. Opening a link marks that row
+ * unsubscribed, so check the Status column each time you send.
+ */
+var SUBSCRIBERS_SHEET_ = "Subscribers";
+var SUBSCRIBE_DAILY_LIMIT_ = 200;
+
+function subscribe_(body) {
+  if (String(body.website || "")) return { ok: true };              // bots fill the hidden field
+  if (Number(body.elapsed || 0) < 1500) return { ok: false, error: "too_fast" };
+  var email = String(body.email || "").trim().toLowerCase().slice(0, 200);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: "bad_email" };
+  var page = String(body.page || "").replace(/[^A-Za-z0-9\/_.-]/g, "").slice(0, 120);
+  if (isBlockedSender_(email)) return { ok: true };
+  if (!takeDailyQuota_("subscribe_", SUBSCRIBE_DAILY_LIMIT_)) return { ok: false, error: "daily_limit" };
+
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  var sheet, row = 0, token, already = false;
+  try {
+    sheet = subscribersSheet_();
+    var data = sheet.getDataRange().getValues();
+    for (var i = 1; i < data.length; i++) if (String(data[i][1]).toLowerCase() === email) { row = i + 1; break; }
+    if (row) {
+      already = data[row - 1][2] === "subscribed";
+      token = tokenFromLink_(data[row - 1][4]) || Utilities.getUuid();
+      sheet.getRange(row, 3, 1, 3).setValues([["subscribed", data[row - 1][3] || page, unsubscribeLink_(token)]]);
+    } else {
+      token = Utilities.getUuid();
+      sheet.appendRow([new Date(), safeCell_(email), "subscribed", safeCell_(page), unsubscribeLink_(token)]);
+    }
+  } finally { lock.releaseLock(); }
+  if (!already) sendWelcome_(email, token);
+  return { ok: true, already: already };
+}
+
+function subscribersSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SUBSCRIBERS_SHEET_);
+  if (!sheet) {
+    sheet = ss.insertSheet(SUBSCRIBERS_SHEET_);
+    sheet.appendRow(["Time", "Email", "Status", "Signed up from", "Unsubscribe link"]);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function unsubscribeLink_(token) { return ScriptApp.getService().getUrl() + "?unsubscribe=" + token; }
+function tokenFromLink_(link) { var m = String(link || "").match(/unsubscribe=([A-Za-z0-9-]{20,})/); return m && m[1]; }
+
+function unsubscribe_(token) {
+  if (!/^[A-Za-z0-9-]{20,60}$/.test(token)) return false;
+  var sheet = subscribersSheet_();
+  var data = sheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (tokenFromLink_(data[i][4]) === token) { sheet.getRange(i + 1, 3).setValue("unsubscribed"); return true; }
+  }
+  return false;
+}
+
+function unsubscribePage_(done) {
+  var msg = done ? "You're unsubscribed. You won't get any more Product+ emails from us." : "That unsubscribe link wasn't recognized. Email info@productadvisory.co and we'll take you off the list.";
+  return HtmlService.createHtmlOutput('<div style="font:16px/1.5 Arial,sans-serif;max-width:520px;margin:60px auto;padding:0 20px;color:#1e2633"><h2 style="color:#1c4587">Product+</h2><p>' + msg + '</p><p><a href="https://www.productadvisory.co/insights">Back to Insights</a></p></div>').setTitle("Product+ email");
+}
+
+/** The welcome. Fixed wording (nothing the visitor typed), at most one per address a day. */
+function sendWelcome_(email, token) {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
+    var key = "welcome_" + today + "_" + Utilities.base64EncodeWebSafe(email).slice(0, 80);
+    if (props.getProperty(key)) return;
+    props.getKeys().forEach(function (k) { if (k.indexOf("welcome_") === 0 && k.indexOf("welcome_" + today) !== 0) props.deleteProperty(k); });
+    var site = "https://www.productadvisory.co", unsub = unsubscribeLink_(token);
+    var text = ["Hi,", "", "Thanks for subscribing to Product+, from Product Advisory: product thinking, plus the AI and collaboration that turn it into results.",
+      "", "We'll email you when a new article is published. In the meantime, everything so far is at " + site + "/insights",
+      "", "Best,", "Product Advisory", site, "", "Didn't sign up, or changed your mind? Unsubscribe: " + unsub].join("\n");
+    var html = "<p>Hi,</p><p>Thanks for subscribing to <b>Product+</b>, from Product Advisory: product thinking, plus the AI and collaboration that turn it into results.</p>" +
+      "<p>We'll email you when a new article is published. In the meantime, <a href=\"" + site + "/insights\">everything so far is here</a>.</p>" +
+      "<p>Best,<br>Product Advisory<br><a href=\"" + site + "\">www.productadvisory.co</a></p>" +
+      "<p style=\"color:#6b7686;font-size:12px\">Didn't sign up, or changed your mind? <a href=\"" + unsub + "\">Unsubscribe</a>.</p>";
+    sendMail_({ to: email, subject: "You're subscribed to Product+", body: text, htmlBody: html, replyTo: NOTIFY_EMAIL_ });
+    props.setProperty(key, "1");
+  } catch (err) { console.error(err); }
+}
+
+/** A daily counter in script properties, e.g. takeDailyQuota_("subscribe_", 200). */
+function takeDailyQuota_(prefix, limit) {
+  var props = PropertiesService.getScriptProperties();
+  var key = prefix + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
+  props.getKeys().forEach(function (k) { if (k.indexOf(prefix) === 0 && k !== key) props.deleteProperty(k); });
+  var n = Number(props.getProperty(key) || 0);
+  if (n >= limit) return false;
+  props.setProperty(key, String(n + 1));
+  return true;
+}
+
+/** Run once from the editor after deploying: adds a test signup for NOTIFY_EMAIL_ and sends its welcome. */
+function testSubscribe() {
+  Logger.log(JSON.stringify(subscribe_({ email: NOTIFY_EMAIL_, page: "/insights (test)", elapsed: 5000 })));
+  Logger.log("Check " + NOTIFY_EMAIL_ + " for the welcome, and the Subscribers tab for the row.");
 }
 
 /* ================= Booking: free 30-minute calls (www.productadvisory.co/book) =================

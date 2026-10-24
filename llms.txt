@@ -23,6 +23,7 @@
 ## Insights (Product+ articles)
 - [Insights](https://www.productadvisory.co/insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
 - [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.
+- [The $1.50 Hot Dog](https://www.productadvisory.co/insights/150-hot-dog): Costco sells memberships, not groceries, and what that teaches product managers about where the money really is.
 - [A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)](https://www.productadvisory.co/insights/day-in-the-life): Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.
 - [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): From novice to organization: why Copilot Studio is the bridge to real AI enablement.
 - [Beyond Automation: Win Customers for Life](https://www.productadvisory.co/insights/beyond-automation): How AI supercharges the human factor, and why the real magic happens when technology amplifies your team instead of replacing it.

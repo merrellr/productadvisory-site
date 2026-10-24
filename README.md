@@ -88,6 +88,18 @@ the Insights page filtered to that subject), and the arrow in "Related reading" 
 filter by subject, with counts; the choice is kept in the address (`/insights?topic=agents`) so it can be shared. A new
 topic needs a line in `TOPIC_CATEGORY` (it falls back to Product strategy).
 
+### Product+ email signup
+
+The Insights page and every article have a "Get new articles by email" box. It posts to `ASK_ENDPOINT`
+(`type: "subscribe"`), and `apps-script/ask.gs` keeps each address once on the **Subscribers** tab (time, email,
+status, the page it came from, and a personal unsubscribe link), then sends a short welcome from info@ that
+includes that link. Opening the link marks the row `unsubscribed`. After pasting a new version of the script,
+run `testSubscribe` once from the editor, then deploy a new version.
+
+To send a new issue: filter the Subscribers tab to `subscribed`, and put each person's own unsubscribe link and the
+business's postal address in every email (required for marketing email in the US). Because each link is
+personal, send individually (for example with a mail merge) rather than one message to everyone.
+
 ## Make it yours
 
 `assets/js/prefs.js` runs in the `<head>` of every page, before anything is drawn. It reads the visitor's choices

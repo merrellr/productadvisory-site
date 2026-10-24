@@ -1042,7 +1042,7 @@ ACCENTS = '<div class="swatches" role="radiogroup" aria-label="Accent colour" da
 # ---------------------------------------------------------------- legal + 404
 def legal():
     write("privacy-policy.html", page("privacy-policy.html", "Privacy Policy", "How Product Advisory, LLC collects, uses, protects and shares information on productadvisory.co and assessment.productadvisory.co.",
-                                      page_head("Privacy Policy", "Effective Date: 10/19/2026", "") + f'<section><div class="wrap prose">{PRIVACY}</div></section>'))
+                                      page_head("Privacy Policy", "Effective Date: 10/24/2026", "") + f'<section><div class="wrap prose">{PRIVACY}</div></section>'))
     write("terms-of-use.html", page("terms-of-use.html", "Terms of Use", "The terms for using productadvisory.co and assessment.productadvisory.co, including the free toolkits, assessment and learning content.",
                                     page_head("Terms of Use", "Effective Date: 10/17/2026", "") + f'<section><div class="wrap prose">{TERMS}</div></section>'))
 
@@ -1189,6 +1189,17 @@ FINDER_TOOLS = [
 ]
 
 
+def subscribe_form(where, heading="Get new articles by email"):
+    """The Product+ email signup (saved by apps-script/ask.gs, type "subscribe")."""
+    return f'''<form class="subscribe" data-subscribe novalidate>
+  <label class="sub-label" for="sub-{where}">{heading}</label>
+  <div class="sub-row"><input id="sub-{where}" type="email" name="email" autocomplete="email" placeholder="you@company.com" required maxlength="200"><button class="btn" type="submit">Subscribe</button></div>
+  <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <p class="sub-fine">One email when a new article is published. Unsubscribe anytime. Prefer LinkedIn? <a href="{NEWSLETTER}" {EXT}>Follow Product+ there</a></p>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>'''
+
+
 def insights():
     import json
     full, linked = published(), [a for a in listed() if not a.get("body")]
@@ -1212,13 +1223,16 @@ def insights():
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
+    <div class="subscribe-card reveal" data-ask="Get Product+ articles by email" data-kind="Insight" data-keywords="newsletter subscribe email signup updates">
+      <div><div class="eyebrow">Product+ by email</div><h2>New articles, straight to your inbox</h2><p>Practical writing on product strategy, AI agents and AI enablement. No spam, and nothing else.</p></div>
+      {subscribe_form("insights", "Your email address")}
+    </div>
   </div>
 </section>
 <section class="band">
   <div class="wrap">
     <div class="section-head reveal" data-filter-section><h2>More from Product+</h2><p>These articles are on LinkedIn for now.</p></div>
     <div class="insight-grid compact">{"".join(insight_card(a) for a in linked)}</div>
-    <div class="btn-row" style="margin-top:28px"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+ on LinkedIn</a></div>
   </div>
 </section>
 {cta_band()}'''
@@ -1269,7 +1283,8 @@ def article_page(a, full):
     {related_services(a)}
     <aside class="post-foot">
       <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. {f' It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.' if a.get("linkedin") else ""}</p>
-      <div class="btn-row"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+</a><a class="btn ghost" href="{BOOK}">Talk it through on a free call</a></div>
+      {subscribe_form("article")}
+      <p class="post-call">Want to talk it through? <a href="{BOOK}">Book a free 30-minute call</a>.</p>
     </aside>
   </div>
 </article>
