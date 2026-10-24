@@ -18,6 +18,13 @@
 - Coming soon: Feature Prioritization Scorecard, Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
+## Insights (Product+ articles)
+- [Insights](https://www.productadvisory.co/insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
+- [A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)](https://www.productadvisory.co/insights/day-in-the-life)
+- [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): why Copilot Studio is the bridge from individual to organizational AI enablement.
+- [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): value density, bet maps and the OEM loop (Outcome, Evidence, Minimum).
+- [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents)
+
 ## Contact
 - [Book a free 30-minute call](https://www.productadvisory.co/book)
 - Email: info@productadvisory.co (sales: sales@productadvisory.co)

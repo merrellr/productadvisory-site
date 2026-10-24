@@ -20,8 +20,9 @@
   // (same pattern as the portfolio's apps-script/ask.gs). Leave empty and Ask is a plain
   // site search, and the contact form opens a pre-filled email instead.
   var ASK_ENDPOINT = "https://script.google.com/macros/s/AKfycbzhpNvZQUpdchS4ZwXtD7uAV2pYic728ktZkAT5hDGjrg680BYeg98zBAPNaVahXSPyyg/exec";
-  var PAGES = ["index.html", "services.html", "toolkits.html", "about.html", "contact.html"];
-  var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "about.html": "About", "contact.html": "Contact" };
+  var PAGES = ["index.html", "services.html", "toolkits.html", "insights.html", "about.html", "contact.html",
+    "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/product-focused-ai-agents.html"];
+  var PAGE_NAMES = { "index.html": "Home", "services.html": "Services", "toolkits.html": "Toolkits & Learning", "insights.html": "Insights", "about.html": "About", "contact.html": "Contact" };
 
   // Links that open a new tab show ↗ and say so to screen readers (pages get this from the build).
   var NEW_TAB = '<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>';
@@ -34,14 +35,14 @@
       if (val === null) localStorage.removeItem(key); else localStorage.setItem(key, val);
     } catch (e) { return null; }
   }
-  function currentPage() {
-    var p = location.pathname.split("/").pop();
+  function currentPage() {   // "services.html", or "insights/feature-fallacy.html" for a page in a folder
+    var p = location.pathname.replace(/^\/+|\/+$/g, "");
     if (!p) return "index.html";
     return p.indexOf(".html") > -1 ? p : p + ".html";
   }
   // Pages are known by file name ("services.html#ai", which is also what the Ask script accepts as a source);
   // links show the clean address ("/services#ai"). GitHub Pages serves services.html for /services.
-  function clean(u) { return String(u).replace(/^index\.html/, "/").replace(/^([a-z-]+)\.html/, "/$1"); }
+  function clean(u) { return String(u).replace(/^index\.html/, "/").replace(/^([a-z/-]+)\.html/, "/$1"); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function reducedMotion() {
     return (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ||
@@ -249,7 +250,7 @@
     var here = currentPage();
     var jobs = PAGES.map(function (p) {
       if (p === here) return Promise.resolve(chunksFrom(document, p));
-      return fetch(p).then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
+      return fetch("/" + p).then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
         return html ? chunksFrom(new DOMParser().parseFromString(html, "text/html"), p) : [];
       }).catch(function () { return []; });
     });
@@ -419,6 +420,7 @@
     { g: "Go to", t: "Service packages", i: "▤", run: go("services.html#packages") },
     { g: "Go to", t: "Find the right engagement", i: "?", run: go("services.html#finder") },
     { g: "Go to", t: "Toolkits", i: "▣", run: go("toolkits.html") },
+    { g: "Go to", t: "Insights", i: "✎", hint: "Product+ articles", run: go("insights.html") },
     { g: "Go to", t: "Learning & skill check", i: "◎", run: go("toolkits.html#learning") },
     { g: "Go to", t: "About", i: "i", run: go("about.html") },
     { g: "Go to", t: "Contact", i: "✉", run: go("contact.html") },
@@ -438,8 +440,10 @@
   ];
   function contentItems() {
     if (!index) return [];
-    return index.docs.filter(function (d) { return /#/.test(d.url) && ["Service", "Package", "Toolkit", "Learning"].indexOf(d.kind) > -1; })
-      .map(function (d) { return { g: d.kind === "Package" ? "Packages" : d.kind === "Service" ? "Services" : d.kind === "Toolkit" ? "Toolkits" : "Learning", t: d.title, s: d.text.slice(0, 200), i: "›", run: go(d.url) }; });
+    return index.docs.filter(function (d) {
+      return (/#/.test(d.url) && ["Service", "Package", "Toolkit", "Learning"].indexOf(d.kind) > -1) || (d.kind === "Insight" && /#intro$/.test(d.url));
+    })
+      .map(function (d) { return { g: d.kind === "Package" ? "Packages" : d.kind === "Service" ? "Services" : d.kind === "Toolkit" ? "Toolkits" : d.kind === "Insight" ? "Insights" : "Learning", t: d.title, s: d.text.slice(0, 200), i: "›", run: go(d.kind === "Insight" ? d.url.replace(/#intro$/, "") : d.url) }; });
   }
   function buildPalette() {
     pal = document.createElement("div");

@@ -20,6 +20,7 @@ the source and the rebuilt pages. `assets/` (CSS, JavaScript, images, toolkit fi
 | Home | `index.html` |
 | Services and service packages | `services.html` |
 | Toolkits & Learning (the old Toolkits and Learning pages, merged) | `toolkits.html` |
+| Insights (the Product+ articles) and one page per article | `insights.html`, `insights/<slug>.html` |
 | About Us | `about.html` |
 | Contact Us | `contact.html` |
 | Make it yours (preferences) | `preferences.html` |
@@ -46,6 +47,23 @@ the source and the rebuilt pages. `assets/` (CSS, JavaScript, images, toolkit fi
   `site.js`. `data-kind="Service"`, `"Package"`, `"Toolkit"` or `"Learning"` also lists it in the command menu, and
   `data-keywords` adds search words that aren't in the visible text. When the question sounds like a project ("can
   you help our team…"), Ask offers to send it to the contact form, pre-filled, or to book a call.
+
+## Insights (the Product+ articles)
+
+Articles are published here first, then as the Product+ issue on LinkedIn, ending with "Originally published at
+productadvisory.co/insights/<slug>". `src/insights.py` holds every article: its title, subtitle, topic, date, LinkedIn
+link and body (paragraphs, headings, lists, quotes and figures; the format is described at the top of the file).
+An article without a body is listed under "More from Product+" and links to LinkedIn.
+
+To add one:
+1. Put its images in `assets/insights/<slug>/`: `cover.webp` (1600×900), `card.webp` (800×450), `og.jpg` (1200×675, the
+   sharing image) and the in-article figures (WebP, up to 1200 wide).
+2. Add the article to `ARTICLES` in `src/insights.py`, and `"insights/<slug>.html"` to `PAGES` in `assets/js/site.js` so
+   Ask can search it (the build stops with a reminder if you forget).
+3. Run `python3 src/build.py`. It writes the article page, updates the Insights page and adds it to `sitemap.xml`.
+4. After it's live, ask Google Search Console to index the new address (URL Inspection → Request indexing).
+
+Each article page carries Article structured data (for search), its own sharing image and a canonical address.
 
 ## Make it yours
 

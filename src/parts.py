@@ -125,7 +125,7 @@ def layers():
             '<circle class="ring" cx="270" cy="34" r="8"/><circle class="hot pop" style="--d:1s" cx="270" cy="34" r="8"/></svg>')
 
 
-NAV = [("index.html", "Home"), ("services.html", "Services"), ("toolkits.html", "Toolkits"), ("about.html", "About"), ("contact.html", "Contact")]
+NAV = [("index.html", "Home"), ("services.html", "Services"), ("toolkits.html", "Toolkits"), ("insights.html", "Insights"), ("about.html", "About"), ("contact.html", "Contact")]
 
 
 def header(page):
@@ -157,7 +157,7 @@ FOOTER = f'''<footer class="site">
         <p>Product management consulting for startups and enterprises.</p>
       </div>
       <div><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="{ASSESS}" {EXT}>Skill assessment ↗</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="insights.html">Insights</a></li><li><a href="{ASSESS}" {EXT}>Skill assessment ↗</a></li></ul></div>
       <div><h4>Community</h4><ul><li><a href="{LINKEDIN}" {EXT}>LinkedIn</a></li><li><a href="{NEWSLETTER}" {EXT}>Newsletter</a></li><li><a href="{SLACK}" {EXT}>Slack community</a></li></ul></div>
       <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li></ul></div>
     </div>
@@ -172,7 +172,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">')
 
 
-def page(file, title, desc, body, extra_head=""):
+def page(file, title, desc, body, extra_head="", image="assets/img/og.png", nav=None, og_type="website"):
     url = SITE + ("" if file == "index.html" else file[:-5])   # the clean address: /services, not /services.html
     full = title if file == "index.html" else f"{title} · Product Advisory"
     return f'''<!doctype html>
@@ -194,9 +194,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{desc}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}assets/img/og.png">
+<meta property="og:image" content="{SITE}{image}">
 <meta property="og:site_name" content="Product Advisory">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="{url}">
@@ -215,7 +215,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-{header(file)}
+{header(nav or file)}
 <main id="main">
 {body}
 </main>

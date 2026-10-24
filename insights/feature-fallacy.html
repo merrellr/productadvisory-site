@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Feature Fallacy · Product Advisory</title>
+<meta name="description" content="Why shipping more isn't helping your users, and what to do instead.">
+<meta property="og:title" content="The Feature Fallacy · Product Advisory">
+<meta property="og:description" content="Why shipping more isn't helping your users, and what to do instead.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/insights/feature-fallacy">
+<meta property="og:image" content="https://www.productadvisory.co/assets/insights/feature-fallacy/og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/insights/feature-fallacy">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/prefs.js"></script>
+<script src="/assets/js/site.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The Feature Fallacy", "description": "Why shipping more isn't helping your users, and what to do instead.", "image": "https://www.productadvisory.co/assets/insights/feature-fallacy/og.jpg", "datePublished": "2025-11-10", "mainEntityOfPage": "https://www.productadvisory.co/insights/feature-fallacy", "author": {"@type": "Person", "name": "Robert Merrell", "url": "https://portfolio.productadvisory.co/"}, "publisher": {"@type": "Organization", "name": "Product Advisory", "url": "https://www.productadvisory.co/"}}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <a class="link-back" href="/insights">← All insights</a>
+      <div class="eyebrow">Product strategy · Product+</div>
+      <h1>The Feature Fallacy</h1>
+      <p class="dek">Why shipping more isn&#x27;t helping your users, and what to do instead.</p>
+      <p class="byline">By Robert Merrell · <time datetime="2025-11-10">November 10, 2025</time> · 3 min read</p>
+    </div>
+  </header>
+  <div class="wrap post-cover"><img src="/assets/insights/feature-fallacy/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<section id="intro" data-ask="The Feature Fallacy" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<p>If you measure progress by how many features ship, you'll eventually ship yourself into irrelevance.</p>
+<p>In healthcare, and increasingly across every SaaS category, the teams that win aren't the ones with the longest release notes. They're the ones with the shortest path to a meaningful outcome.</p>
+<p>This isn't anti-shipping. It's pro <b>value density</b>: the ratio of outcome created to effort required. When value density goes up, adoption, retention, and trust follow. When it goes down, your backlog grows faster than your business.</p>
+<figure><img src="/assets/insights/feature-fallacy/value-density.webp" alt="Value density equals outcome created divided by effort required. Long release notes: high effort, small outcome. A short path to outcome: low effort, large outcome." width="1200" height="720" loading="lazy"></figure>
+</section>
+<section id="three-invisible-taxes-you-re-probably-paying" data-ask="The Feature Fallacy: Three invisible taxes you&#x27;re probably paying" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>Three invisible taxes you're probably paying</h2>
+<ol><li><b>Context-switch tax.</b> Every new feature branches the mental model, for users and for teams. Users pay with cognitive load; teams pay with QA, docs, analytics events, and support scripts. The more branches, the slower everything gets.</li><li><b>Adoption tax.</b> Features don't adopt themselves. They need activation points, enablement, and discoverability. "Shipping" without an adoption path is just inventory.</li><li><b>Quality tax.</b> More surface area means more edge cases. In regulated spaces like healthcare, quality debt compounds with safety and compliance risk. It's quiet, until it isn't.</li></ol>
+<figure><img src="/assets/insights/feature-fallacy/invisible-taxes.webp" alt="Three cards: the context-switch tax, the adoption tax and the quality tax, each with who pays it." width="1200" height="720" loading="lazy"></figure>
+</section>
+<section id="a-better-north-star-outcome-first-evidence-backed-minimally-sufficient" data-ask="The Feature Fallacy: A better north star: outcome-first, evidence-backed, minimally sufficient" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>A better north star: outcome-first, evidence-backed, minimally sufficient</h2>
+<p>I use a simple loop that travels well across domains:</p>
+<ul><li><b>Outcome-first:</b> Define the end state in observable terms (for example, "Reduce median prescription time from 4:30 to 2:00").</li><li><b>Evidence-backed:</b> Tie the bet to a falsifiable hypothesis and minimum viable measurement plan.</li><li><b>Minimally sufficient:</b> Ship the smallest intervention that can move the outcome for a narrow segment. Then scale.</li></ul>
+<p>Think OEM: Outcome → Evidence → Minimum.</p>
+<figure><img src="/assets/insights/feature-fallacy/oem-loop.webp" alt="The OEM loop: Outcome first, then Evidence backed, then Minimally sufficient, then repeat on the next path." width="1200" height="820" loading="lazy"></figure>
+</section>
+<section id="what-to-do-this-quarter" data-ask="The Feature Fallacy: What to do this quarter" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>What to do this quarter</h2>
+<ul><li><b>Replace roadmaps with bet maps.</b> "We believe doing X for Y segment will drive Z outcome." Add confidence, leading indicators, and kill criteria. Review monthly. Kill or double down based on signal, not opinions.</li><li><b>Segment before you scale.</b> Design for one high-value workflow first (for example, "charge nurse during shift change"). Optimize locally, then generalize. Cleaner UX, clearer causal signal.</li><li><b>Default to workflow, not widgets.</b> Ask, "What steps disappear?" not "What screens can we add?" Inline actions, automation hooks, and smart defaults tend to beat net-new features.</li><li><b>Measure the path, not the page.</b> Instrument end-to-end: start rate, completion rate, time-to-complete, drop-offs. Report "time-to-outcome" like you report uptime. Latency that matters is the user's time-to-value.</li><li><b>Design for reversibility.</b> Feature flags, shadow modes, opt-in cohorts. Make wrong bets cheap and reversible; make irreversible bets rare and deliberate.</li></ul>
+<figure><img src="/assets/insights/feature-fallacy/bet-maps.webp" alt="A roadmap of quarterly features next to a bet map card: we believe doing X for Y segment will drive Z outcome, with confidence, leading indicators and kill criteria, reviewed monthly." width="1200" height="720" loading="lazy"></figure>
+</section>
+<section id="a-quick-example-healthcare-but-universal" data-ask="The Feature Fallacy: A quick example (healthcare, but universal)" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>A quick example (healthcare, but universal)</h2>
+<p><b>Problem:</b> Clinicians were abandoning an Orders flow at 38% completion. The instinct: build "Orders 2.0" with templates and bulk actions.</p>
+<p><b>The OEM approach:</b></p>
+<ul><li><b>Outcome:</b> Raise completion to 70%, cut median time from 3:10 to 1:45.</li><li><b>Evidence:</b> Replays and path analysis showed friction on patient context switching and code search.</li><li><b>Minimum:</b> Auto-attach patient context, pre-populate three likely order codes by unit and shift, add keyboard-first quick search.</li></ul>
+<p><b>Result (6 weeks):</b> 74% completion, 1:41 median time, zero net-new "features." Massive value density.</p>
+<figure><img src="/assets/insights/feature-fallacy/orders-results.webp" alt="Bar charts. Orders completed: 38% before, 74% after six weeks, against a 70% target. Median time to complete: 3:10 before, 1:41 after, against a 1:45 target." width="1200" height="800" loading="lazy"></figure>
+</section>
+<section id="how-product-and-engineering-win-together" data-ask="The Feature Fallacy: How Product and Engineering win together" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>How Product and Engineering win together</h2>
+<ul><li><b>Product:</b> ruthlessly prioritize the fewest interventions that move the outcome. Own problem definition and kill criteria.</li><li><b>Engineering:</b> collapse time-to-learning. Instrument the path, ship behind flags, and treat reliability, latency and observability as user value, not plumbing.</li><li><b>Ritual:</b> a weekly Outcomes Review. What did we learn? What can we ship next week to learn faster?</li></ul>
+</section>
+<section id="the-courage-to-delete" data-ask="The Feature Fallacy: The courage to delete" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>The courage to delete</h2>
+<p>Create a quarterly decommission list. Remove underused features, consolidate patterns, and redesign flows that require explanation. Celebrate deletion with the same fanfare as launches.</p>
+</section>
+<section id="the-ask" data-ask="The Feature Fallacy: The ask" data-kind="Insight" data-keywords="features output outcomes value density roadmap bet map prioritization shipping build trap oem decommission">
+<h2>The ask</h2>
+<p>If you're shipping a lot but moving little, run OEM on a single critical path this month. Define the outcome, gather minimal evidence, ship the smallest intervention, and measure the path. Send me your before and after, and I'll share the best anonymized examples.</p>
+</section>
+    </div>
+    <aside class="post-foot">
+      <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. It is also <a href="https://www.linkedin.com/pulse/feature-fallacy-why-shipping-more-isnt-helping-your-do-merrell-mism-ozcbc" target="_blank" rel="noopener">on LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>.</p>
+      <div class="btn-row"><a class="btn" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Subscribe to Product+<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><a class="btn ghost" href="/book">Talk it through on a free call</a></div>
+    </aside>
+  </div>
+</article>
+<section class="band">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Keep reading</h2></div>
+    <div class="insight-grid"><a class="card insight reveal" href="/insights/day-in-the-life"><img src="/assets/insights/day-in-the-life/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">AI agents</div><h3>A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)</h3><p>Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.</p><small>August 17, 2026 · 5 min read</small></div></a><a class="card insight reveal" href="/insights/stop-enabling-individuals"><img src="/assets/insights/stop-enabling-individuals/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">AI enablement</div><h3>Stop enabling individuals. Start enabling the organization.</h3><p>From novice to organization: why Copilot Studio is the bridge to real AI enablement.</p><small>August 3, 2026 · 5 min read</small></div></a><a class="card insight reveal" href="/insights/product-focused-ai-agents"><img src="/assets/insights/product-focused-ai-agents/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">AI agents</div><h3>How to Build Product-Focused AI Agents That Actually Make Better Decisions</h3><p>How to shape LLMs to improve product judgment, decision quality and outcomes.</p><small>January 6, 2026 · 3 min read</small></div></a></div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Skill assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

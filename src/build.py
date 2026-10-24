@@ -16,6 +16,7 @@ from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS
 from legal import PRIVACY, TERMS
 from art import path_art, orbit, toolkit_open, signal, conversation
+from insights import ARTICLES
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
 OUT = ROOT
@@ -41,7 +42,7 @@ def mark_new_tabs(html):
     return re.sub(r'(<a\b[^>]*target="_blank"[^>]*>)(.*?)</a>', fix, html, flags=re.S)
 
 
-PAGE_FILES = ("index", "services", "toolkits", "about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")
+PAGE_FILES = ("index", "services", "toolkits", "insights", "about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")
 
 
 def clean_links(html):
@@ -58,6 +59,7 @@ def clean_links(html):
 
 
 def write(name, html):
+    os.makedirs(os.path.dirname(os.path.join(OUT, name)), exist_ok=True)
     with open(os.path.join(OUT, name), "w") as f:
         f.write(clean_links(mark_new_tabs(html)))
 
@@ -839,8 +841,160 @@ def notfound():
     write("404.html", html)
 
 
+# ---------------------------------------------------------------- insights (the Product+ articles, from insights.py)
+def fmt_date(iso):
+    import datetime
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.strftime('%B')} {d.day}, {d.year}"
+
+
+def plain(html):
+    import re
+    return re.sub(r"<[^>]+>", "", html)
+
+
+def read_minutes(a):
+    words = sum(len(plain(b[1] if isinstance(b[1], str) else " ".join(b[1])).split()) for b in a["body"] if b[0] != "fig")
+    return max(1, round(words / 230))
+
+
+def image_size(path):
+    """Width and height of a WebP or JPEG in assets/, read from its header (no image library needed)."""
+    import struct
+    with open(os.path.join(ROOT, path), "rb") as f:
+        data = f.read(64)
+    if data[:4] == b"RIFF" and data[12:16] == b"VP8 ":
+        w, h = struct.unpack("<HH", data[26:30])
+        return w & 0x3FFF, h & 0x3FFF
+    if data[:4] == b"RIFF" and data[12:16] == b"VP8L":
+        b = data[21:25]
+        return 1 + (((b[1] & 0x3F) << 8) | b[0]), 1 + (((b[3] & 0xF) << 10) | (b[2] << 2) | ((b[1] & 0xC0) >> 6))
+    if data[:4] == b"RIFF" and data[12:16] == b"VP8X":
+        return 1 + int.from_bytes(data[24:27], "little"), 1 + int.from_bytes(data[27:30], "little")
+    raise ValueError("unsupported image: " + path)
+
+
+def article_body(a):
+    """The article as sections, one per heading, so Ask can find and link to each part."""
+    import re
+    base = f"assets/insights/{a['slug']}/"
+    attrs = f'data-kind="Insight" data-keywords="{a["keywords"]}"'
+    parts = [f'<section id="intro" data-ask="{escape(a["title"])}" {attrs}>']
+    for b in a["body"]:
+        kind = b[0]
+        if kind == "h2":
+            sid = re.sub(r"[^a-z0-9]+", "-", plain(b[1]).lower()).strip("-")
+            parts.append(f'</section>\n<section id="{sid}" data-ask="{escape(a["title"])}: {escape(plain(b[1]))}" {attrs}>\n<h2>{b[1]}</h2>')
+        elif kind == "h3":
+            parts.append(f"<h3>{b[1]}</h3>")
+        elif kind == "p":
+            parts.append(f"<p>{b[1]}</p>")
+        elif kind in ("ul", "ol"):
+            parts.append(f"<{kind}>" + "".join(f"<li>{i}</li>" for i in b[1]) + f"</{kind}>")
+        elif kind == "quote":
+            parts.append(f"<blockquote><p>{b[1]}</p></blockquote>")
+        elif kind == "fig":
+            w, h = image_size(base + b[1])
+            cap = f"<figcaption>{b[3]}</figcaption>" if b[3] else ""
+            parts.append(f'<figure><img src="{base}{b[1]}" alt="{escape(b[2])}" width="{w}" height="{h}" loading="lazy">{cap}</figure>')
+    parts.append("</section>")
+    return "\n".join(parts)
+
+
+def insight_card(a):
+    head = f'<div class="eyebrow">{a["topic"]}</div><h3>{escape(a["title"])}</h3><p>{escape(a["dek"])}</p>'
+    if a.get("body"):
+        return (f'<a class="card insight reveal" href="/insights/{a["slug"]}">'
+                f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
+                f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read</small></div></a>')
+    return (f'<a class="card insight text-only reveal" href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
+            f'<div class="insight-body">{head}<small>Read on LinkedIn ↗</small></div></a>')
+
+
+def published():
+    return sorted([a for a in ARTICLES if a.get("body")], key=lambda a: a["date"], reverse=True)
+
+
+def insights():
+    full, linked = published(), [a for a in ARTICLES if not a.get("body")]
+    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", conversation())}
+<section>
+  <div class="wrap">
+    <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>More from Product+</h2><p>These articles are on LinkedIn for now.</p></div>
+    <div class="insight-grid compact">{"".join(insight_card(a) for a in linked)}</div>
+    <div class="btn-row" style="margin-top:28px"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+ on LinkedIn</a></div>
+  </div>
+</section>
+{cta_band()}'''
+    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body))
+    for a in full:
+        article_page(a, full)
+
+
+def article_page(a, full):
+    import json
+    url = f"{SITE}insights/{a['slug']}"
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["dek"],
+          "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "mainEntityOfPage": url,
+          "author": {"@type": "Person", "name": "Robert Merrell", "url": PORTFOLIO},
+          "publisher": {"@type": "Organization", "name": "Product Advisory", "url": SITE}}
+    more = [x for x in full if x is not a][:3]
+    body = f'''<article class="post">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <a class="link-back" href="insights.html">← All insights</a>
+      <div class="eyebrow">{a["topic"]} · Product+</div>
+      <h1>{escape(a["title"])}</h1>
+      <p class="dek">{escape(a["dek"])}</p>
+      <p class="byline">By Robert Merrell · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> · {read_minutes(a)} min read</p>
+    </div>
+  </header>
+  <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+{article_body(a)}
+    </div>
+    <aside class="post-foot">
+      <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.</p>
+      <div class="btn-row"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+</a><a class="btn ghost" href="{BOOK}">Talk it through on a free call</a></div>
+    </aside>
+  </div>
+</article>
+<section class="band">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Keep reading</h2></div>
+    <div class="insight-grid">{"".join(insight_card(x) for x in more)}</div>
+  </div>
+</section>'''
+    write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a["title"], a["dek"], body,
+          extra_head=f'<script type="application/ld+json">{json.dumps(ld)}</script>\n',
+          image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
+
+
+def sitemap():
+    pages = ["", "services", "toolkits", "insights"] + [f"insights/{a['slug']}" for a in published()] + \
+            ["about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use"]
+    urls = "\n".join(f"  <url><loc>{SITE}{p}</loc></url>" for p in pages)
+    with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
+        f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
+
+
+def check_search_pages():
+    """Ask searches the pages listed in PAGES in site.js; every published article must be there."""
+    js = open(os.path.join(ROOT, "assets/js/site.js")).read()
+    missing = [a["slug"] for a in published() if f'"insights/{a["slug"]}.html"' not in js]
+    if missing:
+        sys.exit("Add these articles to PAGES in assets/js/site.js so Ask can search them: " + ", ".join(missing))
+
+
 def build_all():
-    home(); services(); toolkits(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound()
+    check_search_pages()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound(); sitemap()
 
 
 if __name__ == "__main__":
@@ -848,12 +1002,13 @@ if __name__ == "__main__":
         import tempfile
         OUT = tempfile.mkdtemp()
         build_all()
-        stale = [f for f in sorted(os.listdir(OUT)) if not os.path.exists(os.path.join(ROOT, f)) or
+        built = sorted(os.path.relpath(os.path.join(d, f), OUT) for d, _, fs in os.walk(OUT) for f in fs)
+        stale = [f for f in built if not os.path.exists(os.path.join(ROOT, f)) or
                  open(os.path.join(OUT, f)).read() != open(os.path.join(ROOT, f)).read()]
         if stale:
             print("These pages differ from what src/ builds. Run python3 src/build.py and commit:", ", ".join(stale))
             sys.exit(1)
-        print("all", len(os.listdir(OUT)), "pages match src/")
+        print("all", len(built), "pages match src/")
     else:
         build_all()
         print("built", sorted(f for f in os.listdir(OUT) if f.endswith(".html")))
