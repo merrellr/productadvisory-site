@@ -15,7 +15,7 @@ from html import escape
 from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS
 from legal import PRIVACY, TERMS
-from art import path_art, orbit, toolkit_open, signal, conversation
+from art import path_art, orbit, toolkit_open, signal, conversation, reading
 from insights import ARTICLES
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
@@ -917,7 +917,7 @@ def published():
 
 def insights():
     full, linked = published(), [a for a in ARTICLES if not a.get("body")]
-    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", conversation())}
+    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", reading())}
 <section>
   <div class="wrap">
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>

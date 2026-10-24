@@ -138,3 +138,37 @@ def conversation():
     out.append('<g class="plane pop" style="--d:1.5s"><circle class="ring" cx="356" cy="56" r="14"/>'
                '<path class="hot-fill" d="M332 62 L384 38 L366 86 L354 68 Z"/><path class="fold" d="M354 68 L384 38"/></g>')
     return f'<svg class="net art-contact" viewBox="0 0 400 290" role="img" aria-label="A note rises from an open envelope and flies off as a paper plane, while a reply is being typed">{"".join(out)}</svg>'
+
+
+def reading():
+    """Insights: a Product+ issue on a stack of past articles; one line is highlighted, and the idea lights up,
+    surrounded by the newsletter's three subjects."""
+    out = []
+    # past issues fanned behind
+    for i, (rot, d) in enumerate([(-9, .0), (-4.5, .15)]):
+        out.append(f'<g transform="rotate({rot} 120 160)"><rect class="back-page draw" style="--len:560;--d:{d:.2f}s" x="44" y="40" width="152" height="196" rx="8"/></g>')
+    # the current issue
+    out.append('<g class="rise" style="--d:.35s"><rect x="56" y="34" width="160" height="210" rx="8"/>'
+               '<rect class="doc-band" x="72" y="50" width="34" height="6" rx="2"/>'
+               '<text class="lbl" x="72" y="80">Product+</text>'
+               '<path class="doc-line" d="M72 100h126M72 112h100"/>'
+               '<rect class="hilite" x="68" y="126" width="132" height="14" rx="3"/>'
+               '<path class="doc-line" d="M72 133h122M72 156h112M72 168h126M72 180h88"/>'
+               '<rect class="doc-box" x="72" y="196" width="40" height="30" rx="3"/><path class="doc-line" d="M120 204h78M120 216h64"/></g>')
+    # from the highlighted line to the idea
+    out.append('<path class="link-curve draw" style="--len:170;--d:1.5s" d="M200 133 C 236 133, 246 104, 282 100"/>')
+    # the light bulb
+    bx, by = 318, 92
+    out.append(f'<circle class="ring" cx="{bx}" cy="{by}" r="26"/>')
+    out.append(f'<g class="pop" style="--d:1.9s"><path class="bulb" d="M{bx - 22} {by} a22 22 0 1 1 44 0 c0 9 -6 14 -10 19 c-2 3 -3 6 -3 9 h-18 c0 -3 -1 -6 -3 -9 c-4 -5 -10 -10 -10 -19 z"/>'
+               f'<path class="bulb-base" d="M{bx - 9} {by + 34}h18M{bx - 7} {by + 41}h14"/>'
+               f'<circle class="hot" cx="{bx}" cy="{by - 2}" r="9"/></g>')
+    for i, (a, r1, r2) in enumerate([(-90, 34, 46), (-45, 32, 43), (-135, 32, 43), (0, 32, 43), (180, 32, 43)]):
+        t = math.radians(a)
+        out.append(_line(round(bx + r1 * math.cos(t), 1), round(by - 2 + r1 * math.sin(t), 1), round(bx + r2 * math.cos(t), 1), round(by - 2 + r2 * math.sin(t), 1), 2.2 + 0.06 * i, "draw ray"))
+    # the newsletter's subjects
+    for i, (label, px, py) in enumerate([("Strategy", 306, 178), ("AI agents", 300, 214), ("AI enablement", 314, 250)]):
+        w = len(label) * 7.4 + 22
+        out.append(f'<g class="pill{" hot-pill" if i == 1 else ""} pop" style="--d:{2.3 + 0.2 * i:.2f}s"><rect x="{px - w / 2:.1f}" y="{py - 12}" width="{w:.1f}" height="24" rx="12"/>'
+                   f'<text class="lbl" x="{px}" y="{py + 4.5}" text-anchor="middle">{label}</text></g>')
+    return f'<svg class="net art-reading" viewBox="0 0 400 290" role="img" aria-label="A Product+ article on a stack of past issues; a highlighted line lights up an idea about strategy, AI agents and AI enablement">{"".join(out)}</svg>'
