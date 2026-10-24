@@ -65,6 +65,11 @@ To add one:
 
 Each article page carries Article structured data (for search), its own sharing image and a canonical address.
 
+**Written to be quoted (search and AI assistants).** An article can have `takeaways` (shown first as "Key takeaways")
+and `faq` (question and answer pairs shown at the end as "Questions people ask", and marked up as FAQPage next to the
+Article data), plus `updated` (a date, shown in the byline and sent as dateModified). Write them to answer directly,
+from what the article says: AI search engines quote short, specific answers.
+
 **Subjects and colours.** Every article's topic belongs to one of three subjects (`CATEGORIES` and `TOPIC_CATEGORY` in
 `src/insights.py`): Product strategy (amber), AI agents (violet) and AI enablement (green). The colour comes from
 `--cat-strategy`, `--cat-agents` and `--cat-enablement` in `site.css` (lighter in dark mode) and is used wherever an

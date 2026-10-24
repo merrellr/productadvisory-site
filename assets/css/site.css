@@ -1270,6 +1270,13 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .insight-filter button[aria-checked="true"] em { color: inherit; opacity: .8; }
 .insight-filter button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 .insight-empty { color: var(--muted); }
+.takeaways { margin: 0 0 32px; padding: 20px 24px; background: var(--tint); border-left: 4px solid var(--cat, var(--cyan)); border-radius: 0 var(--radius) var(--radius) 0; }
+.takeaways h2 { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cat, var(--cyan-ink)); margin: 0 0 10px; }
+.takeaways ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.takeaways li { color: var(--ink); line-height: 1.55; }
+.post-faq { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line); }
+.post-faq h3 { font-size: 1.1rem; margin: 22px 0 6px; }
+.post-faq p { margin: 0; }
 .eyebrow-link { color: inherit; text-decoration: none; }
 .eyebrow-link:hover { text-decoration: underline; }
 .post-head { padding: 48px 0 28px; }

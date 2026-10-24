@@ -976,6 +976,16 @@ def article_page(a, full):
           "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "mainEntityOfPage": url,
           "author": {"@type": "Organization", "name": "Product Advisory", "url": SITE},
           "publisher": {"@type": "Organization", "name": "Product Advisory", "url": SITE}}
+    if a.get("updated"):
+        ld["dateModified"] = a["updated"]
+    if a.get("faq"):
+        ld = {"@context": "https://schema.org", "@graph": [dict((k, v) for k, v in ld.items() if k != "@context"),
+              {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in a["faq"]]}]}
+    takeaways = (f'<aside class="takeaways cat-{category(a)}" aria-labelledby="tk-{a["slug"]}"><h2 id="tk-{a["slug"]}">Key takeaways</h2>'
+                 f'<ul>{"".join(f"<li>{escape(t)}</li>" for t in a["takeaways"])}</ul></aside>') if a.get("takeaways") else ""
+    faq = (f'<section class="post-faq"><h2>Questions people ask</h2>'
+           + "".join(f"<h3>{escape(q)}</h3><p>{escape(ans)}</p>" for q, ans in a["faq"]) + "</section>") if a.get("faq") else ""
+    updated = f' · Updated <time datetime="{a["updated"]}">{fmt_date(a["updated"])}</time>' if a.get("updated") else ""
     more = [x for x in full if x is not a][:3]
     body = f'''<article class="post">
   <header class="post-head">
@@ -984,13 +994,15 @@ def article_page(a, full):
       <div class="eyebrow cat-{category(a)}"><a class="eyebrow-link" href="/insights?topic={category(a)}">{a["topic"]}</a> · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
-      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> · {read_minutes(a)} min read</p>
+      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated} · {read_minutes(a)} min read</p>
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
   <div class="wrap narrow">
+    {takeaways}
     <div class="prose post-body">
 {article_body(a)}
+    {faq}
     </div>
     {related_services(a)}
     <aside class="post-foot">

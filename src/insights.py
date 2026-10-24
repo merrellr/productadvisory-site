@@ -11,6 +11,9 @@ A body is a list of blocks:
     ("ul", ["item", ...])  ("ol", ["item", ...])
     ("quote", "text")                 a pulled quote
     ("fig", "file.webp", "alt text", "caption or empty")   an image from assets/insights/<slug>/
+"takeaways" (a short list shown first, "Key takeaways") and "faq" (question and answer pairs, shown at the end and
+marked up as FAQPage) are optional; write them to answer directly, from what the article says. "updated" (a date) is
+optional and becomes dateModified.
 "services" lists the related services (ids in content.SERVICES): the article ends with them, and each service on
 the Services page lists the articles that name it under "Related reading".
 Images: assets/insights/<slug>/cover.webp (1600x900), card.webp (800x450, the index card) and og.jpg (1200x675,
@@ -31,6 +34,17 @@ def category(a):
 ARTICLES = [
     {
         "slug": "day-in-the-life",
+        "takeaways": [
+            "AI agents now handle the reading, summarizing and watching in a product manager's day: inbox triage, meeting briefs, account context, dashboard monitoring and backlog rescoring.",
+            "Every meaningful decision still belongs to the PM: which risk to escalate, how to frame a problem, when to override an agent's recommendation.",
+            "Agents miss context they were never given, like an upcoming exec review or why a silence matters, so their output is a starting point, not an answer.",
+            "The job hasn't gotten smaller. It's gotten more concentrated on judgment.",
+        ],
+        "faq": [
+            ("Will AI agents replace product managers?", "No. In a realistic 2026 workday, agents take over triage, summaries, monitoring and first drafts, but the calls that matter, such as which account risk to escalate, how to frame a requirement or when to override a recommendation, still need a person weighing context the agent doesn't have."),
+            ("What tasks can AI agents take off a product manager's plate?", "Inbox and Slack triage, one-page meeting briefs, account summaries before customer calls, watching usage dashboards for unusual changes, rough first drafts of PRDs, and proposed backlog reordering with the reasoning shown."),
+            ("How should a PM use an AI agent's output?", "As a draft to judge, not a decision to accept. Read it critically, add the context only you have, and keep or override its suggestions with a reason the team can see."),
+        ],
         "services": ["coaching", "ai"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)",
         "dek": "Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.",
@@ -73,6 +87,17 @@ ARTICLES = [
     },
     {
         "slug": "stop-enabling-individuals",
+        "takeaways": [
+            "Individual AI enablement, a few power users with clever prompts, saves time but is capped, fragile and invisible to the organization.",
+            "Organizational AI enablement means durable capability: automated workflows that survive turnover, captured knowledge and governance.",
+            "Copilot Studio helps make that jump: it lowers the floor for who can build agents, raises the ceiling on what they can do, and adds a governance layer.",
+            "Start with one narrow, well-understood process, map it, ground the agent in real data, test it with the people who do the work, and give it an owner.",
+        ],
+        "faq": [
+            ("What is organizational AI enablement?", "It's when the organization itself, not just a handful of power users, has durable AI capability: workflows automated in a way that survives turnover, institutional knowledge captured, and AI use that leadership can see and govern."),
+            ("What's the difference between individual and organizational AI enablement?", "Individual enablement optimizes one person's time and is capped by their workload and habits. Organizational enablement optimizes a process, so an agent that answers first-line questions or routes tickets saves time for everyone involved, every time it runs."),
+            ("How do you build a first Copilot Studio agent?", "Pick one narrow process with a clear start and end, write down the steps a person takes today including the exceptions, connect the agent to the real source of truth, test it with the people who handle the work, and name an owner before launch."),
+        ],
         "services": ["ai"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "Stop enabling individuals. Start enabling the organization.",
         "dek": "From novice to organization: why Copilot Studio is the bridge to real AI enablement.",
@@ -114,6 +139,17 @@ ARTICLES = [
     },
     {
         "slug": "feature-fallacy",
+        "takeaways": [
+            "Measuring progress by features shipped leads to irrelevance. Measure value density instead: outcome created per unit of effort.",
+            "More features carry hidden taxes: context switching, adoption and quality.",
+            "Use the OEM loop: Outcome first, Evidence backed, Minimally sufficient.",
+            "In one healthcare example, three small changes raised order completion from 38% to 74% in six weeks, with no net-new features.",
+        ],
+        "faq": [
+            ("What is the feature fallacy?", "The belief that shipping more features means making more progress. Each feature adds context-switching, adoption and quality costs, so a team can ship a lot and still move its outcomes very little."),
+            ("What is value density in product management?", "The ratio of outcome created to effort required. When value density goes up, adoption, retention and trust follow; when it goes down, the backlog grows faster than the business."),
+            ("What is the OEM loop?", "Outcome, Evidence, Minimum: define the end state in observable terms, tie the bet to a falsifiable hypothesis with a minimum measurement plan, and ship the smallest intervention that can move the outcome for a narrow segment."),
+        ],
         "services": ["strategy", "lifecycle", "agile"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "The Feature Fallacy",
         "dek": "Why shipping more isn't helping your users, and what to do instead.",
@@ -175,6 +211,17 @@ ARTICLES = [
     },
     {
         "slug": "product-focused-ai-agents",
+        "takeaways": [
+            "Don't start with \"how do we add an agent?\" Start with \"how do we shape an agent to think like our strongest product leader?\"",
+            "Define the agent like a teammate: the decisions it influences, the context it must know and the tradeoffs it should favor.",
+            "Ground it in four kinds of context: product truths, strategic constraints, customer signals and product philosophy.",
+            "Give it opinions that match your strategy, embed it in real product moments, and refresh its context every quarter.",
+        ],
+        "faq": [
+            ("How do you build an AI agent for product management?", "Write a one-sentence role for it, ground it in your product truths, constraints, customer signals and philosophy, give it deliberate opinions that match your strategy, and assign it a role in real moments such as reviewing a PRD as a skeptical product leader."),
+            ("What context does a product AI agent need?", "Four kinds: product truths (the problem, the users, what success means), strategic constraints (business model, regulation, architecture), customer signals (objections, lost deals, support patterns) and product philosophy (speed versus quality, long-term versus short-term)."),
+            ("Do AI agents replace product leadership?", "No. Well-designed agents amplify it: they reduce cognitive load on senior leaders, make decision quality more consistent and surface blind spots early. The judgment still comes from people."),
+        ],
         "services": ["ai", "coaching"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "How to Build Product-Focused AI Agents That Actually Make Better Decisions",
         "dek": "How to shape LLMs to improve product judgment, decision quality and outcomes.",
