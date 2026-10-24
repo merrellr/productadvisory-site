@@ -140,34 +140,43 @@ def conversation():
     return f'<svg class="net art-contact" viewBox="0 0 400 290" role="img" aria-label="A note rises from an open envelope and flies off as a paper plane, while a reply is being typed">{"".join(out)}</svg>'
 
 
-def prism():
-    """Insights: scattered experience converges into one beam; the Product+ prism splits it into the three subjects,
-    in their own colours (the same as the filters below): product strategy, AI agents, AI enablement."""
-    out = []
-    # scattered experience, drawn together into one point
-    specks = [(26, 70), (58, 44), (40, 118), (92, 82), (22, 176), (70, 150), (110, 120), (48, 224), (96, 204), (124, 176), (80, 250), (118, 236)]
-    fx, fy = 150, 150
-    for n, (x, y) in enumerate(specks):
-        out.append(_line(x, y, fx, fy, 0.25 + 0.03 * n, "draw gather"))
-    for n, (x, y) in enumerate(specks):
-        out.append(f'<circle class="node speck-node pop" style="--d:{0.05 * n:.2f}s" cx="{x}" cy="{y}" r="4"/>')
-    # the incoming beam, with light travelling along it
-    entry = (186, 150)
-    beam_in = f"M{fx} {fy} L{entry[0]} {entry[1]}"
-    out.append(f'<path class="beam-in draw" style="--len:40;--d:.9s" d="{beam_in}"/>')
-    # the prism, marked with the Product+ plus
-    out.append('<g class="pop" style="--d:1.05s"><path class="prism" d="M214 92 L268 204 L160 204 Z"/>'
-               '<path class="prism-light" d="M186 150 L246 146 L250 156 Z"/>'
-               '<path class="plus" d="M214 168v22M203 179h22"/></g>')
-    # the three subjects fan out
-    beams = [("strategy", (243, 140), (382, 74)), ("agents", (246, 150), (386, 156)), ("enablement", (250, 160), (382, 238))]
-    for i, (cid, (x0, y0), (x1, y1)) in enumerate(beams):
-        d = 1.4 + 0.18 * i
-        out.append(f'<path class="beam-glow pop" style="--c:var(--cat-{cid});--d:{d + .3:.2f}s" d="M{x0} {y0} L{x1} {y1 - 13} L{x1} {y1 + 13} Z"/>')
-        ln = int(math.hypot(x1 - x0, y1 - y0)) + 2
-        out.append(f'<path class="beam draw" style="--c:var(--cat-{cid});--len:{ln};--d:{d:.2f}s" d="M{x0} {y0} L{x1} {y1}"/>')
-        if cid == "agents":
-            out.append(f'<circle class="ring" style="--c:var(--cat-{cid})" cx="{x1}" cy="{y1}" r="9"/>')
-        out.append(f'<circle class="beam-end pop" style="--c:var(--cat-{cid});--d:{d + .5:.2f}s" cx="{x1}" cy="{y1}" r="9"/>')
-    out.append(f'<circle class="traveler" r="4.5" style="offset-path:path(\'M70 150 L{fx} {fy} L{entry[0]} {entry[1]}\')"/>')
-    return f'<svg class="net art-prism" viewBox="0 0 400 290" role="img" aria-label="Scattered experience converges into one beam, and the Product+ prism splits it into product strategy, AI agents and AI enablement">{"".join(out)}</svg>'
+def insight_lens():
+    """Insights: a Product+ issue with three articles, one per subject in its colour, beside a scattered chart; the
+    magnifying glass shows the clear rising line in it, passing through the three subject colours (the same colours
+    as the filters below)."""
+    cx, cy, r = 240, 184, 52
+    cats = ("strategy", "agents", "enablement")
+    out = [f'<defs><clipPath id="pa-lens-clip"><circle cx="{cx}" cy="{cy}" r="{r - 2}"/></clipPath></defs><g transform="translate(14 0)">']
+    # the newsletter page, with the Product+ mark
+    out.append('<g class="rise" style="--d:.1s"><rect class="page" x="30" y="24" width="300" height="236" rx="12"/>'
+               '<text class="lbl masthead" x="50" y="64">Product</text><path class="plus" d="M127 50v14M120 57h14"/>'
+               '<path class="doc-line strong" d="M50 88h200M50 102h136"/></g>')
+    # three articles down the left, one per subject
+    for i, cid in enumerate(cats):
+        y, d = 132 + 42 * i, 0.55 + 0.15 * i
+        out.append(f'<g class="pop" style="--d:{d:.2f}s"><circle class="cat-dot" style="--c:var(--cat-{cid})" cx="54" cy="{y}" r="4.5"/>'
+                   f'<rect class="cat-tag" style="--c:var(--cat-{cid})" x="64" y="{y - 3}" width="38" height="6" rx="3"/></g>')
+        out.append(f'<path class="doc-line draw" style="--len:96;--d:{d + .1:.2f}s" d="M50 {y + 14}h92M50 {y + 26}h{70 - 8 * i}"/>')
+    # the chart on the right: a scatter that hides its trend (the lens covers the middle)
+    pts = [(170, 236), (176, 214), (184, 240), (172, 192), (182, 168), (170, 150), (186, 140), (196, 232), (206, 244),
+           (282, 128), (296, 142), (306, 130), (312, 158), (300, 168), (310, 186), (304, 212), (314, 236), (292, 240), (280, 236),
+           (226, 196), (248, 172), (260, 200), (232, 160), (214, 214), (270, 166)]
+    for n, (x, y) in enumerate(pts):
+        out.append(f'<circle class="speck-dot pop" style="--d:{0.7 + 0.025 * n:.2f}s" cx="{x}" cy="{y}" r="3"/>')
+    out.append('<path class="chart-axis draw" style="--len:210;--d:.5s" d="M162 126 V248 H318"/>')
+    # the magnifying glass: inside the lens the noise falls away and the trend is clear, through the three subjects
+    trend = f"M{cx - r} {cy + 30} C {cx - 28} {cy + 26}, {cx - 14} {cy + 14}, {cx} {cy - 2} S {cx + 20} {cy - 28}, {cx + r} {cy - 34}"
+    nodes = [(cx - 24, cy + 22, 1.9), (cx, cy - 2, 2.1), (cx + 22, cy - 26, 2.3)]
+    out.append('<g class="float"><g class="lens pop" style="--d:1.3s">')
+    out.append(f'<g clip-path="url(#pa-lens-clip)"><circle class="lens-bg" cx="{cx}" cy="{cy}" r="{r}"/>'
+               + "".join(f'<path class="grid" d="M{cx - r} {y}H{cx + r}"/>' for y in (cy - 26, cy, cy + 26))
+               + f'<path class="route draw" style="--len:150;--d:1.7s" d="{trend}"/></g>')
+    x, y, _ = nodes[-1]
+    out.append(f'<circle class="ring" style="--c:var(--cat-{cats[-1]})" cx="{x}" cy="{y}" r="7"/>')
+    for (x, y, d), cid in zip(nodes, cats):
+        out.append(f'<circle class="lens-node pop" style="--c:var(--cat-{cid});--d:{d:.2f}s" cx="{x}" cy="{y}" r="6"/>')
+    out.append(f'<circle class="lens-rim" cx="{cx}" cy="{cy}" r="{r}"/>')
+    out.append(f'<path class="glare" d="M{cx - 36} {cy - 20} A{r - 12} {r - 12} 0 0 1 {cx - 16} {cy - 38}"/>')
+    out.append(f'<path class="handle" d="M{cx + 38} {cy + 38} L{cx + 80} {cy + 80}"/>')
+    out.append('</g></g></g>')
+    return f'<svg class="net art-lens" viewBox="0 0 400 290" role="img" aria-label="A Product+ issue with articles on product strategy, AI agents and AI enablement; a magnifying glass turns its scattered chart into one clear rising line">{"".join(out)}</svg>'
