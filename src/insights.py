@@ -41,6 +41,7 @@ ARTICLES = [
         "dek": "The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.",
         "topic": "Product strategy",
         "date": "2026-10-24",
+        "linkedin": "https://www.linkedin.com/pulse/rice-weighted-scoring-which-prioritization-framework-should-ia5jc",
         "keywords": "rice scoring weighted scoring prioritization framework roadmap backlog reach impact confidence effort criteria weights ice moscow scorecard",
         "takeaways": [
             "Use RICE to compare many similar items in one product area, where you can measure reach.",
@@ -93,7 +94,7 @@ ARTICLES = [
                     "<b>False precision.</b> A score of 66.7 against 64.2 isn't a real difference. Treat close calls as ties and decide them on evidence.",
                     "<b>One criterion doing all the work.</b> If a single criterion carries more than half the weight, you're really using one criterion.",
                     "<b>Never revisiting confidence.</b> Low-confidence scores should trigger a cheap test, not a commitment.",
-                    "<b>Treating the score as the decision.</b> A framework orders the conversation. Judgement, timing and context still decide. As I wrote in <a href=\"/insights/feature-fallacy\">The Feature Fallacy</a>, the goal is the smallest change that moves the outcome, not the longest list of shipped features."]),
+                    "<b>Treating the score as the decision.</b> A framework orders the conversation. Judgement, timing and context still decide. As we wrote in <a href=\"/insights/feature-fallacy\">The Feature Fallacy</a>, the goal is the smallest change that moves the outcome, not the longest list of shipped features."]),
             ("h2", "Try it on your own backlog"),
             ("p", "Our free <a href=\"/scorecard\">Feature Prioritization Scorecard</a> now does both. Score your features with weighted scoring, then with RICE, and the <b>Compare</b> tab shows the two rankings side by side, with a line for each feature and a plain-English note on where they disagree. You can <a href=\"/scorecard#s=eyJ0IjoiUklDRSB2cyB3ZWlnaHRlZDogdGhlIGFydGljbGUgZXhhbXBsZSIsIm0iOiJjdXN0b20iLCJjIjpbWyJDdXN0b21lciB2YWx1ZSIsNSwwXSxbIlN0cmF0ZWdpYyBmaXQiLDQsMF0sWyJSZXZlbnVlIGltcGFjdCIsNCwwXSxbIkVmZm9ydCIsMywxXSxbIlJpc2siLDIsMV1dLCJmIjpbWyJTZWxmLXNlcnZlIG9uYm9hcmRpbmciLCI1MzMzMiIsWzIwMDAsMiw4MCw0XV0sWyJTU08gZm9yIGVudGVycHJpc2UiLCIzNTUzMiIsWzE1MCwzLDkwLDNdXSxbIkJ1bGsgZXhwb3J0IiwiMzExMTEiLFs5MDAsMSwxMDAsMV1dLFsiQUkgdXNhZ2Ugc3VtbWFyeSIsIjM0MjI0IixbMTIwMCwxLDUwLDJdXV0sInEiOiJjb21wYXJlIn0\">open this article's example in Compare</a> and change the weights or the reach to see how quickly the order moves."),
             ("p", "For the wall or the next planning meeting, download the one-page <a href=\"/assets/toolkits/which-prioritization-method.pdf\">Which prioritization method? cheat sheet</a>: the two questions, the three methods at a glance, and six rules for a ranking you can defend."),
