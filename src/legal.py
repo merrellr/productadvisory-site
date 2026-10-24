@@ -24,7 +24,8 @@ PRIVACY = """
 <p><b>Toolkits.</b> Toolkit PDFs and Google Sheets are free to download. The PDFs are filled in locally in your PDF reader, and what you enter is never sent to us. If you make your own copy of a Google Sheet, that copy lives in your Google account, not ours.</p>
 <p><b>Request a tool and voting page.</b> When you vote or suggest a tool, we collect an anonymous browser based ID, your votes, and the text of any suggestion. Giving an email address is optional and is used only to tell you when a tool you asked for is ready. Suggestions are reviewed before they appear publicly.</p>
 <p><b>Assessment and learning pages.</b> If you take our assessment, we collect your name, email address, company, job title, company size, and industry, along with your answers to each question and your results. If you create an account, we also store your sign in details, course progress, and badges. Accounts are handled by Google Firebase.</p>
-<p><b>Newsletter and social.</b> Our newsletter and company page live on LinkedIn, and LinkedIn handles what you share there under its own policy.</p>
+<p><b>Product+ email.</b> If you sign up for new articles by email, we keep your email address, the date, and the page you signed up from, and use them only to send you Product+ articles. Every email includes a link to unsubscribe, and unsubscribing takes effect right away.</p>
+<p><b>Newsletter and social.</b> Our newsletter is also on LinkedIn, along with our company page, and LinkedIn handles what you share there under its own policy.</p>
 
 <h2>How we use it</h2>
 <p>We use your information to:</p>

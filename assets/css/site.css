@@ -1431,3 +1431,19 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .finder-tool .pill { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan-ink); border: 1px solid currentColor; border-radius: var(--pill); padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
 .finder-tool p { margin: 6px 0 10px; font-size: .94rem; color: var(--ink-2); }
 @media (max-width: 640px) { .art-finder .ask-form .btn { padding: 10px 14px; } .art-finder-head .muted { display: block; } }
+
+/* ---------- Product+ email signup ---------- */
+.subscribe-card { margin-top: 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; padding: 30px 32px; border-radius: var(--radius); background: var(--tint); }
+.subscribe-card h2 { font-size: 1.5rem; margin: 6px 0 .4em; }
+.subscribe-card p { margin: 0; }
+@media (max-width: 760px) { .subscribe-card { grid-template-columns: 1fr; padding: 24px 22px; } }
+.subscribe { position: relative; display: grid; gap: 8px; }
+.sub-label { font-weight: 700; color: var(--navy); }
+.sub-row { display: flex; gap: 10px; }
+.sub-row input { flex: 1; min-width: 0; font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); }
+.sub-row input:focus { outline: 2px solid var(--cyan); outline-offset: 1px; border-color: transparent; }
+@media (max-width: 420px) { .sub-row { flex-direction: column; } }
+.sub-fine { font-size: .88rem; color: var(--muted); margin: 0; }
+.subscribe.done .sub-row { opacity: .6; }
+.post-foot .subscribe { margin: 14px 0 6px; }
+.post-call { margin: 10px 0 0; font-size: .97rem; }
