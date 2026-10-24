@@ -967,7 +967,7 @@ def article_page(a, full):
     url = f"{SITE}insights/{a['slug']}"
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["dek"],
           "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "mainEntityOfPage": url,
-          "author": {"@type": "Person", "name": "Robert Merrell", "url": f"{SITE}about#founder"},
+          "author": {"@type": "Organization", "name": "Product Advisory", "url": SITE},
           "publisher": {"@type": "Organization", "name": "Product Advisory", "url": SITE}}
     more = [x for x in full if x is not a][:3]
     body = f'''<article class="post">
@@ -977,7 +977,7 @@ def article_page(a, full):
       <div class="eyebrow">{a["topic"]} · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
-      <p class="byline">By <a href="about.html#founder">Robert Merrell</a> · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> · {read_minutes(a)} min read</p>
+      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> · {read_minutes(a)} min read</p>
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>

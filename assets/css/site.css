@@ -1269,5 +1269,3 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .svc-link b::after { content: " →"; color: var(--cyan); }
 .svc-link span { color: var(--ink-2); font-size: .97rem; }
 @media (prefers-reduced-motion: reduce) { .svc-link { transition: none; } .svc-link:hover { transform: none; } }
-.post-head .byline a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
-.post-head .byline a:hover { color: var(--navy); text-decoration-color: currentColor; }
