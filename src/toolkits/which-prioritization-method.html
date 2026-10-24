@@ -1,0 +1,83 @@
+<!doctype html>
+<!-- The "Which prioritization method?" cheat sheet (one US Letter page). Render it to
+     assets/toolkits/which-prioritization-method.pdf with:  node src/toolkits/render-pdf.mjs -->
+<html lang="en"><head><meta charset="utf-8"><title>Which prioritization method? · Product Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+@page { size: Letter; margin: 0; }
+* { box-sizing: border-box; margin: 0; }
+body { width: 8.5in; height: 11in; font-family: Inter, sans-serif; color: #151b2b; background: #f4f2ee; padding: .45in .55in .45in; position: relative; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 9.2pt; overflow: hidden; }
+.mark { font-family: Fraunces, serif; font-style: italic; font-weight: 600; font-size: 20pt; letter-spacing: -.02em; position: relative; display: inline-block; }
+.mark i { position: absolute; right: -.62em; top: -.12em; width: .5em; height: .5em; background: linear-gradient(#13332e,#13332e) center/34% 100% no-repeat, linear-gradient(#2fae95,#2fae95) center/100% 34% no-repeat; }
+.top { display: flex; justify-content: space-between; align-items: center; }
+.mono { font-family: 'JetBrains Mono', monospace; letter-spacing: .2em; text-transform: uppercase; font-size: 7.5pt; color: #6b7280; }
+h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34pt; letter-spacing: -.02em; line-height: 1; margin: 10pt 0 3pt; }
+.sub { font-size: 10.5pt; color: #4a5568; margin-bottom: 10pt; }
+h2 { font-family: Fraunces, serif; font-size: 12pt; color: #1d2a44; margin: 0 0 6pt; }
+.box { background: #fff; border-radius: 10pt; padding: 10pt 12pt; }
+.flow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6pt; margin-bottom: 11pt; }
+.q { background: #fff; border-radius: 9pt; padding: 6pt 10pt; font-weight: 700; color: #1d2a44; display: flex; gap: 8pt; align-items: center; font-size: 10.5pt; }
+.q b { font-family: 'JetBrains Mono'; font-size: 8pt; color: #fff; background: #1d2a44; border-radius: 99pt; padding: 2pt 7pt; font-weight: 500; }
+.q1 { grid-column: 1 / -1; } .q2 { grid-column: 2 / 4; }
+.a { background: #fff; border-radius: 9pt; padding: 7pt 10pt; border-top: 4pt solid; line-height: 1.35; }
+.a .tag { font-family: 'JetBrains Mono'; font-size: 7pt; letter-spacing: .16em; color: #6b7280; display: block; }
+.a h3 { font-family: Fraunces, serif; font-size: 12pt; margin: 1pt 0 1pt; }
+.no { grid-row: 2 / 4; }
+.methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7pt; margin-bottom: 11pt; }
+.m { background: #fff; border-radius: 10pt; padding: 8pt 10pt; border-left: 4pt solid; line-height: 1.35; }
+.m h3 { font-family: Fraunces, serif; font-size: 13pt; color: #1d2a44; }
+.m .f { font-family: 'JetBrains Mono'; font-size: 7.5pt; background: #f4f2ee; border-radius: 5pt; padding: 3pt 6pt; margin: 4pt 0 5pt; color: #151b2b; }
+.m dl { display: grid; gap: 1pt; } .m dt { font-weight: 700; font-size: 7.5pt; color: #6b7280; text-transform: uppercase; letter-spacing: .06em; } .m dd { margin: 0 0 2pt; }
+.both { background: #1d2a44; color: #fff; border-radius: 10pt; padding: 8pt 12pt; line-height: 1.45; margin-bottom: 11pt; font-size: 9.6pt; }
+.both b { color: #e7c46a; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 5pt 14pt; padding: 0; list-style: none; counter-reset: r; }
+.rules li { counter-increment: r; display: grid; grid-template-columns: 18pt 1fr; gap: 6pt; line-height: 1.4; }
+.rules li::before { content: counter(r); width: 18pt; height: 18pt; border-radius: 50%; background: #1f7a6c; color: #fff; font-family: Fraunces, serif; font-size: 9pt; display: grid; place-items: center; }
+.rules b { color: #1d2a44; }
+.foot { position: absolute; left: .55in; right: .55in; bottom: .38in; display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #ddd6c9; padding-top: 8pt; font-size: 8.5pt; color: #4a5568; }
+.foot a { color: #1f7a6c; font-weight: 700; text-decoration: none; }
+.foot .try b { color: #151b2b; }
+</style></head><body>
+<div class="top"><span class="mark">Product<i></i></span><span class="mono">Product Advisory · Quick reference</span></div>
+<h1>Which prioritization method?</h1>
+<p class="sub">Pick the lightest method that gives you a decision you can defend. Two questions decide it.</p>
+
+<div class="flow">
+  <div class="q q1"><b>1</b>Are the options the same kind of thing, in one product area?</div>
+  <div class="a no" style="border-color:#7c6bd6"><span class="tag">No</span><h3>Weighted scoring</h3>Different kinds of bets, or a strategy that's shifting. Agree the criteria and weights first, then score.</div>
+  <div class="q q2"><b>2</b>If yes: can you estimate reach with some confidence?</div>
+  <div class="a" style="border-color:#1f7a6c"><span class="tag">Yes</span><h3>RICE</h3>Similar items for the same users, where you know roughly how many each one reaches.</div>
+  <div class="a" style="border-color:#e7c46a"><span class="tag">No, it's a guess</span><h3>ICE</h3>Lighter, and more honest than RICE built on guessed reach.</div>
+</div>
+
+<h2>The three methods at a glance</h2>
+<div class="methods">
+  <div class="m" style="border-color:#1f7a6c"><h3>RICE</h3><div class="f">Reach × Impact × Confidence ÷ Effort</div>
+    <dl><dt>Scales</dt><dd>Impact 3 / 2 / 1 / 0.5 / 0.25 · Confidence 100 / 80 / 50% · Effort in person-months</dd>
+    <dt>Best for</dt><dd>Ordering many comparable items</dd><dt>Watch out</dt><dd>Strategy, revenue and risk aren't in the formula; guessed reach looks like data</dd></dl></div>
+  <div class="m" style="border-color:#7c6bd6"><h3>Weighted scoring</h3><div class="f">Σ weight × score (1–5), costs inverted</div>
+    <dl><dt>Scales</dt><dd>Your own criteria, weights 0–5; effort and risk count lower-is-better</dd>
+    <dt>Best for</dt><dd>Different bets; making strategy explicit</dd><dt>Watch out</dt><dd>Whoever picks the criteria can tilt the result</dd></dl></div>
+  <div class="m" style="border-color:#e7c46a"><h3>ICE</h3><div class="f">Impact × Confidence × Ease</div>
+    <dl><dt>Scales</dt><dd>Each 1–10 (or 1–5), scored quickly by the team</dd>
+    <dt>Best for</dt><dd>Fast triage when reach is unknown</dd><dt>Watch out</dt><dd>Subjective: two people can score the same idea very differently</dd></dl></div>
+</div>
+
+<div class="both"><b>Use them together.</b> Each quarter, weighted scoring picks the themes and bets, with leadership agreeing the weights. Within each theme, RICE (or ICE) orders the work week to week. If the two disagree, that's the conversation to have.</div>
+
+<h2>Six rules for a ranking you can defend</h2>
+<ol class="rules">
+  <li><span><b>Agree the weights before anyone scores.</b> The weights are the strategy.</span></li>
+  <li><span><b>Treat close calls as ties.</b> 66.7 vs 64.2 isn't a real difference; decide on evidence.</span></li>
+  <li><span><b>Keep any one criterion under half the weight,</b> or you're really using one criterion.</span></li>
+  <li><span><b>Low confidence means a cheap test,</b> not a commitment.</span></li>
+  <li><span><b>The score starts the decision; it doesn't make it.</b> Timing, context and judgement still decide.</span></li>
+  <li><span><b>Re-run it each quarter.</b> Goals change, and the weights should too.</span></li>
+</ol>
+
+<div class="foot">
+  <div class="try"><b>Try both, free:</b> <a href="https://www.productadvisory.co/scorecard">productadvisory.co/scorecard</a><br>
+    <b>Read more:</b> <a href="https://www.productadvisory.co/insights/rice-vs-weighted-scoring">productadvisory.co/insights/rice-vs-weighted-scoring</a></div>
+  <div style="text-align:right">© Product Advisory, LLC · Free to use and share<br><a href="https://www.productadvisory.co/book">Book a free 30-minute call</a></div>
+</div>
+</body></html>

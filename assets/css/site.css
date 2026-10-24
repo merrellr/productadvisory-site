@@ -1163,6 +1163,23 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .sc-step p { margin: 0; font-size: .92rem; }
 .sc-step .num { margin: 0; flex-shrink: 0; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: var(--card); font-weight: 800; }
 .sc-templates { margin-bottom: 16px; }
+.sc-methods { margin: 0 0 22px; }
+.sc-methods button { font-size: 1rem; padding: 10px 18px; }
+[data-panel][hidden], .sc-results-card[hidden] { display: none; }
+.sc-formula { font-size: 1.15rem; text-align: center; background: var(--tint); border-radius: 12px; padding: 14px; margin: 0 0 14px; color: var(--ink); }
+.sc-rice-help { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: .95rem; }
+.sc-num { font: inherit; font-weight: 700; color: var(--navy); background: var(--card); border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 8px; width: 96px; text-align: right; }
+.sc-num:focus { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.sc-rice-table select { min-width: 120px; }
+.sc-rice-table thead th { text-align: left; }
+.sc-compare-empty { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.sc-bump { width: 100%; height: auto; display: block; margin: 4px 0 18px; }
+.sc-bump-h { font: 700 11px var(--sans); letter-spacing: .14em; fill: var(--muted); }
+.sc-bump-box { fill: var(--card); stroke-width: 2.5; }
+.sc-bump-n { font: 800 12px var(--sans); fill: #fff; }
+.sc-bump-t { font: 700 14px var(--sans); fill: var(--ink); }
+.sc-bump-s { font: 700 13px var(--sans); fill: var(--muted); font-variant-numeric: tabular-nums; }
+#sc-compare-notes p { margin: 0 0 10px; }
 .sc-criteria { display: grid; gap: 10px; margin-bottom: 14px; }
 .sc-crit { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
 .sc-crit-name { font: inherit; font-weight: 700; color: var(--ink); background: transparent; border: 1.5px solid transparent; border-radius: 8px; padding: 6px 8px; min-width: 0; }

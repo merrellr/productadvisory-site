@@ -53,8 +53,36 @@ console.log('--- sharing and export ---');
   t('a broken link gives nothing, not an error', S.decode('%%%not-base64') === null && S.decode('') === null);
   const csv = S.toCSV({ criteria: [{ name: 'Value', weight: 4 }, { name: 'Effort', weight: 2, cost: true }], features: [{ name: '=cmd|"x"', scores: [5, 2] }, { name: 'B, the second', scores: [2, 4] }] });
   const rows = csv.trim().split('\r\n');
-  t('the CSV has a header with the weights, then the features best first', rows[0] === 'Rank,Feature,Score (0-100),Value (weight 4),"Effort (weight 2, lower is better)"' && rows.length === 3, rows[0]);
+  t('the CSV has a header with the weights, then the features best first', rows[0] === 'Rank,Feature,Score (0-100),Value (weight 4),"Effort (weight 2, lower is better)",RICE rank,RICE score,Reach,Impact,Confidence %,Effort (person-months)' && rows.length === 3, rows[0]);
   t('a feature name that would run as a formula in a spreadsheet is stored as text, and commas are quoted', rows[1].startsWith('1,"\'=cmd|""x"""') && rows[2].startsWith('2,"B, the second"'), rows[1] + ' / ' + rows[2]);
+}
+
+console.log('--- RICE ---');
+{
+  // The worked example from the article "RICE or Weighted Scoring" (insights/rice-vs-weighted-scoring)
+  const st = { criteria: [{ name: 'Customer value', weight: 5 }, { name: 'Strategic fit', weight: 4 }, { name: 'Revenue impact', weight: 4 }, { name: 'Effort', weight: 3, cost: true }, { name: 'Risk', weight: 2, cost: true }],
+    features: [{ name: 'Self-serve onboarding', scores: [5, 3, 3, 3, 2], rice: { reach: 2000, impact: 2, confidence: 80, effort: 4 } },
+      { name: 'SSO for enterprise', scores: [3, 5, 5, 3, 2], rice: { reach: 150, impact: 3, confidence: 90, effort: 3 } },
+      { name: 'Bulk export', scores: [3, 1, 1, 1, 1], rice: { reach: 900, impact: 1, confidence: 100, effort: 1 } },
+      { name: 'AI usage summary', scores: [3, 4, 2, 2, 4], rice: { reach: 1200, impact: 1, confidence: 50, effort: 2 } }] };
+  const r = S.rankRice(st);
+  t('RICE = reach x impact x confidence / effort, best first (the article\'s numbers)', r.map(x => x.name + ':' + x.score).join() === 'Bulk export:900,Self-serve onboarding:800,AI usage summary:300,SSO for enterprise:135', r.map(x => x.name + ':' + x.score).join());
+  t('900 and 800 are a close call (within 15%), 300 is not', r[0].closeCall && r[1].closeCall && !r[2].closeCall);
+  const c = S.compare(st);
+  t('compare: both ranks per feature, in weighted order, with how far each moves', c.map(x => x.name + ':' + x.weighted + '/' + x.rice + '/' + x.move).join() === 'SSO for enterprise:1/4/-3,Self-serve onboarding:2/2/0,AI usage summary:3/3/0,Bulk export:4/1/3', c.map(x => x.name + ':' + x.weighted + '/' + x.rice).join());
+  t('hasRice once two named features have a reach', S.hasRice(st) && !S.hasRice({ criteria: st.criteria, features: [{ name: 'a', scores: [1, 1, 1, 1, 1] }, { name: 'b', scores: [1, 1, 1, 1, 1] }] }));
+  const bad = S.cleanRice({ reach: -5, impact: 7, confidence: 140, effort: 0 });
+  t('RICE inputs are made safe: no negative reach, impact on the scale, confidence 0-100, effort above 0', bad.reach === 0 && bad.impact === 1 && bad.confidence === 100 && bad.effort === 0.1, JSON.stringify(bad));
+  t('features without RICE yet get the defaults (no reach)', S.normalize({ criteria: st.criteria, features: [{ name: 'x', scores: [3, 3, 3, 3, 3] }] }).features[0].rice.reach === 0);
+  const back = S.decode(S.encode(Object.assign({ method: 'compare' }, st)));
+  t('a shared link carries RICE and the open tab', back.method === 'compare' && S.rankRice(back).map(x => x.score).join() === '900,800,300,135');
+  const old = 'eyJ0IjoiIiwibSI6ImN1c3RvbSIsImMiOltbIkN1c3RvbWVyIHZhbHVlIiw1LDBdLFsiU3RyYXRlZ2ljIGZpdCIsNCwwXSxbIlJldmVudWUgaW1wYWN0Iiw0LDBdLFsiRWZmb3J0IiwzLDFdLFsiUmlzayIsMiwxXV0sImYiOltbIlNlbGYtc2VydmUgb25ib2FyZGluZyIsIjUzMzMyIl0sWyJTU08gZm9yIGVudGVycHJpc2UiLCIzNTUzMiJdLFsiQnVsayBleHBvcnQiLCIzMTExMSJdLFsiQUkgdXNhZ2Ugc3VtbWFyeSIsIjM0MjI0Il1dfQ';
+  const o = S.decode(old);
+  t('links shared before RICE still open, on the weighted tab', o && o.method === 'weighted' && o.features.length === 4 && o.features[0].rice.reach === 0);
+  const ex = S.fromTemplate('balanced', true);
+  t('the example fills in RICE too, so Compare works straight away', S.hasRice(ex) && S.compare(ex).length === 5);
+  const csv = S.toCSV(st).trim().split('\r\n');
+  t('the CSV has the RICE rank, score and inputs', csv[1].endsWith(',4,135,150,3,90,3'), csv[1]);
 }
 
 console.log('\n' + pass + ' passed, ' + fail + ' failed');

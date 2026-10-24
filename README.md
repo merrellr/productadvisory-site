@@ -237,3 +237,12 @@ The first interactive toolkit (top voted on the Tool Roadmap). `scorecard.html` 
 features are scored 1–5; the score is the weighted average as 0–100, with "close calls" within 5 points. Templates:
 Balanced, Customer-led, Growth, ICE. Saved in the browser (`localStorage`), shared as a link (the scorecard in the
 `#s=` part, never sent to a server), downloaded as CSV, or printed/saved as PDF. Limits: 8 criteria, 30 features.
+
+**RICE and Compare.** Three tabs share one list of features: **Weighted scoring**, **RICE** (Reach × Impact ×
+Confidence ÷ Effort, with Intercom's scales: impact 3/2/1/0.5/0.25, confidence 100/80/50%, effort in person-months;
+close calls within 15%) and **Compare both** (the two rankings side by side, a line per feature, and a note on where
+they disagree). RICE values travel in shared links (with the open tab) and the CSV; links shared before RICE still
+open. The article "RICE or Weighted Scoring" links to its example opened in Compare.
+
+**Cheat sheet.** `assets/toolkits/which-prioritization-method.pdf` (one page, linked from the Scorecard, Toolkits and the
+article) is made from `src/toolkits/which-prioritization-method.html`: `node src/toolkits/render-pdf.mjs`.

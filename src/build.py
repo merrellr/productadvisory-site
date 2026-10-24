@@ -385,16 +385,17 @@ def toolkits():
     # The first interactive toolkit, built from the top vote on the Tool Roadmap (scorecard.html).
     sc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["starter", "practitioner", "leader"])
     sc_rows = "".join(f'<span class="sc-thumb-row"><b>{n}</b><i style="--w:{w}%"></i><em>{w}</em></span>' for n, w in [(1, 82), (2, 74), (3, 71), (4, 48), (5, 30)])
-    interactive = f'''<article class="tool reveal" id="feature-prioritization-scorecard" data-levels="starter practitioner leader" data-ask="Feature Prioritization Scorecard: rank features with criteria you can change" data-kind="Toolkit" data-keywords="prioritize prioritization prioritise rank features roadmap weighted scoring ice rice backlog">
+    interactive = f'''<article class="tool reveal" id="feature-prioritization-scorecard" data-levels="starter practitioner leader" data-ask="Feature Prioritization Scorecard: rank features with criteria you can change" data-kind="Toolkit" data-keywords="prioritize prioritization prioritise rank features roadmap weighted scoring ice rice backlog compare cheat sheet which method">
   <a class="tool-thumb sc-thumb" href="scorecard.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{sc_rows}</a>
   <div>
     <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">New · Interactive</span></h3>
     <div>{sc_tags}</div>
     <ul class="meta"><li><b>Time needed:</b> About 20 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
-    <p>Rank features with criteria you can change, so your roadmap reflects your goals and not the loudest voice. Weight what matters, score each feature, and watch the ranking update as you go.</p>
+    <p>Rank features with criteria you can change, or with RICE, and compare the two rankings side by side, so your roadmap reflects your goals and not the loudest voice. Weight what matters, score each feature, and watch the ranking update as you go.</p>
     <p class="deep"><b>Use it when:</b> the backlog is longer than the quarter, and every stakeholder thinks their feature is first.</p>
     <p class="deep"><b>You walk away with:</b> a ranked list, the criteria behind it, and a link or file you can share.</p>
-    <div class="btn-row"><a class="btn sm" href="scorecard.html">Open the scorecard</a></div>
+    <div class="btn-row"><a class="btn sm" href="scorecard.html">Open the scorecard</a><a class="btn sm ghost" href="assets/toolkits/which-prioritization-method.pdf" {EXT}>Download the cheat sheet (PDF)</a></div>
+    <p class="deep" style="margin-top:10px"><b>New:</b> the one-page <i>Which prioritization method?</i> cheat sheet: when to use RICE, weighted scoring or ICE, and six rules for a ranking you can defend.</p>
   </div>
 </article>'''
     tools = interactive + tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
@@ -636,7 +637,7 @@ def scorecard():
                    for k, n in [("balanced", "Balanced"), ("customer", "Customer-led"), ("growth", "Growth"), ("ice", "ICE")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p></div>
     <div class="art">{toolkit_open()}</div>
   </div>
 </header>
@@ -654,8 +655,15 @@ def scorecard():
       <div class="sc-share" id="sc-share" hidden><label for="sc-share-url">Anyone with this link sees a copy of this scorecard:</label><input id="sc-share-url" readonly><p class="form-status" id="sc-share-status" role="status"></p></div>
     </div>
 
+    <div class="seg sc-methods" role="radiogroup" aria-label="Scoring method">
+      <button type="button" role="radio" aria-checked="true" data-method="weighted">Weighted scoring</button>
+      <button type="button" role="radio" aria-checked="false" data-method="rice">RICE</button>
+      <button type="button" role="radio" aria-checked="false" data-method="compare">Compare both</button>
+    </div>
+
     <div class="sc-grid">
       <div>
+        <div data-panel="weighted">
         <div class="card sc-card sc-crit-card">
           <div class="sc-step"><span class="num">1</span><div><h2>Choose what matters</h2><p class="muted">Start from a template, then rename, reweight, add or remove criteria. Weight 0 switches one off.</p></div></div>
           <div class="seg sc-templates" role="radiogroup" aria-label="Start from a template">{tmpl}</div>
@@ -669,13 +677,40 @@ def scorecard():
           <div class="sc-table-wrap"><table class="sc-table" id="sc-table"></table></div>
           <div class="btn-row"><button type="button" class="btn sm ghost" data-sc="add-feature">+ Add a feature</button><button type="button" class="btn sm ghost" data-sc="examples">Fill in an example</button></div>
         </div>
+        </div>
+
+        <div data-panel="rice" hidden>
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">1</span><div><h2>How RICE works</h2><p class="muted">A fixed formula from Intercom's product team, best for ranking many similar items in one product area.</p></div></div>
+          <p class="sc-formula"><b>Reach</b> × <b>Impact</b> × <b>Confidence</b> ÷ <b>Effort</b></p>
+          <ul class="sc-rice-help">
+            <li><b>Reach</b>: how many people it affects in a set period, for example users per quarter. Use the same period for every feature.</li>
+            <li><b>Impact</b>: how much it moves each of them: massive (3), high (2), medium (1), low (0.5) or minimal (0.25).</li>
+            <li><b>Confidence</b>: how sure you are of the other numbers: high (100%), medium (80%) or low (50%).</li>
+            <li><b>Effort</b>: how much work it takes, in person-months.</li>
+          </ul>
+        </div>
+        <div class="card sc-card" role="region" aria-labelledby="sc-rice-h">
+          <div class="sc-step"><span class="num">2</span><div><h2 id="sc-rice-h">Score your features with RICE</h2><p class="muted">The same features as the weighted tab. Change a name here and it changes there too.</p></div></div>
+          <div class="sc-table-wrap"><table class="sc-table sc-rice-table" id="sc-rice-table"></table></div>
+          <div class="btn-row"><button type="button" class="btn sm ghost" data-sc="add-feature">+ Add a feature</button><button type="button" class="btn sm ghost" data-sc="examples">Fill in an example</button></div>
+        </div>
+        </div>
+
+        <div data-panel="compare" hidden>
+        <div class="card sc-card sc-compare-card">
+          <div class="sc-step"><span class="num">=</span><div><h2>Two rankings, side by side</h2><p class="muted">Weighted scoring on the left, RICE on the right. Lines show where each feature moves.</p></div></div>
+          <div id="sc-compare"></div>
+          <div id="sc-compare-notes"></div>
+        </div>
+        </div>
       </div>
 
       <div class="sc-side">
         <div class="card sc-card sc-results-card">
-          <div class="sc-step"><span class="num">3</span><div><h2>Your ranking</h2><p class="muted">Updates as you go. Scores run from 0 to 100.</p></div></div>
+          <div class="sc-step"><span class="num">3</span><div><h2 id="sc-rank-h">Your ranking</h2><p class="muted" id="sc-rank-note">Updates as you go. Scores run from 0 to 100.</p></div></div>
           <ol class="sc-results" id="sc-results" aria-live="polite"></ol>
-          <p class="muted sc-close-note" id="sc-close-note" hidden><span class="sc-chip">Close call</span> These are within 5 points of each other. Talk them through rather than trusting the decimals.</p>
+          <p class="muted sc-close-note" id="sc-close-note" hidden><span class="sc-chip">Close call</span> <span id="sc-close-text">These are within 5 points of each other.</span> Talk them through rather than trusting the decimals.</p>
         </div>
         <div class="card tint sc-tips">
           <h3>Make it stick</h3>
@@ -684,6 +719,7 @@ def scorecard():
             <li><b>Write down why.</b> The CSV or PDF is your record when someone asks later.</li>
             <li><b>Re-run it each quarter.</b> Goals change, and so should the weights.</li>
           </ul>
+          <p class="muted" style="margin-top:12px">Not sure which method fits? <a href="assets/toolkits/which-prioritization-method.pdf" {EXT}>Download the one-page cheat sheet</a> or read <a href="/insights/rice-vs-weighted-scoring">RICE or weighted scoring?</a></p>
           <hr class="rule">
           <p>Want a hand running this with your team?</p>
           <a class="btn sm" href="{BOOK}">Book a free 30-minute call</a>
@@ -694,7 +730,7 @@ def scorecard():
 </section>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
-    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weight your criteria, score your features, and get a ranked roadmap you can share, download or print.", body))
+    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight your criteria, score your features, compare the rankings, and share, download or print the result.", body))
 
 
 # ---------------------------------------------------------------- book a call

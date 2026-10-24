@@ -14,7 +14,8 @@
 
 ## Free resources
 - [Toolkits](https://www.productadvisory.co/toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
-- [Feature Prioritization Scorecard](https://www.productadvisory.co/scorecard): a free interactive tool to weight criteria, score features and rank a roadmap.
+- [Feature Prioritization Scorecard](https://www.productadvisory.co/scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
+- [Which prioritization method? cheat sheet](https://www.productadvisory.co/assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.
 - Coming soon: Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
