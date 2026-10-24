@@ -65,6 +65,14 @@ To add one:
 
 Each article page carries Article structured data (for search), its own sharing image and a canonical address.
 
+**Subjects and colours.** Every article's topic belongs to one of three subjects (`CATEGORIES` and `TOPIC_CATEGORY` in
+`src/insights.py`): Product strategy (amber), AI agents (violet) and AI enablement (green). The colour comes from
+`--cat-strategy`, `--cat-agents` and `--cat-enablement` in `site.css` (lighter in dark mode) and is used wherever an
+article appears: the card's top edge and label on the Insights and home pages, the label on the article (which links to
+the Insights page filtered to that subject), and the arrow in "Related reading" on Services. The Insights page has a
+filter by subject, with counts; the choice is kept in the address (`/insights?topic=agents`) so it can be shared. A new
+topic needs a line in `TOPIC_CATEGORY` (it falls back to Product strategy).
+
 ## Make it yours
 
 `assets/js/prefs.js` runs in the `<head>` of every page, before anything is drawn. It reads the visitor's choices

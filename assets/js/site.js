@@ -1020,6 +1020,54 @@
      consent.js (in <head>) sets the Consent Mode defaults by region and
      decides whether this visitor needs asking. The banner shows only then,
      or when someone clicks "Cookie settings". A choice is remembered. */
+  /* Insights: filter the articles by subject. The choice is kept in the address (?topic=agents), so it can be
+     shared and survives the back button. Without JavaScript every article shows and the filter stays hidden. */
+  function initInsightFilter() {
+    var bar = $(".insight-filter");
+    if (!bar) return;
+    var buttons = [].slice.call(bar.querySelectorAll("button"));
+    var cards = [].slice.call(document.querySelectorAll(".card.insight[data-cat]"));
+    var status = $("#insight-status");
+    var names = {};
+    buttons.forEach(function (b) { names[b.getAttribute("data-cat")] = b.textContent.replace(/\s*\d+\s*$/, ""); });
+    function show(cat, fromUser) {
+      if (!names[cat]) cat = "all";
+      buttons.forEach(function (b) { var on = b.getAttribute("data-cat") === cat; b.setAttribute("aria-checked", on ? "true" : "false"); b.tabIndex = on ? 0 : -1; });
+      var shown = 0;
+      cards.forEach(function (c) { var on = cat === "all" || c.getAttribute("data-cat") === cat; c.hidden = !on; if (on) { shown++; c.classList.add("in"); } });
+      [].slice.call(document.querySelectorAll(".insight-grid")).forEach(function (g) {
+        var any = !!g.querySelector(".card.insight:not([hidden])");
+        var head = g.parentNode.querySelector("[data-filter-section]");
+        if (head) { head.hidden = !any; g.hidden = !any; return; }
+        var empty = g.parentNode.querySelector(".insight-empty");
+        if (!any && !empty) { empty = document.createElement("p"); empty.className = "insight-empty"; g.parentNode.insertBefore(empty, g); }
+        if (empty) { empty.hidden = any; empty.textContent = any ? "" : "No full articles on " + names[cat] + " here yet. There's more on LinkedIn below."; }
+      });
+      if (status && fromUser) status.textContent = cat === "all" ? "Showing all " + shown + " articles." : "Showing " + shown + (shown === 1 ? " article" : " articles") + " about " + names[cat] + ".";
+      if (fromUser) {
+        try {
+          var u = new URL(location.href);
+          if (cat === "all") u.searchParams.delete("topic"); else u.searchParams.set("topic", cat);
+          history.replaceState(null, "", u.pathname + u.search + u.hash);
+        } catch (e) { /* old browser: the filter still works */ }
+      }
+    }
+    buttons.forEach(function (b, i) {
+      b.addEventListener("click", function () { show(b.getAttribute("data-cat"), true); });
+      b.addEventListener("keydown", function (e) {   // arrow keys move along the group, like any radio group
+        var step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        var next = buttons[(i + step + buttons.length) % buttons.length];
+        next.focus(); next.click();
+      });
+    });
+    var start = "all";
+    try { start = new URL(location.href).searchParams.get("topic") || "all"; } catch (e) { /* keep all */ }
+    bar.hidden = false;
+    show(start, false);
+  }
+
   function initConsent() {
     var C = window.PAConsent;
     if (!C) return;
@@ -1060,6 +1108,7 @@
     initFinder();
     initContact();
     initBooking();
+    initInsightFilter();
     initConsent();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

@@ -16,6 +16,18 @@ the Services page lists the articles that name it under "Related reading".
 Images: assets/insights/<slug>/cover.webp (1600x900), card.webp (800x450, the index card) and og.jpg (1200x675,
 the sharing image)."""
 
+# The three subjects the Insights page filters by, each with its own colour (--cat-<id> in site.css) wherever an
+# article appears: the Insights page, the home page, the article itself and Related reading on Services.
+# Each article's "topic" (its label) belongs to one of them.
+CATEGORIES = [("strategy", "Product strategy"), ("agents", "AI agents"), ("enablement", "AI enablement")]
+TOPIC_CATEGORY = {"Product strategy": "strategy", "Pricing": "strategy", "Business models": "strategy", "Customers": "strategy",
+                  "AI agents": "agents", "Agentic AI": "agents", "AI enablement": "enablement"}
+
+
+def category(a):
+    return TOPIC_CATEGORY.get(a["topic"], "strategy")
+
+
 ARTICLES = [
     {
         "slug": "day-in-the-life",

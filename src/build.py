@@ -16,7 +16,7 @@ from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS
 from legal import PRIVACY, TERMS
 from art import path_art, orbit, toolkit_open, signal, conversation, reading
-from insights import ARTICLES
+from insights import ARTICLES, CATEGORIES, category
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
 OUT = ROOT
@@ -911,12 +911,13 @@ def article_body(a):
 
 
 def insight_card(a):
+    c = category(a)
     head = f'<div class="eyebrow">{a["topic"]}</div><h3>{escape(a["title"])}</h3><p>{escape(a["dek"])}</p>'
     if a.get("body"):
-        return (f'<a class="card insight reveal" href="/insights/{a["slug"]}">'
+        return (f'<a class="card insight cat-{c} reveal" data-cat="{c}" href="/insights/{a["slug"]}">'
                 f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
                 f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read</small></div></a>')
-    return (f'<a class="card insight text-only reveal" href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
+    return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}" href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
             f'<div class="insight-body">{head}<small>Read on LinkedIn ↗</small></div></a>')
 
 
@@ -930,7 +931,7 @@ def related_reading(service_id):
     arts.sort(key=lambda a: a["services"].index(service_id))   # articles mainly about this service first, then newest first
     if not arts:
         return ""
-    links = "".join(f'<li><a href="/insights/{a["slug"]}">{escape(a["title"])}</a></li>' for a in arts)
+    links = "".join(f'<li class="cat-{category(a)}"><a href="/insights/{a["slug"]}">{escape(a["title"])}</a></li>' for a in arts)
     return f'<div class="related-reading"><h3>Related reading</h3><ul>{links}</ul></div>'
 
 
@@ -943,15 +944,21 @@ def related_services(a):
 
 def insights():
     full, linked = published(), [a for a in ARTICLES if not a.get("body")]
+    counts = {cid: sum(1 for a in ARTICLES if category(a) == cid) for cid, _ in CATEGORIES}
+    chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(ARTICLES)}</em></button>'
+             + "".join(f'<button type="button" role="radio" aria-checked="false" class="cat-{cid}" data-cat="{cid}"><i aria-hidden="true"></i>{label} <em>{counts[cid]}</em></button>'
+                       for cid, label in CATEGORIES))
     body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", reading())}
 <section>
   <div class="wrap">
+    <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
+    <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
   </div>
 </section>
 <section class="band">
   <div class="wrap">
-    <div class="section-head reveal"><h2>More from Product+</h2><p>These articles are on LinkedIn for now.</p></div>
+    <div class="section-head reveal" data-filter-section><h2>More from Product+</h2><p>These articles are on LinkedIn for now.</p></div>
     <div class="insight-grid compact">{"".join(insight_card(a) for a in linked)}</div>
     <div class="btn-row" style="margin-top:28px"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+ on LinkedIn</a></div>
   </div>
@@ -974,7 +981,7 @@ def article_page(a, full):
   <header class="post-head">
     <div class="wrap narrow">
       <a class="link-back" href="insights.html">← All insights</a>
-      <div class="eyebrow">{a["topic"]} · Product+</div>
+      <div class="eyebrow cat-{category(a)}"><a class="eyebrow-link" href="/insights?topic={category(a)}">{a["topic"]}</a> · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
       <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> · {read_minutes(a)} min read</p>
