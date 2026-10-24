@@ -22,6 +22,7 @@
 - [Insights](https://www.productadvisory.co/insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
 - [A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)](https://www.productadvisory.co/insights/day-in-the-life)
 - [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): why Copilot Studio is the bridge from individual to organizational AI enablement.
+- [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): when to use each, a worked example where the same four features rank almost in reverse, and how to combine them.
 - [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): value density, bet maps and the OEM loop (Outcome, Evidence, Minimum).
 - [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents)
 - [From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job](https://www.productadvisory.co/insights/roadmaps-to-rituals): how agents take the first pass on backlog grooming, market research, experiment design and KPI reviews.

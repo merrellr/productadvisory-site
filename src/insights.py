@@ -36,12 +36,11 @@ def category(a):
 ARTICLES = [
     {
         "slug": "rice-vs-weighted-scoring",
-        "draft": True,   # a preview only: not listed, not in search or the sitemap, and marked noindex, until this line is removed
         "services": ["strategy", "coaching"],
         "title": "RICE or Weighted Scoring: Which Prioritization Framework Should You Use?",
         "dek": "The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.",
         "topic": "Product strategy",
-        "date": "2026-10-27",
+        "date": "2026-10-24",
         "keywords": "rice scoring weighted scoring prioritization framework roadmap backlog reach impact confidence effort criteria weights ice moscow scorecard",
         "takeaways": [
             "Use RICE to compare many similar items in one product area, where you can measure reach.",
