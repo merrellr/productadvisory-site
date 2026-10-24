@@ -716,6 +716,62 @@
       $(".company-field", form).hidden = fb;
       $$(".opt", F.email.parentNode).forEach(function (o) { o.hidden = !fb; });
       F.message.placeholder = PLACEHOLDERS[r] || "";
+      showAssist(r);
+    }
+
+    /* ----- "Not sure what to write?": quick questions for the reason picked, turned into a draft by AI ----- */
+    var assist = $("#contact-assist", form), copy = {};
+    try { copy = JSON.parse(assist.getAttribute("data-copy")); } catch (e) { assist = null; }
+    function assistKind() { return copy[reason] ? reason : "other"; }
+    function showAssist(r) {
+      if (!assist) return;
+      assist.hidden = r === "feedback";
+      var k = assistKind(), c = copy[k];
+      $("#a-context-label", assist).textContent = c[0];
+      $("#a-context", assist).placeholder = c[1];
+      $("#a-help-label", assist).innerHTML = esc(c[2]) + ' <span class="opt">(choose any)</span>';
+      $$("[data-assist-help]", assist).forEach(function (row) { row.hidden = row.getAttribute("data-assist-help") !== k; });
+      $("#a-timing-q", assist).hidden = !c[3];
+    }
+    function assistAnswers() {
+      var k = assistKind(), t = $('[data-assist="timing"] [aria-checked="true"]', assist);
+      return { reason: k, context: $("#a-context", assist).value.trim(), extra: $("#a-extra", assist).value.trim(),
+        help: $$('[data-assist-help="' + k + '"] [aria-pressed="true"]', assist).map(function (b) { return b.getAttribute("data-value"); }),
+        timing: copy[k][3] && t ? t.getAttribute("data-value") : "" };
+    }
+    // Without the AI (or if it is busy), the answers are written out plainly instead.
+    function plainDraft(a) {
+      var when = { now: "We'd like to start this month.", quarter: "We'd like to start this quarter.", exploring: "We're just exploring for now." }[a.timing] || "";
+      var lead = { advisory: "I'm working on: ", team: "About our team: ", toolkits: "I'm trying to decide: ", other: "" }[a.reason];
+      return [a.context ? lead + a.context.replace(/\.$/, "") + "." : "", a.help.length ? (a.reason === "other" ? "It's about " : "I'd like help with ") + a.help.join(", ").toLowerCase() + "." : "",
+        when, a.extra].filter(Boolean).join(" ");
+    }
+    if (assist) {
+      $$(".chip", assist).forEach(function (c) { c.addEventListener("click", function () { c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true"); }); });
+      var timings = $$('[data-assist="timing"] [role=radio]', assist);
+      timings.forEach(function (r) { r.addEventListener("click", function () { timings.forEach(function (x) { x.setAttribute("aria-checked", x === r ? "true" : "false"); }); }); });
+      radioKeys($('[data-assist="timing"]', assist));
+      $("#a-write", assist).addEventListener("click", function () {
+        var btn = this, a = assistAnswers(), out = $(".assist-status", assist), before = F.message.value;
+        if (!a.context && !a.help.length && !a.extra) { out.textContent = "Answer at least one question first."; return; }
+        btn.disabled = true; out.textContent = "Writing your message…";
+        var fill = function (text, ai) {
+          F.message.value = text.slice(0, 4000);
+          btn.disabled = false;
+          out.innerHTML = (ai ? "Done. Your message is in the box above: edit anything you like." : "Your answers are in the box above: edit anything you like.") +
+            (before.trim() ? ' <button type="button" class="link-btn" data-undo>Undo</button>' : "");
+          var undo = $("[data-undo]", out);
+          if (undo) undo.addEventListener("click", function () { F.message.value = before; out.textContent = "Your earlier message is back."; F.message.focus(); });
+          F.message.focus();
+          track("contact_draft", { ai: ai ? "yes" : "no", reason: a.reason });
+        };
+        if (!ASK_ENDPOINT) return fill(plainDraft(a), false);
+        fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ type: "draft", reason: a.reason, context: a.context, help: a.help, timing: a.timing, extra: a.extra, company: F.company.value.trim(), cid: visitorId() }) })
+          .then(function (r) { return r.json(); })
+          .then(function (r) { if (r && r.ok && r.text) fill(r.text, true); else fill(plainDraft(a), false); })
+          .catch(function () { fill(plainDraft(a), false); });
+      });
     }
     reasons.forEach(function (b) { b.addEventListener("click", function () { pickReason(b.getAttribute("data-reason")); }); });
     ratings.forEach(function (b) {
@@ -1022,6 +1078,91 @@
      or when someone clicks "Cookie settings". A choice is remembered. */
   /* Insights: filter the articles by subject. The choice is kept in the address (?topic=agents), so it can be
      shared and survives the back button. Without JavaScript every article shows and the filter stays hidden. */
+  /* ---------- Insights: "Tell me what you're looking for" ----------
+     The articles are ranked here in the browser (title, summary, takeaways and keywords on each card). When the
+     Apps Script is set, AI picks up to three of the best six and says why each fits; otherwise the top three show
+     with their summaries. */
+  function initInsightFinder() {
+    var box = $("#insight-finder");
+    if (!box) return;
+    var form = $("form", box), input = $("input", form), out = $(".art-finder-out", box), seq = 0;
+    var cards = $$(".card.insight[data-id]");
+    var docs = cards.map(function (c) {
+      var title = $("h3", c).textContent.trim(), topic = $(".eyebrow", c).textContent.trim(), find = c.getAttribute("data-find") || "";
+      var toks = tokens(title + " " + title + " " + topic + " " + find).map(stem), tf = {};
+      toks.forEach(function (t) { tf[t] = (tf[t] || 0) + 1; });
+      return { el: c, id: c.getAttribute("data-id"), title: title, topic: topic, cat: c.getAttribute("data-cat"),
+        desc: $("p", c).textContent.trim(), find: find, href: c.getAttribute("href"), ext: c.target === "_blank", tf: tf, len: toks.length };
+    });
+    var df = {}, avg = 0;
+    docs.forEach(function (d) { Object.keys(d.tf).forEach(function (t) { df[t] = (df[t] || 0) + 1; }); avg += d.len; });
+    avg = avg / Math.max(1, docs.length);
+    function rank(q) {
+      var terms = {};
+      tokens(q).forEach(function (t) {
+        terms[stem(t)] = 1;
+        (SYN[t] || SYN[stem(t)] || []).forEach(function (x) { tokens(x).forEach(function (y) { if (!terms[stem(y)]) terms[stem(y)] = 0.45; }); });
+      });
+      return docs.map(function (d) {
+        var s = 0;
+        Object.keys(terms).forEach(function (t) {
+          var f = d.tf[t];
+          if (!f) return;
+          var idf = Math.log(1 + (docs.length - df[t] + 0.5) / (df[t] + 0.5));
+          s += terms[t] * idf * (f * 2.4) / (f + 1.4 * (0.3 + 0.7 * d.len / avg));
+        });
+        return { d: d, s: s };
+      }).filter(function (r) { return r.s > 0; }).sort(function (a, b) { return b.s - a.s; });
+    }
+    function clearPicks() {
+      cards.forEach(function (c) { c.classList.remove("picked"); var b = $(".pick-badge", c); if (b) b.remove(); });
+    }
+    function render(q, picks, ai) {
+      clearPicks();
+      var head = '<div class="ask-q">“' + esc(q) + "”</div>";
+      if (!picks.length) {
+        out.innerHTML = head + '<p class="muted" style="margin:0 0 10px">We haven\'t written about that yet. Try different words, browse the topics below, or ask us directly.</p>' +
+          '<div class="btn-row"><a class="btn sm" href="/contact?reason=other&amp;topic=' + encodeURIComponent(q) + '#message">Ask us about it</a></div>';
+        return;
+      }
+      var all = $('.insight-filter [data-cat="all"]');
+      if (picks.some(function (p) { return p.d.el.hidden; }) && all) all.click();   // a pick hidden by the topic filter: show everything
+      out.innerHTML = head + picks.map(function (p, i) {
+        p.d.el.classList.add("picked");
+        p.d.el.insertAdjacentHTML("afterbegin", '<span class="pick-badge" aria-hidden="true">' + (i + 1) + "</span>");
+        return '<a class="pick cat-' + p.d.cat + '" href="' + esc(p.d.href) + '"' + (p.d.ext ? ' target="_blank" rel="noopener"' : "") + '><span class="num">' + (i + 1) + "</span><span><b>" + esc(p.d.title) +
+          (p.d.ext ? ' <span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (on LinkedIn, opens in a new tab)</span>' : "") +
+          "</b><small>" + esc(p.d.topic) + (p.d.ext ? " · on LinkedIn" : "") + "</small><span class=\"why\">" + esc(p.why || p.d.desc) + "</span></span></a>";
+      }).join("") + (ai ? '<p class="ask-fine" style="margin:2px 0 0">Suggested by AI from the article summaries. The numbered cards below are highlighted.</p>' : "");
+    }
+    function run(q) {
+      q = q.trim().slice(0, 300);
+      if (!q) return;
+      input.value = q;
+      var mine = ++seq, ranked = rank(q);
+      track("article_finder", { mode: ASK_ENDPOINT ? "ai" : "search" });
+      var local = ranked.filter(function (r) { return r.s > 0.6; }).slice(0, 3).map(function (r) { return { d: r.d }; });
+      if (!ASK_ENDPOINT || !ranked.length) {
+        if (!ranked.length && ASK_ENDPOINT) fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ type: "recommend", q: q, cid: visitorId(), sources: [] }) }).catch(function () {});
+        return render(q, local, false);
+      }
+      out.innerHTML = '<div class="ask-q">“' + esc(q) + '”</div><p class="ask-thinking" style="margin:0">Finding the best fit…</p>';
+      var top = ranked.slice(0, 6).map(function (r) { return r.d; });
+      fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ type: "recommend", q: q, cid: visitorId(), sources: top.map(function (d) { return { id: d.id, title: d.title, text: d.topic + ". " + d.find }; }) }) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (mine !== seq) return;
+          if (!res || !res.ok || !Array.isArray(res.picks)) return render(q, local, false);
+          render(q, res.picks.map(function (p) { var d = top[p.n - 1]; return d && { d: d, why: p.why }; }).filter(Boolean), true);
+        })
+        .catch(function () { if (mine === seq) render(q, local, false); });
+    }
+    form.addEventListener("submit", function (e) { e.preventDefault(); run(input.value); });
+    $$(".ask-suggest button", box).forEach(function (b) { b.addEventListener("click", function () { run(b.textContent); }); });
+    box.hidden = false;
+  }
+
   function initInsightFilter() {
     var bar = $(".insight-filter");
     if (!bar) return;
@@ -1109,6 +1250,7 @@
     initContact();
     initBooking();
     initInsightFilter();
+    initInsightFinder();
     initConsent();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

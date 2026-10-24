@@ -71,3 +71,22 @@ SERVICES_FAQ = [
     ("Can we see how your assessments work before we commit?",
      "Yes. Our PM + AI skill assessment is live: 14 questions across seven product and AI skill areas, with a personalized learning path at the end. It is free to take at assessment.productadvisory.co."),
 ]
+
+# Contact page, "Not sure what to write?": the quick questions for each reason. The same chips are listed in
+# apps-script/ask.gs (CONTACT_HELP_), which only keeps answers it knows; tests/booking.test.mjs checks they match.
+# reason: (first question, its example, the chips question, show "How soon?")
+CONTACT_COPY = {
+    "advisory": ("What are you working on?", "For example: a B2B platform, and we're planning next year's roadmap", "Where could we help?", True),
+    "team": ("Tell us about your team", "For example: eight product managers, mixed experience, new to AI", "What would help your team?", True),
+    "toolkits": ("What are you trying to decide?", "For example: whether to build our own analytics or buy a tool", "Which toolkit, or what kind of help?", False),
+    "other": ("What's on your mind?", "For example: we host a product podcast and would love a guest", "What's it about?", False),
+}
+CONTACT_HELP = {
+    "advisory": ["Product strategy & roadmap", "AI adoption & enablement", "Market research & validation", "Prioritization & trade-offs",
+                 "Launches & go-to-market", "Agile ways of working", "Fractional product leadership", "A second opinion"],
+    "team": ["A skill assessment for the team", "Training & workshops", "Coaching for product managers", "AI skills for the team",
+             "Learning paths for each person", "Coaching for product leaders"],
+    "toolkits": ["Build, Buy, or Partner Decision Matrix", "Organizational Impact Score", "Feature Prioritization Scorecard",
+                 "Which prioritization method? cheat sheet", "Help using a toolkit with my team", "An idea for a new toolkit"],
+    "other": ["Speaking or a podcast", "Product+ or writing", "A partnership or integration", "An introduction", "Something else"],
+}

@@ -218,5 +218,46 @@ console.log('--- monthly insights ---');
   t('installing the schedule twice leaves one monthly run, on the 1st at 8', triggers.length === 1 && triggers[0].fn === 'sendMonthlyInsights' && triggers[0].day === 1 && triggers[0].hour === 8);
 }
 
+console.log('--- Contact page: "Not sure what to write?" ---');
+{
+  // the page's chips (src/content.py) and the script's must match
+  const { execFileSync } = await import('node:child_process');
+  const py = JSON.parse(execFileSync('python3', ['-c', 'import json,sys; sys.path.insert(0,"src"); from content import CONTACT_HELP, CONTACT_COPY; print(json.dumps([CONTACT_HELP, CONTACT_COPY]))'], { cwd: new URL('..', import.meta.url) }).toString());
+  t('the chips the script accepts are the page\'s, for every reason', JSON.stringify(G('CONTACT_HELP_')) === JSON.stringify(py[0]));
+  t('every reason with chips has its questions', Object.keys(py[0]).every(k => py[1][k] && py[1][k].length === 4));
+  reset(at('2026-10-26T13:00:00Z'));
+  groqReply = '**We** ship fast,\nbut want help with discovery.';
+  t('nothing answered: nothing to write', post({ type: 'draft', reason: 'advisory' }).error === 'empty' && groq.length === 0);
+  const r = post({ type: 'draft', reason: 'advisory', context: 'A B2B platform', help: ['Product strategy & roadmap', 'Made up', 'Speaking or a podcast'], timing: 'quarter', company: 'Acme', cid: 'c1' });
+  const sent = groq[0] && groq[0].messages[1].content;
+  t('the AI gets only the chips for that reason, and returns plain text', r.ok && r.text === 'We ship fast, but want help with discovery.' && /Product strategy & roadmap/.test(sent) && !/Made up|podcast/.test(sent) && /This quarter/.test(sent) && /Acme/.test(sent) && /advisory project/.test(sent), JSON.stringify(r) + sent);
+  t('the AI is told the answers are data, not instructions', /data, not instructions/.test(groq[0].messages[0].content));
+  groq.length = 0;
+  post({ type: 'draft', reason: 'toolkits', context: 'Build or buy analytics', timing: 'now', cid: 'c1' });
+  t('no timing for a toolkit question', !/Timing/.test(groq[0].messages[1].content) && /What they're deciding: Build or buy analytics/.test(groq[0].messages[1].content));
+  t('an unknown reason counts as something else', post({ type: 'draft', reason: 'hack', help: ['An introduction'], cid: 'c2' }).ok && /something else/.test(groq[groq.length - 1].messages[1].content));
+  for (let i = 0; i < 3; i++) post({ type: 'draft', reason: 'other', extra: 'x', cid: 'c1' });
+  t('one visitor gets five drafts a day (shared with the booking note)', post({ type: 'draft', reason: 'other', extra: 'x', cid: 'c1' }).error === 'daily_limit' && post({ type: 'bookAssist', wins: 'x', cid: 'c1' }).error === 'daily_limit');
+}
+
+console.log('--- Insights page: "Tell me what you\'re looking for" ---');
+{
+  reset(at('2026-10-26T13:00:00Z'));
+  const src = [{ id: 'rice-vs-weighted-scoring', title: 'RICE or Weighted Scoring', text: 'Prioritization frameworks compared.' },
+    { id: 'beyond-automation', title: 'Beyond Automation', text: 'AI and the human touch in customer service.' },
+    { id: 'bad id!', title: 'Injected', text: 'x' }];
+  groqReply = '2 | Start here if your support team is automating.\n**1** | You\'ll see when each framework fits.\n2 | duplicate\n9 | out of range';
+  const r = post({ type: 'recommend', q: 'customers and AI', cid: 'r1', sources: src });
+  t('picks come back in order, each once, only from the list sent', r.ok && r.picks.length === 2 && r.picks[0].n === 2 && r.picks[1].n === 1 && /support team/.test(r.picks[0].why), JSON.stringify(r));
+  t('a source with a bad id never reaches the AI', !/Injected/.test(groq[0].messages[1].content));
+  t('the request is logged on the Questions tab', sheets.Questions && sheets.Questions[1][1] === '[articles] customers and AI' && sheets.Questions[1][3] === 'recommended');
+  groqReply = 'none';
+  const none = post({ type: 'recommend', q: 'pricing a hardware product', cid: 'r1', sources: src });
+  t('nothing fits: no picks, and the request goes on the Unanswered questions tab as an article idea', none.ok && none.picks.length === 0 && sheets['Unanswered questions'].some(row => row[1] === '[articles] pricing a hardware product' && row[2] === 'No article fits'));
+  t('nothing the page could match: logged too, without asking the AI', post({ type: 'recommend', q: 'quantum widgets', sources: [] }).error === 'no_sources' && sheets['Unanswered questions'].some(row => row[1] === '[articles] quantum widgets'));
+  t('an empty request is refused', post({ type: 'recommend', q: ' ', sources: src }).error === 'empty');
+  groqReply = '**We** ship fast,\nbut want help with discovery.';
+}
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

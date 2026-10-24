@@ -13,7 +13,7 @@ import sys
 from html import escape
 
 from parts import *  # noqa
-from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ
+from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ, CONTACT_COPY, CONTACT_HELP
 from legal import PRIVACY, TERMS
 from art import path_art, orbit, toolkit_open, signal, conversation, insight_lens
 from insights import ARTICLES, CATEGORIES, category
@@ -621,6 +621,24 @@ def about():
 
 
 # ---------------------------------------------------------------- contact
+def contact_assist():
+    """"Not sure what to write?": quick questions that change with the reason picked; AI turns them into a draft."""
+    import json
+    rows = "".join(f'<div class="chip-row" data-assist-help="{k}" hidden>{assist_chips(v)}</div>' for k, v in CONTACT_HELP.items())
+    copy = escape(json.dumps({k: list(v) for k, v in CONTACT_COPY.items()}), quote=True)
+    return f'''<details class="assist" id="contact-assist" data-copy="{copy}" hidden>
+        <summary><span class="assist-spark" aria-hidden="true">✦</span> Not sure what to write? Answer a few quick questions</summary>
+        <div class="assist-body">
+          <div class="field"><label for="a-context" id="a-context-label">What are you working on?</label><input id="a-context" maxlength="400"></div>
+          <fieldset class="assist-q"><legend id="a-help-label">Where could we help?</legend>{rows}</fieldset>
+          <fieldset class="assist-q" id="a-timing-q"><legend>How soon?</legend><div class="seg" role="radiogroup" aria-label="How soon" data-assist="timing"><button type="button" role="radio" aria-checked="false" data-value="now">This month</button><button type="button" role="radio" aria-checked="false" data-value="quarter">This quarter</button><button type="button" role="radio" aria-checked="false" data-value="exploring">Just exploring</button></div></fieldset>
+          <div class="field"><label for="a-extra">Anything else? <span class="opt">(optional)</span></label><input id="a-extra" maxlength="400"></div>
+          <div class="assist-foot"><button type="button" class="btn sm" id="a-write">✦ Write my message</button><p class="assist-status" role="status" aria-live="polite"></p></div>
+          <p class="assist-note">AI drafts the message from your answers only. You can edit it before sending.</p>
+        </div>
+      </details>'''
+
+
 def contact():
     def reason(v, label):
         return f'<button type="button" role="radio" aria-checked="false" data-reason="{v}">{label}</button>'
@@ -651,6 +669,7 @@ def contact():
       </div>
       <div class="field company-field"><label for="f-company">Company <span class="opt">(optional)</span></label><input id="f-company" name="company" autocomplete="organization" maxlength="120"></div>
       <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="6" maxlength="4000" required></textarea></div>
+      {contact_assist()}
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="form-foot"><button class="btn" type="submit">Send message</button><p class="form-status" role="status" aria-live="polite"></p></div>
       <p class="muted" style="font-size:.85rem;margin:0">We use your details only to reply. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
@@ -663,11 +682,10 @@ def contact():
         <a class="btn" href="{BOOK}">Book a free call</a>
         <hr class="rule">
         <h3>Prefer email?</h3>
-        <p>General: <a href="mailto:info@productadvisory.co">info@productadvisory.co</a><br>Sales: <a href="mailto:sales@productadvisory.co">sales@productadvisory.co</a></p>
-        <button class="btn ghost sm" type="button" data-action="copy-email">Copy email</button>
+        <ul class="email-list">{"".join(f'<li><span class="email-label">{label}</span><a href="mailto:{addr}">{addr}</a><button class="btn ghost sm" type="button" data-action="copy-email" data-email="{addr}" aria-label="Copy {addr}">Copy</button></li>' for label, addr in (("General", "info@productadvisory.co"), ("Sales", "sales@productadvisory.co")))}</ul>
         <hr class="rule">
         <h3>Phone</h3>
-        <p><a href="tel:+17273866815">US +1 (727) 386-6815</a></p>
+        <p>US <a href="tel:+17273866815">+1 (727) 386-6815</a></p>
         <hr class="rule">
         <h3>Elsewhere</h3>
         <p><a href="{LINKEDIN}" {EXT}>LinkedIn ↗</a><br><a href="{NEWSLETTER}" {EXT}>Product+ newsletter ↗</a><br><a href="{SLACK}" {EXT}>Slack community ↗</a></p>
@@ -1012,14 +1030,20 @@ def article_body(a):
     return "\n".join(parts)
 
 
+def finder_text(a):
+    """What the article finder ranks and the AI reads: the summary, the takeaways and the keywords."""
+    return " ".join([a["dek"]] + a.get("takeaways", []) + [a.get("keywords", "")]).strip()
+
+
 def insight_card(a):
     c = category(a)
+    find = f' data-id="{a["slug"]}" data-find="{escape(finder_text(a), quote=True)}"'
     head = f'<div class="eyebrow">{a["topic"]}</div><h3>{escape(a["title"])}</h3><p>{escape(a["dek"])}</p>'
     if a.get("body"):
-        return (f'<a class="card insight cat-{c} reveal" data-cat="{c}" href="/insights/{a["slug"]}">'
+        return (f'<a class="card insight cat-{c} reveal" data-cat="{c}"{find} href="/insights/{a["slug"]}">'
                 f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
                 f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read</small></div></a>')
-    return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}" href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
+    return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}"{find} href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
             f'<div class="insight-body">{head}<small>Read on LinkedIn ↗</small></div></a>')
 
 
@@ -1058,6 +1082,16 @@ def insights():
     body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", insight_lens())}
 <section>
   <div class="wrap">
+    <div class="art-finder" id="insight-finder" hidden>
+      <div class="art-finder-head"><span class="assist-spark" aria-hidden="true">✦</span> <b>Tell me what you're looking for</b> <span class="muted">and we'll suggest where to start.</span></div>
+      <form class="ask-form" role="search">
+        {tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}
+        <input type="search" placeholder="For example: only a few people on my team really use AI" aria-label="What are you looking for?" maxlength="300">
+        <button class="btn" type="submit">Suggest</button>
+      </form>
+      <div class="ask-suggest"><span>Try:</span><button type="button">I'm new to AI agents</button><button type="button">Getting my whole organization to adopt AI</button><button type="button">Which prioritization framework should we use?</button><button type="button">We ship a lot, but users don't notice</button><button type="button">Keeping customers loyal as we automate support</button></div>
+      <div class="art-finder-out" aria-live="polite"></div>
+    </div>
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
