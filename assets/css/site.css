@@ -1274,6 +1274,8 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .takeaways h2 { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cat, var(--cyan-ink)); margin: 0 0 10px; }
 .takeaways ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
 .takeaways li { color: var(--ink); line-height: 1.55; }
+.draft-note { background: #fff4d6; color: #5c4300; border-bottom: 1px solid #f0d58a; padding: 10px var(--gutter); text-align: center; font-size: .95rem; }
+.draft-note code { font-size: .85em; }
 .post-faq { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line); }
 .post-faq h3 { font-size: 1.1rem; margin: 22px 0 6px; }
 .post-faq p { margin: 0; }

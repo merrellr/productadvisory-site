@@ -15,7 +15,7 @@
 ## Free resources
 - [Toolkits](https://www.productadvisory.co/toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
 - [Feature Prioritization Scorecard](https://www.productadvisory.co/scorecard): a free interactive tool to weight criteria, score features and rank a roadmap.
-- Coming soon: Feature Prioritization Scorecard, Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
+- Coming soon: Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Insights (Product+ articles)
@@ -24,6 +24,7 @@
 - [Stop enabling individuals. Start enabling the organization.](https://www.productadvisory.co/insights/stop-enabling-individuals): why Copilot Studio is the bridge from individual to organizational AI enablement.
 - [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): value density, bet maps and the OEM loop (Outcome, Evidence, Minimum).
 - [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents)
+- [From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job](https://www.productadvisory.co/insights/roadmaps-to-rituals): how agents take the first pass on backlog grooming, market research, experiment design and KPI reviews.
 
 ## Contact
 - [Book a free 30-minute call](https://www.productadvisory.co/book)

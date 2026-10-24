@@ -922,7 +922,12 @@ def insight_card(a):
 
 
 def published():
-    return sorted([a for a in ARTICLES if a.get("body")], key=lambda a: a["date"], reverse=True)
+    return sorted([a for a in listed() if a.get("body")], key=lambda a: a["date"], reverse=True)
+
+
+def listed():
+    """Every article except drafts (which are built as hidden previews only)."""
+    return [a for a in ARTICLES if not a.get("draft")]
 
 
 def related_reading(service_id):
@@ -943,9 +948,9 @@ def related_services(a):
 
 
 def insights():
-    full, linked = published(), [a for a in ARTICLES if not a.get("body")]
-    counts = {cid: sum(1 for a in ARTICLES if category(a) == cid) for cid, _ in CATEGORIES}
-    chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(ARTICLES)}</em></button>'
+    full, linked = published(), [a for a in listed() if not a.get("body")]
+    counts = {cid: sum(1 for a in listed() if category(a) == cid) for cid, _ in CATEGORIES}
+    chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(listed())}</em></button>'
              + "".join(f'<button type="button" role="radio" aria-checked="false" class="cat-{cid}" data-cat="{cid}"><i aria-hidden="true"></i>{label} <em>{counts[cid]}</em></button>'
                        for cid, label in CATEGORIES))
     body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", insight_lens())}
@@ -965,7 +970,7 @@ def insights():
 </section>
 {cta_band()}'''
     write("insights.html", page("insights.html", "Insights", "Articles from the Product+ newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body))
-    for a in full:
+    for a in full + [a for a in ARTICLES if a.get("draft") and a.get("body")]:
         article_page(a, full)
 
 
@@ -987,7 +992,9 @@ def article_page(a, full):
            + "".join(f"<h3>{escape(q)}</h3><p>{escape(ans)}</p>" for q, ans in a["faq"]) + "</section>") if a.get("faq") else ""
     updated = f' · Updated <time datetime="{a["updated"]}">{fmt_date(a["updated"])}</time>' if a.get("updated") else ""
     more = [x for x in full if x is not a][:3]
-    body = f'''<article class="post">
+    draft = ('<div class="draft-note" role="note"><b>Draft preview.</b> Not published: this page isn\'t listed on the site or shown to search engines. '
+             'To publish, remove <code>"draft": True</code> from this article in src/insights.py.</div>') if a.get("draft") else ""
+    body = f'''{draft}<article class="post">
   <header class="post-head">
     <div class="wrap narrow">
       <a class="link-back" href="insights.html">← All insights</a>
@@ -1006,7 +1013,7 @@ def article_page(a, full):
     </div>
     {related_services(a)}
     <aside class="post-foot">
-      <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.</p>
+      <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. {f' It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.' if a.get("linkedin") else ""}</p>
       <div class="btn-row"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+</a><a class="btn ghost" href="{BOOK}">Talk it through on a free call</a></div>
     </aside>
   </div>
@@ -1018,7 +1025,7 @@ def article_page(a, full):
   </div>
 </section>'''
     write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a["title"], a["dek"], body,
-          extra_head=f'<script type="application/ld+json">{json.dumps(ld)}</script>\n',
+          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + f'<script type="application/ld+json">{json.dumps(ld)}</script>\n',
           image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
 
 
