@@ -42,7 +42,7 @@ def mark_new_tabs(html):
     return re.sub(r'(<a\b[^>]*target="_blank"[^>]*>)(.*?)</a>', fix, html, flags=re.S)
 
 
-PAGE_FILES = ("index", "services", "toolkits", "insights", "about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")
+PAGE_FILES = ("index", "services", "toolkits", "insights", "about", "contact", "book", "scorecard", "ai-use-cases", "preferences", "privacy-policy", "terms-of-use")
 
 
 def clean_links(html):
@@ -334,6 +334,7 @@ def services():
     <p class="for">{fw}</p>
     <div class="deep"><p>{body}</p><ul>{"".join(f"<li>{b}</li>" for b in bullets)}</ul></div>
     {related_reading(i)}
+    {'<p class="svc-tool">Free tool: <a href="ai-use-cases.html">AI Use Case Prioritization</a>, to choose where AI is worth the effort first.</p>' if i == 'ai' else ''}
   </div>
 </article>''' for i, ic, t, fw, body, bullets, new in SERVICES)
     details = details.replace("assessment.productadvisory.co, a real", f'<a href="{ASSESS}" {EXT}>assessment.productadvisory.co</a>, a real')
@@ -437,7 +438,7 @@ def toolkits():
     interactive = f'''<article class="tool reveal" id="feature-prioritization-scorecard" data-levels="starter practitioner leader" data-ask="Feature Prioritization Scorecard: rank features with criteria you can change" data-kind="Toolkit" data-keywords="prioritize prioritization prioritise rank features roadmap weighted scoring ice rice backlog compare cheat sheet which method">
   <a class="tool-thumb sc-thumb" href="scorecard.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{sc_rows}</a>
   <div>
-    <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">New · Interactive</span></h3>
+    <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">Interactive</span></h3>
     <div>{sc_tags}</div>
     <ul class="meta"><li><b>Time needed:</b> About 20 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
     <p>Rank features with criteria you can change, or with RICE, and compare the two rankings side by side, so your roadmap reflects your goals and not the loudest voice. Weight what matters, score each feature, and watch the ranking update as you go.</p>
@@ -447,7 +448,22 @@ def toolkits():
     <p class="deep" style="margin-top:10px"><b>New:</b> the one-page <i>Which prioritization method?</i> cheat sheet: when to use RICE, weighted scoring or ICE, and six rules for a ranking you can defend.</p>
   </div>
 </article>'''
-    tools = interactive + tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
+    uc_rows = "".join(f'<span class="uc-thumb-row q-{q}"><i></i><b>{n}</b><em>{lbl}</em></span>' for q, n, lbl in
+                      [("quick-win", 1, "Quick win"), ("quick-win", 2, "Quick win"), ("bet", 3, "Strategic bet"), ("easy", 4, "Easy experiment")])
+    uc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["practitioner", "leader", "executive"])
+    ai_tool = f'''<article class="tool reveal" id="ai-use-case-prioritization" data-levels="practitioner leader executive" data-ask="AI Use Case Prioritization: choose where AI is worth the effort first" data-kind="Toolkit" data-keywords="ai use cases ideas pilot adoption value feasibility data readiness risk cost where to start">
+  <a class="tool-thumb sc-thumb uc uc-thumb" href="ai-use-cases.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Start here</span>{uc_rows}</a>
+  <div>
+    <h3 style="font-size:1.5rem">AI Use Case Prioritization <span class="pill">New · Interactive</span></h3>
+    <div>{uc_tags}</div>
+    <ul class="meta"><li><b>Time needed:</b> About 15 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <p>Choose where AI is worth the effort first. Score each idea on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get the first pilot to run.</p>
+    <p class="deep"><b>Use it when:</b> everyone has an AI idea, and you need to pick the one or two worth piloting.</p>
+    <p class="deep"><b>You walk away with:</b> a map of your ideas, the first pilot, a next step for each idea, and guardrails for the risky ones.</p>
+    <div class="btn-row"><a class="btn sm" href="ai-use-cases.html">Open the tool</a></div>
+  </div>
+</article>'''
+    tools = interactive + ai_tool + tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
                  "Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.",
                  "You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.",
                  "A scored comparison, a cost view, and a written decision you can share.", 3,
@@ -471,9 +487,7 @@ def toolkits():
                 f'{icon(ic)}<span class="pill">Planned</span><h3>{title}</h3><p>{desc}</p><div class="soon-for"><small>Best for</small>{tags}</div>'
                 f'<a class="btn sm ghost" href="{ASSESS}tool-requests?tool={i}&amp;src=site-toolkits" {EXT}>Vote for this</a></article>')
     soon = soon_card("product-strategy-one-pager", "strategy", "Product Strategy One Pager",
-                  "Put your strategy on a single page the whole team can read, from the problem you solve to how you will know it worked.", ["practitioner", "leader"]) + \
-        soon_card("ai-use-case-prioritization", "ai", "AI Use Case Prioritization",
-                  "Choose where AI is worth the effort first, by weighing value, data readiness, risk, and cost.", ["practitioner", "leader", "executive"])
+                  "Put your strategy on a single page the whole team can read, from the problem you solve to how you will know it worked.", ["practitioner", "leader"])
     lsteps = [("Assess", "Answer a few questions about your product and AI experience across seven skill areas."),
               ("Learn", "Get a personalized path with courses matched to exactly where you are."),
               ("Practice", "Work through real, practical lessons at your own pace. No fluff."),
@@ -572,6 +586,7 @@ def toolkits():
     write("toolkits.html", page("toolkits.html", "Toolkits & Learning", "Free fillable toolkits for product decisions, and a free 14-question product + AI skill check matched to a learning path.", body,
           extra_head=ld({"@type": "CollectionPage", "name": "Toolkits & Learning", "url": SITE + "toolkits", "publisher": ORG, "hasPart": [
               {"@type": "WebApplication", "name": "Feature Prioritization Scorecard", "url": SITE + "scorecard", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
+              {"@type": "WebApplication", "name": "AI Use Case Prioritization", "url": SITE + "ai-use-cases", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Which prioritization method? cheat sheet", "url": SITE + "assets/toolkits/which-prioritization-method.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "assets/toolkits/build-buy-partner-matrix.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Organizational Impact Score", "url": SITE + "assets/toolkits/organizational-impact-score.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
@@ -815,6 +830,85 @@ def scorecard():
                          "description": "Rank product features with weighted scoring or RICE, compare the two rankings side by side, and share, download or print the result.",
                          "featureList": ["Weighted scoring with criteria you can change", "RICE scoring (reach, impact, confidence, effort)", "Side-by-side comparison of both rankings", "Share link, CSV download and print"],
                          "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("Feature Prioritization Scorecard", "scorecard")]), image=og("scorecard")))
+
+
+def ai_use_cases():
+    """The second interactive toolkit (AI Use Case Prioritization, from the Tool Roadmap). The scoring is
+    assets/js/ai-usecases-core.js, the page behaviour assets/js/ai-usecases.js; everything stays in the visitor's browser."""
+    factors = [("value", "Business value", "How much would it move a goal that matters: time saved, revenue, a better customer experience?", "Nice to have", "Moves a key goal"),
+               ("data", "Data readiness", "Is the data there, good enough, and yours to use?", "We'd have to find or fix it", "Ready and approved"),
+               ("ease", "Cost &amp; effort", "How easy is it to build or buy?", "A custom build", "Switch on a tool"),
+               ("adoption", "Team readiness", "Will people use it, and does someone own it?", "No owner, poor fit", "Owner and demand"),
+               ("risk", "Risk if wrong", "How bad is it when the AI gets it wrong: privacy, compliance, customers, money?", "Easy to catch, low harm", "Real harm")]
+    guide = "".join(f'<div class="uc-q{" is-cost" if k == "risk" else ""}"><b>{n}</b><p>{q}</p><small><span>1</span> {lo}</small><small><span>5</span> {hi}</small></div>'
+                    for k, n, q, lo, hi in factors)
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div class="art">{toolkit_open()}</div>
+  </div>
+</header>
+
+<section style="padding-top:28px">
+  <div class="wrap sc uc" id="usecases">
+    <div class="sc-bar">
+      <div class="field sc-title"><label for="uc-title">Name this list</label><input id="uc-title" maxlength="100" placeholder="For example: Customer support AI ideas"></div>
+      <div class="sc-actions">
+        <button type="button" class="btn sm" data-uc="share">Share a link</button>
+        <button type="button" class="btn sm ghost" data-uc="csv">Download CSV</button>
+        <button type="button" class="btn sm ghost" data-uc="print">Print or save as PDF</button>
+        <button type="button" class="btn sm ghost" data-uc="reset">Start over</button>
+      </div>
+      <div class="sc-share" id="uc-share" hidden><label for="uc-share-url">Anyone with this link sees a copy of this list:</label><input id="uc-share-url" readonly><p class="form-status" id="uc-share-status" role="status"></p></div>
+    </div>
+
+    <div class="card sc-card">
+      <div class="sc-step"><span class="num">1</span><div><h2>Five questions for each idea</h2><p class="muted">Score each from 1 to 5. Risk counts the other way: 5 means a lot of it.</p></div></div>
+      <div class="uc-guide">{guide}</div>
+    </div>
+    <div class="card sc-card" role="region" aria-labelledby="uc-table-h">
+      <div class="sc-step"><span class="num">2</span><div><h2 id="uc-table-h">Score your AI ideas</h2><p class="muted">One idea per row, as specific as you can: "summarize support tickets for the weekly review" beats "AI for support". The map and plan below update as you go.</p></div></div>
+      <div class="sc-table-wrap"><table class="sc-table uc-table" id="uc-table"></table></div>
+      <div class="btn-row"><button type="button" class="btn sm ghost" data-uc="add">+ Add an idea</button><button type="button" class="btn sm ghost" data-uc="example">Fill in an example</button></div>
+    </div>
+
+    <div class="uc-results">
+      <div class="uc-left">
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">3</span><div><h2>Where they land</h2><p class="muted">Value against feasibility. Numbers match the plan.</p></div></div>
+          <div id="uc-matrix"></div>
+          <ul class="uc-legend" id="uc-legend"></ul>
+        </div>
+        <div class="card uc-pilot" id="uc-pilot" aria-live="polite"></div>
+      </div>
+      <div class="card sc-card uc-plan-card">
+        <div class="sc-step"><span class="num">4</span><div><h2>Your plan</h2><p class="muted">Best first. Priority is the average of value and feasibility, less a penalty for high risk.</p></div></div>
+        <ol class="uc-plan" id="uc-plan" aria-live="polite"></ol>
+      </div>
+    </div>
+
+    <div class="card tint sc-tips uc-tips">
+      <h3>Make it stick</h3>
+      <ul class="book-list">
+        <li><b>Score with the people who'd use it.</b> Team readiness is a guess until they've weighed in.</li>
+        <li><b>Pilot one thing at a time.</b> One team, four to six weeks, one number to judge it by.</li>
+        <li><b>Re-run it after each pilot.</b> What you learn changes the scores for the rest.</li>
+      </ul>
+      <p class="muted" style="margin-top:12px">Read <a href="/insights/stop-enabling-individuals">Stop enabling individuals. Start enabling the organization.</a> and <a href="/insights/beyond-automation">Beyond Automation</a>, or see where your team stands with the free <a href="{ASSESS}" {EXT}>PM + AI skill assessment</a>.</p>
+      <hr class="rule">
+      <p>Want help choosing and running your first AI pilot?</p>
+      <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
+    </div>
+  </div>
+</section>
+<script src="assets/js/ai-usecases-core.js"></script>
+<script src="assets/js/ai-usecases.js"></script>'''
+    write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "A free, interactive AI Use Case Prioritization tool: score your AI ideas on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get a plan with the first pilot to run.", body,
+          extra_head=ld({"@type": "WebApplication", "name": "AI Use Case Prioritization", "url": SITE + "ai-use-cases", "applicationCategory": "BusinessApplication",
+                         "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                         "description": "Score AI ideas on business value, data readiness, cost and effort, team readiness and risk; see them on a value and feasibility map; get the first pilot to run and a next step for each idea.",
+                         "featureList": ["Five questions per AI idea", "Value and feasibility map", "The first pilot to run", "A next step and risk guardrails for each idea", "Share link, CSV download and print"],
+                         "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("AI Use Case Prioritization", "ai-use-cases")]), image=og("ai-use-cases")))
 
 
 # ---------------------------------------------------------------- book a call
@@ -1089,9 +1183,9 @@ FINDER_TOOLS = [
     {"name": "PM + AI skill assessment", "kind": "Free · 14 questions", "href": ASSESS, "ext": True,
      "desc": "See where you or your team stand across seven product and AI skill areas, with a learning path to match.",
      "keys": "skill skills team teams learn learning training train fluency assess assessment gap gaps career grow new beginner junior product manager managers people adopt adoption use"},
-    {"name": "AI Use Case Prioritization (coming soon)", "kind": "Planned · vote for it", "href": ASSESS + "tool-requests?tool=ai-use-case-prioritization&src=site-insights", "ext": True,
-     "desc": "Choose where AI is worth the effort first, by weighing value, data readiness, risk and cost.",
-     "keys": "ai use case cases where start first pilot automate automation agent agents copilot support customer customers service"},
+    {"name": "AI Use Case Prioritization", "kind": "Free · interactive", "href": "/ai-use-cases",
+     "desc": "Score your AI ideas on value, data readiness, cost, team readiness and risk, and see which to pilot first.",
+     "keys": "ai use case cases idea ideas where start first pilot automate automation agent agents copilot support customer customers service adoption"},
 ]
 
 
@@ -1195,7 +1289,7 @@ def sitemap():
     arts = published()
     newest = max((a.get("updated") or a["date"] for a in arts), default="")
     pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
-            [(p, "") for p in ("about", "contact", "book", "scorecard", "preferences", "privacy-policy", "terms-of-use")]
+            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "preferences", "privacy-policy", "terms-of-use")]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
@@ -1218,8 +1312,9 @@ def llms():
 ## Free resources
 - [Toolkits]({SITE}toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
 - [Feature Prioritization Scorecard]({SITE}scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
+- [AI Use Case Prioritization]({SITE}ai-use-cases): a free interactive tool that scores AI ideas on value, data readiness, cost, team readiness and risk, maps them by value and feasibility, and names the first pilot to run.
 - [Which prioritization method? cheat sheet]({SITE}assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.
-- Coming soon: Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool]({ASSESS}tool-requests)
+- Coming soon: Product Strategy One Pager. [Vote or request a tool]({ASSESS}tool-requests)
 - [PM + AI skill assessment]({ASSESS}): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Insights (Product+ articles)
@@ -1249,7 +1344,7 @@ def check_search_pages():
 
 def build_all():
     check_search_pages()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); preferences(); legal(); notfound(); sitemap(); llms()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); preferences(); legal(); notfound(); sitemap(); llms()
 
 
 if __name__ == "__main__":

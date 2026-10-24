@@ -61,7 +61,7 @@ SERVICES_FAQ = [
     ("What is a Fractional CPO, and when do we need one?",
      "A Fractional Chief Product Officer is senior product leadership for part of the week instead of a full-time executive hire. It fits when you have no clear product strategy or owner, your roadmap and growth goals live in separate documents, or your product team needs a leader to mentor them. Our Fractional CPO+ package sets product vision, builds your roadmap process and mentors your team, scaled to your stage and budget."),
     ("How do you help a company adopt AI?",
-     "We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide."),
+     "We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide. Our free AI Use Case Prioritization tool (productadvisory.co/ai-use-cases) helps with the first step."),
     ("Do you work with startups or enterprises?",
      "Both. Our service packages are scoped for early-stage startups and for enterprises, and we scale our involvement from a single focused project to an embedded, end-to-end product partnership."),
     ("Where are you based? Do you work remotely?",

@@ -52,30 +52,29 @@ def orbit():
 
 
 def toolkit_open():
-    """Toolkits: the briefcase opens; the three real tools rise out, with two slots for what's coming."""
+    """Toolkits: the briefcase opens and the four tools rise out: two templates, the scorecard and the AI use case map."""
     out = []
     # lid, hinged open behind the case
     out.append('<path class="lid draw" style="--len:560;--d:.2s" d="M50 150 L70 70 a10 10 0 0 1 9.7-7.6 H320.3 a10 10 0 0 1 9.7 7.6 L350 150"/>')
-    # the three tools rising out of the case: two templates and the interactive scorecard (a ranked list)
-    docs = [(56, ("Build, Buy", "or Partner")), (132, ("Impact", "Score")), (208, ("Feature", "Scorecard"))]
+    docs = [(52, ("Build, Buy", "or Partner")), (122, ("Impact", "Score")), (192, ("Feature", "Scorecard")), (262, ("AI Use", "Cases"))]
     for i, (x, (t1, t2)) in enumerate(docs):
-        inner = (f'<path d="M{x + 8} 92h56M{x + 8} 102h44"/>'
-                 f'<rect class="doc-box" x="{x + 8}" y="112" width="25" height="18" rx="3"/><rect class="doc-box" x="{x + 39}" y="112" width="25" height="18" rx="3"/>'
-                 if i < 2 else
-                 "".join(f'<rect class="doc-band" x="{x + 8}" y="{90 + 13 * k}" width="{w}" height="6" rx="3"/>' for k, w in enumerate((52, 40, 30, 18))))
-        out.append(f'<g class="doc rise" style="--d:{0.9 + 0.25 * i:.2f}s"><rect x="{x}" y="34" width="72" height="116" rx="6"/>'
+        if i < 2:      # templates: two lines and two boxes
+            inner = (f'<path d="M{x + 8} 92h50M{x + 8} 102h40"/>'
+                     f'<rect class="doc-box" x="{x + 8}" y="112" width="23" height="18" rx="3"/><rect class="doc-box" x="{x + 35}" y="112" width="23" height="18" rx="3"/>')
+        elif i == 2:   # the scorecard: a ranked list
+            inner = "".join(f'<rect class="doc-band" x="{x + 8}" y="{90 + 13 * k}" width="{w}" height="6" rx="3"/>' for k, w in enumerate((50, 38, 28, 16)))
+        else:          # the AI use case map: value against feasibility, a dot in quick wins
+            inner = (f'<rect class="doc-box" x="{x + 8}" y="88" width="50" height="44" rx="3"/><path d="M{x + 33} 88v44M{x + 8} 110h50"/>'
+                     f'<circle class="doc-dot" cx="{x + 47}" cy="98" r="4.5"/><circle class="doc-dot faint" cx="{x + 19}" cy="121" r="3"/>')
+        out.append(f'<g class="doc rise" style="--d:{0.9 + 0.22 * i:.2f}s"><rect x="{x}" y="34" width="66" height="116" rx="6"/>'
                    f'<rect class="doc-band" x="{x + 8}" y="42" width="24" height="5" rx="2"/>'
                    f'<text class="lbl doc-t" x="{x + 8}" y="64">{t1}</text><text class="lbl doc-t" x="{x + 8}" y="77">{t2}</text>{inner}</g>')
-    # coming-soon slots
-    for i, x in enumerate((288, 312)):
-        out.append(f'<rect class="slot pop" style="--d:{1.7 + 0.12 * i:.2f}s" x="{x}" y="104" width="22" height="34" rx="4"/>')
-    out.append('<text class="lbl small pop" style="--d:2s" x="311" y="98" text-anchor="middle">+2 coming</text>')
     # the case in front
     out.append('<rect class="case draw" style="--len:760;--d:0s" x="40" y="150" width="320" height="122" rx="20"/>')
     out.append('<path class="draw" style="--len:330;--d:.3s" d="M40 196 H360"/>')
     out.append('<rect class="hot pop" style="--d:.8s" x="182" y="182" width="36" height="28" rx="6"/>')
     out.append('<path class="tick draw" style="--len:60;--d:2.1s" d="m84 230 12 12 22-22"/><path class="tick draw" style="--len:60;--d:2.3s" d="m282 230 12 12 22-22"/>')
-    return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolkit with the Build, Buy, or Partner matrix, the Organizational Impact Score and the Feature Prioritization Scorecard, and two more tools coming">{"".join(out)}</svg>'
+    return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolkit with the Build, Buy, or Partner matrix, the Organizational Impact Score, the Feature Prioritization Scorecard and AI Use Case Prioritization">{"".join(out)}</svg>'
 
 
 def signal():

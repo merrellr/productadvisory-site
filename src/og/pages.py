@@ -22,6 +22,7 @@ PAGES = [
     ("about", "About", "About Product Advisory", "Who we are, and how we think about product.", signal),
     ("contact", "Contact", "Let's talk.", "A product challenge, team training, or feedback? Send a note.", conversation),
     ("scorecard", "Free toolkit · Interactive", "Feature Prioritization Scorecard", "Weighted scoring and RICE, side by side.", toolkit_open),
+    ("ai-use-cases", "Free toolkit · Interactive", "AI Use Case Prioritization", "Choose where AI is worth the effort first.", toolkit_open),
     ("book", "Book a call", "Book a free 30-minute call.", "Talk through what you're working on, on Google Meet.", conversation),
 ]
 
