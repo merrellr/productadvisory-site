@@ -15,7 +15,7 @@ from html import escape
 from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS
 from legal import PRIVACY, TERMS
-from art import path_art, orbit, toolkit_open, signal, conversation, reading
+from art import path_art, orbit, toolkit_open, signal, conversation, prism
 from insights import ARTICLES, CATEGORIES, category
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
@@ -948,7 +948,7 @@ def insights():
     chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(ARTICLES)}</em></button>'
              + "".join(f'<button type="button" role="radio" aria-checked="false" class="cat-{cid}" data-cat="{cid}"><i aria-hidden="true"></i>{label} <em>{counts[cid]}</em></button>'
                        for cid, label in CATEGORIES))
-    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", reading())}
+    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", prism())}
 <section>
   <div class="wrap">
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>

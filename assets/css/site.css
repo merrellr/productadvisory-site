@@ -274,7 +274,6 @@ section { padding: var(--section) 0; }
 :root[data-motion="reduced"] .net .pop { opacity: 1; }
 :root[data-motion="reduced"] .net circle.ring { display: none; }
 /* page-head illustrations (art.py): paths, labels, orbit, open toolkit */
-:is(.art-path, .art-orbit, .art-toolkit, .art-signal, .art-contact, .art-reading) :is(path, rect) { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .net .noise line { opacity: .22; }
 .net .noise circle.node { opacity: .5; stroke-width: 1.8; }
 .net path.route { stroke-width: 4; }
@@ -334,19 +333,20 @@ section { padding: var(--section) 0; }
 .art-signal .hot-pill rect { fill: var(--cyan); stroke: none; }
 .art-signal .hot-pill text.lbl { fill: #0b1b33; }
 .art-signal text.cap { font: 700 10px/1 var(--sans); letter-spacing: .18em; fill: currentColor; opacity: .55; }
-.art-reading { overflow: visible; }
-.art-reading rect.page { fill: var(--bg); stroke-width: 2.4; }
-.art-reading path.doc-line { stroke-width: 2; opacity: .4; }
-.art-reading path.doc-line.strong { stroke-width: 3; opacity: .7; }
-.art-reading circle.speck-dot { fill: currentColor; stroke: none; opacity: 0; animation: dot-in .5s ease forwards; animation-delay: var(--d, 0s); }
-@keyframes dot-in { from { opacity: 0; transform: scale(.4); } to { opacity: .32; transform: scale(1); } }
-.art-reading path.chart-axis { stroke-width: 1.6; opacity: .35; }
-.art-reading circle.lens-bg { fill: var(--bg); stroke: none; }
-.art-reading path.grid { stroke-width: 1; opacity: .18; }
-.art-reading circle.lens-rim { fill: none; stroke: currentColor; stroke-width: 5; }
-.art-reading path.glare { stroke: var(--cyan); stroke-width: 3; opacity: .8; }
-.art-reading path.handle { stroke: currentColor; stroke-width: 12; }
-.art-reading .float { animation-delay: 2.8s; }
+.art-prism { overflow: visible; }
+.art-prism :is(path, rect) { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.art-prism line.gather { stroke-width: 1.2; opacity: .22; }
+.art-prism circle.speck-node { stroke-width: 2; opacity: .75; }
+.art-prism path.beam-in { stroke-width: 5; }
+.art-prism path.prism { fill: var(--bg); stroke-width: 3; }
+.art-prism path.prism-light { fill: var(--cyan); stroke: none; opacity: .28; }
+.art-prism path.plus { stroke: var(--cyan); stroke-width: 6; }
+.art-prism path.beam { stroke: var(--c); stroke-width: 5; }
+.art-prism path.beam-glow { fill: var(--c); stroke: none; opacity: .14; }
+.art-prism .pop.beam-glow { animation-name: glow-in; }
+@keyframes glow-in { from { opacity: 0; } to { opacity: .14; } }
+.art-prism circle.beam-end { fill: var(--c); stroke: var(--bg); stroke-width: 3; }
+.art-prism circle.ring { stroke: var(--c); }
 :root[data-motion="reduced"] .net .rise { opacity: 1; }
 :root[data-motion="reduced"] .art-signal .speck { opacity: .18; }
 :root[data-motion="reduced"] .art-signal .divider { opacity: .35; }
@@ -356,7 +356,6 @@ section { padding: var(--section) 0; }
   .net .pop { opacity: 1; }
   .net circle.ring { display: none; }
   .net .rise { opacity: 1; }
-  .art-reading circle.speck-dot { opacity: .32; }
   .art-signal .speck { opacity: .18; }
   .art-signal .divider { opacity: .35; }
   .net circle.traveler { display: none; }
