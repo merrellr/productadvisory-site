@@ -15,8 +15,9 @@
 ## Free resources
 - [Toolkits](https://www.productadvisory.co/toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
 - [Feature Prioritization Scorecard](https://www.productadvisory.co/scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
+- [AI Use Case Prioritization](https://www.productadvisory.co/ai-use-cases): a free interactive tool that scores AI ideas on value, data readiness, cost, team readiness and risk, maps them by value and feasibility, and names the first pilot to run.
 - [Which prioritization method? cheat sheet](https://www.productadvisory.co/assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.
-- Coming soon: Product Strategy One Pager, AI Use Case Prioritization. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
+- Coming soon: Product Strategy One Pager. [Vote or request a tool](https://assessment.productadvisory.co/tool-requests)
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Insights (Product+ articles)
@@ -33,7 +34,7 @@
 ## Questions people ask
 - **What does a product management consultant do?** We help a company decide what to build and why, then make sure it gets built and launched well. That can mean an evidence-based product strategy, a roadmap tied to business goals, market and customer research, a repeatable lifecycle process, or coaching your product managers. We work alongside your team rather than replacing it.
 - **What is a Fractional CPO, and when do we need one?** A Fractional Chief Product Officer is senior product leadership for part of the week instead of a full-time executive hire. It fits when you have no clear product strategy or owner, your roadmap and growth goals live in separate documents, or your product team needs a leader to mentor them. Our Fractional CPO+ package sets product vision, builds your roadmap process and mentors your team, scaled to your stage and budget.
-- **How do you help a company adopt AI?** We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide.
+- **How do you help a company adopt AI?** We turn scattered individual AI use into an organizational capability in three steps: choose the right first use case, run a real pilot with your team, then put in the governance and habits that make adoption stick company-wide. Our free AI Use Case Prioritization tool (productadvisory.co/ai-use-cases) helps with the first step.
 - **Do you work with startups or enterprises?** Both. Our service packages are scoped for early-stage startups and for enterprises, and we scale our involvement from a single focused project to an embedded, end-to-end product partnership.
 - **Where are you based? Do you work remotely?** Product Advisory is based in Chicago, Illinois, and works with teams around the world, remotely and on site.
 - **How do we get started?** Book a free 30-minute call. We will talk through what you are working on and where we could help. If you are not sure which service fits, the three-question finder on the Services page suggests a starting point.
