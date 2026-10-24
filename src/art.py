@@ -141,34 +141,38 @@ def conversation():
 
 
 def reading():
-    """Insights: a Product+ issue on a stack of past articles; one line is highlighted, and the idea lights up,
-    surrounded by the newsletter's three subjects."""
-    out = []
-    # past issues fanned behind
-    for i, (rot, d) in enumerate([(-9, .0), (-4.5, .15)]):
-        out.append(f'<g transform="rotate({rot} 120 160)"><rect class="back-page draw" style="--len:560;--d:{d:.2f}s" x="44" y="40" width="152" height="196" rx="8"/></g>')
-    # the current issue
-    out.append('<g class="rise" style="--d:.35s"><rect x="56" y="34" width="160" height="210" rx="8"/>'
-               '<rect class="doc-band" x="72" y="50" width="34" height="6" rx="2"/>'
-               '<text class="lbl" x="72" y="80">Product+</text>'
-               '<path class="doc-line" d="M72 100h126M72 112h100"/>'
-               '<rect class="hilite" x="68" y="126" width="132" height="14" rx="3"/>'
-               '<path class="doc-line" d="M72 133h122M72 156h112M72 168h126M72 180h88"/>'
-               '<rect class="doc-box" x="72" y="196" width="40" height="30" rx="3"/><path class="doc-line" d="M120 204h78M120 216h64"/></g>')
-    # from the highlighted line to the idea
-    out.append('<path class="link-curve draw" style="--len:170;--d:1.5s" d="M200 133 C 236 133, 246 104, 282 100"/>')
-    # the light bulb
-    bx, by = 318, 92
-    out.append(f'<circle class="ring" cx="{bx}" cy="{by}" r="26"/>')
-    out.append(f'<g class="pop" style="--d:1.9s"><path class="bulb" d="M{bx - 22} {by} a22 22 0 1 1 44 0 c0 9 -6 14 -10 19 c-2 3 -3 6 -3 9 h-18 c0 -3 -1 -6 -3 -9 c-4 -5 -10 -10 -10 -19 z"/>'
-               f'<path class="bulb-base" d="M{bx - 9} {by + 34}h18M{bx - 7} {by + 41}h14"/>'
-               f'<circle class="hot" cx="{bx}" cy="{by - 2}" r="9"/></g>')
-    for i, (a, r1, r2) in enumerate([(-90, 34, 46), (-45, 32, 43), (-135, 32, 43), (0, 32, 43), (180, 32, 43)]):
-        t = math.radians(a)
-        out.append(_line(round(bx + r1 * math.cos(t), 1), round(by - 2 + r1 * math.sin(t), 1), round(bx + r2 * math.cos(t), 1), round(by - 2 + r2 * math.sin(t), 1), 2.2 + 0.06 * i, "draw ray"))
-    # the newsletter's subjects
-    for i, (label, px, py) in enumerate([("Strategy", 306, 178), ("AI agents", 300, 214), ("AI enablement", 314, 250)]):
-        w = len(label) * 7.4 + 22
-        out.append(f'<g class="pill{" hot-pill" if i == 1 else ""} pop" style="--d:{2.3 + 0.2 * i:.2f}s"><rect x="{px - w / 2:.1f}" y="{py - 12}" width="{w:.1f}" height="24" rx="12"/>'
-                   f'<text class="lbl" x="{px}" y="{py + 4.5}" text-anchor="middle">{label}</text></g>')
-    return f'<svg class="net art-reading" viewBox="0 0 400 290" role="img" aria-label="A Product+ article on a stack of past issues; a highlighted line lights up an idea about strategy, AI agents and AI enablement">{"".join(out)}</svg>'
+    """Insights: a Product+ page whose chart is a faint scatter; a magnifying glass over it shows the clean,
+    rising line underneath. Seeing the pattern in the noise."""
+    cx, cy, r = 240, 184, 52
+    out = [f'<defs><clipPath id="pa-lens-clip"><circle cx="{cx}" cy="{cy}" r="{r - 2}"/></clipPath></defs><g transform="translate(14 0)">']
+    # the newsletter page
+    out.append('<g class="rise" style="--d:.1s"><rect class="page" x="30" y="24" width="300" height="236" rx="12"/>'
+               '<rect class="doc-band" x="50" y="44" width="34" height="6" rx="2"/>'
+               '<text class="lbl" x="50" y="74">Product+</text>'
+               '<path class="doc-line strong" d="M50 96h200M50 110h136"/></g>')
+    # a text column on the left
+    for i, w in enumerate((92, 80, 96, 70, 88, 84, 60)):
+        out.append(f'<path class="doc-line draw" style="--len:{w + 4};--d:{0.6 + 0.05 * i:.2f}s" d="M50 {140 + 15 * i}h{w}"/>')
+    # the chart on the right: a scatter that hides its trend (the lens covers the middle)
+    pts = [(170, 236), (176, 214), (184, 240), (172, 192), (182, 168), (170, 150), (186, 140), (196, 232), (206, 244),
+           (282, 128), (296, 142), (306, 130), (312, 158), (300, 168), (310, 186), (304, 212), (314, 236), (292, 240), (280, 236),
+           (226, 196), (248, 172), (260, 200), (232, 160), (214, 214), (270, 166)]
+    for n, (x, y) in enumerate(pts):
+        out.append(f'<circle class="speck-dot pop" style="--d:{0.7 + 0.025 * n:.2f}s" cx="{x}" cy="{y}" r="3"/>')
+    out.append('<path class="chart-axis draw" style="--len:210;--d:.5s" d="M162 126 V248 H318"/>')
+    # the magnifying glass: inside the lens the noise falls away and the trend is clear
+    trend = f"M{cx - r} {cy + 30} C {cx - 28} {cy + 26}, {cx - 14} {cy + 14}, {cx} {cy - 2} S {cx + 20} {cy - 28}, {cx + r} {cy - 34}"
+    hx, hy = cx + 22, cy - 26
+    out.append('<g class="float"><g class="lens pop" style="--d:1.3s">')
+    out.append(f'<g clip-path="url(#pa-lens-clip)"><circle class="lens-bg" cx="{cx}" cy="{cy}" r="{r}"/>'
+               + "".join(f'<path class="grid" d="M{cx - r} {y}H{cx + r}"/>' for y in (cy - 26, cy, cy + 26))
+               + f'<path class="route draw" style="--len:150;--d:1.7s" d="{trend}"/>'
+               + f'<circle class="node stop pop" style="--d:1.9s" cx="{cx - 24}" cy="{cy + 22}" r="5.5"/>'
+               + f'<circle class="node stop pop" style="--d:2.1s" cx="{cx}" cy="{cy - 2}" r="5.5"/>'
+               + '</g>')
+    out.append(f'<circle class="ring" cx="{hx}" cy="{hy}" r="8"/><circle class="hot pop" style="--d:2.4s" cx="{hx}" cy="{hy}" r="8"/>')
+    out.append(f'<circle class="lens-rim" cx="{cx}" cy="{cy}" r="{r}"/>')
+    out.append(f'<path class="glare" d="M{cx - 36} {cy - 20} A{r - 12} {r - 12} 0 0 1 {cx - 16} {cy - 38}"/>')
+    out.append(f'<path class="handle" d="M{cx + 38} {cy + 38} L{cx + 80} {cy + 80}"/>')
+    out.append('</g></g></g>')
+    return f'<svg class="net art-reading" viewBox="0 0 400 290" role="img" aria-label="A magnifying glass over a Product+ article turns a scattered chart into one clear rising line">{"".join(out)}</svg>'
