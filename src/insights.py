@@ -11,12 +11,15 @@ A body is a list of blocks:
     ("ul", ["item", ...])  ("ol", ["item", ...])
     ("quote", "text")                 a pulled quote
     ("fig", "file.webp", "alt text", "caption or empty")   an image from assets/insights/<slug>/
+"services" lists the related services (ids in content.SERVICES): the article ends with them, and each service on
+the Services page lists the articles that name it under "Related reading".
 Images: assets/insights/<slug>/cover.webp (1600x900), card.webp (800x450, the index card) and og.jpg (1200x675,
 the sharing image)."""
 
 ARTICLES = [
     {
         "slug": "day-in-the-life",
+        "services": ["coaching", "ai"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)",
         "dek": "Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.",
         "topic": "AI agents",
@@ -58,6 +61,7 @@ ARTICLES = [
     },
     {
         "slug": "stop-enabling-individuals",
+        "services": ["ai"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "Stop enabling individuals. Start enabling the organization.",
         "dek": "From novice to organization: why Copilot Studio is the bridge to real AI enablement.",
         "topic": "AI enablement",
@@ -98,6 +102,7 @@ ARTICLES = [
     },
     {
         "slug": "feature-fallacy",
+        "services": ["strategy", "lifecycle", "agile"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "The Feature Fallacy",
         "dek": "Why shipping more isn't helping your users, and what to do instead.",
         "topic": "Product strategy",
@@ -158,6 +163,7 @@ ARTICLES = [
     },
     {
         "slug": "product-focused-ai-agents",
+        "services": ["ai", "coaching"],   # ids in content.SERVICES: the article links to them, and they link back
         "title": "How to Build Product-Focused AI Agents That Actually Make Better Decisions",
         "dek": "How to shape LLMs to improve product judgment, decision quality and outcomes.",
         "topic": "AI agents",

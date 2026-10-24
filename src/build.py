@@ -267,8 +267,16 @@ def home():
       <a class="btn ghost" href="toolkits.html">Browse the toolkits</a>
     </div>
     <div class="reveal" data-ask="Product+ newsletter" data-kind="Home" data-keywords="newsletter linkedin articles insights">
-      <div class="card">{icon("news")}<h3>The Product+ newsletter</h3><p>Product insights on strategy, discovery and AI, published on LinkedIn.</p><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Follow on LinkedIn</a></div>
+      <div class="card">{icon("news")}<h3>The Product+ newsletter</h3><p>Product insights on strategy, discovery and AI. Read the articles here, or follow along on LinkedIn.</p><div class="btn-row"><a class="link-arrow" href="insights.html">Read the insights</a><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Follow on LinkedIn</a></div></div>
     </div>
+  </div>
+</section>
+
+<section id="insights" data-ask="Latest insights from Product+" data-kind="Home" data-keywords="articles blog newsletter writing">
+  <div class="wrap">
+    <div class="section-head reveal"><div class="eyebrow">Insights</div><h2>Latest from Product+</h2><p>Practical writing on product strategy, AI agents and AI enablement.</p></div>
+    <div class="insight-grid">{"".join(insight_card(a) for a in published()[:3])}</div>
+    <div class="btn-row" style="margin-top:28px"><a class="btn ghost" href="insights.html">All insights</a></div>
   </div>
 </section>
 
@@ -287,6 +295,7 @@ def services():
     <h2 style="font-size:1.5rem">{t}{' <span class="tag on">New</span>' if new else ''}</h2>
     <p class="for">{fw}</p>
     <div class="deep"><p>{body}</p><ul>{"".join(f"<li>{b}</li>" for b in bullets)}</ul></div>
+    {related_reading(i)}
   </div>
 </article>''' for i, ic, t, fw, body, bullets, new in SERVICES)
     details = details.replace("assessment.productadvisory.co, a real", f'<a href="{ASSESS}" {EXT}>assessment.productadvisory.co</a>, a real')
@@ -915,6 +924,23 @@ def published():
     return sorted([a for a in ARTICLES if a.get("body")], key=lambda a: a["date"], reverse=True)
 
 
+def related_reading(service_id):
+    """On the Services page: the articles that go deeper on this service."""
+    arts = [a for a in published() if service_id in a.get("services", [])]
+    arts.sort(key=lambda a: a["services"].index(service_id))   # articles mainly about this service first, then newest first
+    if not arts:
+        return ""
+    links = "".join(f'<li><a href="/insights/{a["slug"]}">{escape(a["title"])}</a></li>' for a in arts)
+    return f'<div class="related-reading"><h3>Related reading</h3><ul>{links}</ul></div>'
+
+
+def related_services(a):
+    """At the end of an article: the services that put it into practice."""
+    by_id = {sid: (t, fw) for sid, _, t, fw, *_ in SERVICES}
+    cards = "".join(f'<a class="svc-link" href="services.html#{sid}"><b>{by_id[sid][0]}</b><span>{by_id[sid][1]}</span></a>' for sid in a.get("services", []))
+    return f'<div class="post-services"><h2>Putting this into practice</h2><p>How Product Advisory helps teams with this:</p><div class="svc-links">{cards}</div></div>' if cards else ""
+
+
 def insights():
     full, linked = published(), [a for a in ARTICLES if not a.get("body")]
     body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", reading())}
@@ -959,6 +985,7 @@ def article_page(a, full):
     <div class="prose post-body">
 {article_body(a)}
     </div>
+    {related_services(a)}
     <aside class="post-foot">
       <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.</p>
       <div class="btn-row"><a class="btn" href="{NEWSLETTER}" {EXT}>Subscribe to Product+</a><a class="btn ghost" href="{BOOK}">Talk it through on a free call</a></div>

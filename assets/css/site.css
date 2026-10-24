@@ -1253,3 +1253,19 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .post-body blockquote p { font-size: 1.2rem; font-style: italic; color: var(--navy); margin: 0; }
 .post-foot { margin: 48px 0 64px; padding: 26px 28px; border-radius: var(--radius); background: var(--tint); }
 .post-foot p { color: var(--ink); }
+.related-reading { margin-top: 18px; padding: 14px 18px; border-left: 3px solid var(--cyan); background: var(--band); border-radius: 0 12px 12px 0; }
+.related-reading h3 { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.related-reading ul { list-style: none; padding: 0; }
+.related-reading li { margin: 4px 0; }
+.related-reading li::before { content: "→ "; color: var(--cyan); }
+.related-reading a { color: var(--navy); font-weight: 700; text-decoration: none; }
+.related-reading a:hover { text-decoration: underline; }
+.post-services { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+.post-services h2 { font-size: 1.5rem; margin-bottom: .3em; }
+.svc-links { display: grid; gap: 12px; margin-top: 14px; }
+.svc-link { display: block; padding: 16px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); text-decoration: none; transition: border-color .2s, transform .2s; }
+.svc-link:hover { border-color: var(--cyan); transform: translateY(-1px); }
+.svc-link b { display: block; color: var(--navy); font-size: 1.08rem; }
+.svc-link b::after { content: " →"; color: var(--cyan); }
+.svc-link span { color: var(--ink-2); font-size: .97rem; }
+@media (prefers-reduced-motion: reduce) { .svc-link { transition: none; } .svc-link:hover { transform: none; } }
