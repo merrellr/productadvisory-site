@@ -13,6 +13,8 @@ python3 src/build.py --check   # fails if a committed page differs from what src
 `src/build.py` holds the pages, `src/parts.py` the header, footer, head tags and icons, `src/content.py` the services
 and packages, `src/legal.py` the privacy policy and terms, and `src/art.py` the page-head illustrations. Commit both
 the source and the rebuilt pages. `assets/` (CSS, JavaScript, images, toolkit files) is edited directly.
+Pages ask for each stylesheet and script with a version tag (`site.css?v=…`, from the file's contents), so visitors
+get a change straight away: after editing a CSS or JS file, rebuild too (the CI check fails until you do).
 `src/og/` has the sharing images: `og.html` for the home page, and `pages.py` for one per main page
 (`assets/img/og/<page>.jpg`, the page's title and its page-head art; rerun it after changing a page head or its art).
 `llms.txt` and `sitemap.xml` are built too: edit the content, not those files.

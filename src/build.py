@@ -58,10 +58,24 @@ def clean_links(html):
     return html.replace('href="assets/', 'href="/assets/').replace('src="assets/', 'src="/assets/')
 
 
+def versioned(html):
+    """assets/css/site.css → assets/css/site.css?v=<first 8 of its hash>, for every stylesheet and script, so a
+    browser fetches the new file as soon as it changes instead of using the copy it kept."""
+    import hashlib
+    import re
+
+    def tag(m):
+        path = os.path.join(ROOT, "assets", m.group(2))
+        if not os.path.exists(path):
+            return m.group(0)
+        return f'{m.group(1)}assets/{m.group(2)}?v={hashlib.sha256(open(path, "rb").read()).hexdigest()[:8]}"'
+    return re.sub(r'((?:href|src)="/?)assets/((?:css|js)/[\w.-]+\.(?:css|js))"', tag, html)
+
+
 def write(name, html):
     os.makedirs(os.path.dirname(os.path.join(OUT, name)), exist_ok=True)
     with open(os.path.join(OUT, name), "w") as f:
-        f.write(clean_links(mark_new_tabs(html)))
+        f.write(versioned(clean_links(mark_new_tabs(html))))
 
 
 def page_head(title, sub, art):
