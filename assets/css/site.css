@@ -1362,4 +1362,9 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .card.insight { position: relative; }
 .card.insight.picked { box-shadow: 0 0 0 3px var(--cat), var(--shadow); }
 .pick-badge { position: absolute; top: 10px; left: 10px; z-index: 1; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--cat); color: var(--bg); font-weight: 800; font-size: .9rem; box-shadow: 0 2px 6px rgb(0 0 0 / .2); }
+.finder-tool { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 4px; }
+.finder-tool-label { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan-ink); margin-bottom: 6px; }
+.finder-tool b { color: var(--navy); }
+.finder-tool .pill { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan-ink); border: 1px solid currentColor; border-radius: var(--pill); padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
+.finder-tool p { margin: 6px 0 10px; font-size: .94rem; color: var(--ink-2); }
 @media (max-width: 640px) { .art-finder .ask-form .btn { padding: 10px 14px; } .art-finder-head .muted { display: block; } }

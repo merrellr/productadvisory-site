@@ -1073,7 +1073,30 @@ def related_services(a):
     return f'<div class="post-services"><h2>Putting this into practice</h2><p>How Product Advisory helps teams with this:</p><div class="svc-links">{cards}</div></div>' if cards else ""
 
 
+# The Insights finder's "Put it into practice": the free tool that best fits the request (matched in the browser on
+# these keywords, the request counting most and the picked articles a little). A tool can carry a second link.
+FINDER_TOOLS = [
+    {"name": "Feature Prioritization Scorecard", "kind": "Free · interactive", "href": "/scorecard",
+     "desc": "Rank your features with weighted scoring or RICE, and compare the two side by side.",
+     "also": ["Which prioritization method? (one-page PDF)", "/assets/toolkits/which-prioritization-method.pdf"],
+     "keys": "prioritization prioritize priorities backlog rank ranking rice ice weighted scoring score features feature tradeoffs trade-offs framework method stakeholders roadmap decide build next"},
+    {"name": "Build, Buy, or Partner Decision Matrix", "kind": "Free · PDF, Sheet or Excel", "href": "/toolkits#build-buy-partner",
+     "desc": "Score building, buying or partnering against ten criteria and compare the real three-year cost.",
+     "keys": "build buy partner vendor vendors make outsource partnership integration capability platform tool tools cost decision"},
+    {"name": "Organizational Impact Score", "kind": "Free · PDF, Sheet or Excel", "href": "/toolkits#impact-score",
+     "desc": "Rate initiatives against the KPIs you already track and see which work moves the numbers that matter.",
+     "keys": "impact kpi kpis metric metrics outcome outcomes initiative initiatives budget investment business value measure okr okrs results retention growth"},
+    {"name": "PM + AI skill assessment", "kind": "Free · 14 questions", "href": ASSESS, "ext": True,
+     "desc": "See where you or your team stand across seven product and AI skill areas, with a learning path to match.",
+     "keys": "skill skills team teams learn learning training train fluency assess assessment gap gaps career grow new beginner junior product manager managers people adopt adoption use"},
+    {"name": "AI Use Case Prioritization (coming soon)", "kind": "Planned · vote for it", "href": ASSESS + "tool-requests?tool=ai-use-case-prioritization&src=site-insights", "ext": True,
+     "desc": "Choose where AI is worth the effort first, by weighing value, data readiness, risk and cost.",
+     "keys": "ai use case cases where start first pilot automate automation agent agents copilot support customer customers service"},
+]
+
+
 def insights():
+    import json
     full, linked = published(), [a for a in listed() if not a.get("body")]
     counts = {cid: sum(1 for a in listed() if category(a) == cid) for cid, _ in CATEGORIES}
     chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(listed())}</em></button>'
@@ -1082,7 +1105,7 @@ def insights():
     body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", insight_lens())}
 <section>
   <div class="wrap">
-    <div class="art-finder" id="insight-finder" hidden>
+    <div class="art-finder" id="insight-finder" data-tools="{escape(json.dumps(FINDER_TOOLS), quote=True)}" hidden>
       <div class="art-finder-head"><span class="assist-spark" aria-hidden="true">✦</span> <b>Tell me what you're looking for</b> <span class="muted">and we'll suggest where to start.</span></div>
       <form class="ask-form" role="search">
         {tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}

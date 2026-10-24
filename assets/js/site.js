@@ -1122,7 +1122,7 @@
       var head = '<div class="ask-q">“' + esc(q) + "”</div>";
       if (!picks.length) {
         out.innerHTML = head + '<p class="muted" style="margin:0 0 10px">We haven\'t written about that yet. Try different words, browse the topics below, or ask us directly.</p>' +
-          '<div class="btn-row"><a class="btn sm" href="/contact?reason=other&amp;topic=' + encodeURIComponent(q) + '#message">Ask us about it</a></div>';
+          '<div class="btn-row"><a class="btn sm" href="/contact?reason=other&amp;topic=' + encodeURIComponent(q) + '#message">Ask us about it</a></div>' + toolFor(q, []);
         return;
       }
       var all = $('.insight-filter [data-cat="all"]');
@@ -1133,8 +1133,33 @@
         return '<a class="pick cat-' + p.d.cat + '" href="' + esc(p.d.href) + '"' + (p.d.ext ? ' target="_blank" rel="noopener"' : "") + '><span class="num">' + (i + 1) + "</span><span><b>" + esc(p.d.title) +
           (p.d.ext ? ' <span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (on LinkedIn, opens in a new tab)</span>' : "") +
           "</b><small>" + esc(p.d.topic) + (p.d.ext ? " · on LinkedIn" : "") + "</small><span class=\"why\">" + esc(p.why || p.d.desc) + "</span></span></a>";
-      }).join("") + (ai ? '<p class="ask-fine" style="margin:2px 0 0">Suggested by AI from the article summaries. The numbered cards below are highlighted.</p>' : "");
+      }).join("") + (ai ? '<p class="ask-fine" style="margin:2px 0 0">Suggested by AI from the article summaries. The numbered cards below are highlighted.</p>' : "") + toolFor(q, picks);
     }
+    // "Put it into practice": the free tool whose keywords best match the request (and, a little, the picked articles).
+    var tools = [];
+    try { tools = JSON.parse(box.getAttribute("data-tools")) || []; } catch (e) { tools = []; }
+    tools.forEach(function (tl) { tl.keyset = {}; tokens(tl.keys + " " + tl.name).forEach(function (k) { tl.keyset[stem(k)] = 1; }); });
+    function toolFor(q, picks) {
+      var asked = {}, read = {};
+      tokens(q).forEach(function (w) { asked[stem(w)] = 1; });
+      picks.forEach(function (p) { tokens(p.d.title + " " + p.d.find).forEach(function (w) { read[stem(w)] = 1; }); });
+      var best = null, bestScore = 0;
+      tools.forEach(function (tl) {
+        var s = 0;
+        Object.keys(asked).forEach(function (w) { if (tl.keyset[w]) s += 1; });
+        Object.keys(read).forEach(function (w) { if (tl.keyset[w]) s += 0.08; });
+        if (s > bestScore) { bestScore = s; best = tl; }
+      });
+      if (!best || bestScore < 1) return "";
+      var ext = best.ext ? ' target="_blank" rel="noopener"' : "";
+      return '<div class="finder-tool"><span class="finder-tool-label">Put it into practice</span><div><b>' + esc(best.name) + '</b> <span class="pill">' + esc(best.kind) + "</span></div><p>" + esc(best.desc) + "</p>" +
+        '<div class="btn-row"><a class="btn sm" data-tool href="' + esc(best.href) + '"' + ext + ">" + (/coming soon/.test(best.name) ? "Vote for it" : "Open the tool") + (best.ext ? ' <span class="sr-only">(opens in a new tab)</span>' : "") + "</a>" +
+        (best.also ? '<a class="btn sm ghost" href="' + esc(best.also[1]) + '" target="_blank" rel="noopener">' + esc(best.also[0]) + ' <span class="sr-only">(opens in a new tab)</span></a>' : "") + "</div></div>";
+    }
+    out.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-tool]");
+      if (a) track("finder_tool", { tool: a.textContent.trim(), href: a.getAttribute("href") });
+    });
     function run(q) {
       q = q.trim().slice(0, 300);
       if (!q) return;
