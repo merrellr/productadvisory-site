@@ -34,6 +34,8 @@
 // allowance. The portfolio uses this model too; both daily ceilings together
 // stay far below Groq's free-tier limit for it. Check console.groq.com/docs/models if Groq retires it.
 var ASK_MODEL_ = 'openai/gpt-oss-20b';
+// It reasons before it answers, and the reasoning counts against max_tokens: every call asks for low reasoning
+// effort and leaves room (1200), or a long think can leave an empty answer (seen as "ai_error").
 
 // Daily ceilings. Each answer uses roughly 2–3K tokens, so 60 a day stays far
 // below Groq's free-tier limits for this model.
@@ -160,7 +162,8 @@ function callGroq_(q, sources, apiKey) {
     payload: JSON.stringify({
       model: ASK_MODEL_,
       temperature: 0.2,
-      max_tokens: 700,
+      max_tokens: 1200,
+      reasoning_effort: "low",
       messages: [{ role: "system", content: ASK_SYSTEM_PROMPT_ }, { role: "user", content: user }]
     }),
     muteHttpExceptions: true
@@ -820,7 +823,7 @@ function bookingAssist_(body) {
   ].filter(function (l) { return l; }).join("\n");
   var response = UrlFetchApp.fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "post", contentType: "application/json", headers: { Authorization: "Bearer " + apiKey }, muteHttpExceptions: true,
-    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.4, max_tokens: 400,
+    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.4, max_tokens: 1200, reasoning_effort: "low",
       messages: [{ role: "system", content: BOOKING_ASSIST_PROMPT_ }, { role: "user", content: "The visitor's answers:\n" + facts }] })
   });
   if (response.getResponseCode() !== 200) return { ok: false, error: "ai_error" };
@@ -898,7 +901,7 @@ function contactDraft_(body) {
   ].filter(function (l) { return l; }).join("\n");
   var response = UrlFetchApp.fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "post", contentType: "application/json", headers: { Authorization: "Bearer " + apiKey }, muteHttpExceptions: true,
-    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.4, max_tokens: 400,
+    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.4, max_tokens: 1200, reasoning_effort: "low",
       messages: [{ role: "system", content: CONTACT_DRAFT_PROMPT_ }, { role: "user", content: "The visitor's answers:\n" + facts }] })
   });
   if (response.getResponseCode() !== 200) return { ok: false, error: "ai_error" };
@@ -946,7 +949,7 @@ function recommendInsights_(body) {
   var list = sources.map(function (s, i) { return (i + 1) + ". " + s.title + ": " + s.text; }).join("\n");
   var response = UrlFetchApp.fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "post", contentType: "application/json", headers: { Authorization: "Bearer " + apiKey }, muteHttpExceptions: true,
-    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.2, max_tokens: 500,
+    payload: JSON.stringify({ model: ASK_MODEL_, temperature: 0.2, max_tokens: 1200, reasoning_effort: "low",
       messages: [{ role: "system", content: RECOMMEND_PROMPT_ }, { role: "user", content: "Articles:\n" + list + "\n\nVisitor's request: " + q }] })
   });
   if (response.getResponseCode() !== 200) return { ok: false, error: "ai_error" };

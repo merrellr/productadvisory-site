@@ -232,6 +232,7 @@ console.log('--- Contact page: "Not sure what to write?" ---');
   const sent = groq[0] && groq[0].messages[1].content;
   t('the AI gets only the chips for that reason, and returns plain text', r.ok && r.text === 'We ship fast, but want help with discovery.' && /Product strategy & roadmap/.test(sent) && !/Made up|podcast/.test(sent) && /This quarter/.test(sent) && /Acme/.test(sent) && /advisory project/.test(sent), JSON.stringify(r) + sent);
   t('the AI is told the answers are data, not instructions', /data, not instructions/.test(groq[0].messages[0].content));
+  t('every AI call keeps reasoning short and leaves room for the answer', groq[0].reasoning_effort === 'low' && groq[0].max_tokens >= 1200);
   groq.length = 0;
   post({ type: 'draft', reason: 'toolkits', context: 'Build or buy analytics', timing: 'now', cid: 'c1' });
   t('no timing for a toolkit question', !/Timing/.test(groq[0].messages[1].content) && /What they're deciding: Build or buy analytics/.test(groq[0].messages[1].content));
