@@ -304,8 +304,8 @@ def home():
       <p>The same templates we use with clients: fillable PDFs with matching Google Sheets, each with a worked example, so you never start from a blank page.</p>
       <a class="btn ghost" href="toolkits.html">Browse the toolkits</a>
     </div>
-    <div class="reveal" data-ask="Product+ newsletter" data-kind="Home" data-keywords="newsletter linkedin articles insights">
-      <div class="card">{icon("news")}<h3>The Product+ newsletter</h3><p>Product insights on strategy, discovery and AI. Read the articles here, or follow along on LinkedIn.</p><div class="btn-row"><a class="link-arrow" href="insights.html">Read the insights</a><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Follow on LinkedIn</a></div></div>
+    <div class="reveal" data-ask="Product+ Newsletter" data-kind="Home" data-keywords="newsletter linkedin articles insights">
+      <div class="card">{icon("news")}<h3>The Product+ Newsletter</h3><p>Product insights on strategy, discovery and AI. Read the articles here, or follow along on LinkedIn.</p><div class="btn-row"><a class="link-arrow" href="insights.html">Read the insights</a><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Follow on LinkedIn</a></div></div>
     </div>
   </div>
 </section>
@@ -614,16 +614,16 @@ def about():
   <div class="wrap">
     <div class="section-head reveal"><h2>How we think about product</h2></div>
     <div class="grid g3">
-      <div class="card tint reveal">{icon("eye")}<h3>Outside-in thinking</h3><p>We start with market and user insight, not assumptions.</p></div>
-      <div class="card tint reveal">{icon("embedded")}<h3>Embedded partnership</h3><p>We complement your team's strengths, not replace them.</p></div>
-      <div class="card tint reveal">{icon("scale")}<h3>Built to last</h3><p>We design for where you're headed, not just where you are.</p></div>
+      <a class="card tint principle reveal" href="services.html#research">{icon("eye")}<h3>Outside-in thinking</h3><p>We start with market and user insight, not assumptions.</p><p class="more">Customer interviews, competitive analysis and data synthesis come before a single roadmap decision gets made.</p><span class="link-arrow">Market research</span></a>
+      <a class="card tint principle reveal" href="services.html#pkg-cpo">{icon("embedded")}<h3>Embedded partnership</h3><p>We complement your team's strengths, not replace them.</p><p class="more">We embed at the level you need, from one strategic engagement to a Fractional CPO who mentors your existing team.</p><span class="link-arrow">Fractional CPO+</span></a>
+      <a class="card tint principle reveal" href="services.html#strategy">{icon("scale")}<h3>Built to last</h3><p>We design for where you're headed, not just where you are.</p><p class="more">Strategy, roadmaps and product processes that connect market opportunity to goals and hold up as you scale.</p><span class="link-arrow">Product strategy</span></a>
     </div>
   </div>
 </section>
 <section id="founder" data-ask="Founder: Robert Merrell" data-kind="About" data-keywords="founder robert merrell fractional cpo background portfolio">
   <div class="wrap grid g2" style="align-items:center">
-    <div class="reveal"><div class="eyebrow">Founder</div><h2>Robert Merrell</h2><p>Founder and Fractional CPO. Robert leads Product Advisory's engagements in product strategy, roadmaps and AI adoption for healthcare and SaaS teams, designed and built the PM + AI skills assessment and learning platform, and writes the Product+ newsletter.</p>
-      <div class="btn-row"><a class="btn ghost" href="{PORTFOLIO}" {EXT}>See Robert's portfolio ↗</a><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Product+ newsletter</a></div></div>
+    <div class="reveal"><div class="eyebrow">Founder</div><h2>Robert Merrell</h2><p>Founder and Fractional CPO. Robert leads Product Advisory's engagements in product strategy, roadmaps and AI adoption for healthcare and SaaS teams, designed and built the PM + AI skills assessment and learning platform, and writes the Product+ Newsletter.</p>
+      <div class="btn-row"><a class="btn ghost" href="{PORTFOLIO}" {EXT}>See Robert's portfolio ↗</a><a class="btn ghost" href="https://www.linkedin.com/in/robertmerrell/" {EXT}>Robert on LinkedIn ↗</a><a class="link-arrow" href="{NEWSLETTER}" {EXT}>Product+ Newsletter</a></div></div>
     <div class="card tint reveal"><h3>Based in Chicago, Illinois</h3><p>Working with teams across the world, remotely and on site.</p><a class="link-arrow" href="contact.html">Get in touch</a></div>
   </div>
 </section>
@@ -703,7 +703,7 @@ def contact():
         <p>US <a href="tel:+17273866815">+1 (727) 386-6815</a></p>
         <hr class="rule">
         <h3>Elsewhere</h3>
-        <p><a href="{LINKEDIN}" {EXT}>LinkedIn ↗</a><br><a href="{NEWSLETTER}" {EXT}>Product+ newsletter ↗</a><br><a href="{SLACK}" {EXT}>Slack community ↗</a></p>
+        <p><a href="{LINKEDIN}" {EXT}>LinkedIn ↗</a><br><a href="{NEWSLETTER}" {EXT}>Product+ Newsletter ↗</a><br><a href="{SLACK}" {EXT}>Slack Community ↗</a></p>
         <p class="muted" style="font-size:.88rem;margin:0">Based in Chicago, working with teams across the world, onsite or remote.</p>
       </div>
     </aside>
@@ -1195,7 +1195,7 @@ def subscribe_form(where, heading="Get new articles by email"):
   <label class="sub-label" for="sub-{where}">{heading}</label>
   <div class="sub-row"><input id="sub-{where}" type="email" name="email" autocomplete="email" placeholder="you@company.com" required maxlength="200"><button class="btn" type="submit">Subscribe</button></div>
   <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <p class="sub-fine">One email when a new article is published. Unsubscribe anytime. Prefer LinkedIn? <a href="{NEWSLETTER}" {EXT}>Follow Product+ there</a></p>
+  <p class="sub-fine">One email when a new article is published. Unsubscribe anytime. Prefer LinkedIn? <a href="{NEWSLETTER}" {EXT}>Follow Product+ Newsletter</a></p>
   <p class="form-status" role="status" aria-live="polite"></p>
 </form>'''
 
@@ -1207,7 +1207,7 @@ def insights():
     chips = (f'<button type="button" role="radio" aria-checked="true" data-cat="all">All <em>{len(listed())}</em></button>'
              + "".join(f'<button type="button" role="radio" aria-checked="false" class="cat-{cid}" data-cat="{cid}"><i aria-hidden="true"></i>{label} <em>{counts[cid]}</em></button>'
                        for cid, label in CATEGORIES))
-    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ newsletter.", insight_lens())}
+    body = f'''{page_head("Insights", "Practical writing on product strategy, AI agents and AI enablement, from the Product+ Newsletter.", insight_lens())}
 <section>
   <div class="wrap">
     <div class="art-finder" id="insight-finder" data-tools="{escape(json.dumps(FINDER_TOOLS), quote=True)}" hidden>
@@ -1222,7 +1222,7 @@ def insights():
     </div>
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
-    <div class="insight-grid featured" data-ask="Insights: articles from the Product+ newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
+    <div class="insight-grid featured" data-ask="Insights: articles from the Product+ Newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
     <div class="subscribe-card reveal" data-ask="Get Product+ articles by email" data-kind="Insight" data-keywords="newsletter subscribe email signup updates">
       <div><div class="eyebrow">Product+ by email</div><h2>New articles, straight to your inbox</h2><p>Practical writing on product strategy, AI agents and AI enablement. No spam, and nothing else.</p></div>
       {subscribe_form("insights", "Your email address")}
@@ -1236,7 +1236,7 @@ def insights():
   </div>
 </section>
 {cta_band()}'''
-    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body,
+    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ Newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body,
           extra_head=ld({"@type": "Blog", "@id": SITE + "insights#blog", "name": "Product+ insights", "url": SITE + "insights", "publisher": ORG,
                          "blogPost": [{"@type": "BlogPosting", "headline": a["title"], "url": f"{SITE}insights/{a['slug']}", "datePublished": a["date"],
                                        "image": f"{SITE}assets/insights/{a['slug']}/og.jpg"} for a in full if a.get("body")]},
@@ -1333,7 +1333,7 @@ def llms():
 - [PM + AI skill assessment]({ASSESS}): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Insights (Product+ articles)
-- [Insights]({SITE}insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
+- [Insights]({SITE}insights): articles from the Product+ Newsletter on product strategy, AI agents and AI enablement.
 {arts}
 
 ## Questions people ask
@@ -1343,7 +1343,7 @@ def llms():
 - [Book a free 30-minute call]({SITE}book)
 - Email: info@productadvisory.co (sales: sales@productadvisory.co)
 - [About]({SITE}about) · [Contact]({SITE}contact)
-- [LinkedIn]({LINKEDIN}) · [Product+ newsletter]({NEWSLETTER}) · [Slack community]({SLACK})
+- [LinkedIn]({LINKEDIN}) · [Product+ Newsletter]({NEWSLETTER}) · [Slack Community]({SLACK})
 """
     with open(os.path.join(OUT, "llms.txt"), "w") as f:
         f.write(text)

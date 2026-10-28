@@ -21,7 +21,7 @@
 - [PM + AI skill assessment](https://assessment.productadvisory.co/): 14 questions across seven product and AI competencies, with a personalized learning path.
 
 ## Insights (Product+ articles)
-- [Insights](https://www.productadvisory.co/insights): articles from the Product+ newsletter on product strategy, AI agents and AI enablement.
+- [Insights](https://www.productadvisory.co/insights): articles from the Product+ Newsletter on product strategy, AI agents and AI enablement.
 - [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.
 - [The $1.50 Hot Dog](https://www.productadvisory.co/insights/150-hot-dog): Costco sells memberships, not groceries, and what that teaches product managers about where the money really is.
 - [The $100 Staircase](https://www.productadvisory.co/insights/100-staircase): What Apple's pricing teaches product managers about the art of the upsell.
@@ -45,4 +45,4 @@
 - [Book a free 30-minute call](https://www.productadvisory.co/book)
 - Email: info@productadvisory.co (sales: sales@productadvisory.co)
 - [About](https://www.productadvisory.co/about) · [Contact](https://www.productadvisory.co/contact)
-- [LinkedIn](https://www.linkedin.com/company/productadvisory) · [Product+ newsletter](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482) · [Slack community](https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ)
+- [LinkedIn](https://www.linkedin.com/company/productadvisory) · [Product+ Newsletter](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482) · [Slack Community](https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ)

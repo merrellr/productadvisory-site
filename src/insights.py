@@ -1,6 +1,6 @@
 """Insights: the Product+ articles, published in full on productadvisory.co.
 
-Each article is published here first, then as the Product+ newsletter issue on LinkedIn (with "Originally published
+Each article is published here first, then as the Product+ Newsletter issue on LinkedIn (with "Originally published
 at productadvisory.co/insights/<slug>" at the end). Articles without a "body" yet are listed on the Insights page and
 link to LinkedIn until their full text is added.
 

@@ -421,6 +421,14 @@ section { padding: var(--section) 0; }
 .card p:last-child { margin-bottom: 0; }
 a.card { display: block; text-decoration: none; transition: transform .2s, box-shadow .2s, border-color .2s; }
 a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--cyan); }
+/* About, "How we think about product": each principle highlights and opens a line of detail on hover or focus */
+a.card.principle { color: inherit; border: 1px solid transparent; }
+a.card.principle:hover, a.card.principle:focus-visible { background: var(--card); border-color: var(--cyan); }
+.principle .more { overflow: hidden; max-height: 0; opacity: 0; margin: 0; font-size: .9375rem; transition: max-height .3s, opacity .3s, margin .3s; }
+.principle:hover .more, .principle:focus-visible .more { max-height: 8em; opacity: 1; margin: 10px 0 6px; }
+.principle .link-arrow { display: inline-block; margin-top: 10px; }
+@media (hover: none) { .principle .more { max-height: none; opacity: 1; margin: 10px 0 6px; } }
+@media (prefers-reduced-motion: reduce) { .principle .more { transition: none; } }
 .ico { width: 48px; height: 48px; color: var(--navy); margin-bottom: 16px; }
 .ico .dot { fill: var(--cyan); stroke: none; }
 .num { display: inline-flex; width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: var(--btn-ink); font-weight: 900; font-size: .9rem; align-items: center; justify-content: center; margin-bottom: 14px; }

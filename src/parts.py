@@ -157,8 +157,8 @@ FOOTER = f'''<footer class="site">
         <p>Product management consulting for startups and enterprises.</p>
       </div>
       <div><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="insights.html">Insights</a></li><li><a href="{ASSESS}" {EXT}>Skill assessment ↗</a></li></ul></div>
-      <div><h4>Community</h4><ul><li><a href="{LINKEDIN}" {EXT}>LinkedIn</a></li><li><a href="{NEWSLETTER}" {EXT}>Newsletter</a></li><li><a href="{SLACK}" {EXT}>Slack community</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="services.html">Services</a></li><li><a href="toolkits.html">Toolkits</a></li><li><a href="toolkits.html#learning">Learning</a></li><li><a href="insights.html">Insights</a></li><li><a href="{ASSESS}" {EXT}>Product Skill Assessment ↗</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="{LINKEDIN}" {EXT}>LinkedIn</a></li><li><a href="{NEWSLETTER}" {EXT}>Newsletter</a></li><li><a href="{SLACK}" {EXT}>Slack Community</a></li></ul></div>
       <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li></ul></div>
     </div>
     <div class="foot-base">
