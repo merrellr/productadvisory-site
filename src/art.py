@@ -132,7 +132,8 @@ def toolkit_tool(key):
                        f'<rect class="doc-band" x="{x + 8}" y="104" width="20" height="4" rx="2"/><path d="M{x + 8} 116h44M{x + 8} 124h30M{x + 8} 132h38"/></g>')
     out.append('<rect class="case draw" style="--len:760;--d:0s" x="40" y="150" width="320" height="122" rx="20"/>')
     out.append('<path class="draw" style="--len:330;--d:.2s" d="M40 190 H360"/>')
-    out.append('<rect class="hot pop" style="--d:.6s" x="182" y="176" width="36" height="28" rx="6"/></g>')
+    out.append('<rect class="hot pop" style="--d:.6s" x="182" y="176" width="36" height="28" rx="6"/>')
+    out.append('<path class="tick draw" style="--len:60;--d:2.1s" d="m84 228 12 12 22-22"/><path class="tick draw" style="--len:60;--d:2.3s" d="m282 228 12 12 22-22"/></g>')
     slot_x = -8 + (68 + 68 * TOOLS.index(key) + 30) * .6
     out.append(f'<path class="trail draw" style="--len:260;--d:1s" d="M{slot_x:.0f} 150 C {slot_x + 20:.0f} 70, 180 40, 230 70"/>')
     titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score")}
@@ -144,7 +145,6 @@ def toolkit_tool(key):
                f'<text class="lbl tf-title" x="{cx + 16}" y="{cy + 44}">{t1}</text><text class="lbl tf-title" x="{cx + 16}" y="{cy + 62}">{t2}</text>'
                f'{_tool_face(key, cx + 16, cy + 84, cw - 32)}'
                f'<path class="tf-foot" d="M{cx + 16} {cy + ch - 18}h{cw - 70}"/></g></g>')
-    out.append('<path class="tick draw" style="--len:60;--d:2.2s" d="m30 268 10 10 18-18"/>')
     return (f'<svg class="net art-toolkit art-tool" viewBox="0 0 400 300" role="img" aria-label="A toolbox with {TOOL_NAMES[key]} pulled out of it">'
             f'{"".join(out)}</svg>')
 

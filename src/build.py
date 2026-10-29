@@ -740,7 +740,7 @@ def scorecard():
                    for k, n in [("balanced", "Balanced"), ("customer", "Customer-led"), ("growth", "Growth"), ("ice", "ICE")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("scorecard")}</div>
     <div class="art">{toolkit_tool("scorecard")}</div>
   </div>
 </header>
@@ -751,8 +751,7 @@ def scorecard():
       <div class="field sc-title"><label for="sc-title">Name this scorecard</label><input id="sc-title" maxlength="80" placeholder="For example: Q3 roadmap"></div>
       <div class="sc-actions">
         <button type="button" class="btn sm" data-sc="share">Share a link</button>
-        <button type="button" class="btn sm ghost" data-sc="csv">Download CSV</button>
-        <button type="button" class="btn sm ghost" data-sc="print">Print or save as PDF</button>
+        {export_menu("sc")}
         <button type="button" class="btn sm ghost" data-sc="reset">Start over</button>
       </div>
       <div class="sc-share" id="sc-share" hidden><label for="sc-share-url">Anyone with this link sees a copy of this scorecard:</label><input id="sc-share-url" readonly><p class="form-status" id="sc-share-status" role="status"></p></div>
@@ -829,6 +828,7 @@ def scorecard():
         </div>
       </div>
     </div>
+    {tools_nav("scorecard", bottom=True)}
   </div>
 </section>
 <script src="assets/js/scorecard-core.js"></script>
@@ -853,7 +853,7 @@ def ai_use_cases():
                     for k, n, q, lo, hi in factors)
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("ai")}</div>
     <div class="art">{toolkit_tool("ai")}</div>
   </div>
 </header>
@@ -864,8 +864,7 @@ def ai_use_cases():
       <div class="field sc-title"><label for="uc-title">Name this list</label><input id="uc-title" maxlength="100" placeholder="For example: Customer support AI ideas"></div>
       <div class="sc-actions">
         <button type="button" class="btn sm" data-uc="share">Share a link</button>
-        <button type="button" class="btn sm ghost" data-uc="csv">Download CSV</button>
-        <button type="button" class="btn sm ghost" data-uc="print">Print or save as PDF</button>
+        {export_menu("uc")}
         <button type="button" class="btn sm ghost" data-uc="reset">Start over</button>
       </div>
       <div class="sc-share" id="uc-share" hidden><label for="uc-share-url">Anyone with this link sees a copy of this list:</label><input id="uc-share-url" readonly><p class="form-status" id="uc-share-status" role="status"></p></div>
@@ -908,6 +907,7 @@ def ai_use_cases():
       <p>Want help choosing and running your first AI pilot?</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
     </div>
+    {tools_nav("ai", bottom=True)}
   </div>
 </section>
 <script src="assets/js/ai-usecases-core.js"></script>
@@ -918,6 +918,28 @@ def ai_use_cases():
                          "description": "Score AI ideas on business value, data readiness, cost and effort, team readiness and risk; see them on a value and feasibility map; get the first pilot to run and a next step for each idea.",
                          "featureList": ["Five questions per AI idea", "Value and feasibility map", "The first pilot to run", "A next step and risk guardrails for each idea", "Share link, CSV download and print"],
                          "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("AI Use Case Prioritization", "ai-use-cases")]), image=og("ai-use-cases")))
+
+
+# The four interactive tools, for the quick links on each tool page.
+TOOL_LINKS = [("scorecard", "scorecard.html", "Feature Prioritization Scorecard"), ("ai", "ai-use-cases.html", "AI Use Case Prioritization"),
+              ("bbp", "build-buy-partner.html", "Build, Buy, or Partner"), ("impact", "impact-score.html", "Organizational Impact Score")]
+
+
+def tools_nav(current, bottom=False):
+    """Quick links to the other free tools: under the page title, and again at the end of the page."""
+    links = "".join(f'<a href="{h}">{n}</a>' for k, h, n in TOOL_LINKS if k != current)
+    if bottom:
+        return (f'<nav class="card tool-more" aria-label="More free tools"><div><h3>Try another free tool</h3><p class="muted">Same idea: no sign-up, and nothing leaves your browser.</p></div>'
+                f'<div class="tool-links">{links}<a href="toolkits.html">All toolkits</a></div></nav>')
+    return f'<nav class="tool-links tool-links-top" aria-label="Other free tools"><span>Other free tools:</span>{links}</nav>'
+
+
+def export_menu(attr):
+    """Export: PDF (print or save), Excel or Google Sheets (both from the CSV download)."""
+    return (f'<details class="dl-menu"><summary class="btn sm ghost">Export<span class="dl-caret" aria-hidden="true"></span></summary><div class="dl-pop">'
+            f'<button type="button" data-{attr}="print"><b>PDF</b><small>Print it, or choose Save as PDF</small></button>'
+            f'<button type="button" data-{attr}="csv"><b>Excel</b><small>Downloads a .csv file that opens in Excel</small></button>'
+            f'<button type="button" data-{attr}="csv"><b>Google Sheets</b><small>Downloads a .csv: in Sheets, File › Import</small></button></div></details>')
 
 
 # A free tool under the service it supports (Services page).
@@ -953,8 +975,7 @@ def tool_bar(prefix, placeholder, label):
       <div class="field sc-title"><label for="{prefix}-title">{label}</label><input id="{prefix}-title" maxlength="100" placeholder="{placeholder}"></div>
       <div class="sc-actions">
         <button type="button" class="btn sm" data-{prefix}="share">Share a link</button>
-        <button type="button" class="btn sm ghost" data-{prefix}="csv">Download CSV</button>
-        <button type="button" class="btn sm ghost" data-{prefix}="print">Print or save as PDF</button>
+        {export_menu(prefix)}
         <button type="button" class="btn sm ghost" data-{prefix}="reset">Start over</button>
       </div>
       <div class="sc-share" id="{prefix}-share" hidden><label for="{prefix}-share-url">Anyone with this link sees a copy:</label><input id="{prefix}-share-url" readonly><p class="form-status" id="{prefix}-share-status" role="status"></p></div>
@@ -970,7 +991,7 @@ def build_buy_partner():
     opt_html = "".join(f'<div class="bb-opt o-{k}"><b>{n}</b><p>{d}</p><small>{h}</small></div>' for k, n, d, h in opts)
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Build, Buy, or Partner Decision Matrix</h1><p>Decide how to deliver a capability: build it, buy it or partner for it. Score the three options against ten criteria, compare the real three-year cost, and record a decision your team can stand behind. About 30 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Build, Buy, or Partner Decision Matrix</h1><p>Decide how to deliver a capability: build it, buy it or partner for it. Score the three options against ten criteria, compare the real three-year cost, and record a decision your team can stand behind. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("bbp")}</div>
     <div class="art">{toolkit_tool("bbp")}</div>
   </div>
 </header>
@@ -1031,6 +1052,7 @@ def build_buy_partner():
       <p>We help product teams make build, buy and partner decisions as part of Fractional CPO+ and Product Strategy engagements, from framing the question to negotiating the outcome.</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#pkg-cpo">Fractional CPO+</a></div>
     </div>
+    {tools_nav("bbp", bottom=True)}
   </div>
 </section>
 <script src="assets/js/bbp-core.js"></script>
@@ -1052,7 +1074,7 @@ def impact_score():
         ("Ease", "How hard it is to deliver, from 1 (very hard) to 5 (easy). It separates big bets from quick wins.")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Organizational Impact Score</h1><p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most, and what to do with each. About 30 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Organizational Impact Score</h1><p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most, and what to do with each. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("impact")}</div>
     <div class="art">{toolkit_tool("impact")}</div>
   </div>
 </header>
@@ -1116,6 +1138,7 @@ def impact_score():
       <p>We help leadership teams tie product investment to the KPIs that matter, as part of Fractional CPO+ and Product Strategy engagements.</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#strategy">Product Strategy</a></div>
     </div>
+    {tools_nav("impact", bottom=True)}
   </div>
 </section>
 <script src="assets/js/impact-core.js"></script>

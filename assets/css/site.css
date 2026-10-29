@@ -1376,6 +1376,19 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .dl-pop b { font-size: .92rem; color: var(--navy); }
 .dl-pop small { font-size: .78rem; color: var(--muted); }
 .dl-pop .ext { display: none; }
+.dl-pop button { display: grid; gap: 2px; padding: 10px 12px; border-radius: 10px; border: 0; background: none; font: inherit; text-align: left; cursor: pointer; color: var(--ink); }
+.dl-pop button:hover, .dl-pop button:focus-visible { background: var(--tint); outline: none; }
+.sc-actions .dl-pop { left: auto; right: 0; }
+/* quick links between the interactive tools */
+.tool-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tool-links a { font-size: .85rem; font-weight: 700; text-decoration: none; color: var(--navy); background: var(--card); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px; transition: border-color .2s, background .2s; }
+.tool-links a:hover, .tool-links a:focus-visible { border-color: var(--cyan); background: var(--tint); }
+.tool-links-top { margin-top: 18px; }
+.tool-links-top span { font-size: .82rem; font-weight: 700; color: var(--muted); margin-right: 2px; }
+.tool-more { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; margin-top: 24px; }
+.tool-more h3 { margin: 0 0 4px; }
+.tool-more p { margin: 0; }
+@media print { .tool-links, .tool-more { display: none !important; } }
 @media print { .dl-menu { display: none; } }
 
 /* ---------- the two decision templates, interactive (/build-buy-partner, /impact-score) ---------- */

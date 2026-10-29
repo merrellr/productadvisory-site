@@ -1195,7 +1195,7 @@
     var closeAll = function (except) { menus.forEach(function (m) { if (m !== except) m.open = false; }); };
     menus.forEach(function (m) {
       m.addEventListener("toggle", function () { if (m.open) closeAll(m); });
-      m.querySelectorAll(".dl-pop a").forEach(function (a) { a.addEventListener("click", function () { setTimeout(function () { m.open = false; }, 0); }); });
+      m.querySelectorAll(".dl-pop a, .dl-pop button").forEach(function (a) { a.addEventListener("click", function () { setTimeout(function () { m.open = false; }, 0); }); });
     });
     document.addEventListener("click", function (e) { if (!e.target.closest(".dl-menu")) closeAll(); });
     document.addEventListener("keydown", function (e) {
