@@ -81,6 +81,73 @@ def toolkit_open():
     return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolbox with four tools: the Build, Buy, or Partner matrix, the Organizational Impact Score, the Feature Prioritization Scorecard and AI Use Case Prioritization">{"".join(out)}</svg>'
 
 
+TOOLS = ("bbp", "impact", "scorecard", "ai")
+TOOL_NAMES = {"bbp": "the Build, Buy, or Partner matrix", "impact": "the Organizational Impact Score",
+              "scorecard": "the Feature Prioritization Scorecard", "ai": "AI Use Case Prioritization"}
+
+
+def _tool_face(key, x, y, w):
+    """The inside of a tool card at full size: what that tool shows you."""
+    if key == "scorecard":   # a ranked list, the leader in cyan
+        rows = "".join(f'<text class="lbl tf-n" x="{x}" y="{y + 15 + 30 * k}">{k + 1}</text>'
+                       f'<rect class="{"doc-band" if k == 0 else "tf-bar"}" x="{x + 18}" y="{y + 6 + 30 * k}" width="{bw}" height="11" rx="5.5"/>'
+                       for k, bw in enumerate((w - 30, w - 56, w - 78, w - 104)))
+        return rows
+    if key == "ai":          # value against feasibility, a dot in quick wins
+        h = 108
+        return (f'<rect class="tf-grid" x="{x}" y="{y}" width="{w}" height="{h}" rx="6"/><path class="tf-axis" d="M{x + w / 2} {y}v{h}M{x} {y + h / 2}h{w}"/>'
+                f'<rect class="tf-win" x="{x + w / 2}" y="{y}" width="{w / 2}" height="{h / 2}"/>'
+                f'<text class="lbl tf-cap" x="{x + w - 6}" y="{y + 14}" text-anchor="end">QUICK WIN</text>'
+                f'<circle class="doc-dot" cx="{x + w * .78}" cy="{y + 32}" r="8"/><circle class="doc-dot faint" cx="{x + w * .3}" cy="{y + 28}" r="6"/>'
+                f'<circle class="doc-dot faint" cx="{x + w * .62}" cy="{y + 80}" r="6"/><circle class="doc-dot faint" cx="{x + w * .22}" cy="{y + 88}" r="5"/>')
+    if key == "bbp":         # three options as columns, partner ahead
+        out, cw = [], (w - 24) / 3
+        for k, (name, hgt) in enumerate((("Build", 52), ("Buy", 66), ("Partner", 74))):
+            cx = x + k * (cw + 12)
+            out.append(f'<rect class="{"doc-band" if k == 2 else "tf-bar"}" x="{cx}" y="{y + 88 - hgt}" width="{cw}" height="{hgt}" rx="5"/>'
+                       f'<text class="lbl tf-n" x="{cx + cw / 2}" y="{y + 104}" text-anchor="middle">{name}</text>')
+        return "".join(out)
+    # impact: KPI weights become a ranked list with actions
+    out = []
+    for k, (bw, chip) in enumerate(((w - 70, "DO NOW"), (w - 88, "BIG BET"), (w - 110, "QUICK WIN"))):
+        yy = y + 30 * k
+        out.append(f'<rect class="{"doc-band" if k == 0 else "tf-bar"}" x="{x}" y="{yy + 6}" width="{bw}" height="11" rx="5.5"/>'
+                   f'<text class="lbl tf-cap{" hot-t" if k == 0 else ""}" x="{x + w}" y="{yy + 15}" text-anchor="end">{chip}</text>')
+    return "".join(out)
+
+
+def toolkit_tool(key):
+    """A tool page: the toolbox, smaller, with this page's tool pulled out beside it at full size. The other three
+    tools stay in the box; the empty slot shows where this one came from."""
+    out = ['<g class="box-small" transform="translate(-8 92) scale(.6)">']
+    out.append('<path class="lid-face" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150 Z"/>')
+    out.append('<path class="lid draw" style="--len:600;--d:.1s" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150"/>')
+    out.append('<path class="handle draw" style="--len:120;--d:.3s" d="M168 50 V38 a10 10 0 0 1 10-10 H222 a10 10 0 0 1 10 10 V50"/>')
+    for i, k in enumerate(TOOLS):
+        x = 68 + 68 * i
+        if k == key:
+            out.append(f'<rect class="slot" x="{x}" y="96" width="60" height="54" rx="6"/>')
+        else:
+            out.append(f'<g class="doc rise" style="--d:{0.5 + 0.12 * i:.2f}s"><rect x="{x}" y="96" width="60" height="54" rx="6"/>'
+                       f'<rect class="doc-band" x="{x + 8}" y="104" width="20" height="4" rx="2"/><path d="M{x + 8} 116h44M{x + 8} 124h30M{x + 8} 132h38"/></g>')
+    out.append('<rect class="case draw" style="--len:760;--d:0s" x="40" y="150" width="320" height="122" rx="20"/>')
+    out.append('<path class="draw" style="--len:330;--d:.2s" d="M40 190 H360"/>')
+    out.append('<rect class="hot pop" style="--d:.6s" x="182" y="176" width="36" height="28" rx="6"/></g>')
+    slot_x = -8 + (68 + 68 * TOOLS.index(key) + 30) * .6
+    out.append(f'<path class="trail draw" style="--len:260;--d:1s" d="M{slot_x:.0f} 150 C {slot_x + 20:.0f} 70, 180 40, 230 70"/>')
+    titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score")}
+    t1, t2 = titles[key]
+    cx, cy, cw, ch = 230, 34, 162, 232
+    out.append(f'<g class="pulled rise" style="--d:1.2s"><g transform="rotate(4 {cx + cw / 2} {cy + ch / 2})">'
+               f'<rect class="card-face" x="{cx}" y="{cy}" width="{cw}" height="{ch}" rx="12"/>'
+               f'<rect class="doc-band" x="{cx + 16}" y="{cy + 16}" width="30" height="6" rx="3"/>'
+               f'<text class="lbl tf-title" x="{cx + 16}" y="{cy + 44}">{t1}</text><text class="lbl tf-title" x="{cx + 16}" y="{cy + 62}">{t2}</text>'
+               f'{_tool_face(key, cx + 16, cy + 84, cw - 32)}'
+               f'<path class="tf-foot" d="M{cx + 16} {cy + ch - 18}h{cw - 70}"/></g></g>')
+    out.append('<path class="tick draw" style="--len:60;--d:2.2s" d="m30 268 10 10 18-18"/>')
+    return (f'<svg class="net art-toolkit art-tool" viewBox="0 0 400 300" role="img" aria-label="A toolbox with {TOOL_NAMES[key]} pulled out of it">'
+            f'{"".join(out)}</svg>')
+
 def signal():
     """About: many jittery opinions converge into one insight, then a steady climb through Evidence, Decision, Launch."""
     ix, iy = 160, 206

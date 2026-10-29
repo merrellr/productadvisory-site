@@ -15,7 +15,7 @@ from html import escape
 from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ, CONTACT_COPY, CONTACT_HELP
 from legal import PRIVACY, TERMS
-from art import path_art, orbit, toolkit_open, signal, conversation, insight_lens
+from art import path_art, orbit, toolkit_open, toolkit_tool, signal, conversation, insight_lens
 from insights import ARTICLES, CATEGORIES, category
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
@@ -42,7 +42,7 @@ def mark_new_tabs(html):
     return re.sub(r'(<a\b[^>]*target="_blank"[^>]*>)(.*?)</a>', fix, html, flags=re.S)
 
 
-PAGE_FILES = ("index", "services", "toolkits", "insights", "about", "contact", "book", "scorecard", "ai-use-cases", "preferences", "privacy-policy", "terms-of-use")
+PAGE_FILES = ("index", "services", "toolkits", "insights", "about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "preferences", "privacy-policy", "terms-of-use")
 
 
 def clean_links(html):
@@ -334,7 +334,7 @@ def services():
     <p class="for">{fw}</p>
     <div class="deep"><p>{body}</p><ul>{"".join(f"<li>{b}</li>" for b in bullets)}</ul></div>
     {related_reading(i)}
-    {'<p class="svc-tool">Free tool: <a href="ai-use-cases.html">AI Use Case Prioritization</a>, to choose where AI is worth the effort first.</p>' if i == 'ai' else ''}
+    {SVC_TOOLS.get(i, '')}
   </div>
 </article>''' for i, ic, t, fw, body, bullets, new in SERVICES)
     details = details.replace("assessment.productadvisory.co, a real", f'<a href="{ASSESS}" {EXT}>assessment.productadvisory.co</a>, a real')
@@ -418,20 +418,6 @@ def services():
 def toolkits():
     lv = {k: n for k, n, _ in LEVELS}
 
-    def tool(i, title, levels, time, what, when, walk, cols, links, thumb=None):
-        tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in levels)
-        return f'''<article class="tool reveal" id="{i}" data-levels="{" ".join(levels)}" data-ask="{title}" data-kind="Toolkit">
-  {f'<a class="tool-thumb" href="{links[0]}" {EXT}><img src="{thumb}" alt="First page of the {title} PDF" width="900" height="706" loading="lazy"></a>' if thumb else f'<div class="tool-doc" aria-hidden="true"><span class="wm">{WORDMARK}</span><b>{title}</b><i></i><i style="width:70%"></i><div class="cols">{"<span></span>" * cols}</div><div class="dots"><span></span><span></span><span></span><span></span></div><i style="width:85%"></i></div>'}
-  <div>
-    <h3 style="font-size:1.5rem">{title}</h3>
-    <div>{tags}</div>
-    <ul class="meta"><li><b>Time needed:</b> {time}</li><li><b>Formats:</b> Fillable PDF, Google Sheet or Excel</li></ul>
-    <p>{what}</p>
-    <p class="deep"><b>Use it when:</b> {when}</p>
-    <p class="deep"><b>You walk away with:</b> {walk}</p>
-    <div class="btn-row"><a class="btn sm" href="{links[0]}" {EXT}>Download the PDF</a><a class="btn sm" href="{links[1]}" {EXT}>Get the Google Sheet</a><a class="btn sm ghost" href="{links[3]}" download>Excel version</a><a class="btn sm ghost" href="{links[2]}" {EXT}>See the worked example</a></div>
-  </div>
-</article>'''
     # The first interactive toolkit, built from the top vote on the Tool Roadmap (scorecard.html).
     sc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["starter", "practitioner", "leader"])
     sc_rows = "".join(f'<span class="sc-thumb-row"><b>{n}</b><i style="--w:{w}%"></i><em>{w}</em></span>' for n, w in [(1, 82), (2, 74), (3, 71), (4, 48), (5, 30)])
@@ -454,7 +440,7 @@ def toolkits():
     ai_tool = f'''<article class="tool reveal" id="ai-use-case-prioritization" data-levels="practitioner leader executive" data-ask="AI Use Case Prioritization: choose where AI is worth the effort first" data-kind="Toolkit" data-keywords="ai use cases ideas pilot adoption value feasibility data readiness risk cost where to start">
   <a class="tool-thumb sc-thumb uc uc-thumb" href="ai-use-cases.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Start here</span>{uc_rows}</a>
   <div>
-    <h3 style="font-size:1.5rem">AI Use Case Prioritization <span class="pill">New · Interactive</span></h3>
+    <h3 style="font-size:1.5rem">AI Use Case Prioritization <span class="pill">Interactive</span></h3>
     <div>{uc_tags}</div>
     <ul class="meta"><li><b>Time needed:</b> About 15 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
     <p>Choose where AI is worth the effort first. Score each idea on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get the first pilot to run.</p>
@@ -463,31 +449,53 @@ def toolkits():
     <div class="btn-row"><a class="btn sm" href="ai-use-cases.html">Open the tool</a></div>
   </div>
 </article>'''
-    tools = interactive + ai_tool + tool("build-buy-partner", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 60 minutes",
+    bb_cols = "".join(f'<span class="bb-thumb-col{" is-top" if n == "Partner" else ""}"><i style="--h:{h}%"></i><b>{v}</b><em>{n}</em></span>' for n, h, v in [("Build", 62, "3.26"), ("Buy", 74, "3.39"), ("Partner", 82, "3.41")])
+    im_rows = "".join(f'<span class="uc-thumb-row q-{q}"><i></i><b>{n}</b><em>{lbl}</em></span>' for q, n, lbl in
+                      [("big-bet", 1, "Big bet"), ("do-now", 2, "Do now"), ("quick-win", 3, "Quick win"), ("revisit", 4, "Revisit")])
+
+    def template_tool(i, href, title, levels, time, what, when, walk, files, thumb):
+        tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in levels)
+        return f'''<article class="tool reveal" id="{i}" data-levels="{" ".join(levels)}" data-ask="{title}" data-kind="Toolkit">
+  {thumb}
+  <div>
+    <h3 style="font-size:1.5rem">{title} <span class="pill">New · Interactive</span></h3>
+    <div>{tags}</div>
+    <ul class="meta"><li><b>Time needed:</b> {time}</li><li><b>Formats:</b> Interactive in your browser, fillable PDF, Google Sheet or Excel</li></ul>
+    <p>{what}</p>
+    <p class="deep"><b>Use it when:</b> {when}</p>
+    <p class="deep"><b>You walk away with:</b> {walk}</p>
+    <div class="btn-row"><a class="btn sm" href="{href}">Open the tool</a><a class="btn sm ghost" href="{files[0]}" {EXT}>Download the PDF</a>{sheet_menu(files)}<a class="btn sm ghost" href="{files[2]}" {EXT}>See the worked example</a></div>
+  </div>
+</article>'''
+    tools = interactive + ai_tool + template_tool("build-buy-partner", "build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 30 to 60 minutes",
                  "Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.",
                  "You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.",
-                 "A scored comparison, a cost view, and a written decision you can share.", 3,
-                 ("assets/toolkits/build-buy-partner-matrix.pdf",
-                  "https://docs.google.com/spreadsheets/d/1yKCvFQXL19Sg9dJs4z6Ws2IGVWYPJJdy/copy",
-                  "assets/toolkits/build-buy-partner-worked-example.pdf",
-                  "assets/toolkits/build-buy-partner-matrix.xlsx"),
-                 "assets/toolkits/build-buy-partner-matrix-card.webp") + \
-        tool("impact-score", "Organizational Impact Score", ["leader", "executive"], "About 60 minutes",
+                 "A scored comparison, a cost view, and a written decision you can share.", BBP_FILES,
+                 f'<a class="tool-thumb sc-thumb bb-thumb" href="build-buy-partner.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Weighted score</span><span class="bb-thumb-cols">{bb_cols}</span></a>') + \
+        template_tool("impact-score", "impact-score.html", "Organizational Impact Score", ["leader", "executive"], "About 30 to 60 minutes",
              "Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most.",
              "You are building a roadmap, defending budget, or choosing between competing projects.",
-             "A ranked list, a clear next action for each initiative, and a record of why.", 3,
-             ("assets/toolkits/organizational-impact-score.pdf",
-              "https://docs.google.com/spreadsheets/d/1gZ5SUzbziFUkfTPQURxJnZqwg7kqFKR8/copy",
-              "assets/toolkits/organizational-impact-score-worked-example.pdf",
-              "assets/toolkits/organizational-impact-score.xlsx"),
-             "assets/toolkits/organizational-impact-score-card.webp")
-    def soon_card(i, ic, title, desc, levels):
+             "A ranked list, a clear next action for each initiative, and a record of why.", IMPACT_FILES,
+             f'<a class="tool-thumb sc-thumb uc im uc-thumb" href="impact-score.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{im_rows}</a>')
+
+    def soon_card(i, ic, title, desc, levels, status="Planned"):
         tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in levels)
         return (f'<article class="card soon reveal" id="soon-{i}" data-levels="{" ".join(levels)}" data-ask="{title} (coming soon)" data-kind="Toolkit">'
-                f'{icon(ic)}<span class="pill">Planned</span><h3>{title}</h3><p>{desc}</p><div class="soon-for"><small>Best for</small>{tags}</div>'
+                f'{icon(ic)}<span class="pill">{status}</span><h3>{title}</h3><p>{desc}</p><div class="soon-for"><small>Best for</small>{tags}</div>'
                 f'<a class="btn sm ghost" href="{ASSESS}tool-requests?tool={i}&amp;src=site-toolkits" {EXT}>Vote for this</a></article>')
+    # Next in line, in the Tool Roadmap's order (ids match PAAssessment tool-core.js, so "Vote for this" lands on the tool).
     soon = soon_card("product-strategy-one-pager", "strategy", "Product Strategy One Pager",
-                  "Put your strategy on a single page the whole team can read, from the problem you solve to how you will know it worked.", ["practitioner", "leader"])
+                     "Put your strategy on a single page the whole team can read, from the problem you solve to how you will know it worked.", ["practitioner", "leader"]) + \
+        soon_card("customer-interview-guide", "research", "Customer Interview Guide",
+                  "Question sets and a note template for discovery interviews that surface real problems, not polite opinions.", ["starter", "practitioner"], "Considering") + \
+        soon_card("competitive-analysis-matrix", "search", "Competitive Analysis Matrix",
+                  "Compare the alternatives on the dimensions customers care about, and spot the open positions.", ["practitioner", "leader"], "Considering") + \
+        soon_card("go-to-market-launch-checklist", "gtm", "Go-to-Market Launch Checklist",
+                  "A readiness check across product, sales, support and marketing before you ship.", ["practitioner", "leader"], "Considering") + \
+        soon_card("product-metrics-tree", "scale", "Product Metrics Tree",
+                  "Break one north-star metric into the inputs your team can actually influence.", ["practitioner", "leader"], "Considering") + \
+        soon_card("ai-readiness-checklist", "ai", "AI Readiness Checklist",
+                  "Check whether your team, data and processes are ready for AI work before you start.", ["leader", "executive"], "Considering")
     lsteps = [("Assess", "Answer a few questions about your product and AI experience across seven skill areas."),
               ("Learn", "Get a personalized path with courses matched to exactly where you are."),
               ("Practice", "Work through real, practical lessons at your own pace. No fluff."),
@@ -499,7 +507,7 @@ def toolkits():
 <section style="padding-top:24px">
   <div class="wrap">
     <div class="grid g3" data-ask="About the toolkits: what they are and how to use them" data-kind="Toolkit" data-keywords="templates free pdf google sheet excel">
-      <div class="reveal"><div class="eyebrow">What this is</div><h3>Practical tools built from real product work</h3><p>These templates are the same ones we use with clients. Each one is a fillable PDF with a matching Google Sheet/Excel, so you can work on screen, in a spreadsheet, or on your phone. Every tool includes a worked example and clear instructions, so you are never starting from a blank page.</p></div>
+      <div class="reveal"><div class="eyebrow">What this is</div><h3>Practical tools built from real product work</h3><p>These are the same tools we use with clients. Each one works right in your browser, and the decision templates also come as a fillable PDF with a matching Google Sheet or Excel file, so you can work on screen, in a spreadsheet, or on your phone. Every tool includes a worked example and clear instructions, so you are never starting from a blank page.</p></div>
       <div class="reveal"><div class="eyebrow">Why it matters</div><h3>Better decisions, easier to defend</h3><p>Most product decisions are made fast, with opinions in the room and little written down. That works until someone asks why. A simple structure gets the real criteria on the table, shows where your team disagrees, and leaves a record you can stand behind later. <span class="deep">These tools give you that structure in about an hour, not a week.</span></p></div>
       <div class="reveal"><div class="eyebrow">How to use it</div><h3>Three steps to a decision you can defend</h3><ol style="padding-left:1.2em;margin:0"><li><b>Pick a tool</b> that fits your level or the problem in front of you.</li><li><b>Look at the example first.</b> Spend five minutes with it before you fill in your own.</li><li><b>Fill it in with your team.</b> Have two people score on their own, then compare. The gaps are where the real conversation is.</li></ol></div>
     </div>
@@ -518,7 +526,6 @@ def toolkits():
         <p>These are next in line. Tell us which one you need most and we will build it first.</p>
       </div>
       <div class="grid g3">{soon}</div>
-      <p class="reveal" style="margin-top:18px">Want one of these sooner? Use <a href="#request">Request a tool</a> and we will move it up the list.</p>
     </div>
 
     <div id="request" class="request reveal" data-ask="Request a tool: vote or suggest the next toolkit" data-kind="Toolkit" data-keywords="request suggest vote new template idea roadmap notify">
@@ -587,6 +594,8 @@ def toolkits():
           extra_head=ld({"@type": "CollectionPage", "name": "Toolkits & Learning", "url": SITE + "toolkits", "publisher": ORG, "hasPart": [
               {"@type": "WebApplication", "name": "Feature Prioritization Scorecard", "url": SITE + "scorecard", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
               {"@type": "WebApplication", "name": "AI Use Case Prioritization", "url": SITE + "ai-use-cases", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
+              {"@type": "WebApplication", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "build-buy-partner", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
+              {"@type": "WebApplication", "name": "Organizational Impact Score", "url": SITE + "impact-score", "applicationCategory": "BusinessApplication", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Which prioritization method? cheat sheet", "url": SITE + "assets/toolkits/which-prioritization-method.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "assets/toolkits/build-buy-partner-matrix.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
               {"@type": "DigitalDocument", "name": "Organizational Impact Score", "url": SITE + "assets/toolkits/organizational-impact-score.pdf", "encodingFormat": "application/pdf", "isAccessibleForFree": True},
@@ -732,7 +741,7 @@ def scorecard():
     body = f'''<header class="page-head">
   <div class="wrap">
     <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p></div>
-    <div class="art">{toolkit_open()}</div>
+    <div class="art">{toolkit_tool("scorecard")}</div>
   </div>
 </header>
 
@@ -845,7 +854,7 @@ def ai_use_cases():
     body = f'''<header class="page-head">
   <div class="wrap">
     <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p></div>
-    <div class="art">{toolkit_open()}</div>
+    <div class="art">{toolkit_tool("ai")}</div>
   </div>
 </header>
 
@@ -909,6 +918,214 @@ def ai_use_cases():
                          "description": "Score AI ideas on business value, data readiness, cost and effort, team readiness and risk; see them on a value and feasibility map; get the first pilot to run and a next step for each idea.",
                          "featureList": ["Five questions per AI idea", "Value and feasibility map", "The first pilot to run", "A next step and risk guardrails for each idea", "Share link, CSV download and print"],
                          "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("AI Use Case Prioritization", "ai-use-cases")]), image=og("ai-use-cases")))
+
+
+# A free tool under the service it supports (Services page).
+SVC_TOOLS = {
+    "ai": '<p class="svc-tool">Free tool: <a href="ai-use-cases.html">AI Use Case Prioritization</a>, to choose where AI is worth the effort first.</p>',
+    "strategy": '<p class="svc-tool">Free tools: the <a href="impact-score.html">Organizational Impact Score</a>, to see which work moves your KPIs, and the <a href="build-buy-partner.html">Build, Buy, or Partner Decision Matrix</a>.</p>',
+}
+
+
+# ---------------------------------------------------------------- the two template toolkits, interactive
+BBP_FILES = ("assets/toolkits/build-buy-partner-matrix.pdf", "https://docs.google.com/spreadsheets/d/1yKCvFQXL19Sg9dJs4z6Ws2IGVWYPJJdy/copy",
+             "assets/toolkits/build-buy-partner-worked-example.pdf", "assets/toolkits/build-buy-partner-matrix.xlsx")
+IMPACT_FILES = ("assets/toolkits/organizational-impact-score.pdf", "https://docs.google.com/spreadsheets/d/1gZ5SUzbziFUkfTPQURxJnZqwg7kqFKR8/copy",
+                "assets/toolkits/organizational-impact-score-worked-example.pdf", "assets/toolkits/organizational-impact-score.xlsx")
+
+
+def sheet_menu(files, label="Get the spreadsheet"):
+    """One button that asks which spreadsheet: a copy in Google Sheets, or the Excel file."""
+    return (f'<details class="dl-menu"><summary class="btn sm ghost">{label}<span class="dl-caret" aria-hidden="true"></span></summary>'
+            f'<div class="dl-pop"><a href="{files[1]}" {EXT}><b>Google Sheets</b><small>Opens a copy in your Google Drive</small></a>'
+            f'<a href="{files[3]}" download><b>Excel</b><small>Downloads the .xlsx file</small></a></div></details>')
+
+
+def files_row(files, name):
+    """Prefer a file? The fillable PDF, the spreadsheet (Google or Excel) and the worked example."""
+    return (f'<div class="card tint tool-files"><div><h3>Prefer a file?</h3><p class="muted">The same {name} as a fillable PDF or a spreadsheet, with the same math.</p></div>'
+            f'<div class="btn-row"><a class="btn sm ghost" href="{files[0]}" {EXT}>Download the PDF</a>{sheet_menu(files)}'
+            f'<a class="btn sm ghost" href="{files[2]}" {EXT}>See the worked example</a></div></div>')
+
+
+def tool_bar(prefix, placeholder, label):
+    return f'''<div class="sc-bar">
+      <div class="field sc-title"><label for="{prefix}-title">{label}</label><input id="{prefix}-title" maxlength="100" placeholder="{placeholder}"></div>
+      <div class="sc-actions">
+        <button type="button" class="btn sm" data-{prefix}="share">Share a link</button>
+        <button type="button" class="btn sm ghost" data-{prefix}="csv">Download CSV</button>
+        <button type="button" class="btn sm ghost" data-{prefix}="print">Print or save as PDF</button>
+        <button type="button" class="btn sm ghost" data-{prefix}="reset">Start over</button>
+      </div>
+      <div class="sc-share" id="{prefix}-share" hidden><label for="{prefix}-share-url">Anyone with this link sees a copy:</label><input id="{prefix}-share-url" readonly><p class="form-status" id="{prefix}-share-status" role="status"></p></div>
+    </div>'''
+
+
+def build_buy_partner():
+    """The Build, Buy, or Partner Decision Matrix, interactive. The scoring is assets/js/bbp-core.js (the same math as the
+    PDF and spreadsheet), the page assets/js/bbp.js; everything stays in the visitor's browser."""
+    opts = [("build", "Build", "Your team designs, develops and owns it.", "Leans Build: capabilities that set you apart."),
+            ("buy", "Buy", "License or subscribe to a finished product, then configure it.", "Leans Buy: commodity capabilities."),
+            ("partner", "Partner", "Deliver it with an outside party: co-development, white label, resale, an alliance or a managed service.", "Leans Partner: specialized or time-critical, with a strong outside expert.")]
+    opt_html = "".join(f'<div class="bb-opt o-{k}"><b>{n}</b><p>{d}</p><small>{h}</small></div>' for k, n, d, h in opts)
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Build, Buy, or Partner Decision Matrix</h1><p>Decide how to deliver a capability: build it, buy it or partner for it. Score the three options against ten criteria, compare the real three-year cost, and record a decision your team can stand behind. About 30 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div class="art">{toolkit_tool("bbp")}</div>
+  </div>
+</header>
+
+<section style="padding-top:28px">
+  <div class="wrap sc bb" id="bbp">
+    {tool_bar("bb", "For example: Customer analytics dashboard", "Name this decision")}
+
+    <div class="card sc-card">
+      <div class="sc-step"><span class="num">1</span><div><h2>Frame it</h2><p class="muted">Be specific about the capability and your must-haves. A starting hypothesis, not an answer: the scoring tests it.</p></div></div>
+      <div class="bb-opts">{opt_html}</div>
+    </div>
+
+    <div class="card sc-card" role="region" aria-labelledby="bb-score-h">
+      <div class="sc-step"><span class="num">2</span><div><h2 id="bb-score-h">Score the options</h2><p class="muted">Score each option from 1 to 5, where 5 is best for your business. For cost, risk and effort, 5 means the lowest. Weights must total 100: change them to match your priorities.</p></div></div>
+      <div class="sc-table-wrap"><table class="sc-table bb-table" id="bb-table"></table></div>
+      <div class="btn-row"><button type="button" class="btn sm ghost" data-bb="add">+ Add your own criterion</button><button type="button" class="btn sm ghost" data-bb="example">Fill in the worked example</button></div>
+    </div>
+
+    <div class="card sc-card" role="region" aria-labelledby="bb-cost-h">
+      <div class="sc-step"><span class="num">3</span><div><h2 id="bb-cost-h">Compare the three-year cost</h2><p class="muted">Your best estimate in dollars. Years two and three often decide the outcome.</p></div></div>
+      <div class="sc-table-wrap"><table class="sc-table bb-cost" id="bb-cost"></table></div>
+    </div>
+
+    <div class="uc-results bb-results">
+      <div class="card sc-card bb-result" aria-live="polite">
+        <div class="sc-step"><span class="num">4</span><div><h2>The result</h2><p class="muted">Weighted score out of 5.00. Scores within 0.25 points are a tie.</p></div></div>
+        <div id="bb-result"></div>
+      </div>
+      <div class="card sc-card">
+        <div class="sc-step"><span class="num">5</span><div><h2>Check these before you commit</h2><p class="muted">Worked out from your scores and weights.</p></div></div>
+        <ul class="tool-checks" id="bb-checks" aria-live="polite"></ul>
+      </div>
+    </div>
+
+    <div class="card sc-card" role="region" aria-labelledby="bb-dec-h">
+      <div class="sc-step"><span class="num">6</span><div><h2 id="bb-dec-h">Decide and record it</h2><p class="muted">Write down what you chose and why, and what would make you reopen it. It's saved with the matrix, in the CSV and the share link.</p></div></div>
+      <div class="bb-choice" role="radiogroup" aria-label="Our decision" id="bb-choice"></div>
+      <div class="tool-notes">
+        <div class="field"><label for="bb-why">Why this option</label><textarea id="bb-why" data-note="why" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="bb-risks">Top three risks and how we'll handle them</label><textarea id="bb-risks" data-note="risks" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="bb-tripwires">We'll revisit this decision if</label><textarea id="bb-tripwires" data-note="tripwires" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="bb-next">Next steps (action, owner, due date)</label><textarea id="bb-next" data-note="next" rows="3" maxlength="600"></textarea></div>
+      </div>
+    </div>
+
+    {files_row(BBP_FILES, "matrix")}
+
+    <div class="card tint sc-tips uc-tips">
+      <h3>Four mistakes to avoid</h3>
+      <ul class="book-list">
+        <li><b>Scoring toward the answer you already want.</b> Have two people score on their own, then compare. The gaps show where the real debate is.</li>
+        <li><b>Ignoring run costs.</b> Upfront price gets the attention, but years two and three usually decide it. Include staffing, price increases and usage growth.</li>
+        <li><b>Treating Partner as Buy with a different name.</b> A real partnership needs shared goals, clear ownership of customers and data, and an agreed way out.</li>
+        <li><b>Skipping the tripwires.</b> Decisions age. Write down what would make you reopen it, and put a review date on the calendar.</li>
+      </ul>
+      <hr class="rule">
+      <p>We help product teams make build, buy and partner decisions as part of Fractional CPO+ and Product Strategy engagements, from framing the question to negotiating the outcome.</p>
+      <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#pkg-cpo">Fractional CPO+</a></div>
+    </div>
+  </div>
+</section>
+<script src="assets/js/bbp-core.js"></script>
+<script src="assets/js/bbp.js"></script>'''
+    write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "A free, interactive Build, Buy, or Partner Decision Matrix: score build, buy and partner against ten weighted criteria, compare the real three-year cost, and record the decision with its risks and tripwires.", body,
+          extra_head=ld({"@type": "WebApplication", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "build-buy-partner", "applicationCategory": "BusinessApplication",
+                         "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                         "description": "Score building, buying or partnering for a capability against ten weighted criteria, compare the three-year cost and time to first value, and record the decision with its risks and tripwires.",
+                         "featureList": ["Ten weighted criteria, editable", "Three-year cost comparison", "Tie and sensitivity checks", "A decision record with risks and tripwires", "Share link, CSV download and print", "Fillable PDF, Google Sheet and Excel versions"],
+                         "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("Build, Buy, or Partner Decision Matrix", "build-buy-partner")]), image=og("build-buy-partner")))
+
+
+def impact_score():
+    """The Organizational Impact Score, interactive. The scoring is assets/js/impact-core.js (the same math as the PDF and
+    spreadsheet), the page assets/js/impact.js; everything stays in the visitor's browser."""
+    guide = "".join(f'<div class="uc-q"><b>{n}</b><p>{d}</p></div>' for n, d in [
+        ("Impact", "How much each initiative would move each KPI, from 0 (none) to 5 (transformational), weighted by what matters most."),
+        ("Confidence", "How sure you are of those estimates: 100% backed by data, 75% an informed estimate, 50% mostly a guess."),
+        ("Ease", "How hard it is to deliver, from 1 (very hard) to 5 (easy). It separates big bets from quick wins.")])
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Organizational Impact Score</h1><p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most, and what to do with each. About 30 minutes, no sign-up, and nothing leaves your browser.</p></div>
+    <div class="art">{toolkit_tool("impact")}</div>
+  </div>
+</header>
+
+<section style="padding-top:28px">
+  <div class="wrap sc uc im" id="impact">
+    {tool_bar("im", "For example: Next year's roadmap", "Name this review")}
+
+    <div class="card sc-card">
+      <div class="sc-step"><span class="num">1</span><div><h2>Set your KPIs</h2><p class="muted">Use the measures leadership already reviews. Keep the defaults or rename them. Weights must total 100, and keep any one at 30 or less.</p></div></div>
+      <div class="sc-table-wrap"><table class="sc-table im-kpis" id="im-kpis"></table></div>
+      <div class="btn-row"><button type="button" class="btn sm ghost" data-im="add-kpi">+ Add a KPI</button></div>
+    </div>
+
+    <div class="card sc-card" role="region" aria-labelledby="im-score-h">
+      <div class="sc-step"><span class="num">2</span><div><h2 id="im-score-h">Score your initiatives</h2><p class="muted">Up to six initiatives of a similar size. Rate how much each would move each KPI over your time horizon; leave a cell blank if it doesn't apply.</p></div></div>
+      <div class="uc-guide im-guide">{guide}</div>
+      <div class="sc-table-wrap"><table class="sc-table im-table" id="im-table"></table></div>
+      <div class="btn-row"><button type="button" class="btn sm ghost" data-im="add">+ Add an initiative</button><button type="button" class="btn sm ghost" data-im="example">Fill in the worked example</button></div>
+    </div>
+
+    <div class="uc-results">
+      <div class="uc-left">
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">3</span><div><h2>Where they land</h2><p class="muted">Adjusted score against ease. Numbers match the ranking.</p></div></div>
+          <div id="im-matrix"></div>
+          <ul class="uc-legend" id="im-legend"></ul>
+        </div>
+        <div class="card sc-card">
+          <h3 class="tool-checks-h">Check these before you commit</h3>
+          <ul class="tool-checks" id="im-checks" aria-live="polite"></ul>
+        </div>
+      </div>
+      <div class="card sc-card uc-plan-card">
+        <div class="sc-step"><span class="num">4</span><div><h2>The ranking</h2><p class="muted">By confidence-adjusted score, with a suggested action. Scores within 5 points are effectively tied.</p></div></div>
+        <ol class="uc-plan" id="im-plan" aria-live="polite"></ol>
+      </div>
+    </div>
+
+    <div class="card sc-card" role="region" aria-labelledby="im-dec-h">
+      <div class="sc-step"><span class="num">5</span><div><h2 id="im-dec-h">Decide</h2><p class="muted">The score starts the conversation. Dependencies, timing and capacity still matter. It's saved with the sheet, in the CSV and the share link.</p></div></div>
+      <div class="tool-notes">
+        <div class="field"><label for="im-top">Top priority</label><textarea id="im-top" data-note="top" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="im-sequence">Sequencing and dependencies</label><textarea id="im-sequence" data-note="sequence" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="im-notnow">What we won't do now, and why</label><textarea id="im-notnow" data-note="notNow" rows="3" maxlength="600"></textarea></div>
+        <div class="field"><label for="im-assumptions">Assumptions to test first</label><textarea id="im-assumptions" data-note="assumptions" rows="3" maxlength="600"></textarea></div>
+      </div>
+    </div>
+
+    {files_row(IMPACT_FILES, "score")}
+
+    <div class="card tint sc-tips uc-tips">
+      <h3>Four mistakes to avoid</h3>
+      <ul class="book-list">
+        <li><b>Scoring everything a 4 or 5.</b> Spread your scores. If every initiative looks high impact, the ranking tells you nothing.</li>
+        <li><b>Using KPIs nobody tracks.</b> If you can't measure a KPI, you can't tell whether the work succeeded. Start with what leadership already reviews.</li>
+        <li><b>Treating the score as the decision.</b> It starts the conversation. Use the rank with judgment.</li>
+        <li><b>Scoring alone.</b> Have two or three people score on their own, then compare. The gaps show where the team really disagrees.</li>
+      </ul>
+      <hr class="rule">
+      <p>We help leadership teams tie product investment to the KPIs that matter, as part of Fractional CPO+ and Product Strategy engagements.</p>
+      <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#strategy">Product Strategy</a></div>
+    </div>
+  </div>
+</section>
+<script src="assets/js/impact-core.js"></script>
+<script src="assets/js/impact.js"></script>'''
+    write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "A free, interactive Organizational Impact Score: rate initiatives against the KPIs your organization tracks, adjust for confidence, and get a ranking with a suggested action for each: do now, big bet, quick win or revisit.", body,
+          extra_head=ld({"@type": "WebApplication", "name": "Organizational Impact Score", "url": SITE + "impact-score", "applicationCategory": "BusinessApplication",
+                         "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                         "description": "Rate initiatives against weighted KPIs, adjust for confidence and ease, and get a ranking with a suggested action for each initiative.",
+                         "featureList": ["Weighted KPIs you can edit", "Confidence-adjusted impact scores", "Do now, big bet, quick win or revisit for each initiative", "Sensitivity and tie checks", "Share link, CSV download and print", "Fillable PDF, Google Sheet and Excel versions"],
+                         "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("Organizational Impact Score", "impact-score")]), image=og("impact-score")))
 
 
 # ---------------------------------------------------------------- book a call
@@ -1174,10 +1391,10 @@ FINDER_TOOLS = [
      "desc": "Rank your features with weighted scoring or RICE, and compare the two side by side.",
      "also": ["Which prioritization method? (one-page PDF)", "/assets/toolkits/which-prioritization-method.pdf"],
      "keys": "prioritization prioritize priorities backlog rank ranking rice ice weighted scoring score features feature tradeoffs trade-offs framework method stakeholders roadmap decide build next"},
-    {"name": "Build, Buy, or Partner Decision Matrix", "kind": "Free · PDF, Sheet or Excel", "href": "/toolkits#build-buy-partner",
+    {"name": "Build, Buy, or Partner Decision Matrix", "kind": "Free · interactive, PDF, Sheet or Excel", "href": "/build-buy-partner",
      "desc": "Score building, buying or partnering against ten criteria and compare the real three-year cost.",
      "keys": "build buy partner vendor vendors make outsource partnership integration capability platform tool tools cost decision"},
-    {"name": "Organizational Impact Score", "kind": "Free · PDF, Sheet or Excel", "href": "/toolkits#impact-score",
+    {"name": "Organizational Impact Score", "kind": "Free · interactive, PDF, Sheet or Excel", "href": "/impact-score",
      "desc": "Rate initiatives against the KPIs you already track and see which work moves the numbers that matter.",
      "keys": "impact kpi kpis metric metrics outcome outcomes initiative initiatives budget investment business value measure okr okrs results retention growth"},
     {"name": "PM + AI skill assessment", "kind": "Free · 14 questions", "href": ASSESS, "ext": True,
@@ -1304,7 +1521,7 @@ def sitemap():
     arts = published()
     newest = max((a.get("updated") or a["date"] for a in arts), default="")
     pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
-            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "preferences", "privacy-policy", "terms-of-use")]
+            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "preferences", "privacy-policy", "terms-of-use")]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
@@ -1325,7 +1542,9 @@ def llms():
 - [Service packages]({SITE}services#packages): {pk}.
 
 ## Free resources
-- [Toolkits]({SITE}toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
+- [Toolkits]({SITE}toolkits): free interactive decision tools, with fillable PDF, Google Sheet and Excel versions of the decision templates.
+- [Build, Buy, or Partner Decision Matrix]({SITE}build-buy-partner): a free interactive tool that scores build, buy and partner against ten weighted criteria, compares the three-year cost, and records the decision with its risks and tripwires.
+- [Organizational Impact Score]({SITE}impact-score): a free interactive tool that rates initiatives against weighted KPIs, adjusts for confidence, and suggests an action for each: do now, big bet, quick win or revisit.
 - [Feature Prioritization Scorecard]({SITE}scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
 - [AI Use Case Prioritization]({SITE}ai-use-cases): a free interactive tool that scores AI ideas on value, data readiness, cost, team readiness and risk, maps them by value and feasibility, and names the first pilot to run.
 - [Which prioritization method? cheat sheet]({SITE}assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.
@@ -1359,7 +1578,7 @@ def check_search_pages():
 
 def build_all():
     check_search_pages()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); preferences(); legal(); notfound(); sitemap(); llms()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); preferences(); legal(); notfound(); sitemap(); llms()
 
 
 if __name__ == "__main__":

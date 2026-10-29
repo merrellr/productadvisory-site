@@ -25,3 +25,5 @@ jobs:
       - run: node tests/booking.test.mjs
       - run: node tests/scorecard.test.mjs
       - run: node tests/ai-usecases.test.mjs
+      - run: node tests/bbp.test.mjs
+      - run: node tests/impact.test.mjs

@@ -13,7 +13,9 @@
 - [Service packages](https://www.productadvisory.co/services#packages): Fractional CPO+, Training & Education, Market Validation, Go to Market, Security & Compliance, Contracting & Legal, Sales & Marketing, UX/UI Design.
 
 ## Free resources
-- [Toolkits](https://www.productadvisory.co/toolkits): fillable PDF and Google Sheet decision tools (Build, Buy, or Partner Decision Matrix; Organizational Impact Score).
+- [Toolkits](https://www.productadvisory.co/toolkits): free interactive decision tools, with fillable PDF, Google Sheet and Excel versions of the decision templates.
+- [Build, Buy, or Partner Decision Matrix](https://www.productadvisory.co/build-buy-partner): a free interactive tool that scores build, buy and partner against ten weighted criteria, compares the three-year cost, and records the decision with its risks and tripwires.
+- [Organizational Impact Score](https://www.productadvisory.co/impact-score): a free interactive tool that rates initiatives against weighted KPIs, adjusts for confidence, and suggests an action for each: do now, big bet, quick win or revisit.
 - [Feature Prioritization Scorecard](https://www.productadvisory.co/scorecard): a free interactive tool that ranks features with weighted scoring or RICE and compares the two rankings side by side.
 - [AI Use Case Prioritization](https://www.productadvisory.co/ai-use-cases): a free interactive tool that scores AI ideas on value, data readiness, cost, team readiness and risk, maps them by value and feasibility, and names the first pilot to run.
 - [Which prioritization method? cheat sheet](https://www.productadvisory.co/assets/toolkits/which-prioritization-method.pdf): a one-page PDF on when to use RICE, weighted scoring or ICE.

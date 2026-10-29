@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.dirname(HERE))
 from parts import FONTS, WORDMARK  # noqa: E402
-from art import orbit, toolkit_open, insight_lens, signal, conversation  # noqa: E402
+from art import orbit, toolkit_open, toolkit_tool, insight_lens, signal, conversation  # noqa: E402
 from PIL import Image  # noqa: E402
 
 PAGES = [
@@ -21,8 +21,10 @@ PAGES = [
     ("insights", "Product+", "Insights", "Practical writing on product strategy, AI agents and AI enablement.", insight_lens),
     ("about", "About", "About Product Advisory", "Who we are, and how we think about product.", signal),
     ("contact", "Contact", "Let's talk.", "A product challenge, team training, or feedback? Send a note.", conversation),
-    ("scorecard", "Free toolkit · Interactive", "Feature Prioritization Scorecard", "Weighted scoring and RICE, side by side.", toolkit_open),
-    ("ai-use-cases", "Free toolkit · Interactive", "AI Use Case Prioritization", "Choose where AI is worth the effort first.", toolkit_open),
+    ("scorecard", "Free toolkit · Interactive", "Feature Prioritization Scorecard", "Weighted scoring and RICE, side by side.", lambda: toolkit_tool("scorecard")),
+    ("ai-use-cases", "Free toolkit · Interactive", "AI Use Case Prioritization", "Choose where AI is worth the effort first.", lambda: toolkit_tool("ai")),
+    ("build-buy-partner", "Free toolkit · Interactive", "Build, Buy, or Partner", "Score the options, compare the three-year cost, decide.", lambda: toolkit_tool("bbp")),
+    ("impact-score", "Free toolkit · Interactive", "Organizational Impact Score", "See which work moves the KPIs that matter.", lambda: toolkit_tool("impact")),
     ("book", "Book a call", "Book a free 30-minute call.", "Talk through what you're working on, on Google Meet.", conversation),
 ]
 
