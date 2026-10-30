@@ -23,13 +23,13 @@
 
   /* ----- load: a shared link, else what was saved here, else a blank matrix ----- */
   function load() {
-    var m = location.hash.match(/^#m=([A-Za-z0-9_-]+)$/), shared = m ? B.decode(m[1]) : null;
+    var h = window.PASave ? PASave.readHash("m") : null, shared = h ? B.decode(h.data) : null;
     var saved = null;
     try { saved = store() ? B.normalize(JSON.parse(store())) : null; } catch (e) { saved = null; }
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !hasWork(saved) || window.confirm("Open the shared matrix? It replaces the one saved in this browser.")) {
-        state = shared; save(); track("bbp_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("bbp", h.doc); track("bbp_open_shared"); return;
       }
     }
     state = saved || B.blank();
@@ -207,11 +207,17 @@
     }
     if (act === "example") {
       if (hasWork(state) && !window.confirm("Replace your matrix with the worked example?")) return;
+      if (window.PASave) PASave.forget("bbp");
       state = B.fromExample(); paintAll(); save(); track("bbp_example"); return;
     }
     if (act === "reset") {
       if (!window.confirm("Start over with a blank matrix? This clears the one saved in this browser.")) return;
+      if (window.PASave) PASave.forget("bbp");
       state = B.blank(); paintAll(); save(); $("#bb-title").focus(); return;
+    }
+    if (act === "save") {
+      if (window.PASave) PASave.go("bbp", B.encode(state), state.title, (function () { var r = B.results(state); return (r.leader.kind === "tie" ? r.leader.text : r.leader.text ? "Leading: " + r.leader.text : "Not scored yet") + (r.lowestCost.length ? " · Lowest cost: " + r.lowestCost.map(function (o) { return B.CHOICES[o]; }).join(", ") : ""); })());
+      return;
     }
     if (act === "share") {
       var url = location.origin + location.pathname + "#m=" + B.encode(state), box = $("#bb-share"), input = $("#bb-share-url");

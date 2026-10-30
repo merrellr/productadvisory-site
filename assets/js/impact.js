@@ -24,13 +24,13 @@
 
   /* ----- load: a shared link, else what was saved here, else a blank sheet ----- */
   function load() {
-    var m = location.hash.match(/^#s=([A-Za-z0-9_-]+)$/), shared = m ? I.decode(m[1]) : null;
+    var h = window.PASave ? PASave.readHash("s") : null, shared = h ? I.decode(h.data) : null;
     var saved = null;
     try { saved = store() ? I.normalize(JSON.parse(store())) : null; } catch (e) { saved = null; }
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !hasWork(saved) || window.confirm("Open the shared sheet? It replaces the one saved in this browser.")) {
-        state = shared; save(); track("impact_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("impact", h.doc); track("impact_open_shared"); return;
       }
     }
     state = saved || I.blank();
@@ -246,11 +246,17 @@
     }
     if (act === "example") {
       if (hasWork(state) && !window.confirm("Replace your sheet with the worked example?")) return;
+      if (window.PASave) PASave.forget("impact");
       state = I.fromExample(); paintAll(); save(); track("impact_example"); return;
     }
     if (act === "reset") {
       if (!window.confirm("Start over with a blank sheet? This clears the one saved in this browser.")) return;
+      if (window.PASave) PASave.forget("impact");
       state = I.blank(); paintAll(); save(); $("#im-title").focus(); return;
+    }
+    if (act === "save") {
+      if (window.PASave) PASave.go("impact", I.encode(state), state.title, (function () { var r = I.rank(state); return r.length ? r.slice(0, 3).map(function (x) { return x.rank + ". " + x.name + (x.action ? " (" + x.actionName + ")" : ""); }).join(" · ") : "Not scored yet"; })());
+      return;
     }
     if (act === "share") {
       var url = location.origin + location.pathname + "#s=" + I.encode(state), box = $("#im-share"), input = $("#im-share-url");

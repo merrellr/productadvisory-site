@@ -750,7 +750,8 @@ def scorecard():
     <div class="sc-bar">
       <div class="field sc-title"><label for="sc-title">Name this scorecard</label><input id="sc-title" maxlength="80" placeholder="For example: Q3 roadmap"></div>
       <div class="sc-actions">
-        <button type="button" class="btn sm" data-sc="share">Share a link</button>
+        <button type="button" class="btn sm" data-sc="save" title="Keep it in your free Product Advisory Learning account">Save to my account</button>
+        <button type="button" class="btn sm ghost" data-sc="share">Share a link</button>
         {export_menu("sc")}
         <button type="button" class="btn sm ghost" data-sc="reset">Start over</button>
       </div>
@@ -831,6 +832,7 @@ def scorecard():
     {tools_nav("scorecard", bottom=True)}
   </div>
 </section>
+<script src="assets/js/save.js"></script>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
     write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight your criteria, score your features, compare the rankings, and share, download or print the result.", body,
@@ -863,7 +865,8 @@ def ai_use_cases():
     <div class="sc-bar">
       <div class="field sc-title"><label for="uc-title">Name this list</label><input id="uc-title" maxlength="100" placeholder="For example: Customer support AI ideas"></div>
       <div class="sc-actions">
-        <button type="button" class="btn sm" data-uc="share">Share a link</button>
+        <button type="button" class="btn sm" data-uc="save" title="Keep it in your free Product Advisory Learning account">Save to my account</button>
+        <button type="button" class="btn sm ghost" data-uc="share">Share a link</button>
         {export_menu("uc")}
         <button type="button" class="btn sm ghost" data-uc="reset">Start over</button>
       </div>
@@ -910,6 +913,7 @@ def ai_use_cases():
     {tools_nav("ai", bottom=True)}
   </div>
 </section>
+<script src="assets/js/save.js"></script>
 <script src="assets/js/ai-usecases-core.js"></script>
 <script src="assets/js/ai-usecases.js"></script>'''
     write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "A free, interactive AI Use Case Prioritization tool: score your AI ideas on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get a plan with the first pilot to run.", body,
@@ -974,7 +978,8 @@ def tool_bar(prefix, placeholder, label):
     return f'''<div class="sc-bar">
       <div class="field sc-title"><label for="{prefix}-title">{label}</label><input id="{prefix}-title" maxlength="100" placeholder="{placeholder}"></div>
       <div class="sc-actions">
-        <button type="button" class="btn sm" data-{prefix}="share">Share a link</button>
+        <button type="button" class="btn sm" data-{prefix}="save" title="Keep it in your free Product Advisory Learning account">Save to my account</button>
+        <button type="button" class="btn sm ghost" data-{prefix}="share">Share a link</button>
         {export_menu(prefix)}
         <button type="button" class="btn sm ghost" data-{prefix}="reset">Start over</button>
       </div>
@@ -1055,6 +1060,7 @@ def build_buy_partner():
     {tools_nav("bbp", bottom=True)}
   </div>
 </section>
+<script src="assets/js/save.js"></script>
 <script src="assets/js/bbp-core.js"></script>
 <script src="assets/js/bbp.js"></script>'''
     write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "A free, interactive Build, Buy, or Partner Decision Matrix: score build, buy and partner against ten weighted criteria, compare the real three-year cost, and record the decision with its risks and tripwires.", body,
@@ -1141,6 +1147,7 @@ def impact_score():
     {tools_nav("impact", bottom=True)}
   </div>
 </section>
+<script src="assets/js/save.js"></script>
 <script src="assets/js/impact-core.js"></script>
 <script src="assets/js/impact.js"></script>'''
     write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "A free, interactive Organizational Impact Score: rate initiatives against the KPIs your organization tracks, adjust for confidence, and get a ranking with a suggested action for each: do now, big bet, quick win or revisit.", body,

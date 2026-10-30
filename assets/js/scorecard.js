@@ -21,13 +21,13 @@
 
   /* ----- load: a shared link, else what was saved here, else the balanced template with an example ----- */
   function load() {
-    var m = location.hash.match(/^#s=([A-Za-z0-9_-]+)$/), shared = m ? S.decode(m[1]) : null;
+    var h = window.PASave ? PASave.readHash("s") : null, shared = h ? S.decode(h.data) : null;
     var saved = null;
     try { saved = store() ? S.normalize(JSON.parse(store())) : null; } catch (e) { saved = null; }
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !saved.features.some(function (f) { return f.name; }) || window.confirm("Open the shared scorecard? It replaces the one saved in this browser.")) {
-        state = shared; save(); track("scorecard_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("scorecard", h.doc); track("scorecard_open_shared"); return;
       }
     }
     state = saved || S.fromTemplate("balanced", true);
@@ -309,13 +309,19 @@
     if (act === "examples") {
       var ex = S.fromTemplate(state.template in S.TEMPLATES ? state.template : "balanced", true);
       if (state.features.some(function (f) { return f.name; }) && !window.confirm("Replace your features with the example?")) return;
+      if (window.PASave) PASave.forget("scorecard");
       ex.title = state.title; ex.method = state.method; state = ex; paintAll(); save(); return;
     }
     if (act === "reset") {
       if (!window.confirm("Start over with a blank scorecard? This clears the one saved in this browser.")) return;
+      if (window.PASave) PASave.forget("scorecard");
       var m = state.method; state = S.fromTemplate("balanced", false); state.method = m === "compare" ? "weighted" : m;
       state.features = [{ name: "", scores: state.criteria.map(function () { return 3; }), rice: S.cleanRice(S.RICE_DEFAULT) }];
       paintAll(); save(); $("#sc-title").focus(); return;
+    }
+    if (act === "save") {
+      if (window.PASave) PASave.go("scorecard", S.encode(state), state.title, S.rank(state).slice(0, 3).map(function (r) { return r.rank + ". " + r.name; }).join(" · "));
+      return;
     }
     if (act === "share") {
       var url = location.origin + location.pathname + "#s=" + S.encode(state), box = $("#sc-share"), input = $("#sc-share-url");

@@ -22,13 +22,13 @@
 
   /* ----- load: a shared link, else what was saved here, else the example ----- */
   function load() {
-    var m = location.hash.match(/^#u=([A-Za-z0-9_-]+)$/), shared = m ? A.decode(m[1]) : null;
+    var h = window.PASave ? PASave.readHash("u") : null, shared = h ? A.decode(h.data) : null;
     var saved = null;
     try { saved = store() ? A.normalize(JSON.parse(store())) : null; } catch (e) { saved = null; }
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !saved.cases.some(function (c) { return c.name; }) || window.confirm("Open the shared list? It replaces the one saved in this browser.")) {
-        state = shared; save(); track("ai_usecases_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("ai", h.doc); track("ai_usecases_open_shared"); return;
       }
     }
     state = saved || A.fromExample();
@@ -181,11 +181,17 @@
     }
     if (act === "example") {
       if (state.cases.some(function (c) { return c.name; }) && !window.confirm("Replace your ideas with the example?")) return;
+      if (window.PASave) PASave.forget("ai");
       var ex = A.fromExample(); ex.title = state.title; state = ex; paintAll(); save(); track("ai_usecases_example"); return;
     }
     if (act === "reset") {
       if (!window.confirm("Start over with a blank list? This clears the one saved in this browser.")) return;
+      if (window.PASave) PASave.forget("ai");
       state = { title: "", cases: [A.blankCase()] }; paintAll(); save(); $("#uc-title").focus(); return;
+    }
+    if (act === "save") {
+      if (window.PASave) PASave.go("ai", A.encode(state), state.title, (function () { var p = A.firstPilot(state), c = A.counts(state); return (p ? "First pilot: " + p.name + ". " : "") + c["quick-win"] + " quick wins, " + c.bet + " strategic bets"; })());
+      return;
     }
     if (act === "share") {
       var url = location.origin + location.pathname + "#u=" + A.encode(state), box = $("#uc-share"), input = $("#uc-share-url");
