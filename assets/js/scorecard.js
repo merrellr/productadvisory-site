@@ -9,8 +9,14 @@
   var $ = function (sel) { return root.querySelector(sel); };
   var state;
 
-  function store(v) { try { if (v === undefined) return localStorage.getItem(KEY); localStorage.setItem(KEY, v); } catch (e) { return null; } }
-  function save() { store(JSON.stringify(state)); }
+  // In this browser; inside Product Advisory Learning (embedded), kept in the page and handed to Learning instead (save.js).
+  function store(v) { return window.PASave ? PASave.store(KEY, v) : null; }
+  function save() {
+    store(JSON.stringify(state));
+    if (window.PASave) PASave.changed("scorecard", function () { return { data: S.encode(state), title: state.title, summary: summary() }; });
+  }
+  // A line about the results, shown with the saved copy in Learning.
+  function summary() { return S.rank(state).slice(0, 3).map(function (r) { return r.rank + ". " + r.name; }).join(" · "); }
   function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "feature_scorecard" }); } catch (e) { /* no analytics */ } }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -27,8 +33,14 @@
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !saved.features.some(function (f) { return f.name; }) || window.confirm("Open the shared scorecard? It replaces the one saved in this browser.")) {
-        state = shared; save(); if (window.PASave) PASave.remember("scorecard", h.doc); track("scorecard_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("scorecard", h.doc); if (window.PASave) PASave.noteShared(root, '[data-sc="save"]', h.doc); track("scorecard_open_shared"); return;
       }
+    }
+    // In Learning a new scorecard starts blank unless the person chose the example; here, with the example.
+    if (!saved && window.PASave && PASave.embedded && PASave.start !== "example") {
+      state = S.fromTemplate("balanced", false);
+      state.features = [{ name: "", scores: state.criteria.map(function () { return 3; }), rice: S.cleanRice(S.RICE_DEFAULT) }];
+      return;
     }
     state = saved || S.fromTemplate("balanced", true);
   }
@@ -320,7 +332,7 @@
       paintAll(); save(); $("#sc-title").focus(); return;
     }
     if (act === "save") {
-      if (window.PASave) PASave.go("scorecard", S.encode(state), state.title, S.rank(state).slice(0, 3).map(function (r) { return r.rank + ". " + r.name; }).join(" · "));
+      if (window.PASave) PASave.go("scorecard", S.encode(state), state.title, summary());
       return;
     }
     if (act === "share") {

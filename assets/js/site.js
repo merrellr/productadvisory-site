@@ -1285,7 +1285,7 @@
 
   function initConsent() {
     var C = window.PAConsent;
-    if (!C) return;
+    if (!C || document.documentElement.classList.contains("pa-embed")) return;   // inside Learning: never asked here
     var bar;
     function close() { if (bar) { bar.remove(); bar = null; document.body.classList.remove("has-consent"); } }
     function show() {

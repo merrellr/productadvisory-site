@@ -9,8 +9,14 @@
   var $ = function (sel) { return root.querySelector(sel); };
   var state;
 
-  function store(v) { try { if (v === undefined) return localStorage.getItem(KEY); localStorage.setItem(KEY, v); } catch (e) { return null; } }
-  function save() { store(JSON.stringify(state)); }
+  // In this browser; inside Product Advisory Learning (embedded), kept in the page and handed to Learning instead (save.js).
+  function store(v) { return window.PASave ? PASave.store(KEY, v) : null; }
+  function save() {
+    store(JSON.stringify(state));
+    if (window.PASave) PASave.changed("ai", function () { return { data: A.encode(state), title: state.title, summary: summary() }; });
+  }
+  // A line about the results, shown with the saved copy in Learning.
+  function summary() { var p = A.firstPilot(state), c = A.counts(state); return (p ? "First pilot: " + p.name + ". " : "") + c["quick-win"] + " quick wins, " + c.bet + " strategic bets"; }
   function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "ai_use_cases" }); } catch (e) { /* no analytics */ } }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -28,10 +34,11 @@
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !saved.cases.some(function (c) { return c.name; }) || window.confirm("Open the shared list? It replaces the one saved in this browser.")) {
-        state = shared; save(); if (window.PASave) PASave.remember("ai", h.doc); track("ai_usecases_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("ai", h.doc); if (window.PASave) PASave.noteShared(root, '[data-uc="save"]', h.doc); track("ai_usecases_open_shared"); return;
       }
     }
-    state = saved || A.fromExample();
+    // In Learning a new list starts blank unless the person chose the example; here, with the example.
+    state = saved || (window.PASave && PASave.embedded && PASave.start !== "example" ? { title: "", cases: [A.blankCase()] } : A.fromExample());
   }
 
   /* ----- step 2: the table ----- */
@@ -190,7 +197,7 @@
       state = { title: "", cases: [A.blankCase()] }; paintAll(); save(); $("#uc-title").focus(); return;
     }
     if (act === "save") {
-      if (window.PASave) PASave.go("ai", A.encode(state), state.title, (function () { var p = A.firstPilot(state), c = A.counts(state); return (p ? "First pilot: " + p.name + ". " : "") + c["quick-win"] + " quick wins, " + c.bet + " strategic bets"; })());
+      if (window.PASave) PASave.go("ai", A.encode(state), state.title, summary());
       return;
     }
     if (act === "share") {

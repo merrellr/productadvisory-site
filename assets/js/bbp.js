@@ -9,8 +9,14 @@
   var $ = function (sel) { return root.querySelector(sel); };
   var state;
 
-  function store(v) { try { if (v === undefined) return localStorage.getItem(KEY); localStorage.setItem(KEY, v); } catch (e) { return null; } }
-  function save() { store(JSON.stringify(state)); }
+  // In this browser; inside Product Advisory Learning (embedded), kept in the page and handed to Learning instead (save.js).
+  function store(v) { return window.PASave ? PASave.store(KEY, v) : null; }
+  function save() {
+    store(JSON.stringify(state));
+    if (window.PASave) PASave.changed("bbp", function () { return { data: B.encode(state), title: state.title, summary: summary() }; });
+  }
+  // A line about the results, shown with the saved copy in Learning.
+  function summary() { var r = B.results(state); return (r.leader.kind === "tie" ? r.leader.text : r.leader.text ? "Leading: " + r.leader.text : "Not scored yet") + (r.lowestCost.length ? " · Lowest cost: " + r.lowestCost.map(function (o) { return B.CHOICES[o]; }).join(", ") : ""); }
   function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "build_buy_partner" }); } catch (e) { /* no analytics */ } }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -29,10 +35,10 @@
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !hasWork(saved) || window.confirm("Open the shared matrix? It replaces the one saved in this browser.")) {
-        state = shared; save(); if (window.PASave) PASave.remember("bbp", h.doc); track("bbp_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("bbp", h.doc); if (window.PASave) PASave.noteShared(root, '[data-bb="save"]', h.doc); track("bbp_open_shared"); return;
       }
     }
-    state = saved || B.blank();
+    state = saved || (window.PASave && PASave.start === "example" ? B.fromExample() : B.blank());
   }
 
   function scoreSelect(i, o, c) {
@@ -216,7 +222,7 @@
       state = B.blank(); paintAll(); save(); $("#bb-title").focus(); return;
     }
     if (act === "save") {
-      if (window.PASave) PASave.go("bbp", B.encode(state), state.title, (function () { var r = B.results(state); return (r.leader.kind === "tie" ? r.leader.text : r.leader.text ? "Leading: " + r.leader.text : "Not scored yet") + (r.lowestCost.length ? " · Lowest cost: " + r.lowestCost.map(function (o) { return B.CHOICES[o]; }).join(", ") : ""); })());
+      if (window.PASave) PASave.go("bbp", B.encode(state), state.title, summary());
       return;
     }
     if (act === "share") {

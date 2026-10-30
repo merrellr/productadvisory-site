@@ -1592,3 +1592,21 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .subscribe.done .sub-row { opacity: .6; }
 .post-foot .subscribe { margin: 14px 0 6px; }
 .post-call { margin: 10px 0 0; font-size: .97rem; }
+
+/* ---------- a tool inside Product Advisory Learning ----------
+   assessment.productadvisory.co runs the tool pages in a frame with ?embed=1 (prefs.js marks the page, save.js
+   hands the work to Learning): just the tool, no site header, footer, links or prompts, on Learning's background. */
+html.pa-embed body { background: transparent; }
+html.pa-embed .nav, html.pa-embed .progress, html.pa-embed .skip, html.pa-embed .page-head, html.pa-embed footer.site,
+html.pa-embed .tool-links, html.pa-embed .tool-more, html.pa-embed .tool-files, html.pa-embed .consent, html.pa-embed .shared-bar,
+html.pa-embed [data-sc="save"], html.pa-embed [data-uc="save"], html.pa-embed [data-bb="save"], html.pa-embed [data-im="save"],
+html.pa-embed [data-sc="share"], html.pa-embed [data-uc="share"], html.pa-embed [data-bb="share"], html.pa-embed [data-im="share"] { display: none !important; }   /* Learning saves and shares */
+/* the tips stay; the line about our services and its links don't */
+html.pa-embed .sc-tips hr.rule, html.pa-embed .sc-tips hr.rule ~ * { display: none !important; }
+html.pa-embed main, html.pa-embed main > section { padding: 0 !important; margin: 0; }
+html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
+
+/* opened from a link someone shared */
+.shared-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 18px; margin-bottom: 16px; border-left: 4px solid var(--cyan); }
+.shared-note b { color: var(--navy); }
+.shared-note p { margin: 2px 0 0; font-size: .92rem; }

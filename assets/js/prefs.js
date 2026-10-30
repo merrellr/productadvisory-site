@@ -188,4 +188,9 @@
     loadFont: loadFont, save: save, setMode: setMode, apply: apply, keepShared: keepShared, dropShared: dropShared, reset: reset, shareUrl: shareUrl
   };
   apply(current());
+
+  // Run inside Product Advisory Learning: a tool page in a frame with ?embed=1 shows just the tool (site.css, save.js).
+  try {
+    if (window.self !== window.top && /(?:^|&)embed=1(?:&|$)/.test(location.search.slice(1))) document.documentElement.classList.add("pa-embed");
+  } catch (e) { /* a frame we can't read from: leave the page as it is */ }
 })();

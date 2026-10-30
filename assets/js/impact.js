@@ -9,8 +9,14 @@
   var $ = function (sel) { return root.querySelector(sel); };
   var state;
 
-  function store(v) { try { if (v === undefined) return localStorage.getItem(KEY); localStorage.setItem(KEY, v); } catch (e) { return null; } }
-  function save() { store(JSON.stringify(state)); }
+  // In this browser; inside Product Advisory Learning (embedded), kept in the page and handed to Learning instead (save.js).
+  function store(v) { return window.PASave ? PASave.store(KEY, v) : null; }
+  function save() {
+    store(JSON.stringify(state));
+    if (window.PASave) PASave.changed("impact", function () { return { data: I.encode(state), title: state.title, summary: summary() }; });
+  }
+  // A line about the results, shown with the saved copy in Learning.
+  function summary() { var r = I.rank(state); return r.length ? r.slice(0, 3).map(function (x) { return x.rank + ". " + x.name + (x.action ? " (" + x.actionName + ")" : ""); }).join(" · ") : "Not scored yet"; }
   function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "impact_score" }); } catch (e) { /* no analytics */ } }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
@@ -30,10 +36,10 @@
     if (shared) {
       history.replaceState(null, "", location.pathname);
       if (!saved || !hasWork(saved) || window.confirm("Open the shared sheet? It replaces the one saved in this browser.")) {
-        state = shared; save(); if (window.PASave) PASave.remember("impact", h.doc); track("impact_open_shared"); return;
+        state = shared; save(); if (window.PASave) PASave.remember("impact", h.doc); if (window.PASave) PASave.noteShared(root, '[data-im="save"]', h.doc); track("impact_open_shared"); return;
       }
     }
-    state = saved || I.blank();
+    state = saved || (window.PASave && PASave.start === "example" ? I.fromExample() : I.blank());
   }
 
   /* ----- step 1: KPIs ----- */
@@ -255,7 +261,7 @@
       state = I.blank(); paintAll(); save(); $("#im-title").focus(); return;
     }
     if (act === "save") {
-      if (window.PASave) PASave.go("impact", I.encode(state), state.title, (function () { var r = I.rank(state); return r.length ? r.slice(0, 3).map(function (x) { return x.rank + ". " + x.name + (x.action ? " (" + x.actionName + ")" : ""); }).join(" · ") : "Not scored yet"; })());
+      if (window.PASave) PASave.go("impact", I.encode(state), state.title, summary());
       return;
     }
     if (act === "share") {
