@@ -12,7 +12,7 @@ PRIVACY = """
 <li>Downloading and filling in a Toolkit PDF happens on your own device. We never see what you type into it.</li>
 <li>We use Google Analytics to understand how the site is used. You can opt out.</li>
 <li>Anything you type into a free text answer in the assessment may be read by an AI service, so please keep confidential company details out of it.</li>
-<li>You can ask us to see, correct, or delete your information at any time at <a href="mailto:info@productadvisory.co">info@productadvisory.co</a>.</li>
+<li>You can ask us to see, correct, or delete your information at any time: email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a></li>
 </ul>
 </div>
 

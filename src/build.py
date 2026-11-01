@@ -1229,7 +1229,7 @@ def book():
         <p>Your confirmation email has a link to cancel or pick another time.</p>
         <hr class="rule">
         <h3>Rather write?</h3>
-        <p><a href="contact.html">Send a message</a> or email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a>.</p>
+        <p><a href="contact.html">Send a message</a> or email <a href="mailto:info@productadvisory.co">info@productadvisory.co</a></p>
       </div>
     </aside>
   </div>

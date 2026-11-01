@@ -987,7 +987,7 @@
       el.innerHTML = '<div class="book-ok" aria-hidden="true">✓</div><h2>' + (moving ? "Your call has moved." : "You're booked" + (first ? ", " + esc(first) : "") + ".") + "</h2>" +
         '<p class="book-when-big">' + esc(when(r.start)) + "</p>" +
         "<p>" + (moving ? "We've updated the calendar invitation and sent a new confirmation." :
-          "A calendar invitation with the Google Meet link is on its way to <b>" + esc(d.email) + "</b>, with a confirmation from " + EMAIL + ".") + "</p>" +
+          "A calendar invitation with the Google Meet link and a confirmation from " + EMAIL + " are on their way to <b>" + esc(d.email) + "</b>") + "</p>" +
         '<div class="btn-row">' + (r.meet ? '<a class="btn" href="' + esc(r.meet) + '" target="_blank" rel="noopener">Google Meet link' + NEW_TAB + "</a>" : "") +
         '<a class="btn ghost" href="/">Back to home</a></div>' +
         '<p class="muted" style="font-size:.88rem">Need to change it? Use the link in your confirmation email.</p>';
@@ -1283,10 +1283,10 @@
               say(res.already ? "You're already subscribed. Thanks for reading!" : "You're subscribed. Check your inbox for a welcome email.");
               input.value = "";
             } else {
-              say(res && res.error === "bad_email" ? "Please enter a valid email address." : "That didn't go through. Please try again, or email info@productadvisory.co.", true);
+              say(res && res.error === "bad_email" ? "Please enter a valid email address." : "That didn't go through. Please try again, or email us at info@productadvisory.co", true);
             }
           })
-          .catch(function () { say("That didn't go through. Please try again, or email info@productadvisory.co.", true); })
+          .catch(function () { say("That didn't go through. Please try again, or email us at info@productadvisory.co", true); })
           .then(function () { btn.disabled = false; });
       });
     });
