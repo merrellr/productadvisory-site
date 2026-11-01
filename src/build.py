@@ -10,6 +10,7 @@ commit both the source and the pages. Styles and scripts live in assets/ and are
 import math
 import os
 import sys
+from urllib.parse import quote
 from html import escape
 
 from parts import *  # noqa
@@ -288,10 +289,10 @@ def home():
       <div class="stat"><b data-count="30">30</b><span>Minutes: your first call is free</span></div>
     </div>
     <div class="grid g4" style="margin-top:20px">
-      <div class="card tint reveal">{icon("proven")}<h3>Proven success</h3><p>A track record with early-stage startups and enterprise organizations alike.</p></div>
-      <div class="card tint reveal">{icon("eye")}<h3>Evidence-driven</h3><p>We build based on data and direct end-user feedback, not assumptions.</p></div>
-      <div class="card tint reveal">{icon("embedded")}<h3>Embedded partnership</h3><p>We complement your team's strengths, not replace them.</p></div>
-      <div class="card tint reveal">{icon("scale")}<h3>Built to scale</h3><p>We design for where you're headed, not just where you are.</p></div>
+      <div class="card tint lift reveal">{icon("proven")}<h3>Proven success</h3><p>A track record with early-stage startups and enterprise organizations alike.</p></div>
+      <div class="card tint lift reveal">{icon("eye")}<h3>Evidence-driven</h3><p>We build based on data and direct end-user feedback, not assumptions.</p></div>
+      <div class="card tint lift reveal">{icon("embedded")}<h3>Embedded partnership</h3><p>We complement your team's strengths, not replace them.</p></div>
+      <div class="card tint lift reveal">{icon("scale")}<h3>Built to scale</h3><p>We design for where you're headed, not just where you are.</p></div>
     </div>
   </div>
 </section>
@@ -338,7 +339,8 @@ def services():
   </div>
 </article>''' for i, ic, t, fw, body, bullets, new in SERVICES)
     details = details.replace("assessment.productadvisory.co, a real", f'<a href="{ASSESS}" {EXT}>assessment.productadvisory.co</a>, a real')
-    pk = "".join(f'<article class="pkg reveal{" flag" if flag else ""}" id="{i}" data-ask="{t}" data-kind="Package">{icon(ic)}<h3>{t}</h3><p class="deep">{d}</p><p class="brief-only">{d.split(". ")[0]}.</p></article>' for i, ic, t, d, flag in PACKAGES)
+    # Each package opens the booking page with that package picked, so the call starts from it.
+    pk = "".join(f'<a class="pkg reveal{" flag" if flag else ""}" id="{i}" href="book.html?service={quote(t)}" data-ask="{t}" data-kind="Package">{icon(ic)}<h3>{t}</h3><p class="deep">{d}</p><p class="brief-only">{d.split(". ")[0]}.</p><span class="pkg-go">Book a free call about this<span aria-hidden="true"> →</span></span></a>' for i, ic, t, d, flag in PACKAGES)
 
     def q(key, title, opts):
         chips = "".join(f'<button type="button" role="radio" aria-checked="false" class="chip" data-v="{v}">{l}</button>' for v, l in opts)
@@ -356,7 +358,7 @@ def services():
             ("Go-to-market strategy", "Accelerating sales growth and improving your share."), ("Security & compliance", "Protecting your data with strong security practices."),
             ("Contracting & legal review", "Reviewing contracts to reduce risk and exposure."), ("UX/UI design services", "Designing intuitive experiences your users love."),
             ("Partnerships & integrations", "Building connections and integrations to help you grow.")]
-    also_html = "".join(f'<div class="card reveal"><h3 style="font-size:1.05rem">{t}</h3><p>{d}</p></div>' for t, d in also)
+    also_html = "".join(f'<div class="card lift reveal"><h3 style="font-size:1.05rem">{t}</h3><p>{d}</p></div>' for t, d in also)
     body = f'''{page_head("Services", "How we help teams build market-driven products.", orbit())}
 <section>
   <div class="wrap">
@@ -392,10 +394,10 @@ def services():
   <div class="wrap">
     <div class="section-head reveal"><h2>Why choose Product Advisory?</h2></div>
     <div class="grid g4">
-      <div class="card tint reveal">{icon("years")}<h3>Expertise</h3><p>Years of experience across diverse industries, bringing proven, practical solutions.</p></div>
-      <div class="card tint reveal">{icon("practitioner")}<h3>Customization</h3><p>Services tailored to your specific business needs and goals.</p></div>
-      <div class="card tint reveal">{icon("proven")}<h3>Results-oriented</h3><p>Committed to measurable results that align with your business objectives.</p></div>
-      <div class="card tint reveal">{icon("chat")}<h3>Collaboration</h3><p>Working side by side with your team in an open, hands-on process to ensure success.</p></div>
+      <div class="card tint lift reveal">{icon("years")}<h3>Expertise</h3><p>Years of experience across diverse industries, bringing proven, practical solutions.</p></div>
+      <div class="card tint lift reveal">{icon("practitioner")}<h3>Customization</h3><p>Services tailored to your specific business needs and goals.</p></div>
+      <div class="card tint lift reveal">{icon("proven")}<h3>Results-oriented</h3><p>Committed to measurable results that align with your business objectives.</p></div>
+      <div class="card tint lift reveal">{icon("chat")}<h3>Collaboration</h3><p>Working side by side with your team in an open, hands-on process to ensure success.</p></div>
     </div>
   </div>
 </section>

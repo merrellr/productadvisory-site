@@ -835,6 +835,15 @@
     var steps = $$(".book-step", card), form = $("#book-form"), F = form.elements, status = $(".form-status", form);
     var q = new URLSearchParams(location.search);
     var manage = q.get("b") && q.get("k") ? { b: q.get("b"), k: q.get("k") } : null;
+    // ?service=<name> (a package on Services): that service is picked, and the note starts with it.
+    var svc = !manage && q.get("service");
+    if (svc) {
+      var chip = $$('[data-assist="services"] [data-value]', card).filter(function (b) { return b.getAttribute("data-value") === svc; })[0];
+      if (chip) {
+        chip.setAttribute("aria-pressed", "true");
+        if (!F.topic.value) F.topic.value = "I'd like to talk about " + svc + ".";
+      }
+    }
     var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { /* older browser */ }
     var started = Date.now(), weeks = [], page = 0, dayKey = null, picked = null, moving = null, byDay = {};
     var PER_PAGE = 2;   // weeks shown at once

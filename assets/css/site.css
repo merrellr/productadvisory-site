@@ -434,6 +434,15 @@ section { padding: var(--section) 0; }
 .card p:last-child { margin-bottom: 0; }
 a.card { display: block; text-decoration: none; transition: transform .2s, box-shadow .2s, border-color .2s; }
 a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--cyan); }
+/* Cards that respond to the pointer without being links (Services: Leadership presence and Why choose us;
+   Home: Why teams work with us) */
+.card.lift { transition: transform .2s, box-shadow .2s, border-color .2s, background-color .2s, opacity .6s ease; }
+.card.lift:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--cyan); }
+.card.tint.lift:hover { background: var(--card); }
+.card.lift .ico { transition: transform .2s; }
+.card.lift:hover .ico { transform: scale(1.08); }
+:root[data-motion="reduced"] .card.lift:hover, :root[data-motion="reduced"] a.pkg:hover, :root[data-motion="reduced"] .card.lift:hover .ico { transform: none; }
+@media (prefers-reduced-motion: reduce) { .card.lift:hover, a.pkg:hover, .card.lift:hover .ico { transform: none; } }
 /* About, "How we think about product": each principle highlights and opens a line of detail on hover or focus */
 a.card.principle { color: inherit; border: 1px solid transparent; }
 a.card.principle:hover, a.card.principle:focus-visible { background: var(--card); border-color: var(--cyan); }
@@ -538,7 +547,10 @@ a.card.principle:hover, a.card.principle:focus-visible { background: var(--card)
 /* stats */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 @media (max-width: 800px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-.stat { padding: 24px; border-radius: var(--radius); background: var(--tint); }
+.stat { padding: 24px; border-radius: var(--radius); background: var(--tint); border: 1px solid transparent; transition: transform .2s, box-shadow .2s, border-color .2s, background-color .2s; }
+.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--cyan); background: var(--card); }
+:root[data-motion="reduced"] .stat:hover { transform: none; }
+@media (prefers-reduced-motion: reduce) { .stat:hover { transform: none; } }
 .stat b { display: block; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 8px; }
 .stat span { color: var(--ink-2); font-size: .95rem; }
 
@@ -685,6 +697,13 @@ details.acc[open] > summary::after { transform: rotate(45deg); }
 .pkg.flag { border-color: var(--navy); box-shadow: var(--shadow); }
 .pkg.flag::before { content: "Most requested"; position: absolute; top: -11px; left: 22px; font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; background: var(--cyan); color: #0a1526; border-radius: var(--pill); padding: 3px 10px; }
 .pkg.hl { outline: 3px solid var(--cyan); outline-offset: 2px; }
+/* each package is a link to book a call about it: it lifts on hover and says so */
+a.pkg { display: block; color: inherit; text-decoration: none; transition: transform .2s, box-shadow .2s, border-color .2s; }
+a.pkg:hover, a.pkg:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--cyan); }
+a.pkg:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.pkg-go { display: inline-block; margin-top: 12px; font-weight: 800; font-size: .92rem; color: var(--primary); opacity: 0; transform: translateY(4px); transition: opacity .2s, transform .2s; }
+a.pkg:hover .pkg-go, a.pkg:focus-visible .pkg-go { opacity: 1; transform: none; }
+@media (hover: none) { .pkg-go { opacity: 1; transform: none; } }   /* touch screens: always shown */
 
 /* prose (legal pages) */
 .prose { max-width: 760px; }
