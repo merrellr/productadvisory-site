@@ -16,7 +16,7 @@ from html import escape
 from parts import *  # noqa
 from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ, CONTACT_COPY, CONTACT_HELP
 from legal import PRIVACY, TERMS
-from art import path_art, orbit, toolkit_open, toolkit_tool, signal, conversation, insight_lens
+from art import path_art, orbit, toolkit_open, toolkit_tool, toolkit_thumb, signal, conversation, insight_lens
 from insights import ARTICLES, CATEGORIES, category
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
@@ -424,7 +424,7 @@ def toolkits():
     sc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["starter", "practitioner", "leader"])
     sc_rows = "".join(f'<span class="sc-thumb-row"><b>{n}</b><i style="--w:{w}%"></i><em>{w}</em></span>' for n, w in [(1, 82), (2, 74), (3, 71), (4, 48), (5, 30)])
     interactive = f'''<article class="tool reveal" id="feature-prioritization-scorecard" data-levels="starter practitioner leader" data-ask="Feature Prioritization Scorecard: rank features with criteria you can change" data-kind="Toolkit" data-keywords="prioritize prioritization prioritise rank features roadmap weighted scoring ice rice backlog compare cheat sheet which method">
-  <a class="tool-thumb sc-thumb" href="scorecard.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{sc_rows}</a>
+  <a class="tool-thumb art-thumb-link" href="scorecard.html" tabindex="-1" aria-hidden="true">{toolkit_thumb("scorecard")}</a>
   <div>
     <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">Interactive</span></h3>
     <div>{sc_tags}</div>
@@ -440,7 +440,7 @@ def toolkits():
                       [("quick-win", 1, "Quick win"), ("quick-win", 2, "Quick win"), ("bet", 3, "Strategic bet"), ("easy", 4, "Easy experiment")])
     uc_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["practitioner", "leader", "executive"])
     ai_tool = f'''<article class="tool reveal" id="ai-use-case-prioritization" data-levels="practitioner leader executive" data-ask="AI Use Case Prioritization: choose where AI is worth the effort first" data-kind="Toolkit" data-keywords="ai use cases ideas pilot adoption value feasibility data readiness risk cost where to start">
-  <a class="tool-thumb sc-thumb uc uc-thumb" href="ai-use-cases.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Start here</span>{uc_rows}</a>
+  <a class="tool-thumb art-thumb-link" href="ai-use-cases.html" tabindex="-1" aria-hidden="true">{toolkit_thumb("ai")}</a>
   <div>
     <h3 style="font-size:1.5rem">AI Use Case Prioritization <span class="pill">Interactive</span></h3>
     <div>{uc_tags}</div>
@@ -473,12 +473,12 @@ def toolkits():
                  "Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.",
                  "You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.",
                  "A scored comparison, a cost view, and a written decision you can share.", BBP_FILES,
-                 f'<a class="tool-thumb sc-thumb bb-thumb" href="build-buy-partner.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Weighted score</span><span class="bb-thumb-cols">{bb_cols}</span></a>') + \
+                 f'<a class="tool-thumb art-thumb-link" href="build-buy-partner.html" tabindex="-1" aria-hidden="true">{toolkit_thumb("bbp")}</a>') + \
         template_tool("impact-score", "impact-score.html", "Organizational Impact Score", ["leader", "executive"], "About 30 to 60 minutes",
              "Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most.",
              "You are building a roadmap, defending budget, or choosing between competing projects.",
              "A ranked list, a clear next action for each initiative, and a record of why.", IMPACT_FILES,
-             f'<a class="tool-thumb sc-thumb uc im uc-thumb" href="impact-score.html" tabindex="-1" aria-hidden="true"><span class="sc-thumb-head">Your ranking</span>{im_rows}</a>')
+             f'<a class="tool-thumb art-thumb-link" href="impact-score.html" tabindex="-1" aria-hidden="true">{toolkit_thumb("impact")}</a>')
 
     def soon_card(i, ic, title, desc, levels, status="Planned"):
         tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in levels)
