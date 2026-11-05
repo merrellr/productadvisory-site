@@ -149,36 +149,30 @@ def toolkit_tool(key):
             f'{"".join(out)}</svg>')
 
 def toolkit_thumb(key):
-    """The Toolkits page: each tool as the card it becomes, lifted out of a small toolbox, with the result it gives
-    you called out in cyan. The same drawing as the tool page's header, so the page and the tools read as one set."""
+    """The Toolkits page: each tool as the tile it becomes, on a faint dot grid with a second sheet behind it, and the
+    result it gives you called out in cyan. No toolbox here: the section already says these are tools, so the tile
+    itself carries the picture (the toolbox stays on each tool page's header)."""
     results = {"scorecard": "Ranked in 20 min", "ai": "First pilot picked", "bbp": "Partner wins", "impact": "Do now: #1"}
     titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score")}
-    out = []
-    # a small toolbox, bottom left, the slot this tool came from open
-    out.append('<g transform="translate(-4 150) scale(.36)">')
-    out.append('<path class="lid-face" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150 Z"/>')
-    out.append('<path class="lid" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150"/>')
-    out.append('<path class="handle" d="M168 50 V38 a10 10 0 0 1 10-10 H222 a10 10 0 0 1 10 10 V50"/>')
-    for i, k in enumerate(TOOLS):
-        x = 68 + 68 * i
-        out.append(f'<rect class="slot" x="{x}" y="96" width="60" height="54" rx="6"/>' if k == key else
-                   f'<g class="doc"><rect x="{x}" y="96" width="60" height="54" rx="6"/><rect class="doc-band" x="{x + 8}" y="104" width="20" height="4" rx="2"/><path d="M{x + 8} 116h44M{x + 8} 124h30"/></g>')
-    out.append('<rect class="case" x="40" y="150" width="320" height="122" rx="20"/><path d="M40 190 H360"/><rect class="hot" x="182" y="176" width="36" height="28" rx="6"/></g>')
-    slot_x = -4 + (68 + 68 * TOOLS.index(key) + 30) * .36
-    out.append(f'<path class="trail" d="M{slot_x:.0f} 184 C {slot_x + 10:.0f} 120, 96 70, 128 58"/>')
-    # the tool card, tilted, at full size
-    cx, cy, cw, ch = 118, 22, 168, 196
+    cx, cy, cw, ch = 66, 22, 168, 196
+    mx, my = cx + cw / 2, cy + ch / 2
+    # backdrop: a faint dot grid, and the next sheet in the stack, turned the other way
+    back = ['<g class="thumb-back">']
+    back += [f'<circle class="grid-dot" cx="{x}" cy="{y}" r="1.6"/>' for x in range(18, 300, 24) for y in range(16, 240, 24)
+             if not (cx - 20 < x < cx + cw + 20 and cy - 14 < y < cy + ch + 14)]
+    back.append(f'<rect class="card-back" x="{cx}" y="{cy}" width="{cw}" height="{ch}" rx="12" transform="rotate(-7 {mx} {my}) translate(-10 6)"/>')
+    back.append('</g>')
     t1, t2 = titles[key]
-    out.append(f'<g transform="rotate(3 {cx + cw / 2} {cy + ch / 2})"><rect class="card-face" x="{cx}" y="{cy}" width="{cw}" height="{ch}" rx="12"/>'
-               f'<rect class="doc-band" x="{cx + 16}" y="{cy + 16}" width="30" height="6" rx="3"/>'
-               f'<text class="lbl tf-title" x="{cx + 16}" y="{cy + 42}">{t1}</text><text class="lbl tf-title" x="{cx + 16}" y="{cy + 60}">{t2}</text>'
-               f'{_tool_face(key, cx + 16, cy + 76, cw - 32)}</g>')
-    # the result, as a cyan tag over the card's corner, and a little sparkle
     tw = 12 + 6.4 * len(results[key])
-    out.append(f'<g class="result-tag"><rect x="{cx + cw - tw + 14}" y="{cy + ch - 22}" width="{tw:.0f}" height="26" rx="13"/>'
-               f'<text class="lbl" x="{cx + cw - tw / 2 + 14:.0f}" y="{cy + ch - 5}" text-anchor="middle">{results[key]}</text></g>')
-    out.append(f'<path class="spark" d="M{cx + cw + 6} 30 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z"/>')
-    return (f'<svg class="net art-toolkit art-tool art-thumb" viewBox="0 0 300 240" aria-hidden="true">{"".join(out)}</svg>')
+    front = (f'<g class="thumb-card"><g transform="rotate(2.5 {mx} {my})"><rect class="card-face" x="{cx}" y="{cy}" width="{cw}" height="{ch}" rx="12"/>'
+             f'<rect class="doc-band" x="{cx + 16}" y="{cy + 16}" width="30" height="6" rx="3"/>'
+             f'<text class="lbl tf-title" x="{cx + 16}" y="{cy + 42}">{t1}</text><text class="lbl tf-title" x="{cx + 16}" y="{cy + 60}">{t2}</text>'
+             f'{_tool_face(key, cx + 16, cy + 76, cw - 32)}</g>'
+             f'<g class="result-tag"><rect x="{cx + cw - tw + 18:.0f}" y="{cy + ch - 6}" width="{tw:.0f}" height="26" rx="13"/>'
+             f'<text class="lbl" x="{cx + cw - tw / 2 + 18:.0f}" y="{cy + ch + 11}" text-anchor="middle">{results[key]}</text></g>'
+             f'<path class="spark" d="M{cx + cw + 10} 26 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z"/>'
+             f'<path class="spark small" d="M{cx - 22} {cy + ch - 34} l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 z"/></g>')
+    return (f'<svg class="net art-toolkit art-tool art-thumb" viewBox="0 0 300 240" aria-hidden="true">{"".join(back)}{front}</svg>')
 
 
 def signal():
