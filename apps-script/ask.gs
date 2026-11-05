@@ -45,7 +45,8 @@ var ASK_DAILY_LIMIT_PER_VISITOR_ = 8;
 var ASK_MAX_QUESTION_ = 300;
 var ASK_MAX_SOURCES_ = 6;
 var ASK_MAX_SOURCE_CHARS_ = 1600;
-var ASK_SOURCE_URL_ = /^(index|services|toolkits|about|contact)\.html(#[A-Za-z0-9_-]{1,60})?$/;
+// The pages the site's Ask searches (PAGES in assets/js/site.js): the main pages, Insights, and each article.
+var ASK_SOURCE_URL_ = /^(index|services|toolkits|about|contact|insights|insights\/[a-z0-9-]{1,80})\.html(#[A-Za-z0-9_-]{1,60})?$/;
 
 var ASK_SYSTEM_PROMPT_ = [
   "You answer questions for visitors to the website of Product Advisory, LLC, a product management consulting firm in Chicago. Visitors are usually product leaders, founders and executives deciding whether Product Advisory can help them.",

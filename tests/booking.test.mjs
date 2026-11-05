@@ -260,5 +260,14 @@ console.log('--- Insights page: "Tell me what you\'re looking for" ---');
   groqReply = '**We** ship fast,\nbut want help with discovery.';
 }
 
+// Ask: the sources it accepts are the pages the site's Ask searches (PAGES in assets/js/site.js)
+{
+  const clean = G('cleanSources_');
+  const pages = /var PAGES = \[([\s\S]*?)\];/.exec(fs.readFileSync(new URL('../assets/js/site.js', import.meta.url), 'utf8'))[1].match(/"[^"]+"/g).map(x => JSON.parse(x));
+  const ok = pages.filter(p => clean([{ url: p + '#intro', title: 't', text: 'x' }]).length === 1);
+  t('Ask accepts a source from every page it searches, articles included (' + pages.length + ' pages)', ok.length === pages.length && pages.some(p => p.indexOf('insights/') === 0), pages.filter(p => ok.indexOf(p) < 0).join(', '));
+  t('and nothing else: other sites, other pages, odd anchors', clean([{ url: 'https://evil.example/x.html', title: 't', text: 'x' }, { url: 'secret.html', title: 't', text: 'x' }, { url: 'insights/../x.html', title: 't', text: 'x' }, { url: 'services.html#a b', title: 't', text: 'x' }]).length === 0);
+}
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
