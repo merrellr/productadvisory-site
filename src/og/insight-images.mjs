@@ -132,11 +132,11 @@ const ARTS = {
           .lc p{font-size:18px;line-height:1.45;color:${C.soft}}.lc div:not(:last-child)::after{content:'→';position:absolute;right:-15px;top:44px;font-size:22px;color:${C.mute};z-index:1}
           .loop{margin-top:18px;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:27px;color:${C.soft}}`,
         html: `<div class="lc">
-          <div style="border-color:${C.teal}"><span>01</span><b>Discovery</b><p>Shadow the team. Find repetitive, high-volume, low-risk work.</p></div>
-          <div style="border-color:${C.mint}"><span>02</span><b>Pilot</b><p>Five to ten people, real tasks, watched closely.</p></div>
-          <div style="border-color:${C.amber}"><span>03</span><b>Feedback</b><p>Listen for corrections, not compliments.</p></div>
-          <div style="border-color:${C.coral}"><span>04</span><b>Iteration</b><p>Change prompts, guardrails and scope before widening.</p></div>
-          <div style="border-color:${C.violet}"><span>05</span><b>Adoption</b><p>Measure it like the product it is.</p></div></div>
+          <div style="border-color:${C.teal}"><span>01</span><b>Discovery</b><p>Shadow the team. Find the repetitive, painful, high-volume work.</p></div>
+          <div style="border-color:${C.mint}"><span>02</span><b>Pilot</b><p>Small group, real work, low-stakes tasks. Watch, don't just ask.</p></div>
+          <div style="border-color:${C.amber}"><span>03</span><b>Feedback</b><p>Log every correction, override and workaround as a signal, not a complaint.</p></div>
+          <div style="border-color:${C.coral}"><span>04</span><b>Iteration</b><p>Adjust prompts, guardrails and handoff points before you widen the rollout.</p></div>
+          <div style="border-color:${C.violet}"><span>05</span><b>Adoption</b><p>Measure it like a product.</p></div></div>
           <div class="loop">Don't expand the rollout until the current version has earned it.</div>` },
       'copilot-signals': { title: 'Three signals to watch in a pilot', sub: 'Feedback on an internal tool rarely arrives as a ticket. It shows up in what people do.',
         css: `.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.sg div{background:#fff;border-radius:16px;padding:26px 26px 28px;border:2px dashed}
@@ -145,7 +145,7 @@ const ARTS = {
           <div style="border-color:${C.amber}"><b>Corrections</b><p>What the copilot gets wrong in the same way, again and again.</p><i>"I rewrite the opening every time."</i></div>
           <div style="border-color:${C.coral}"><b>Abandonment</b><p>Where in the workflow people stop trusting the output and take over.</p><i>"Past the summary, I do it myself."</i></div>
           <div style="border-color:${C.violet}"><b>Workarounds</b><p>What people do instead of using the tool: it tells you what's missing.</p><i>"I just check the old dashboard."</i></div></div>` },
-      'copilot-metrics': { title: 'Four numbers that tell you if the copilot is working', sub: 'Tuned for an internal audience. An illustrative pilot, eight weeks in.',
+      'copilot-metrics': { title: 'Four numbers that tell you if the copilot is working', sub: 'Tuned for an internal audience. An example pilot, eight weeks in.',
         css: `.mx{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.mx div{background:#fff;border-radius:16px;padding:22px 22px 24px;border-top:6px solid}
           .mx span{font-size:17px;font-weight:600;color:${C.soft}}.mx b{display:block;font-family:Fraunces,serif;font-size:52px;color:${C.navy};margin:8px 0 4px}.mx p{font-size:16px;line-height:1.4;color:${C.teal}}
           .bars{margin-top:18px;background:#fff;border-radius:16px;padding:22px 26px 16px}.bars .t{font-family:'JetBrains Mono';font-size:14px;letter-spacing:.2em;color:${C.mute}}
@@ -153,9 +153,9 @@ const ARTS = {
           .bars .row div span{position:absolute;top:-24px;left:0;right:0;text-align:center;font-size:15px;font-weight:600;color:${C.soft}}.bars .ax{display:flex;gap:14px;margin-top:8px}.bars .ax span{flex:1;text-align:center;font-size:14px;color:${C.mute}}`,
         html: `<div class="mx">
           <div style="border-color:${C.teal}"><span>Weekly active users</span><b>68%</b><p>of the eligible team, up from 22%</p></div>
-          <div style="border-color:${C.mint}"><span>Task success rate</span><b>84%</b><p>completed without a human fixing it</p></div>
-          <div style="border-color:${C.amber}"><span>Time saved per task</span><b>11 min</b><p>median, measured honestly</p></div>
-          <div style="border-color:${C.violet}"><span>Voluntary return rate</span><b>76%</b><p>came back without a nudge</p></div></div>
+          <div style="border-color:${C.mint}"><span>Task success rate</span><b>84%</b><p>completed without escalation</p></div>
+          <div style="border-color:${C.amber}"><span>Time saved per task</span><b>11 min</b><p>median across the pilot group</p></div>
+          <div style="border-color:${C.violet}"><span>Voluntary return rate</span><b>76%</b><p>used it again without a nudge</p></div></div>
           <div class="bars"><div class="t">WEEKLY ACTIVE USERS, FIRST EIGHT WEEKS</div><div class="row">` +
           [22, 27, 38, 43, 52, 58, 65, 68].map((v, i) => `<div style="height:${v * 2.3}px;opacity:${0.45 + 0.07 * i}"><span>${v}%</span></div>`).join('') +
           `</div><div class="ax">${[1, 2, 3, 4, 5, 6, 7, 8].map(w => `<span>Wk ${w}</span>`).join('')}</div></div>` }
