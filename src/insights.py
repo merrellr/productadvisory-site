@@ -36,6 +36,7 @@ def category(a):
 ARTICLES = [
     {
         "slug": "rice-vs-weighted-scoring",
+        "seo_title": "RICE or Weighted Scoring: Which Should You Use?",
         "services": ["strategy", "coaching"],
         "title": "RICE or Weighted Scoring: Which Prioritization Framework Should You Use?",
         "dek": "The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.",
@@ -103,6 +104,7 @@ ARTICLES = [
     },
     {
         "slug": "day-in-the-life",
+        "seo_title": "A Day in the Life of a PM Working with AI Agents (2026)",
         "takeaways": [
             "AI agents now handle the reading, summarizing and watching in a product manager's day: inbox triage, meeting briefs, account context, dashboard monitoring and backlog rescoring.",
             "Every meaningful decision still belongs to the PM: which risk to escalate, how to frame a problem, when to override an agent's recommendation.",
@@ -156,6 +158,7 @@ ARTICLES = [
     },
     {
         "slug": "stop-enabling-individuals",
+        "seo_title": "Stop Enabling Individuals. Enable the Organization.",
         "takeaways": [
             "Individual AI enablement, a few power users with clever prompts, saves time but is capped, fragile and invisible to the organization.",
             "Organizational AI enablement means durable capability: automated workflows that survive turnover, captured knowledge and governance.",
@@ -208,6 +211,8 @@ ARTICLES = [
     },
     {
         "slug": "feature-fallacy",
+        "seo_title": "The Feature Fallacy: Why Shipping More Isn't Helping",
+        "description": "Why shipping more features isn't helping your users: value density, the three invisible taxes of feature bloat, and the OEM loop to ship less and deliver more.",
         "takeaways": [
             "Measuring progress by features shipped leads to irrelevance. Measure value density instead: outcome created per unit of effort.",
             "More features carry hidden taxes: context switching, adoption and quality.",
@@ -280,6 +285,7 @@ ARTICLES = [
     },
     {
         "slug": "product-focused-ai-agents",
+        "seo_title": "How to Build Product-Focused AI Agents That Decide Better",
         "takeaways": [
             "Don't start with \"how do we add an agent?\" Start with \"how do we shape an agent to think like our strongest product leader?\"",
             "Define the agent like a teammate: the decisions it influences, the context it must know and the tradeoffs it should favor.",
@@ -357,6 +363,7 @@ ARTICLES = [
      "linkedin": "https://www.linkedin.com/pulse/agentic-ai-internal-product-building-pm-copilots-your-robert-merrell-jlepc"},
     {
         "slug": "roadmaps-to-rituals",
+        "seo_title": "From Roadmaps to Rituals: Agentic AI and the PM's Job",
         "services": ["ai", "coaching"],
         "title": "From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job",
         "dek": "Agents can own the first pass of backlog grooming, market research, experiment design and KPI reviews. The PM's job moves to orchestration and sense making.",

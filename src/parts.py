@@ -172,9 +172,12 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">')
 
 
-def page(file, title, desc, body, extra_head="", image="assets/img/og.png", nav=None, og_type="website"):
+def page(file, title, desc, body, extra_head="", image="assets/img/og.png", nav=None, og_type="website", noindex=False):
     url = SITE + ("" if file == "index.html" else file[:-5])   # the clean address: /services, not /services.html
-    full = title if file == "index.html" else f"{title} · Product Advisory"
+    # Google shows about 60 characters of a title: the brand is added only when it still fits.
+    full = title if file == "index.html" or len(title) > 44 else f"{title} · Product Advisory"
+    if noindex:
+        extra_head = '<meta name="robots" content="noindex">\n' + extra_head
     return f'''<!doctype html>
 <html lang="en">
 <head>

@@ -321,7 +321,7 @@ def home():
 
 {cta_band()}'''
     write("index.html", page("index.html", "Product Advisory · Building Market Driven Products",
-                             "Product management consulting for startups and enterprises: strategy, lifecycle, AI enablement, research, coaching and custom skill assessments. Book a free 30-minute call.",
+                             "Product management consulting for startups and enterprises: strategy, AI enablement, research, coaching and skill assessments. Book a free 30-minute call.",
                              body, jsonld))
 
 
@@ -412,7 +412,7 @@ def services():
         {"@type": "ListItem", "position": n, "item": {"@type": "Service", "name": t, "description": fw, "url": f"{SITE}services#{i}", "provider": ORG, "areaServed": "Worldwide"}}
         for n, (i, _, t, fw, *_) in enumerate(SERVICES + [(k, None, t, plain(d).split(". ")[0] + ".") for k, _, t, d, _ in PACKAGES], 1)]},
         faq_ld(SERVICES_FAQ), crumbs=[("Services", "services")])
-    write("services.html", page("services.html", "Services", "Product strategy, lifecycle management, AI enablement, market research, agile transformation, team coaching, custom assessments, and service packages including Fractional CPO+.", body,
+    write("services.html", page("services.html", "Product Consulting Services", "Product strategy, lifecycle management, AI enablement, market research, agile transformation, team coaching, assessments and Fractional CPO+ packages.", body,
                                 extra_head=services_ld, image=og("services")))
 
 
@@ -639,7 +639,7 @@ def about():
   </div>
 </section>
 {cta_band()}'''
-    write("about.html", page("about.html", "About Us", "Product Advisory is a product management consulting firm that helps startups and enterprises turn market insight into products people actually want.", body,
+    write("about.html", page("about.html", "About Our Product Consultants", "Product Advisory is a product management consulting firm that helps startups and enterprises turn market insight into products people actually want.", body,
           extra_head=ld({"@type": "AboutPage", "name": "About Product Advisory", "url": SITE + "about", "about": ORG, "mainEntity": ORG},
                         {"@type": "Person", "@id": SITE + "about#robert-merrell", "name": "Robert Merrell", "jobTitle": "Founder and Fractional CPO",
                          "worksFor": ORG, "url": PORTFOLIO, "homeLocation": {"@type": "Place", "name": "Chicago, Illinois"}},
@@ -720,7 +720,7 @@ def contact():
     </aside>
   </div>
 </section>'''
-    write("contact.html", page("contact.html", "Contact Us", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body,
+    write("contact.html", page("contact.html", "Contact Us: Free Consultation", "Let's talk: send Product Advisory a message, book a free 30-minute consultation, or email, call or find us on LinkedIn and Slack.", body,
           extra_head=ld({"@type": "ContactPage", "name": "Contact Product Advisory", "url": SITE + "contact", "about": ORG}, crumbs=[("Contact", "contact")]), image=og("contact")))
 
 
@@ -837,7 +837,7 @@ def scorecard():
 <script src="assets/js/save.js"></script>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
-    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "A free, interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight your criteria, score your features, compare the rankings, and share, download or print the result.", body,
+    write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "Free interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight criteria, score features, compare rankings and share the result.", body,
           extra_head=ld({"@type": "WebApplication", "name": "Feature Prioritization Scorecard", "url": SITE + "scorecard", "applicationCategory": "BusinessApplication",
                          "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                          "description": "Rank product features with weighted scoring or RICE, compare the two rankings side by side, and share, download or print the result.",
@@ -918,7 +918,7 @@ def ai_use_cases():
 <script src="assets/js/save.js"></script>
 <script src="assets/js/ai-usecases-core.js"></script>
 <script src="assets/js/ai-usecases.js"></script>'''
-    write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "A free, interactive AI Use Case Prioritization tool: score your AI ideas on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get a plan with the first pilot to run.", body,
+    write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "Free AI use case prioritization tool: score AI ideas on value, data readiness, cost, team readiness and risk, map them, and get the first pilot to run.", body,
           extra_head=ld({"@type": "WebApplication", "name": "AI Use Case Prioritization", "url": SITE + "ai-use-cases", "applicationCategory": "BusinessApplication",
                          "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                          "description": "Score AI ideas on business value, data readiness, cost and effort, team readiness and risk; see them on a value and feasibility map; get the first pilot to run and a next step for each idea.",
@@ -1065,7 +1065,7 @@ def build_buy_partner():
 <script src="assets/js/save.js"></script>
 <script src="assets/js/bbp-core.js"></script>
 <script src="assets/js/bbp.js"></script>'''
-    write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "A free, interactive Build, Buy, or Partner Decision Matrix: score build, buy and partner against ten weighted criteria, compare the real three-year cost, and record the decision with its risks and tripwires.", body,
+    write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "Free Build, Buy, or Partner decision matrix: score each option on ten weighted criteria, compare the three-year cost, and record the decision and its risks.", body,
           extra_head=ld({"@type": "WebApplication", "name": "Build, Buy, or Partner Decision Matrix", "url": SITE + "build-buy-partner", "applicationCategory": "BusinessApplication",
                          "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                          "description": "Score building, buying or partnering for a capability against ten weighted criteria, compare the three-year cost and time to first value, and record the decision with its risks and tripwires.",
@@ -1152,7 +1152,7 @@ def impact_score():
 <script src="assets/js/save.js"></script>
 <script src="assets/js/impact-core.js"></script>
 <script src="assets/js/impact.js"></script>'''
-    write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "A free, interactive Organizational Impact Score: rate initiatives against the KPIs your organization tracks, adjust for confidence, and get a ranking with a suggested action for each: do now, big bet, quick win or revisit.", body,
+    write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "Free Organizational Impact Score: rate initiatives against your KPIs, adjust for confidence, and rank them with an action for each: do now, big bet, quick win.", body,
           extra_head=ld({"@type": "WebApplication", "name": "Organizational Impact Score", "url": SITE + "impact-score", "applicationCategory": "BusinessApplication",
                          "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                          "description": "Rate initiatives against weighted KPIs, adjust for confidence and ease, and get a ranking with a suggested action for each initiative.",
@@ -1274,7 +1274,7 @@ def preferences():
     </details>
   </div>
 </section>'''
-    write("preferences.html", page("preferences.html", "Make it yours", "Change how the Product Advisory site looks and reads: style, accent, your role, reading depth, colour mode, text size, density and motion.", body))
+    write("preferences.html", page("preferences.html", "Make it yours", "Change how the Product Advisory site looks and reads: style, accent, your role, reading depth, colour mode, text size, density and motion.", body, noindex=True))
 
 
 STYLE_PICKS = '<div class="style-picks" role="radiogroup" aria-label="Style" data-pref="style">' + "".join(
@@ -1309,7 +1309,7 @@ def notfound():
     if (map[slug]) location.replace("/" + map[slug]);
   }})();
 </script>'''
-    html = page("404.html", "Page not found", "This page could not be found.", body)
+    html = page("404.html", "Page not found", "This page could not be found.", body, noindex=True)
     write("404.html", html)
 
 
@@ -1485,7 +1485,7 @@ def insights():
   </div>
 </section>
 {cta_band()}'''
-    write("insights.html", page("insights.html", "Insights", "Articles from the Product+ Newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body,
+    write("insights.html", page("insights.html", "Product+ Insights and Articles", "Articles from the Product+ Newsletter on product strategy, AI agents and AI enablement, by Product Advisory.", body,
           extra_head=ld({"@type": "Blog", "@id": SITE + "insights#blog", "name": "Product+ insights", "url": SITE + "insights", "publisher": ORG,
                          "blogPost": [{"@type": "BlogPosting", "headline": a["title"], "url": f"{SITE}insights/{a['slug']}", "datePublished": a["date"],
                                        "image": f"{SITE}assets/insights/{a['slug']}/og.jpg"} for a in full if a.get("body")]},
@@ -1543,7 +1543,7 @@ def article_page(a, full):
     <div class="insight-grid">{"".join(insight_card(x) for x in more)}</div>
   </div>
 </section>'''
-    write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a["title"], a["dek"], body,
+    write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a.get("seo_title") or a["title"], a.get("description") or a["dek"], body,
           extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld,
           image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
 
@@ -1553,7 +1553,7 @@ def sitemap():
     arts = published()
     newest = max((a.get("updated") or a["date"] for a in arts), default="")
     pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
-            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "preferences", "privacy-policy", "terms-of-use")]
+            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "privacy-policy", "terms-of-use")]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
