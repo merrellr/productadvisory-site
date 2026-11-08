@@ -293,6 +293,49 @@ const ARTS = {
           <div class="r"><div class="b" style="width:46%;background:${C.tealDark};color:#fff"><b>Lifelong loyalty</b><span>Trust, advocacy, retention</span></div><span class="who" style="color:${C.tealDark}">THE OUTCOME</span></div></div>` }
     }
   }
+  ,'ai-is-a-practice': {
+    cover: {
+      eyebrow: 'AI enablement', title: 'Stop waiting for perfect', titleSize: 88, dek: "Here's how to actually start using AI.",
+      art: (() => {
+        // one person at the centre, ripples out to a use case, the team and the organization
+        let s = `<svg width="1600" height="470" viewBox="0 0 1600 470" xmlns="http://www.w3.org/2000/svg"><g transform="translate(800 280)">`;
+        [[200, C.sand, 2], [140, C.mint, 2.5], [82, C.teal, 3]].forEach(([r, c, w]) => { s += `<circle r="${r}" fill="none" stroke="${c}" stroke-width="${w}" stroke-opacity=".8"/>`; });
+        s += `<circle r="34" fill="${C.teal}"/>`;
+        const nodes = [[-300, -70, 13, C.sand], [-330, 50, 18, C.sky], [-250, 130, 11, C.mint], [290, -100, 15, C.mint], [330, 20, 22, C.teal], [280, 130, 30, C.tealDark]];
+        nodes.forEach(([x, y, r, c]) => { s += `<line x1="${x > 0 ? 82 : -82}" y1="0" x2="${x}" y2="${y}" stroke="${C.sand}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`; });
+        [['YOU', 0, 66], ['ONE USE CASE', 0, -100], ['TEAM', -235, -150], ['ORG', 230, -150]].forEach(([t, x, y], i) => {
+          if (i === 0) return; s += `<text x="${x}" y="${y}" text-anchor="middle" font-family="JetBrains Mono" font-size="15" letter-spacing="3" fill="${C.mute}">${t}</text>`; });
+        s += `</g></svg>`;
+        return s;
+      })() },
+    figures: {
+      'adoption-journey': { title: 'The AI adoption journey', sub: 'Nobody waits until they\'re "ready". They start small and build evidence.',
+        css: `.aj{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;position:relative}.aj div{border-radius:16px;padding:26px 22px 28px;color:#fff;position:relative;min-height:170px}
+          .aj b{display:block;font-family:Fraunces,serif;font-size:30px;margin-bottom:10px}.aj p{font-size:19px;line-height:1.45;opacity:.92}
+          .aj div:not(:last-child)::after{content:'→';position:absolute;right:-28px;top:62px;font-size:26px;color:${C.mute}}
+          .tl{position:relative;margin:34px 6px 0;height:70px}.tl .line{position:absolute;left:0;right:0;top:44px;height:3px;background:${C.sand}}
+          .tl .dot{position:absolute;top:35px;width:20px;height:20px;border-radius:50%;margin-left:-10px}.tl span{position:absolute;top:0;font-size:19px;font-weight:600;color:${C.soft};transform:translateX(-50%)}`,
+        html: `<div class="aj">
+          <div style="background:#4a4a46"><b>You</b><p>Personal curiosity and exploration</p></div>
+          <div style="background:#0e5547"><b>One use case</b><p>One repetitive task automated</p></div>
+          <div style="background:#0e5547"><b>Team traction</b><p>Share wins, peer learning spreads</p></div>
+          <div style="background:#2d5a12"><b>Org capability</b><p>Standardized, tied to business goals</p></div></div>
+          <div class="tl"><div class="line"></div>
+          <span style="left:11.5%">Start here</span><span style="left:88.5%">Scale here</span>
+          <div class="dot" style="left:11.5%;background:#8a8a84"></div><div class="dot" style="left:37.2%;background:${C.mint}"></div>
+          <div class="dot" style="left:62.8%;background:${C.mint}"></div><div class="dot" style="left:88.5%;background:#3f6f1c"></div></div>` },
+      'getting-started': { title: 'How to get started', sub: 'Four moves that build momentum before anyone writes a strategy.',
+        css: `.st{display:grid;grid-template-columns:1fr 1fr;gap:18px}.st div{background:#2f2f2d;border-radius:16px;padding:28px 30px 32px;color:#e9e9e4}
+          .st span{display:block;font-family:'JetBrains Mono';font-size:16px;letter-spacing:.18em;color:#8fb3e0}
+          .st i{display:block;width:56px;height:5px;border-radius:3px;margin:10px 0 18px}
+          .st b{display:block;font-size:27px;font-weight:700;color:#fff;margin-bottom:10px}.st p{font-size:20px;line-height:1.55;color:#c9c9c2}`,
+        html: `<div class="st">
+          <div><span>STEP 01</span><i style="background:${C.mint}"></i><b>Start with your own curiosity</b><p>Before rolling anything out to a team, spend a few weeks just using AI yourself. Draft emails, summarize reports, think out loud. Your firsthand experience is worth more than any briefing document.</p></div>
+          <div><span>STEP 02</span><i style="background:${C.teal}"></i><b>Automate one painful, repetitive task</b><p>Every team has one. The weekly status report. The meeting notes. The first draft that always starts blank. Pick one. That single proof point builds more momentum than any slide deck ever could.</p></div>
+          <div><span>STEP 03</span><i style="background:${C.mint}"></i><b>Lower the bar for what counts as a win</b><p>People try AI once, get an imperfect result, and conclude it does not work. Treat every interaction as a conversation, not a one-shot test. Be specific, give context, and iterate.</p></div>
+          <div><span>STEP 04</span><i style="background:#1a8f6a"></i><b>Give your team permission to experiment</b><p>Not a formal program with KPIs. Just permission. Tell your people you want to hear what they are trying. Celebrate the experiments that did not work as much as the ones that did.</p></div></div>` }
+    }
+  }
 };
 
 async function main(slug) {
