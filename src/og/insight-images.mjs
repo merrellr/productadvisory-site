@@ -527,6 +527,59 @@ const ARTS = {
         })() }
     }
   }
+  ,'ai-accessibility': {
+    cover: {
+      eyebrow: 'Accessibility', title: 'Improving accessibility with AI', titleSize: 84, dek: 'Tools and innovations making life easier, built in by default.', dekTop: 330,
+      art: (() => {
+        // four ways in, each a circle on a soft ring: voice, vision, captions, read aloud
+        const items = [[560, 'mic', C.mint], [720, 'eye', C.violet], [880, 'cc', C.amber], [1040, 'book', C.coral]];
+        let s = `<svg width="1600" height="470" viewBox="0 0 1600 470" xmlns="http://www.w3.org/2000/svg"><path d="M420 250 C 600 150, 1000 150, 1180 250" fill="none" stroke="${C.sand}" stroke-width="3" stroke-dasharray="4 9"/>`;
+        items.forEach(([x, k, c]) => {
+          const y = 230;
+          s += `<circle cx="${x}" cy="${y}" r="58" fill="#fff" stroke="${c}" stroke-width="4"/>`;
+          if (k === 'mic') s += `<rect x="${x - 12}" y="${y - 30}" width="24" height="40" rx="12" fill="none" stroke="${C.navy}" stroke-width="5"/><path d="M${x - 24} ${y - 2} a24 24 0 0 0 48 0M${x} ${y + 22}v12" fill="none" stroke="${C.navy}" stroke-width="5" stroke-linecap="round"/>`;
+          if (k === 'eye') s += `<path d="M${x - 34} ${y} q34 -32 68 0 q-34 32 -68 0z" fill="none" stroke="${C.navy}" stroke-width="5"/><circle cx="${x}" cy="${y}" r="10" fill="${C.navy}"/>`;
+          if (k === 'cc') s += `<rect x="${x - 32}" y="${y - 22}" width="64" height="44" rx="8" fill="none" stroke="${C.navy}" stroke-width="5"/><path d="M${x - 20} ${y - 2}h18M${x + 6} ${y - 2}h14M${x - 20} ${y + 10}h40" stroke="${C.navy}" stroke-width="5" stroke-linecap="round"/>`;
+          if (k === 'book') s += `<path d="M${x} ${y - 18} q-18 -10 -34 -4v40q16 -6 34 4q18 -10 34 -4v-40q-16 -6 -34 4zM${x} ${y - 18}v40" fill="none" stroke="${C.navy}" stroke-width="5" stroke-linejoin="round"/>`;
+        });
+        [['VOICE', 560], ['VISION', 720], ['CAPTIONS', 880], ['READ ALOUD', 1040]].forEach(([t, x]) => { s += `<text x="${x}" y="330" text-anchor="middle" font-family="JetBrains Mono" font-size="15" letter-spacing="3" fill="${C.mute}">${t}</text>`; });
+        return s + '</svg>';
+      })() },
+    figures: {
+      'before-after': { title: 'Accessibility, without AI and with it', sub: 'From a compliance afterthought to inclusion built in by default.',
+        css: `.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px}.ba>div{border-radius:18px;padding:24px 26px}.ba h3{font-family:'JetBrains Mono';font-size:15px;letter-spacing:.2em;margin:0 0 10px}
+          .ba li{list-style:none;font-size:18.5px;line-height:1.4;padding:9px 0 9px 32px;position:relative;border-top:1px solid rgba(0,0,0,.07)}.ba ul{margin:0 0 16px;padding:0}
+          .ba li::before{position:absolute;left:0;top:8px;font-weight:700}.ba .no li::before{content:'✕';color:#b5562a}.ba .yes li::before{content:'✓';color:#257a48}
+          .ba .tags span{display:inline-block;font-size:15px;border-radius:999px;padding:5px 12px;margin:0 6px 6px 0}`,
+        html: `<div class="ba"><div class="no" style="background:#ecedf2"><h3 style="color:${C.mute}">WITHOUT AI</h3><ul>
+          <li>Manual captioning: slow, error-prone, often unavailable</li><li>Static screen readers with limited context</li><li>One-size-fits-all content, no adaptation for cognitive needs</li><li>Specialized devices, separate from mainstream tech</li><li>Navigation barriers in unfamiliar places</li></ul>
+          <div class="tags"><span style="background:#dcdbd3">Compliance-driven</span><span style="background:#dcdbd3">Bolt-on feature</span><span style="background:#dcdbd3">Manual effort</span></div></div>
+          <div class="yes" style="background:#fff"><h3 style="color:#257a48">WITH AI</h3><ul>
+          <li>Real-time captions in meetings, events and video</li><li>Computer vision describes scenes, objects and text</li><li>Adaptive tools personalize pace, format and complexity</li><li>Built into everyday phones, laptops and workplace apps</li><li>Voice + vision guide low-vision users in real time</li></ul>
+          <div class="tags"><span style="background:#d7f0e4;color:#1e6b46">Inclusion-driven</span><span style="background:#d7f0e4;color:#1e6b46">Built in by default</span><span style="background:#d7f0e4;color:#1e6b46">Automated</span></div></div></div>` },
+      'four-areas': { title: 'Where AI is already making a difference', sub: 'Four areas changing daily life, and the features behind them.',
+        css: `.fa{display:grid;grid-template-columns:1fr 1fr;gap:16px}.fa>div{background:#fff;border-radius:16px;padding:22px 24px;border-left:6px solid}
+          .fa b{display:block;font-family:Fraunces,serif;font-size:25px;color:${C.navy};margin-bottom:8px}.fa p{font-size:17.5px;line-height:1.5;color:${C.soft};margin:0 0 14px}
+          .fa span{display:inline-block;font-size:14.5px;border-radius:999px;padding:4px 11px;margin:0 6px 6px 0;background:#f1efe9;color:${C.ink}}`,
+        html: `<div class="fa">
+          <div style="border-color:${C.mint}"><b>Voice interfaces</b><p>Speech lets people with mobility or dexterity challenges complete tasks through conversation, with no typing or tapping.</p><span>Dictation</span><span>Voice assistants</span><span>Smart device control</span></div>
+          <div style="border-color:${C.violet}"><b>Visual assistance</b><p>Phone cameras become real-time guides: identifying objects, reading text aloud and describing scenes for people who are blind or have low vision.</p><span>Scene description</span><span>Object ID</span><span>Navigation guidance</span></div>
+          <div style="border-color:${C.amber}"><b>Captioning &amp; transcription</b><p>Captions and transcripts make meetings, events and video accessible in real time, far more accurate and available than before.</p><span>Live captions</span><span>Meeting transcripts</span><span>AI summaries</span></div>
+          <div style="border-color:${C.coral}"><b>Adaptive learning &amp; cognitive support</b><p>Content adapts: simpler language, summaries and step-by-step guidance reduce overwhelm for people with dyslexia, ADHD or memory differences.</p><span>Plain language</span><span>Document summaries</span><span>Read aloud</span></div></div>` },
+      'getting-started': { title: 'How to get started', sub: 'Begin with real user needs, not the technology. Then turn on the quick wins.',
+        css: `.gs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.gs div{border-radius:14px;padding:16px 18px;color:#fff}.gs b{display:block;font-size:19px;margin-bottom:4px}.gs span{font-size:16px;opacity:.85}
+          .qw h3{font-family:'JetBrains Mono';font-size:14px;letter-spacing:.2em;color:${C.mute};margin:24px 0 10px}.qw span{display:inline-block;font-size:16px;border-radius:999px;padding:7px 14px;margin:0 8px 8px 0;background:#fff;border:2px solid ${C.teal};color:${C.tealDark}}
+          .lg3{display:flex;gap:22px;margin-top:10px;font-size:15px;color:${C.soft}}.lg3 i{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:6px;vertical-align:-1px}`,
+        html: (() => {
+          const P = '#4a4a46', E = '#0e5547', M = '#3d3488';
+          const st = [['1. Identify friction', 'Where do users struggle?', P], ['2. Pick 1–2 use cases', 'High impact, manageable scope', E], ['3. Involve the right people', 'Design, engineering, users with disabilities', E],
+            ['4. Define success metrics', 'Completion, satisfaction, friction', M], ['5. Pilot and refine', 'Test, gather feedback, iterate', M], ['6. Expand thoughtfully', 'Roll out across more surfaces', P]];
+          return `<div class="gs">${st.map(x => `<div style="background:${x[2]}"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+            <div class="lg3"><span><i style="background:${P}"></i>Planning</span><span><i style="background:${E}"></i>Execution</span><span><i style="background:${M}"></i>Measurement &amp; iteration</span></div>
+            <div class="qw"><h3>QUICK WINS: TURN THESE ON TODAY</h3>${['Live captions by default', 'Meeting transcripts', 'Auto alt text', 'AI meeting recaps', 'Voice typing', 'AI action items', 'Read aloud for articles', 'Chat translation'].map(t => `<span>${t}</span>`).join('')}</div>`;
+        })() }
+    }
+  }
 };
 
 async function main(slug) {
