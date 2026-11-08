@@ -336,6 +336,72 @@ const ARTS = {
           <div><span>STEP 04</span><i style="background:#1a8f6a"></i><b>Give your team permission to experiment</b><p>Not a formal program with KPIs. Just permission. Tell your people you want to hear what they are trying. Celebrate the experiments that did not work as much as the ones that did.</p></div></div>` }
     }
   }
+  ,'healthcare-saas-pitfalls': {
+    cover: {
+      eyebrow: 'Healthcare SaaS', title: 'Ten pitfalls in early stage healthcare products', titleSize: 74, dek: 'Shape the product to fit healthcare as it actually works.', dekTop: 330,
+      art: (() => {
+        // the care pathway, with the product sitting inside it (between care and documentation), guarded by a shield
+        const steps = [['INTAKE', 360], ['CARE', 610], ['DOCUMENTATION', 990], ['BILLING', 1240]];
+        let s = `<svg width="1600" height="470" viewBox="0 0 1600 470" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0 40)">
+          <line x1="360" y1="220" x2="1240" y2="220" stroke="${C.sand}" stroke-width="5"/>
+          <line x1="610" y1="220" x2="990" y2="220" stroke="${C.mint}" stroke-width="6"/>`;
+        steps.forEach(([t, x]) => { s += `<circle cx="${x}" cy="220" r="44" fill="#fff" stroke="${C.sand}" stroke-width="4"/>
+          <text x="${x}" y="306" text-anchor="middle" font-family="JetBrains Mono" font-size="16" letter-spacing="3" fill="${C.mute}">${t}</text>`; });
+        // simple glyphs: a form, a heart, a page, a dollar
+        s += `<rect x="342" y="198" width="36" height="44" rx="5" fill="none" stroke="${C.mute}" stroke-width="3"/><path d="M350 212h20M350 222h20M350 232h14" stroke="${C.mute}" stroke-width="3"/>
+          <path d="M610 240 l-20 -20 a12 12 0 0 1 20 -14 a12 12 0 0 1 20 14 z" fill="none" stroke="${C.mute}" stroke-width="3" stroke-linejoin="round"/>
+          <rect x="972" y="198" width="36" height="44" rx="5" fill="none" stroke="${C.mute}" stroke-width="3"/><path d="M980 212h20M980 222h20M980 232h20" stroke="${C.mute}" stroke-width="3"/>
+          <circle cx="1240" cy="220" r="20" fill="none" stroke="${C.mute}" stroke-width="3"/><text x="1240" y="228" text-anchor="middle" font-family="Inter" font-weight="700" font-size="22" fill="${C.mute}">$</text>
+          <circle cx="800" cy="220" r="34" fill="${C.teal}"/><path d="M784 220 l11 11 l21 -23" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M800 20 l52 20 v40 c0 34 -24 58 -52 70 c-28 -12 -52 -36 -52 -70 v-40 z" fill="${C.sky}" fill-opacity=".45" stroke="${C.teal}" stroke-width="3"/>
+          <line x1="800" y1="152" x2="800" y2="184" stroke="${C.teal}" stroke-width="3" stroke-dasharray="4 5"/></g></svg>`;
+        return s;
+      })() },
+    figures: {
+      'workflow-fit': { title: 'Workflow fit', sub: 'Interest in a discovery call is not fit. Fit is when the product disappears into the work.',
+        css: `.wf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.wf>div{background:#fff;border-radius:18px;padding:26px 26px 24px}
+          .wf h3{font-family:Fraunces,serif;font-size:30px;color:${C.navy};margin:0}.wf .s{font-size:18px;color:${C.mute};margin:4px 0 0}
+          .wf svg{display:block;width:100%;height:auto;margin:6px 0 4px}.wf .note{border-radius:12px;padding:14px 18px;font-size:18px;line-height:1.4}.wf .note b{display:block;font-size:19px}`,
+        html: (() => {
+          const icon = (k, x) => k === 'form' ? `<rect x="${x - 11}" y="74" width="22" height="28" rx="3" fill="none" stroke="#97a1b0" stroke-width="2.5"/><path d="M${x - 6} 83h12M${x - 6} 90h12M${x - 6} 97h8" stroke="#97a1b0" stroke-width="2.5"/>`
+            : k === 'heart' ? `<path d="M${x} 100 l-12 -12 a7 7 0 0 1 12 -9 a7 7 0 0 1 12 9 z" fill="none" stroke="#97a1b0" stroke-width="2.5" stroke-linejoin="round"/>`
+            : k === 'doc' ? `<rect x="${x - 11}" y="74" width="22" height="28" rx="3" fill="none" stroke="#97a1b0" stroke-width="2.5"/><path d="M${x - 6} 83h12M${x - 6} 90h12M${x - 6} 97h12" stroke="#97a1b0" stroke-width="2.5"/>`
+            : `<circle cx="${x}" cy="88" r="12" fill="none" stroke="#97a1b0" stroke-width="2.5"/><text x="${x}" y="94" text-anchor="middle" font-family="Inter" font-weight="700" font-size="15" fill="#97a1b0">$</text>`;
+          const check = (x, y) => `<circle cx="${x}" cy="${y}" r="17" fill="#35c2e8"/><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M${x - 6} ${y} l4 4 l8 -9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+          const flow = (inline) => {
+            const xs = [40, 180, inline ? 360 : 320, 480];
+            let g = `<svg viewBox="0 0 520 170"><line x1="40" y1="88" x2="480" y2="88" stroke="#a2abb8" stroke-width="3"/>`;
+            if (inline) g += `<line x1="180" y1="88" x2="360" y2="88" stroke="#35c2e8" stroke-width="4"/>`;
+            [['form', 'Intake'], ['heart', 'Care'], ['doc', 'Documentation'], ['dollar', 'Billing']].forEach(([k, t], i) => {
+              g += `<circle cx="${xs[i]}" cy="88" r="27" fill="#f6f8fb" stroke="#a2abb8" stroke-width="3"/>${icon(k, xs[i])}<text x="${xs[i]}" y="142" text-anchor="middle" font-family="Inter" font-size="16" fill="#5d6776">${t}</text>`; });
+            g += inline ? check(270, 88) : `<line x1="196" y1="68" x2="246" y2="30" stroke="#97a1b0" stroke-width="2.5" stroke-dasharray="3 5"/>${check(260, 22)}`;
+            return g + '</svg>';
+          };
+          return `<div class="wf"><div><h3>Founder's vision</h3><p class="s">The product sits outside the process</p>${flow(false)}
+            <div class="note" style="background:#fbeee8;color:#b5562a"><b>Extra step. Extra friction.</b>Easy for a busy team to ignore.</div></div>
+            <div><h3>Real workflow</h3><p class="s">The product is part of the process</p>${flow(true)}
+            <div class="note" style="background:#eaf6ef;color:#257a48"><b>Feels like the job, not an add-on.</b>Nothing new to remember.</div></div></div>`;
+        })() },
+      'buying-committee': { title: 'Who shapes the purchase decision', sub: 'The person who loves the product is rarely the one who approves the budget or signs.',
+        css: `.bc{background:#fff;border-radius:18px;padding:10px 10px 0}.lg{display:flex;gap:26px;margin:0 0 4px 16px;font-size:18px;color:${C.soft}}.lg span::before{content:'';display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-1px;background:var(--c)}`,
+        html: (() => {
+          const cx = 540, cy = 330, R = 230, nodes = [
+            ['End user (clinician)', 'Loves the time saved', -90, '#35c2e8'], ['Economic buyer', 'Owns the budget', -30, '#1b4384'], ['Dept. leadership', 'Wants proof it scales', 30, '#1b4384'],
+            ['Legal / compliance', 'Needs data safeguards', 90, '#4a5466'], ['IT', 'Worried about integration load', 150, '#4a5466'], ['Technical stakeholders', 'Vets the architecture', 210, '#4a5466']];
+          let g = `<svg width="1060" height="660" viewBox="0 0 1080 660">`;
+          nodes.forEach(([n, d, a, c]) => {
+            const r = a * Math.PI / 180, x = cx + R * Math.cos(r), y = cy + R * Math.sin(r), below = Math.sin(r) > 0.1;
+            g += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#dde3ec" stroke-width="3"/><circle cx="${x}" cy="${y}" r="22" fill="${c}"/>`;
+            const ty = below ? y + 52 : y - 54;
+            g += `<text x="${x}" y="${ty}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="21" fill="${C.navy}">${n}</text>
+              <text x="${x}" y="${ty + 26}" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="22" fill="${C.teal}">${d}</text>`;
+          });
+          g += `<circle cx="${cx}" cy="${cy}" r="80" fill="#14305f"/><text x="${cx}" y="${cy - 6}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="25" fill="#fff">Purchase</text>
+            <text x="${cx}" y="${cy + 26}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="25" fill="#fff">decision</text></svg>`;
+          return `<div class="bc"><div class="lg"><span style="--c:#35c2e8">Clinical</span><span style="--c:#1b4384">Business</span><span style="--c:#4a5466">Technical / risk</span></div>${g}</div>`;
+        })() }
+    }
+  }
 };
 
 async function main(slug) {
