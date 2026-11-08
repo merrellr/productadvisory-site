@@ -1631,8 +1631,8 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 html.pa-embed body { background: transparent; }
 html.pa-embed .nav, html.pa-embed .progress, html.pa-embed .skip, html.pa-embed .page-head, html.pa-embed footer.site,
 html.pa-embed .tool-links, html.pa-embed .tool-more, html.pa-embed .tool-files, html.pa-embed .consent, html.pa-embed .shared-bar,
-html.pa-embed [data-sc="save"], html.pa-embed [data-uc="save"], html.pa-embed [data-bb="save"], html.pa-embed [data-im="save"],
-html.pa-embed [data-sc="share"], html.pa-embed [data-uc="share"], html.pa-embed [data-bb="share"], html.pa-embed [data-im="share"] { display: none !important; }   /* Learning saves and shares */
+html.pa-embed [data-sc="save"], html.pa-embed [data-uc="save"], html.pa-embed [data-bb="save"], html.pa-embed [data-im="save"], html.pa-embed [data-rd="save"],
+html.pa-embed [data-sc="share"], html.pa-embed [data-uc="share"], html.pa-embed [data-bb="share"], html.pa-embed [data-im="share"], html.pa-embed [data-rd="share"] { display: none !important; }   /* Learning saves and shares */
 /* the tips stay; the line about our services and its links don't */
 html.pa-embed .sc-tips hr.rule, html.pa-embed .sc-tips hr.rule ~ * { display: none !important; }
 html.pa-embed main, html.pa-embed main > section { padding: 0 !important; margin: 0; }

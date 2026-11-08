@@ -55,5 +55,14 @@ console.log('--- safe input, links and files ---');
   t('a Partly answer comes with what to do; a Yes needs nothing', /^Strategy & goals,We've named one to three business problems we want AI to help with\.,Partly,1,"Pick the one/m.test(csv) && /^Data,We know who owns that data and whether we may use it with AI\.,Yes,2,$/m.test(csv));
 }
 
+console.log('--- inside Product Advisory Learning ---');
+{
+  const fs = await import('node:fs');
+  const css = fs.readFileSync(new URL('../assets/css/site.css', import.meta.url), 'utf8');
+  const pages = { sc: 'scorecard.html', uc: 'ai-use-cases.html', bb: 'build-buy-partner.html', im: 'impact-score.html', rd: 'ai-readiness.html' };
+  const missing = Object.keys(pages).filter(k => !css.includes('html.pa-embed [data-' + k + '="save"]') || !css.includes('html.pa-embed [data-' + k + '="share"]'));
+  t('every tool hides its own Save and Share when it runs inside Learning (Learning saves and shares)', missing.length === 0, missing.join());
+}
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
