@@ -402,6 +402,66 @@ const ARTS = {
         })() }
     }
   }
+  ,'discovery-with-ai-agents': {
+    cover: {
+      eyebrow: 'Product discovery', title: 'Lead with humans, augment with agents', titleSize: 76, dek: 'Run discovery with AI without losing the voice of the customer.', dekTop: 330,
+      art: (() => {
+        // a conversation (two speech bubbles) feeding a small agent node that sorts notes into clusters
+        let s = `<svg width="1600" height="470" viewBox="0 0 1600 470" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0 40)">`;
+        s += `<path d="M420 120 h170 a22 22 0 0 1 22 22 v58 a22 22 0 0 1 -22 22 h-110 l-30 26 v-26 h-30 a22 22 0 0 1 -22 -22 v-58 a22 22 0 0 1 22 -22 z" fill="#fff" stroke="#e07a4f" stroke-width="3"/>
+          <path d="M520 220 h170 a22 22 0 0 1 22 22 v50 a22 22 0 0 1 -22 22 h-30 v26 l-30 -26 h-110 a22 22 0 0 1 -22 -22 v-50 a22 22 0 0 1 22 -22 z" fill="#fdf1ea" stroke="#e07a4f" stroke-width="3"/>
+          <path d="M444 162h120M444 184h84M544 260h120M544 282h70" stroke="${C.mute}" stroke-width="5" stroke-linecap="round"/>`;
+        s += `<path d="M720 200 C 780 200, 800 200, 850 200" fill="none" stroke="${C.sand}" stroke-width="4" stroke-dasharray="4 8"/>
+          <circle cx="900" cy="200" r="46" fill="${C.navy}"/><circle cx="900" cy="200" r="60" fill="none" stroke="${C.sky}" stroke-width="3"/>
+          <text x="900" y="207" text-anchor="middle" font-family="JetBrains Mono" font-size="17" letter-spacing="2" fill="#fff">AGENT</text>`;
+        const notes = [[1010, 110, C.amber], [1060, 130, C.coral], [1035, 160, C.amber], [1100, 220, C.sky], [1150, 240, C.sky], [1120, 270, C.mint], [1030, 300, C.violet], [1075, 320, C.violet]];
+        notes.forEach(([x, y, c], i) => { s += `<rect x="${x}" y="${y}" width="40" height="34" rx="5" fill="${c}" fill-opacity=".85" transform="rotate(${(i % 3 - 1) * 6} ${x + 20} ${y + 17})"/>`; });
+        s += `<path d="M960 200 C 990 180, 1000 150, 1010 140M960 205 C 1010 220, 1060 240, 1095 245M958 215 C 990 260, 1010 290, 1030 305" fill="none" stroke="${C.sand}" stroke-width="3"/></g></svg>`;
+        return s;
+      })() },
+    figures: {
+      'proxy-vs-amplifier': { title: 'AI as a proxy, or AI as an amplifier', sub: 'Where you put AI in discovery decides what you keep.',
+        css: `.pa2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.pa2>div{border-radius:18px;padding:28px 28px 26px}
+          .pa2 h3{font-family:'JetBrains Mono';font-size:16px;letter-spacing:.2em;margin:0 0 6px}.pa2 b.t{display:block;font-family:Fraunces,serif;font-size:32px;margin-bottom:16px}
+          .pa2 ul{list-style:none;padding:0;margin:0 0 18px}.pa2 li{font-size:20px;padding:9px 0;border-top:1px solid rgba(0,0,0,.08);display:flex;gap:12px;align-items:center}
+          .pa2 li i{width:12px;height:12px;border-radius:50%;flex:none}.pa2 .out{border-radius:12px;padding:14px 18px;font-size:20px;font-weight:600}`,
+        html: `<div class="pa2">
+          <div style="background:#e9ebf3"><h3 style="color:${C.mute}">THE PROBLEM</h3><b class="t" style="color:${C.navy}">AI as a proxy</b>
+            <ul><li><i style="background:${C.mute}"></i>Faster discovery</li><li><i style="background:${C.mute}"></i>Automated feedback</li><li><i style="background:${C.mute}"></i>Scaled insights</li><li><i style="background:${C.mute}"></i>Nobody hears the customer</li></ul>
+            <div class="out" style="background:#fbeee8;color:#b5562a">Missing voice, emotion and context.</div></div>
+          <div style="background:#fff"><h3 style="color:${C.teal}">THE OPPORTUNITY</h3><b class="t" style="color:${C.navy}">AI as an amplifier</b>
+            <ul><li><i style="background:#e07a4f"></i>Humans talk to customers</li><li><i style="background:${C.navy}"></i>Agents synthesize</li><li><i style="background:#e07a4f"></i>Humans make sense of it</li><li><i style="background:${C.navy}"></i>AI challenges the hypotheses</li></ul>
+            <div class="out" style="background:#eaf6ef;color:#257a48">Discipline + AI = better judgment.</div></div></div>` },
+      'discovery-loop': { title: 'The AI-augmented discovery loop', sub: 'Humans lead the conversations and the judgment. Agents speed up everything in between.',
+        css: `.lg2{display:flex;gap:26px;margin:-14px 0 8px;font-size:18px;color:${C.soft}}.lg2 span::before{content:'';display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-1px;background:var(--c)}`,
+        html: (() => {
+          const H = '#e07a4f', A = '#1b4384', cx = 540, cy = 318, RX = 368, RY = 236;
+          const steps = [
+            ['Customer conversations', 'HUMAN-LED', H, ['Interviews and context', 'Real language', 'Tone, emotion, workarounds']],
+            ['Synthesis & clustering', 'AGENT-ASSISTED', A, ['Group feedback', 'Surface patterns', 'Scale without interpreting']],
+            ['Sense making', 'HUMAN JUDGMENT', H, ['Prioritize problems', 'Apply strategy', 'Make the tradeoffs']],
+            ['Hypotheses', 'AGENT-ASSISTED', A, ['Generate explanations', 'Challenge assumptions', 'Ask better questions']],
+            ['Validation & testing', 'HUMAN-LED', H, ['Prototypes, problem statements', 'Customer reactions', 'Back to conversations']]];
+          let g = `<svg width="1080" height="636" viewBox="0 0 1080 636"><defs><marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="${C.sand}"/></marker></defs>`;
+          // the loop: arcs between the step positions
+          const pos = steps.map((_, i) => { const a = (-90 + i * 72) * Math.PI / 180; return [cx + RX * Math.cos(a), cy + RY * Math.sin(a)]; });
+          pos.forEach((p, i) => { const q = pos[(i + 1) % 5]; const ma = (-90 + i * 72 + 36) * Math.PI / 180;
+            g += `<path d="M${p[0]} ${p[1]} Q ${cx + RX * 1.15 * Math.cos(ma)} ${cy + RY * 1.15 * Math.sin(ma)} ${q[0]} ${q[1]}" fill="none" stroke="${C.sand}" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>`; });
+          g += `<circle cx="${cx}" cy="${cy}" r="112" fill="${C.navy}"/><text x="${cx}" y="${cy - 10}" text-anchor="middle" font-family="Fraunces" font-weight="600" font-size="29" fill="#fff">Humans own</text>
+            <text x="${cx}" y="${cy + 24}" text-anchor="middle" font-family="Fraunces" font-weight="600" font-size="29" fill="#fff">the insight</text>
+            <text x="${cx}" y="${cy + 58}" text-anchor="middle" font-family="Inter" font-size="17" fill="${C.sky}">AI accelerates the loop</text>`;
+          steps.forEach(([n, who, c, pts], i) => {
+            const [x, y] = pos[i], w = 250, h = 150, bx = Math.min(Math.max(x - w / 2, 4), 1080 - w - 4), by = Math.min(Math.max(y - h / 2, 4), 636 - h - 4);
+            g += `<rect x="${bx}" y="${by}" width="${w}" height="${h}" rx="14" fill="#fff" stroke="${c}" stroke-width="2.5"/>
+              <rect x="${bx}" y="${by}" width="${w}" height="8" rx="4" fill="${c}"/>
+              <text x="${bx + 16}" y="${by + 34}" font-family="JetBrains Mono" font-size="12.5" letter-spacing="2" fill="${c}">${i + 1} · ${who}</text>
+              <text x="${bx + 16}" y="${by + 62}" font-family="Inter" font-weight="700" font-size="20" fill="${C.navy}">${n.replace('&', '&amp;')}</text>`;
+            pts.forEach((t, k) => { g += `<text x="${bx + 16}" y="${by + 90 + k * 22}" font-family="Inter" font-size="15.5" fill="${C.soft}">• ${t}</text>`; });
+          });
+          return `<div class="lg2"><span style="--c:${H}">Human-led</span><span style="--c:${A}">Agent-assisted</span></div>${g}</svg>`;
+        })() }
+    }
+  }
 };
 
 async function main(slug) {
