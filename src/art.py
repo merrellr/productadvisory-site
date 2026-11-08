@@ -81,9 +81,9 @@ def toolkit_open():
     return f'<svg class="net art-toolkit" viewBox="0 0 400 290" role="img" aria-label="An open toolbox with four tools: the Build, Buy, or Partner matrix, the Organizational Impact Score, the Feature Prioritization Scorecard and AI Use Case Prioritization">{"".join(out)}</svg>'
 
 
-TOOLS = ("bbp", "impact", "scorecard", "ai")
+TOOLS = ("bbp", "impact", "scorecard", "ai", "ready")
 TOOL_NAMES = {"bbp": "the Build, Buy, or Partner matrix", "impact": "the Organizational Impact Score",
-              "scorecard": "the Feature Prioritization Scorecard", "ai": "AI Use Case Prioritization"}
+              "scorecard": "the Feature Prioritization Scorecard", "ai": "AI Use Case Prioritization", "ready": "the AI Readiness Checklist"}
 
 
 def _tool_face(key, x, y, w):
@@ -107,6 +107,15 @@ def _tool_face(key, x, y, w):
             out.append(f'<rect class="{"doc-band" if k == 2 else "tf-bar"}" x="{cx}" y="{y + 88 - hgt}" width="{cw}" height="{hgt}" rx="5"/>'
                        f'<text class="lbl tf-n" x="{cx + cw / 2}" y="{y + 104}" text-anchor="middle">{name}</text>')
         return "".join(out)
+    if key == "ready":       # six areas as checked rows, with a score
+        out = []
+        for k, (state, bw) in enumerate((("y", w - 52), ("y", w - 66), ("p", w - 80), ("n", w - 96))):
+            yy = y + 26 * k
+            mark = (f'<path class="tick" d="m{x + 2} {yy + 11} 4 4 8-9"/>' if state == "y" else
+                    f'<path class="tf-axis" d="M{x + 2} {yy + 11}h12"/>' if state == "p" else f'<rect class="tf-grid" x="{x + 2}" y="{yy + 5}" width="12" height="12" rx="3"/>')
+            out.append(mark + f'<rect class="{"doc-band" if state == "y" else "tf-bar"}" x="{x + 22}" y="{yy + 6}" width="{bw - 22}" height="10" rx="5"/>')
+        out.append(f'<text class="lbl tf-cap hot-t" x="{x + w}" y="{y + 104}" text-anchor="end">ONE USE CASE</text>')
+        return "".join(out)
     # impact: KPI weights become a ranked list with actions
     out = []
     for k, (bw, chip) in enumerate(((w - 70, "DO NOW"), (w - 88, "BIG BET"), (w - 110, "QUICK WIN"))):
@@ -124,19 +133,19 @@ def toolkit_tool(key):
     out.append('<path class="lid draw" style="--len:600;--d:.1s" d="M52 150 L68 58 a10 10 0 0 1 9.8-8.2 H322.2 a10 10 0 0 1 9.8 8.2 L348 150"/>')
     out.append('<path class="handle draw" style="--len:120;--d:.3s" d="M168 50 V38 a10 10 0 0 1 10-10 H222 a10 10 0 0 1 10 10 V50"/>')
     for i, k in enumerate(TOOLS):
-        x = 68 + 68 * i
+        x = 64 + 56 * i
         if k == key:
-            out.append(f'<rect class="slot" x="{x}" y="96" width="60" height="54" rx="6"/>')
+            out.append(f'<rect class="slot" x="{x}" y="96" width="48" height="54" rx="6"/>')
         else:
-            out.append(f'<g class="doc rise" style="--d:{0.5 + 0.12 * i:.2f}s"><rect x="{x}" y="96" width="60" height="54" rx="6"/>'
-                       f'<rect class="doc-band" x="{x + 8}" y="104" width="20" height="4" rx="2"/><path d="M{x + 8} 116h44M{x + 8} 124h30M{x + 8} 132h38"/></g>')
+            out.append(f'<g class="doc rise" style="--d:{0.5 + 0.12 * i:.2f}s"><rect x="{x}" y="96" width="48" height="54" rx="6"/>'
+                       f'<rect class="doc-band" x="{x + 7}" y="104" width="16" height="4" rx="2"/><path d="M{x + 7} 116h34M{x + 7} 124h24M{x + 7} 132h30"/></g>')
     out.append('<rect class="case draw" style="--len:760;--d:0s" x="40" y="150" width="320" height="122" rx="20"/>')
     out.append('<path class="draw" style="--len:330;--d:.2s" d="M40 190 H360"/>')
     out.append('<rect class="hot pop" style="--d:.6s" x="182" y="176" width="36" height="28" rx="6"/>')
     out.append('<path class="tick draw" style="--len:60;--d:2.1s" d="m84 228 12 12 22-22"/><path class="tick draw" style="--len:60;--d:2.3s" d="m282 228 12 12 22-22"/></g>')
-    slot_x = -8 + (68 + 68 * TOOLS.index(key) + 30) * .6
+    slot_x = -8 + (64 + 56 * TOOLS.index(key) + 24) * .6
     out.append(f'<path class="trail draw" style="--len:260;--d:1s" d="M{slot_x:.0f} 150 C {slot_x + 20:.0f} 70, 180 40, 230 70"/>')
-    titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score")}
+    titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score"), "ready": ("AI Readiness", "Checklist")}
     t1, t2 = titles[key]
     cx, cy, cw, ch = 230, 34, 162, 232
     out.append(f'<g class="pulled rise" style="--d:1.2s"><g transform="rotate(4 {cx + cw / 2} {cy + ch / 2})">'
@@ -152,8 +161,8 @@ def toolkit_thumb(key):
     """The Toolkits page: each tool as the tile it becomes, on a faint dot grid with a second sheet behind it, and the
     result it gives you called out in cyan. No toolbox here: the section already says these are tools, so the tile
     itself carries the picture (the toolbox stays on each tool page's header)."""
-    results = {"scorecard": "Ranked in 20 min", "ai": "First pilot picked", "bbp": "Partner wins", "impact": "Do now: #1"}
-    titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score")}
+    results = {"scorecard": "Ranked in 20 min", "ai": "First pilot picked", "bbp": "Partner wins", "impact": "Do now: #1", "ready": "Next 3 moves"}
+    titles = {"scorecard": ("Feature", "Scorecard"), "ai": ("AI Use Case", "Prioritization"), "bbp": ("Build, Buy", "or Partner"), "impact": ("Org Impact", "Score"), "ready": ("AI Readiness", "Checklist")}
     cx, cy, cw, ch = 66, 22, 168, 196
     mx, my = cx + cw / 2, cy + ch / 2
     # backdrop: a faint dot grid, and the next sheet in the stack, turned the other way

@@ -23,6 +23,7 @@ PAGES = [
     ("contact", "Contact", "Let's talk.", "A product challenge, team training, or feedback? Send a note.", conversation),
     ("scorecard", "Free toolkit · Interactive", "Feature Prioritization Scorecard", "Weighted scoring and RICE, side by side.", lambda: toolkit_tool("scorecard")),
     ("ai-use-cases", "Free toolkit · Interactive", "AI Use Case Prioritization", "Choose where AI is worth the effort first.", lambda: toolkit_tool("ai")),
+    ("ai-readiness", "Free toolkit · Interactive", "AI Readiness Checklist", "See what to fix first, and your next three moves.", lambda: toolkit_tool("ready")),
     ("build-buy-partner", "Free toolkit · Interactive", "Build, Buy, or Partner", "Score the options, compare the three-year cost, decide.", lambda: toolkit_tool("bbp")),
     ("impact-score", "Free toolkit · Interactive", "Organizational Impact Score", "See which work moves the KPIs that matter.", lambda: toolkit_tool("impact")),
     ("book", "Book a call", "Book a free 30-minute call.", "Talk through what you're working on, on Google Meet.", conversation),

@@ -469,7 +469,20 @@ def toolkits():
     <div class="btn-row"><a class="btn sm" href="{href}">Open the tool</a><a class="btn sm ghost" href="{files[0]}" {EXT}>Download the PDF</a>{sheet_menu(files)}<a class="btn sm ghost" href="{files[2]}" {EXT}>See the worked example</a></div>
   </div>
 </article>'''
-    tools = interactive + ai_tool + template_tool("build-buy-partner", "build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 30 to 60 minutes",
+    rd_tags = "".join(f'<span class="tag" data-level="{l}">{lv[l]}</span>' for l in ["practitioner", "leader", "executive"])
+    rd_tool = f'''<article class="tool reveal" id="ai-readiness-checklist" data-levels="practitioner leader executive" data-ask="AI Readiness Checklist: check whether your team is ready for AI work" data-kind="Toolkit" data-keywords="ai readiness ready adoption maturity data governance guardrails policy tools skills team organization where to start">
+  <a class="tool-thumb art-thumb-link" href="ai-readiness.html" tabindex="-1" aria-hidden="true">{toolkit_thumb("ready")}</a>
+  <div>
+    <h3 style="font-size:1.5rem">AI Readiness Checklist <span class="pill">New · Interactive</span></h3>
+    <div>{rd_tags}</div>
+    <ul class="meta"><li><b>Time needed:</b> About 10 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <p>Check whether your team, data, tools and guardrails are ready for AI work. Answer 24 statements in six areas, see where you are on the AI adoption journey, and get your next three moves.</p>
+    <p class="deep"><b>Use it when:</b> you want to start with AI, or scale it, and need to know what to fix first.</p>
+    <p class="deep"><b>You walk away with:</b> a readiness score, a score for each area, your stage on the journey, and three concrete next moves.</p>
+    <div class="btn-row"><a class="btn sm" href="ai-readiness.html">Open the checklist</a></div>
+  </div>
+</article>'''
+    tools = interactive + ai_tool + rd_tool + template_tool("build-buy-partner", "build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 30 to 60 minutes",
                  "Decide whether to build a capability yourself, buy it, or partner for it. Score the options against ten criteria, compare the real three-year cost, and record your decision with its risks and tripwires.",
                  "You are weighing a platform, a vendor, a new feature area, or an AI capability and the team is split.",
                  "A scored comparison, a cost view, and a written decision you can share.", BBP_FILES,
@@ -496,8 +509,8 @@ def toolkits():
                   "A readiness check across product, sales, support and marketing before you ship.", ["practitioner", "leader"], "Considering") + \
         soon_card("product-metrics-tree", "scale", "Product Metrics Tree",
                   "Break one north-star metric into the inputs your team can actually influence.", ["practitioner", "leader"], "Considering") + \
-        soon_card("ai-readiness-checklist", "ai", "AI Readiness Checklist",
-                  "Check whether your team, data and processes are ready for AI work before you start.", ["leader", "executive"], "Considering")
+        soon_card("stakeholder-map", "chat", "Stakeholder Map",
+                  "Map who shapes a decision, what each person needs to hear, and how you will keep them close.", ["practitioner", "leader"], "Considering")
     lsteps = [("Assess", "Answer a few questions about your product and AI experience across seven skill areas."),
               ("Learn", "Get a personalized path with courses matched to exactly where you are."),
               ("Practice", "Work through real, practical lessons at your own pace. No fluff."),
@@ -926,9 +939,83 @@ def ai_use_cases():
                          "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("AI Use Case Prioritization", "ai-use-cases")]), image=og("ai-use-cases")))
 
 
-# The four interactive tools, for the quick links on each tool page.
+def ai_readiness():
+    """The fifth interactive toolkit (AI Readiness Checklist, from the Tool Roadmap). The scoring is
+    assets/js/ai-readiness-core.js, the page behaviour assets/js/ai-readiness.js; everything stays in the visitor's browser."""
+    stages = "".join(f'<li><b>{n}</b><span>{d}</span></li>' for n, d in [
+        ("Start with you", "Personal curiosity and exploration"), ("One use case", "One repetitive task automated"),
+        ("Team traction", "Share wins, peer learning spreads"), ("Org capability", "Standardized, tied to business goals")])
+    body = f'''<header class="page-head">
+  <div class="wrap">
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Readiness Checklist</h1><p>Check whether your team, data, tools and guardrails are ready for AI work. Answer 24 statements in six areas, see where you are on the AI adoption journey, and get your next three moves. About 10 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("ready")}</div>
+    <div class="art">{toolkit_tool("ready")}</div>
+  </div>
+</header>
+
+<section style="padding-top:28px">
+  <div class="wrap sc rd" id="readiness">
+    <div class="sc-bar">
+      <div class="field sc-title"><label for="rd-title">Name this check</label><input id="rd-title" maxlength="100" placeholder="For example: Customer support team, November"></div>
+      <div class="sc-actions">
+        <button type="button" class="btn sm" data-rd="save" title="Keep it in your free Product Advisory Learning account">Save to my account</button>
+        <button type="button" class="btn sm ghost" data-rd="share">Share a link</button>
+        {export_menu("rd")}
+        <button type="button" class="btn sm ghost" data-rd="reset">Start over</button>
+      </div>
+      <div class="sc-share" id="rd-share" hidden><label for="rd-share-url">Anyone with this link sees a copy of these answers:</label><input id="rd-share-url" readonly><p class="form-status" id="rd-share-status" role="status"></p></div>
+    </div>
+
+    <div class="rd-layout">
+      <div class="card sc-card rd-check">
+        <div class="sc-step"><span class="num">1</span><div><h2>Answer for your team as it is today</h2><p class="muted">Yes, Partly, No, or Not sure. Be honest: a No is more useful than a hopeful Yes. Click an answer again to clear it.</p></div></div>
+        <div class="rd-progress"><span id="rd-progress"></span><span class="rd-bar" id="rd-bar"><i></i></span><button type="button" class="btn sm ghost" data-rd="example">Fill in an example</button></div>
+        <div id="rd-areas"></div>
+      </div>
+      <div class="rd-side">
+        <div class="card uc-pilot rd-level" id="rd-level" aria-live="polite"></div>
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">2</span><div><h2>The AI adoption journey</h2><p class="muted">Nobody waits until they're ready. They start small and build evidence.</p></div></div>
+          <ol class="rd-journey" id="rd-journey"></ol>
+          <ul class="rd-bars" id="rd-bars"></ul>
+        </div>
+        <div class="card sc-card">
+          <div class="sc-step"><span class="num">3</span><div><h2>Your next three moves</h2><p class="muted">From the gaps in your weakest areas first.</p></div></div>
+          <ol class="uc-plan rd-moves" id="rd-moves" aria-live="polite"></ol>
+          <div class="rd-unknown" id="rd-unknown" hidden><h3>Find out first</h3><p class="muted">You weren't sure about these. Ask the people who'd know before you plan around them.</p><ul></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tint sc-tips uc-tips">
+      <h3>Make it stick</h3>
+      <ul class="book-list">
+        <li><b>Answer it together.</b> A leader, someone who does the work and someone from IT or security will each see different gaps.</li>
+        <li><b>Act on one move at a time.</b> Then pick your first use case with <a href="ai-use-cases.html">AI Use Case Prioritization</a>.</li>
+        <li><b>Re-run it each quarter.</b> The score matters less than the direction it is moving.</li>
+      </ul>
+      <p class="muted" style="margin-top:12px">Read <a href="/insights/ai-is-a-practice">AI Is Not a Project. It's a Practice.</a> and <a href="/insights/stop-enabling-individuals">Stop enabling individuals. Start enabling the organization.</a>, or see where each person stands with the free <a href="{ASSESS}" {EXT}>PM + AI skill assessment</a>.</p>
+      <hr class="rule">
+      <p>Want help turning the gaps into a plan?</p>
+      <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
+    </div>
+    {tools_nav("ready", bottom=True)}
+  </div>
+</section>
+<script src="assets/js/save.js"></script>
+<script src="assets/js/ai-readiness-core.js"></script>
+<script src="assets/js/ai-readiness.js"></script>'''
+    write("ai-readiness.html", page("ai-readiness.html", "AI Readiness Checklist", "Free AI readiness checklist: 24 statements across strategy, data, people, use cases, tools and guardrails. See where you are on the AI adoption journey and get your next three moves.", body,
+          extra_head=ld({"@type": "WebApplication", "name": "AI Readiness Checklist", "url": SITE + "ai-readiness", "applicationCategory": "BusinessApplication",
+                         "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                         "description": "Answer 24 statements across strategy, data, people and skills, use cases, tools and guardrails; get a readiness score, your stage on the AI adoption journey and your next three moves.",
+                         "featureList": ["24 statements in six areas", "A readiness score and stage on the AI adoption journey", "A score for each area", "Your next three moves", "Share link, CSV download and print"],
+                         "publisher": ORG}, crumbs=[("Toolkits", "toolkits"), ("AI Readiness Checklist", "ai-readiness")]), image=og("ai-readiness")))
+
+
+# The interactive tools, for the quick links on each tool page.
 TOOL_LINKS = [("scorecard", "scorecard.html", "Feature Prioritization Scorecard"), ("ai", "ai-use-cases.html", "AI Use Case Prioritization"),
-              ("bbp", "build-buy-partner.html", "Build, Buy, or Partner"), ("impact", "impact-score.html", "Organizational Impact Score")]
+              ("bbp", "build-buy-partner.html", "Build, Buy, or Partner"), ("impact", "impact-score.html", "Organizational Impact Score"),
+              ("ready", "ai-readiness.html", "AI Readiness Checklist")]
 
 
 def tools_nav(current, bottom=False):
@@ -950,7 +1037,7 @@ def export_menu(attr):
 
 # A free tool under the service it supports (Services page).
 SVC_TOOLS = {
-    "ai": '<p class="svc-tool">Free tool: <a href="ai-use-cases.html">AI Use Case Prioritization</a>, to choose where AI is worth the effort first.</p>',
+    "ai": '<p class="svc-tool">Free tools: the <a href="ai-readiness.html">AI Readiness Checklist</a>, to see what to fix first, and <a href="ai-use-cases.html">AI Use Case Prioritization</a>, to choose where AI is worth the effort first.</p>',
     "strategy": '<p class="svc-tool">Free tools: the <a href="impact-score.html">Organizational Impact Score</a>, to see which work moves your KPIs, and the <a href="build-buy-partner.html">Build, Buy, or Partner Decision Matrix</a>.</p>',
 }
 
@@ -1432,6 +1519,9 @@ FINDER_TOOLS = [
     {"name": "PM + AI skill assessment", "kind": "Free · 14 questions", "href": ASSESS, "ext": True,
      "desc": "See where you or your team stand across seven product and AI skill areas, with a learning path to match.",
      "keys": "skill skills team teams learn learning training train fluency assess assessment gap gaps career grow new beginner junior product manager managers people adopt adoption use"},
+    {"name": "AI Readiness Checklist", "kind": "Free · interactive", "href": "/ai-readiness",
+     "desc": "Check whether your team, data, tools and guardrails are ready for AI, and get your next three moves.",
+     "keys": "ai readiness ready prepared prepare adoption adopt start starting strategy data governance policy guardrails risk tools team skills maturity assess organization"},
     {"name": "AI Use Case Prioritization", "kind": "Free · interactive", "href": "/ai-use-cases",
      "desc": "Score your AI ideas on value, data readiness, cost, team readiness and risk, and see which to pilot first.",
      "keys": "ai use case cases idea ideas where start first pilot automate automation agent agents copilot support customer customers service adoption"},
@@ -1610,7 +1700,7 @@ def check_search_pages():
 
 def build_all():
     check_search_pages()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); preferences(); legal(); notfound(); sitemap(); llms()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms()
 
 
 if __name__ == "__main__":
