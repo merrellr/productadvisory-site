@@ -394,6 +394,7 @@ ARTICLES = [
             ("h2", "The core concept: design agents like roles on a team"),
             ("p", "Instead of \"an AI,\" think \"a squad.\" Each agent has a role description, a clear scope and boundaries, specific inputs it can use, outputs it is expected to produce, and evaluation metrics tied to that role."),
             ("p", "A practical starting squad for product teams is a <b>Researcher</b>, an <b>Analyst</b>, a <b>Copywriter</b> and an <b>Experiment Designer</b>. You can add more later, but these four cover a surprising amount of PM leverage."),
+            ("fig", "six-steps.webp", "Six steps to your first AI product team: 1, start with workflows, not models; 2, define squad roles and handoffs; 3, scope the MVP squad; 4, prioritize agents with a scoring model; 5, plug into your existing product org; 6, evaluate each agent like a product.", ""),
             ("h2", "Step 1: Start with workflows, not models"),
             ("p", "The biggest mistake is starting with the technology. Start with a workflow you want to improve. Pick a recurring product ritual that is expensive in time and attention, such as weekly backlog grooming, the monthly insights review, quarterly planning, or experiment reviews and writeups."),
             ("p", "Then ask: where do we lose time, where do mistakes happen, and where do we lack consistency? Those pain points become your first agent responsibilities."),

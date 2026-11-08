@@ -478,6 +478,18 @@ const ARTS = {
         return s + '</svg>';
       })() },
     figures: {
+      'six-steps': { title: 'Six steps to your first AI product team', sub: 'From one recurring workflow to a squad you can trust and measure.',
+        css: `.st6{display:grid;gap:12px}.st6 div{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;background:#fff;border-radius:14px;padding:16px 20px}
+          .st6 span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-family:Fraunces,serif;font-size:22px;font-weight:600;color:#fff}
+          .st6 b{display:block;font-size:21px;color:${C.navy};margin:2px 0 4px}.st6 p{margin:0;font-size:17px;line-height:1.45;color:${C.soft}}`,
+        html: `<div class="st6">` + [
+          ['Start with workflows, not models', 'Pick a recurring ritual that is expensive in time: weekly grooming, the monthly insights review, experiment writeups. Find where you lose time and where mistakes happen.'],
+          ['Define squad roles and handoffs', "Give each agent a clear job, not a generic prompt. Define inputs, outputs and boundaries. Design handoffs so each agent's output becomes the next one's input."],
+          ['Scope the MVP squad', "Don't automate everything. Design an MVP that's useful weekly, small enough to maintain and easy to evaluate. Two agents done well beat four done poorly."],
+          ['Prioritize agents with a scoring model', 'Score each agent on frequency, time cost, risk and leverage. Start with the highest weekly value at manageable risk, not the most impressive demo.'],
+          ['Plug into your existing product org', 'Fit into Slack, Jira, Notion, or wherever your team already lives. Agents produce outputs on a cadence, humans review in a short ritual, approved outputs become artifacts.'],
+          ['Evaluate each agent like a product', "Define success metrics per agent: coverage, accuracy, time saved, decisions triggered. If you can't evaluate it, it will drift."]
+        ].map((x, i) => `<div><span style="background:${i < 3 ? C.navy : C.teal}">${i + 1}</span><div style="padding:0;background:none;display:block"><b>${x[0]}</b><p>${x[1]}</p></div></div>`).join('') + `</div>` },
       'chatbot-vs-squad': { title: 'One chatbot, or a squad of agents', sub: 'Specialization, just like a real product team.',
         css: `.cs{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}.cs>div{border-radius:18px;padding:26px 28px}.cs .vs{font-family:'JetBrains Mono';color:${C.mute};font-size:18px;letter-spacing:.2em;padding:0}
           .cs h3{font-family:'JetBrains Mono';font-size:15px;letter-spacing:.2em;margin:0 0 14px}.cs li{list-style:none;font-size:20px;line-height:1.4;padding:8px 0 8px 32px;position:relative;border-top:1px solid rgba(0,0,0,.07)}
