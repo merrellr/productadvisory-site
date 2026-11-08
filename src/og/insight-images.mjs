@@ -462,6 +462,59 @@ const ARTS = {
         })() }
     }
   }
+  ,'squad-of-agents': {
+    cover: {
+      eyebrow: 'AI agents', title: 'Your first AI product team', titleSize: 84, dek: 'Design a squad of agents, not just one chatbot.', dekTop: 330,
+      art: (() => {
+        // a PM in the middle, four agents around: research, analytics, experiments, copy
+        const roles = [['RESEARCHER', 470, 120, C.sky], ['ANALYST', 1130, 120, C.mint], ['EXPERIMENTER', 470, 330, C.amber], ['COPYWRITER', 1130, 330, C.coral]];
+        let s = `<svg width="1600" height="470" viewBox="0 0 1600 470" xmlns="http://www.w3.org/2000/svg">`;
+        roles.forEach(([t, x, y, c]) => { s += `<line x1="800" y1="230" x2="${x}" y2="${y}" stroke="${C.sand}" stroke-width="3" stroke-dasharray="4 8"/>`; });
+        s += `<circle cx="800" cy="230" r="70" fill="${C.navy}"/><circle cx="800" cy="210" r="22" fill="#fff"/><path d="M764 268 a36 30 0 0 1 72 0" fill="#fff"/>
+          <text x="800" y="330" text-anchor="middle" font-family="JetBrains Mono" font-size="16" letter-spacing="3" fill="${C.mute}">THE PM</text>`;
+        roles.forEach(([t, x, y, c]) => { s += `<rect x="${x - 90}" y="${y - 44}" width="180" height="88" rx="18" fill="#fff" stroke="${c}" stroke-width="4"/>
+          <rect x="${x - 70}" y="${y - 22}" width="40" height="8" rx="4" fill="${c}"/><rect x="${x - 70}" y="${y - 4}" width="120" height="7" rx="3.5" fill="${C.sand}"/><rect x="${x - 70}" y="${y + 10}" width="90" height="7" rx="3.5" fill="${C.sand}"/>
+          <text x="${x}" y="${y + 74}" text-anchor="middle" font-family="JetBrains Mono" font-size="15" letter-spacing="3" fill="${C.mute}">${t}</text>`; });
+        return s + '</svg>';
+      })() },
+    figures: {
+      'chatbot-vs-squad': { title: 'One chatbot, or a squad of agents', sub: 'Specialization, just like a real product team.',
+        css: `.cs{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}.cs>div{border-radius:18px;padding:26px 28px}.cs .vs{font-family:'JetBrains Mono';color:${C.mute};font-size:18px;letter-spacing:.2em;padding:0}
+          .cs h3{font-family:'JetBrains Mono';font-size:15px;letter-spacing:.2em;margin:0 0 14px}.cs li{list-style:none;font-size:20px;line-height:1.4;padding:8px 0 8px 32px;position:relative;border-top:1px solid rgba(0,0,0,.07)}
+          .cs ul{margin:0;padding:0}.cs li::before{position:absolute;left:0;top:7px;font-weight:700;font-size:20px}.cs .bad li::before{content:'✕';color:#b5562a}.cs .good li::before{content:'✓';color:#257a48}`,
+        html: `<div class="cs"><div class="bad" style="background:#ecedf2"><h3 style="color:#b5562a">ONE CHATBOT</h3><ul>
+          <li>Context overload, no clear priorities</li><li>Mixed quality across different tasks</li><li>No ownership when something goes wrong</li><li>Impressive in demos, unreliable in practice</li></ul></div>
+          <div class="vs">VS</div>
+          <div class="good" style="background:#fff"><h3 style="color:#257a48">A SQUAD OF AGENTS</h3><ul>
+          <li>Each agent has a clear role and scope</li><li>Outputs chain into the next agent's inputs</li><li>Failures are isolated and fixable</li><li>A repeatable system, not four disconnected tools</li></ul></div></div>` },
+      'agent-squad': { title: 'A starting squad for product teams', sub: 'Each agent is a role: a purpose, inputs it may use, and outputs it must produce.',
+        css: `.sq{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.sq>div{background:#fff;border-radius:16px;padding:20px 18px 18px;border-top:6px solid}
+          .sq b{display:block;font-family:Fraunces,serif;font-size:24px;color:${C.navy};margin-bottom:6px}.sq p{font-size:16px;line-height:1.4;color:${C.soft};margin:0 0 12px;min-height:66px}
+          .sq h4{font-family:'JetBrains Mono';font-size:12.5px;letter-spacing:.18em;color:${C.mute};margin:10px 0 4px}.sq ul{margin:0;padding-left:16px;font-size:15.5px;line-height:1.5;color:${C.ink}}
+          .ch{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}.ch div{background:${C.navy};color:#fff;border-radius:12px;padding:12px 14px;position:relative;font-size:16px}
+          .ch div b{display:block;font-size:13px;letter-spacing:.14em;font-family:'JetBrains Mono';margin-bottom:2px}.ch div:not(:last-child)::after{content:'→';position:absolute;right:-13px;top:16px;color:${C.mute};font-size:18px}`,
+        html: `<div class="sq">
+          <div style="border-color:${C.sky}"><b>Researcher</b><p>Keeps you informed and cuts time spent gathering raw inputs.</p><h4>INPUTS</h4><ul><li>Call notes &amp; transcripts</li><li>Support tickets</li><li>Competitor pages</li></ul><h4>OUTPUTS</h4><ul><li>Weekly themes</li><li>Competitive snapshots</li><li>Source-linked summaries</li></ul></div>
+          <div style="border-color:${C.mint}"><b>Analyst</b><p>Turns raw data into decision-ready insights.</p><h4>INPUTS</h4><ul><li>Analytics dashboards</li><li>Event data &amp; cohorts</li><li>Experiment results</li></ul><h4>OUTPUTS</h4><ul><li>Metric narratives</li><li>Anomaly summaries</li><li>Segment suggestions</li></ul></div>
+          <div style="border-color:${C.amber}"><b>Experiment designer</b><p>Improves how consistently your team tests ideas.</p><h4>INPUTS</h4><ul><li>Hypothesis &amp; metrics</li><li>Traffic assumptions</li><li>Prior experiments</li></ul><h4>OUTPUTS</h4><ul><li>Experiment brief</li><li>Variant suggestions</li><li>Pre-launch checklist</li></ul></div>
+          <div style="border-color:${C.coral}"><b>Copywriter</b><p>Speeds up user-facing messaging and keeps it consistent.</p><h4>INPUTS</h4><ul><li>Feature description</li><li>Audience &amp; style guide</li><li>Compliance rules</li></ul><h4>OUTPUTS</h4><ul><li>Microcopy options</li><li>Release notes &amp; FAQs</li><li>Value prop variants</li></ul></div></div>
+          <div class="ch"><div><b>RESEARCHER</b>surfaces the theme + evidence</div><div><b>ANALYST</b>quantifies the impact</div><div><b>EXPERIMENTER</b>designs the test</div><div><b>COPYWRITER</b>drafts the messaging</div></div>` },
+      'agent-scores': { title: 'Which agent to build first', sub: 'Score each on four factors. Start with the highest weekly value at manageable risk.',
+        css: `.sc4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.sc4 div{background:#fff;border-radius:14px;padding:14px 16px}.sc4 b{display:block;font-size:19px;color:${C.navy}}.sc4 span{font-size:15.5px;color:${C.soft}}
+          table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;font-size:18px}th{font-family:'JetBrains Mono';font-size:13px;letter-spacing:.16em;color:${C.mute};text-align:left;padding:14px 16px;font-weight:500}
+          td{padding:14px 16px;border-top:1px solid #ebe7df;color:${C.ink}}td i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}td.n{font-weight:700;color:${C.navy}}
+          .bar{height:12px;border-radius:6px;background:#ece8e0;width:200px;overflow:hidden}.bar u{display:block;height:100%}.tot{font-family:Fraunces,serif;font-size:26px;color:${C.navy};text-align:right}
+          .first{font-size:12.5px;font-weight:700;color:#257a48;background:#e3f3ea;border-radius:999px;padding:3px 9px;margin-left:8px}`,
+        html: (() => {
+          const g = (l) => { const c = l === 'High' ? '#2a9a6a' : l === 'Med' ? '#e09a2a' : '#2a9a6a'; return `<i style="background:${c}"></i>${l}`; };
+          const rows = [['Analyst', 'High', 'High', 'Med', 'High', 88, true], ['Copywriter', 'High', 'High', 'Low', 'Med', 78], ['Experimenter', 'Med', 'Med', 'High', 'Med', 70], ['Researcher', 'Med', 'Med', 'Low', 'Med', 58]];
+          return `<div class="sc4"><div><b>Frequency</b><span>How often does the workflow run?</span></div><div><b>Time cost</b><span>How much PM time does it take?</span></div><div><b>Risk</b><span>What's the downside if it goes wrong?</span></div><div><b>Leverage</b><span>Does it unblock several teams?</span></div></div>
+            <table><tr><th>AGENT</th><th>FREQ.</th><th>TIME</th><th>RISK</th><th>LEVERAGE</th><th>TOTAL</th><th></th></tr>` +
+            rows.map(r => `<tr><td class="n">${r[0]}${r[6] ? '<span class="first">Build first</span>' : ''}</td><td>${g(r[1])}</td><td>${g(r[2])}</td><td>${r[3] === 'High' ? '<i style="background:#c0622a"></i>High' : r[3] === 'Med' ? '<i style="background:#e09a2a"></i>Med' : '<i style="background:#2a9a6a"></i>Low'}</td><td>${g(r[4])}</td>
+              <td><div class="bar"><u style="width:${r[5]}%;background:${r[5] >= 75 ? '#2a9a6a' : '#e09a2a'}"></u></div></td><td class="tot">${r[5]}</td></tr>`).join('') + '</table>';
+        })() }
+    }
+  }
 };
 
 async function main(slug) {

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=7e223e3b"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your First AI Product Team: A Squad of Agents, Not a Chatbot</title>
+<meta name="description" content="How a product manager scopes, designs and prioritizes a squad of AI agents (researcher, analyst, copywriter, experiment designer) that plugs into an existing product org.">
+<meta property="og:title" content="Your First AI Product Team: A Squad of Agents, Not a Chatbot">
+<meta property="og:description" content="How a product manager scopes, designs and prioritizes a squad of AI agents (researcher, analyst, copywriter, experiment designer) that plugs into an existing product org.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/insights/squad-of-agents">
+<meta property="og:image" content="https://www.productadvisory.co/assets/insights/squad-of-agents/og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/insights/squad-of-agents">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=50a39423">
+<script src="/assets/js/prefs.js?v=606593df"></script>
+<script src="/assets/js/site.js?v=5571a79c" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot", "description": "Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here's how a PM scopes, designs and prioritizes the squad.", "image": "https://www.productadvisory.co/assets/insights/squad-of-agents/og.jpg", "datePublished": "2026-04-06", "dateModified": "2026-04-06", "mainEntityOfPage": "https://www.productadvisory.co/insights/squad-of-agents", "articleSection": "AI agents", "author": {"@id": "https://www.productadvisory.co/#org"}, "publisher": {"@id": "https://www.productadvisory.co/#org"}, "isPartOf": {"@id": "https://www.productadvisory.co/insights#blog"}, "keywords": "ai, agents, squad, multi-agent, product, team, researcher, analyst, copywriter, experiment, designer, chatbot, roles, handoffs, mvp, prioritize, scoring, frequency, time, cost, risk, leverage, evaluate, agent, metrics, slack, jira, notion", "sameAs": ["https://www.linkedin.com/feed/update/urn:li:ugcPost:7415737933124542465/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why not just use one AI chatbot for product work?", "acceptedAnswer": {"@type": "Answer", "text": "Each job (research, feedback synthesis, PRDs, messaging, experiment analysis) needs different context, tools, tone and evaluation. One assistant doing all of it gets context overload and mixed quality, and when something is wrong nobody knows which part failed."}}, {"@type": "Question", "name": "What agents should a product team start with?", "acceptedAnswer": {"@type": "Answer", "text": "A practical starting squad is a Researcher, an Analyst, a Copywriter and an Experiment Designer. But start smaller: pick one weekly workflow and define two agents for it."}}, {"@type": "Question", "name": "How do you decide which agent to build first?", "acceptedAnswer": {"@type": "Answer", "text": "Score each on frequency (how often the workflow runs), time cost, risk (the downside if it goes wrong) and leverage (whether it unblocks several teams). Start with the highest weekly value at manageable risk, not the most impressive demo."}}, {"@type": "Question", "name": "How do you measure whether an AI agent is working?", "acceptedAnswer": {"@type": "Answer", "text": "Give each agent its own metrics: for a researcher, coverage, traceability and whether people cite it; for an analyst, accuracy, time saved and decisions triggered; for an experiment designer, consistency and cycle time; for a copywriter, fewer editing cycles and alignment with your voice and compliance rules."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot", "item": "https://www.productadvisory.co/insights/squad-of-agents"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <a class="link-back" href="/insights">← All insights</a>
+      <div class="eyebrow cat-agents"><a class="eyebrow-link" href="/insights?topic=agents">AI agents</a> · Product+</div>
+      <h1>Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot</h1>
+      <p class="dek">Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here&#x27;s how a PM scopes, designs and prioritizes the squad.</p>
+      <p class="byline">Product Advisory · <time datetime="2026-04-06">April 6, 2026</time> · 6 min read</p>
+    </div>
+  </header>
+  <div class="wrap post-cover"><img src="/assets/insights/squad-of-agents/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
+  <div class="wrap narrow">
+    <aside class="takeaways cat-agents" aria-labelledby="tk-squad-of-agents"><h2 id="tk-squad-of-agents">Key takeaways</h2><ul><li>One chatbot asked to do everything gives context overload, mixed quality and no clear ownership. Specialize instead.</li><li>Design agents like roles on a team: a role, a scope and boundaries, inputs, outputs and evaluation metrics.</li><li>Start with a recurring workflow that costs time, not with the technology, and design handoffs so one agent&#x27;s output is the next one&#x27;s input.</li><li>Scope an MVP that&#x27;s useful weekly, and build first the agent with the highest weekly value at manageable risk.</li><li>Evaluate each agent like a product. If you can&#x27;t evaluate it, it will drift.</li></ul></aside>
+    <div class="prose post-body">
+<section id="intro" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<p>Most teams start their AI journey by adding a chatbot.</p>
+<p>It is a natural first step, but it also creates a common trap: treating AI like a single general-purpose assistant that you ask to do everything. The result is usually inconsistent quality, unclear ownership, and a product experience that feels impressive in a demo but unreliable in daily work.</p>
+<p>A better mental model is to design an AI product team. Not humans, but a virtual squad of specialized agents with clear roles, clear inputs, and clear success criteria. This article walks through how a product manager can scope, design, and prioritize an agentic squad that plugs into an existing product organization.</p>
+</section>
+<section id="why-one-chatbot-fails-in-real-product-work" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Why one chatbot fails in real product work" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Why one chatbot fails in real product work</h2>
+<p>A single assistant is asked to do too many jobs: research a market, summarize customer feedback, propose features, draft PRDs, write launch messaging, analyze experiments, and answer stakeholder questions. Each of these jobs requires different context, different tools, different tone, and different evaluation. When everything goes through one assistant, you get three problems:</p>
+<ol><li><b>Context overload.</b> The assistant does not know which sources to trust or which priorities matter today.</li><li><b>Mixed quality.</b> A response can be strong in one area and weak in another, and nobody knows why.</li><li><b>No clear ownership.</b> When something is wrong, it is unclear which part of the system failed and how to fix it.</li></ol>
+<p>The solution is specialization. Just like a real product team.</p>
+<figure><img src="/assets/insights/squad-of-agents/chatbot-vs-squad.webp" alt="One chatbot compared with a squad of agents. One chatbot: context overload with no clear priorities, mixed quality across tasks, no ownership when something goes wrong, impressive in demos but unreliable in practice. A squad: each agent has a clear role and scope, outputs chain into the next agent&#x27;s inputs, failures are isolated and fixable, and it is a repeatable system rather than four disconnected tools." width="1200" height="541" loading="lazy"></figure>
+</section>
+<section id="the-core-concept-design-agents-like-roles-on-a-team" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: The core concept: design agents like roles on a team" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>The core concept: design agents like roles on a team</h2>
+<p>Instead of "an AI," think "a squad." Each agent has a role description, a clear scope and boundaries, specific inputs it can use, outputs it is expected to produce, and evaluation metrics tied to that role.</p>
+<p>A practical starting squad for product teams is a <b>Researcher</b>, an <b>Analyst</b>, a <b>Copywriter</b> and an <b>Experiment Designer</b>. You can add more later, but these four cover a surprising amount of PM leverage.</p>
+</section>
+<section id="step-1-start-with-workflows-not-models" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 1: Start with workflows, not models" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 1: Start with workflows, not models</h2>
+<p>The biggest mistake is starting with the technology. Start with a workflow you want to improve. Pick a recurring product ritual that is expensive in time and attention, such as weekly backlog grooming, the monthly insights review, quarterly planning, or experiment reviews and writeups.</p>
+<p>Then ask: where do we lose time, where do mistakes happen, and where do we lack consistency? Those pain points become your first agent responsibilities.</p>
+<p>Take discovery and validation for a new initiative. The common pain points: feedback is scattered across tools, competitive research is outdated, insights are not consistently synthesized, hypotheses and experiments vary in quality, and messaging is rushed at launch. This workflow is a perfect place for a squad.</p>
+</section>
+<section id="step-2-define-the-squad-roles-and-handoffs" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 2: Define the squad roles and handoffs" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 2: Define the squad roles and handoffs</h2>
+<p>Now define each agent as a role with a job to do, not as a generic assistant.</p>
+<figure><img src="/assets/insights/squad-of-agents/agent-squad.webp" alt="Four agents with their inputs and outputs. Researcher: keeps you informed and cuts time spent gathering raw inputs; reads call notes and transcripts, support tickets and competitor pages; produces weekly themes, competitive snapshots and source-linked summaries. Analyst: turns raw data into decision-ready insights; reads dashboards, event data and cohorts, and experiment results; produces metric narratives, anomaly summaries and segment suggestions. Experiment designer: improves how the team tests ideas; reads the hypothesis and metrics, traffic assumptions and prior experiments; produces an experiment brief, variant suggestions and a pre-launch checklist. Copywriter: speeds up user-facing messaging; reads the feature description, audience and style guide, and compliance rules; produces microcopy options, release notes and FAQs, and value proposition variants. The handoff: the researcher surfaces a theme and evidence, the analyst quantifies impact, the experiment designer designs the test, and the copywriter drafts the messaging." width="1200" height="724" loading="lazy"></figure>
+<h3>Researcher Agent</h3>
+<p><b>Purpose:</b> keep you informed and reduce time spent gathering raw inputs.</p>
+<ul><li><b>Inputs:</b> customer call notes and transcripts, support tickets and tags, public competitor pages and announcements, and internal documents you provide.</li><li><b>Outputs:</b> weekly themes and emerging issues, competitive snapshots and change alerts, and source-linked summaries that can be traced back to the original evidence.</li><li><b>Boundaries:</b> does not make product decisions, does not invent sources, and flags uncertainty clearly.</li></ul>
+<h3>Analyst Agent</h3>
+<p><b>Purpose:</b> translate raw data into decision-ready insights.</p>
+<ul><li><b>Inputs:</b> product analytics dashboards, event data extracts, cohort metrics, and experiment results.</li><li><b>Outputs:</b> metric narratives (what changed, and why it might have changed), segment and cohort analysis suggestions, and anomaly summaries with likely drivers.</li><li><b>Boundaries:</b> does not declare causality without experimental support, and clearly separates observation from hypothesis.</li></ul>
+<h3>Copywriter Agent</h3>
+<p><b>Purpose:</b> increase the speed and consistency of user-facing messaging.</p>
+<ul><li><b>Inputs:</b> the feature description, target audience and context, a style guide or examples of your product voice, and compliance or regulated-language rules if needed.</li><li><b>Outputs:</b> in-product microcopy options, release notes, FAQs and onboarding messages, and value proposition variants for different segments.</li><li><b>Boundaries:</b> does not make up product capabilities, avoids risky claims, and calls out where legal review is needed.</li></ul>
+<h3>Experiment Designer Agent</h3>
+<p><b>Purpose:</b> improve the quality and consistency of how your team tests ideas.</p>
+<ul><li><b>Inputs:</b> the problem statement and hypothesis, primary and guardrail metrics, traffic assumptions and constraints, and prior experiments and learnings.</li><li><b>Outputs:</b> a structured experiment brief, variants and instrumentation suggestions, and a pre-launch checklist and post-launch analysis outline.</li><li><b>Boundaries:</b> does not pick strategy; proposes options and tradeoffs, not a single answer.</li></ul>
+<h3>The handoff design</h3>
+<p>A squad works when outputs become inputs. For example: the Researcher surfaces a theme and evidence, the Analyst quantifies impact and identifies segments, the Experiment Designer proposes how to test a change, and the Copywriter drafts the messaging for the variant and the eventual launch. That turns your squad into a repeatable system rather than four disconnected tools.</p>
+</section>
+<section id="step-3-scope-the-mvp-squad" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 3: Scope the MVP squad" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 3: Scope the MVP squad</h2>
+<p>You do not need to automate everything. The goal is an MVP that is useful weekly, small enough to maintain, and easy to evaluate. A simple MVP scope:</p>
+<ul><li><b>Researcher:</b> a weekly summary of the top five customer pain points with links to sources, and a monthly competitor change digest.</li><li><b>Analyst:</b> a weekly KPI narrative for three to five core metrics, and simple anomaly alerts with suggested next questions.</li><li><b>Experiment Designer:</b> a one-page experiment brief filled in from your inputs, and a checklist for instrumentation and launch readiness.</li><li><b>Copywriter:</b> three microcopy options per feature, and one release note draft per launch.</li></ul>
+<p>If you ship this, your squad will already save time and reduce inconsistency.</p>
+</section>
+<section id="step-4-prioritize-agents-with-a-simple-scoring-model" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 4: Prioritize agents with a simple scoring model" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 4: Prioritize agents with a simple scoring model</h2>
+<p>PMs need a rational way to decide which agents to build first. Use a lightweight rubric across four factors:</p>
+<ol><li><b>Frequency:</b> how often does this workflow happen?</li><li><b>Time cost:</b> how much PM and team time does it consume?</li><li><b>Risk:</b> what is the downside if it goes wrong?</li><li><b>Leverage:</b> does it unblock multiple teams, or compound improvements?</li></ol>
+<figure><img src="/assets/insights/squad-of-agents/agent-scores.webp" alt="An example agent prioritization on frequency, time cost, risk and leverage. Analyst: high, high, medium, high, total 88, build first. Copywriter: high, high, low, medium, total 78. Experiment designer: medium, medium, high, medium, total 70. Researcher: medium, medium, low, medium, total 58. Scores are illustrative." width="1200" height="645" loading="lazy"><figcaption>Scores are illustrative: your team's context will shift the rankings.</figcaption></figure>
+<p>The Analyst might score high on frequency and leverage. The Copywriter might score high on time cost if your team ships weekly. The Experiment Designer might score high on risk reduction. Start with the agent that provides the highest weekly value with manageable risk, not the most impressive demo. You can score your own candidates with the free <a href="/ai-use-cases">AI Use Case Prioritization</a> tool.</p>
+</section>
+<section id="step-5-plug-the-squad-into-your-existing-product-org" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 5: Plug the squad into your existing product org" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 5: Plug the squad into your existing product org</h2>
+<p>The squad should fit into the tools and rituals your team already uses: Slack or Teams for daily interactions and digests, Jira or Linear for turning insights into tickets and epics, Notion, Confluence or Google Docs for living briefs and summaries, and your analytics platform for KPI monitoring and reporting.</p>
+<p>The goal is not "another tool." The goal is reducing friction inside the system your team already lives in. A practical pattern: agents produce outputs on a cadence, humans review them in a short ritual, and approved outputs become artifacts and actions in your normal tools.</p>
+</section>
+<section id="step-6-evaluate-each-agent-like-a-product" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: Step 6: Evaluate each agent like a product" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>Step 6: Evaluate each agent like a product</h2>
+<p>Treat each agent like a mini product with its own success metrics:</p>
+<ul><li><b>Researcher:</b> coverage (are we capturing the right themes?), traceability (can we click back to sources?), and usefulness (do PMs and leaders cite it in decisions?).</li><li><b>Analyst:</b> accuracy of metrics and summaries, time saved in KPI reviews, and the number of decisions or actions triggered by its insights.</li><li><b>Experiment Designer:</b> consistency of experiment briefs, fewer failed launches due to missing instrumentation, and faster cycle time from hypothesis to result.</li><li><b>Copywriter:</b> fewer editing cycles, clarity measured by user behavior or support volume, and alignment with brand voice and compliance rules.</li></ul>
+<p><b>If you cannot evaluate it, it will drift.</b></p>
+</section>
+<section id="what-changes-for-the-pm" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: What changes for the PM" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>What changes for the PM</h2>
+<p>When you move from a chatbot to a squad, your job becomes clearer. You are defining roles, not writing prompts. You are designing workflows and handoffs, not asking for one-off answers. You are managing quality through evaluation, not relying on vibes. And you are building leverage into your product practice.</p>
+<p>The end state is a product org where agents do the repetitive first-draft work, and humans do the judgment, collaboration, and decision making. That is how you get real value.</p>
+</section>
+<section id="a-simple-starting-plan-you-can-run-next-week" data-ask="Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot: A simple starting plan you can run next week" data-kind="Insight" data-keywords="ai agents squad multi-agent product team researcher analyst copywriter experiment designer chatbot roles handoffs mvp prioritize scoring frequency time cost risk leverage evaluate agent metrics slack jira notion">
+<h2>A simple starting plan you can run next week</h2>
+<ol><li>Pick one workflow that repeats weekly.</li><li>Define two agents for it, not four.</li><li>Give each agent a clear output format and cadence.</li><li>Run a weekly review ritual for two weeks.</li><li>Refine based on what actually got used.</li></ol>
+<p>The goal is not to build the perfect AI product team. <b>The goal is to build the first version that earns a permanent place in how your team operates.</b></p>
+</section>
+    <section class="post-faq"><h2>Questions people ask</h2><h3>Why not just use one AI chatbot for product work?</h3><p>Each job (research, feedback synthesis, PRDs, messaging, experiment analysis) needs different context, tools, tone and evaluation. One assistant doing all of it gets context overload and mixed quality, and when something is wrong nobody knows which part failed.</p><h3>What agents should a product team start with?</h3><p>A practical starting squad is a Researcher, an Analyst, a Copywriter and an Experiment Designer. But start smaller: pick one weekly workflow and define two agents for it.</p><h3>How do you decide which agent to build first?</h3><p>Score each on frequency (how often the workflow runs), time cost, risk (the downside if it goes wrong) and leverage (whether it unblocks several teams). Start with the highest weekly value at manageable risk, not the most impressive demo.</p><h3>How do you measure whether an AI agent is working?</h3><p>Give each agent its own metrics: for a researcher, coverage, traceability and whether people cite it; for an analyst, accuracy, time saved and decisions triggered; for an experiment designer, consistency and cycle time; for a copywriter, fewer editing cycles and alignment with your voice and compliance rules.</p></section>
+    </div>
+    <div class="post-services"><h2>Putting this into practice</h2><p>How Product Advisory helps teams with this:</p><div class="svc-links"><a class="svc-link" href="/services#ai"><b>AI Enablement</b><span>For when AI adoption is scattered across a few individuals instead of built into how your team actually works.</span></a><a class="svc-link" href="/services#lifecycle"><b>Product Lifecycle Management</b><span>For when strategy and execution operate in silos.</span></a></div></div>
+    <aside class="post-foot">
+      <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results.  It is also <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7415737933124542465/" target="_blank" rel="noopener">on LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>.</p>
+      <form class="subscribe" data-subscribe novalidate>
+  <label class="sub-label" for="sub-article">Get new articles by email</label>
+  <div class="sub-row"><input id="sub-article" type="email" name="email" autocomplete="email" placeholder="you@company.com" required maxlength="200"><button class="btn" type="submit">Subscribe</button></div>
+  <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <p class="sub-fine">One email when a new article is published. Unsubscribe anytime. Prefer LinkedIn? <a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Follow Product+ Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+      <p class="post-call">Want to talk it through? <a href="/book">Book a free 30-minute call</a>.</p>
+    </aside>
+  </div>
+</article>
+<section class="band">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Keep reading</h2></div>
+    <div class="insight-grid"><a class="card insight cat-strategy reveal" data-cat="strategy" data-id="rice-vs-weighted-scoring" data-find="The same four features, ranked two ways, come out almost in reverse. Here&#x27;s when to trust each one. Use RICE to compare many similar items in one product area, where you can measure reach. Use weighted scoring to choose between different kinds of bets, where the criteria themselves are the strategy conversation. Scored both ways, the same four features came out almost in reverse: RICE rewards reach, weighted scoring rewards whatever you weight. Many teams use both: weighted scoring each quarter to pick themes, RICE within a theme to order the work. Agree the criteria and weights before anyone scores, and treat the score as the start of the decision, not the end. rice scoring weighted scoring prioritization framework roadmap backlog reach impact confidence effort criteria weights ice moscow scorecard" href="/insights/rice-vs-weighted-scoring"><img src="/assets/insights/rice-vs-weighted-scoring/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">Product strategy</div><h3>RICE or Weighted Scoring: Which Prioritization Framework Should You Use?</h3><p>The same four features, ranked two ways, come out almost in reverse. Here&#x27;s when to trust each one.</p><small>October 24, 2026 · 4 min read</small></div></a><a class="card insight cat-strategy reveal" data-cat="strategy" data-id="150-hot-dog" data-find="Costco sells memberships, not groceries, and what that teaches product managers about where the money really is. Costco&#x27;s membership fees are about 2% of its revenue but equal about 64% of its net income: it is a membership company that happens to run warehouses. Protect your &quot;hot dog&quot;: hold the price of the one thing customers notice and love like a promise, and adjust the price they rarely think about. Low margins can be the product. Give margin away where customers can see it and collect it in one place they have agreed to pay. Make the upgrade math obvious. Executive pays for itself at about $3,250 a year in spending, and Costco makes that math the pitch. Put renewal at the top of the scoreboard. Costco&#x27;s 92% renewal rate in the US and Canada is what makes the whole model work. costco membership business model pricing hot dog loss leader renewal retention profit margin gross profit executive tier upgrade flywheel annual plans subscription saas" href="/insights/150-hot-dog"><img src="/assets/insights/150-hot-dog/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">Business models</div><h3>The $1.50 Hot Dog</h3><p>Costco sells memberships, not groceries, and what that teaches product managers about where the money really is.</p><small>October 13, 2026 · 9 min read</small></div></a><a class="card insight cat-strategy reveal" data-cat="strategy" data-id="100-staircase" data-find="What Apple&#x27;s pricing teaches product managers about the art of the upsell. Apple&#x27;s fall 2026 iPhone lineup runs from $699 to $3,199, and from $699 to $2,599 no step is more than $200. Most are exactly $100. The ladders cross: more storage on one model costs exactly what a better model costs, so the question becomes which upgrade, not whether. Entry options are good but almost enough, and the biggest storage step is the cheapest per gigabyte, so the bigger choice feels like the smarter one. A real product at the top changes how the middle feels: with the $3,199 Duo, the $1,199 iPhone 18 Pro drops from 48% to about 37% of the top price. The sale doesn&#x27;t end at checkout. Services priced on the same staircase keep the relationship growing for years. apple iphone pricing upsell tiers packaging price points anchoring decoy good better best saas plans upgrade storage icloud services recurring revenue" href="/insights/100-staircase"><img src="/assets/insights/100-staircase/card.webp" alt="" width="800" height="450" loading="lazy"><div class="insight-body"><div class="eyebrow">Pricing</div><h3>The $100 Staircase</h3><p>What Apple&#x27;s pricing teaches product managers about the art of the upsell.</p><small>September 29, 2026 · 10 min read</small></div></a></div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
