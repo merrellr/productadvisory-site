@@ -24,6 +24,7 @@
 
 ## Insights (Product+ articles)
 - [Insights](https://www.productadvisory.co/insights): articles from the Product+ Newsletter on product strategy, AI agents and AI enablement.
+- [The $3.67 Listener](https://www.productadvisory.co/insights/367-listener): How Spotify and Netflix build tiers that pay for each other, and what it teaches product managers about segmentation.
 - [RICE or Weighted Scoring: Which Prioritization Framework Should You Use?](https://www.productadvisory.co/insights/rice-vs-weighted-scoring): The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.
 - [The $1.50 Hot Dog](https://www.productadvisory.co/insights/150-hot-dog): Costco sells memberships, not groceries, and what that teaches product managers about where the money really is.
 - [The $100 Staircase](https://www.productadvisory.co/insights/100-staircase): What Apple's pricing teaches product managers about the art of the upsell.

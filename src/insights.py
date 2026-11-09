@@ -949,7 +949,6 @@ ARTICLES = [
     },
     {
         "slug": "367-listener",
-        "draft": True,
         "services": ["strategy", "research"],
         "title": "The $3.67 Listener",
         "seo_title": "The $3.67 Listener: How Spotify and Netflix Build Pricing Tiers",
@@ -957,6 +956,7 @@ ARTICLES = [
         "description": "How Spotify and Netflix use pricing tiers, fences and free plans to capture far more value than one price could, and how a product manager can borrow the playbook for SaaS.",
         "topic": "Pricing",
         "date": "2026-11-10",
+        "linkedin": "https://www.linkedin.com/pulse/367-listener-robert-merrell-9odxc",
         "keywords": "spotify netflix pricing tiers segmentation price discrimination family plan student plan duo free tier ad supported freemium fences willingness to pay good better best saas plans nonprofit pricing multi location",
         "takeaways": [
             "One price makes two mistakes at once: customers who would pay more get a bargain, and customers who can't afford it walk away. Tiers recover both.",
