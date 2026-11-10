@@ -1320,6 +1320,38 @@
     if (C.needsPrompt()) show();
   }
 
+  /* ---------- article figures: click or tap to see a chart full size ----------
+     A modal <dialog> (Escape and the Close button close it, focus returns to the figure). On a phone the chart is
+     shown wider than the screen, so its small print is readable; drag sideways to see the rest. */
+  function initFigureZoom() {
+    var btns = document.querySelectorAll(".post-body .fig-zoom");
+    if (!btns.length || typeof HTMLDialogElement === "undefined") return;
+    var dlg = document.createElement("dialog");
+    dlg.className = "fig-dialog";
+    dlg.setAttribute("aria-label", "Figure, full size");
+    dlg.innerHTML = '<div class="fig-dialog-bar"><span class="fig-dialog-tip">Drag sideways to see the whole chart</span>' +
+      '<button type="button" class="fig-dialog-close" aria-label="Close">Close <span aria-hidden="true">&times;</span></button></div>' +
+      '<div class="fig-dialog-scroll"><img alt=""></div><p class="fig-dialog-cap"></p>';
+    document.body.appendChild(dlg);
+    var img = dlg.querySelector("img"), cap = dlg.querySelector(".fig-dialog-cap"), opener = null;
+    function close() { dlg.close(); }
+    dlg.querySelector(".fig-dialog-close").addEventListener("click", close);
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });   // a click on the backdrop
+    dlg.addEventListener("close", function () { document.documentElement.classList.remove("fig-open"); if (opener) opener.focus(); });
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var src = b.querySelector("img"), fc = b.parentNode.querySelector("figcaption");
+        img.src = src.currentSrc || src.src; img.alt = src.alt;
+        cap.textContent = fc ? fc.textContent : ""; cap.hidden = !fc;
+        opener = b;
+        document.documentElement.classList.add("fig-open");
+        dlg.showModal();
+        dlg.querySelector(".fig-dialog-scroll").scrollLeft = 0;
+        track("figure_zoom", { figure: (src.getAttribute("src") || "").split("/").slice(-2).join("/") });
+      });
+    });
+  }
+
   /* ---------- go ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
@@ -1337,6 +1369,7 @@
     initInsightFinder();
     initSubscribe();
     initConsent();
+    initFigureZoom();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();

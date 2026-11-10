@@ -1455,7 +1455,9 @@ def article_body(a):
         elif kind == "fig":
             w, h = image_size(base + b[1])
             cap = f"<figcaption>{b[3]}</figcaption>" if b[3] else ""
-            parts.append(f'<figure><img src="{base}{b[1]}" alt="{escape(b[2])}" width="{w}" height="{h}" loading="lazy">{cap}</figure>')
+            # The chart opens full size on a click or tap (site.js initFigureZoom), so its small print is readable on a phone.
+            parts.append(f'<figure><button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="{base}{b[1]}" alt="{escape(b[2])}" width="{w}" height="{h}" loading="lazy">'
+                         f'<span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>{cap}</figure>')
     parts.append("</section>")
     return "\n".join(parts)
 
