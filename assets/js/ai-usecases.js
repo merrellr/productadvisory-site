@@ -17,7 +17,7 @@
   }
   // A line about the results, shown with the saved copy in Learning.
   function summary() { var p = A.firstPilot(state), c = A.counts(state); return (p ? "First pilot: " + p.name + ". " : "") + c["quick-win"] + " quick wins, " + c.bet + " strategic bets"; }
-  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "ai_use_cases" }); } catch (e) { /* no analytics */ } }
+  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "ai_use_cases" }); } catch (e) { /* no analytics */ } if (window.PAEvent) window.PAEvent(name, { tool: "ai_use_cases" }); }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (k) { n.setAttribute(k, attrs[k]); });

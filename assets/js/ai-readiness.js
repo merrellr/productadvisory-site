@@ -18,7 +18,7 @@
   }
   // A line about the results, shown with the saved copy in Learning.
   function summary() { var r = R.results(state); return r.answered ? r.score + "% ready: " + r.level.name + " (" + r.answered + " of " + r.total + " answered)" : "Not started"; }
-  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "ai_readiness" }); } catch (e) { /* no analytics */ } }
+  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "ai_readiness" }); } catch (e) { /* no analytics */ } if (window.PAEvent) window.PAEvent(name, { tool: "ai_readiness" }); }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (k) { n.setAttribute(k, attrs[k]); });

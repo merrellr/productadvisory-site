@@ -17,7 +17,7 @@
   }
   // A line about the results, shown with the saved copy in Learning.
   function summary() { var r = B.results(state); return (r.leader.kind === "tie" ? r.leader.text : r.leader.text ? "Leading: " + r.leader.text : "Not scored yet") + (r.lowestCost.length ? " · Lowest cost: " + r.lowestCost.map(function (o) { return B.CHOICES[o]; }).join(", ") : ""); }
-  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "build_buy_partner" }); } catch (e) { /* no analytics */ } }
+  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "build_buy_partner" }); } catch (e) { /* no analytics */ } if (window.PAEvent) window.PAEvent(name, { tool: "build_buy_partner" }); }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (k) { n.setAttribute(k, attrs[k]); });

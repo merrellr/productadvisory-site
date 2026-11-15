@@ -56,6 +56,7 @@
       var bytes = new TextEncoder().encode(payload), bin = "";
       bytes.forEach(function (b) { bin += String.fromCharCode(b); });
       try { if (window.gtag) window.gtag("event", "tool_save", { tool: tool }); } catch (e) { /* no analytics */ }
+      if (window.PAEvent) window.PAEvent("tool_save", { tool: tool });
       location.href = this.url + "#save=" + btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
     },
     /* Opened from a link someone shared: say whose copy this is (theirs now) and offer to keep it. */

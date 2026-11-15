@@ -59,6 +59,7 @@
       Object.keys(params || {}).forEach(function (k) { data[k] = params[k]; });
       (window.dataLayer = window.dataLayer || []).push(data);
     } catch (e) { /* never break the page */ }
+    if (window.PAEvent) window.PAEvent(name, params);
   }
 
   /* ---------- toast ---------- */

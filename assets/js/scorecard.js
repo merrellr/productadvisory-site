@@ -17,7 +17,7 @@
   }
   // A line about the results, shown with the saved copy in Learning.
   function summary() { return S.rank(state).slice(0, 3).map(function (r) { return r.rank + ". " + r.name; }).join(" · "); }
-  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "feature_scorecard" }); } catch (e) { /* no analytics */ } }
+  function track(name) { try { if (window.gtag) window.gtag("event", name, { tool: "feature_scorecard" }); } catch (e) { /* no analytics */ } if (window.PAEvent) window.PAEvent(name, { tool: "feature_scorecard" }); }
   function el(tag, attrs, text) {
     var n = document.createElement(tag);
     Object.keys(attrs || {}).forEach(function (k) { n.setAttribute(k, attrs[k]); });
