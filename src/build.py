@@ -557,7 +557,7 @@ def toolkits():
       </ol>
     </div>
     <div class="grid g2" style="margin-top:20px">
-      <div class="card reveal"><h3>Download everything</h3><p>Grab every tool in one ZIP once the library is ready.</p><a class="btn sm ghost" aria-disabled="true">Download all (coming soon)</a></div>
+      <div class="card reveal" data-ask="Download every toolkit file in one ZIP" data-kind="Toolkit" data-keywords="download zip all templates pdf excel spreadsheet worksheet"><h3>Download everything</h3><p>Every template, spreadsheet and worked example in one ZIP, with links to the interactive versions. Free, no sign-up.</p><a class="btn sm ghost" href="{ZIP_NAME}" download>Download all (ZIP, {toolkit_zip_label()})</a></div>
       <div class="card reveal"><h3>Have a tool you'd like built for your team?</h3><p>We build custom tools and assessments for clients, too.</p><a class="btn sm ghost" href="contact.html?reason=toolkits#message">Talk to us</a></div>
     </div>
     <div class="cta-band reveal" style="margin-top:32px" data-ask="Free toolkits, with no strings" data-kind="Toolkit" data-keywords="free cost price license">
@@ -1700,8 +1700,79 @@ def check_search_pages():
         sys.exit("Add these articles to PAGES in assets/js/site.js so Ask can search them: " + ", ".join(missing))
 
 
+# ---------------------------------------------------------------- "Download everything": one ZIP of every downloadable toolkit file
+# Built with fixed dates and a fixed order, so the same files always give the same bytes (and --check can compare them).
+ZIP_NAME = "assets/toolkits/product-advisory-toolkits.zip"
+ZIP_FOLDERS = [
+    ("1 Which prioritization method", ["which-prioritization-method.pdf"]),
+    ("2 Build, Buy, or Partner", ["build-buy-partner-matrix.pdf", "build-buy-partner-matrix.xlsx", "build-buy-partner-worked-example.pdf"]),
+    ("3 Organizational Impact Score", ["organizational-impact-score.pdf", "organizational-impact-score.xlsx", "organizational-impact-score-worked-example.pdf"]),
+]
+ZIP_README = """Product Advisory toolkits
+=========================
+
+Free templates and worksheets from Product Advisory. Use them, share them with your team, and adapt them to your work.
+
+What's inside
+-------------
+1 Which prioritization method
+  - which-prioritization-method.pdf: a one-page cheat sheet on when to use RICE, weighted scoring or ICE.
+
+2 Build, Buy, or Partner
+  - build-buy-partner-matrix.pdf: the printable decision matrix.
+  - build-buy-partner-matrix.xlsx: the same matrix as a spreadsheet that does the math (Excel or Google Sheets).
+  - build-buy-partner-worked-example.pdf: a filled-in example.
+
+3 Organizational Impact Score
+  - organizational-impact-score.pdf: the printable scorecard.
+  - organizational-impact-score.xlsx: the spreadsheet version, with the scoring built in.
+  - organizational-impact-score-worked-example.pdf: a filled-in example.
+
+Interactive versions (free, in your browser)
+--------------------------------------------
+  Feature Prioritization Scorecard   https://www.productadvisory.co/scorecard
+  AI Use Case Prioritization         https://www.productadvisory.co/ai-use-cases
+  AI Readiness Checklist             https://www.productadvisory.co/ai-readiness
+  Build, Buy, or Partner             https://www.productadvisory.co/build-buy-partner
+  Organizational Impact Score        https://www.productadvisory.co/impact-score
+
+Save your work and track your team's skills in Product Advisory Learning: https://assessment.productadvisory.co/
+The latest version of this ZIP is always at https://www.productadvisory.co/toolkits
+
+Questions, or want help with a decision? https://www.productadvisory.co/contact
+"""
+
+
+def toolkit_zip():
+    import io
+    import zipfile
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        def add(name, data):
+            info = zipfile.ZipInfo("Product Advisory toolkits/" + name, date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            z.writestr(info, data)
+        add("README.txt", ZIP_README.replace("\n", "\r\n").encode("utf-8"))
+        for folder, files in ZIP_FOLDERS:
+            for f in files:
+                add(folder + "/" + f, open(os.path.join(ROOT, "assets/toolkits", f), "rb").read())
+    os.makedirs(os.path.join(OUT, "assets/toolkits"), exist_ok=True)
+    with open(os.path.join(OUT, ZIP_NAME), "wb") as f:
+        f.write(buf.getvalue())
+
+
+def toolkit_zip_label():
+    """'7 files, 1.2 MB', from the ZIP as built (or as it will be)."""
+    n = sum(len(f) for _, f in ZIP_FOLDERS)
+    path = os.path.join(ROOT, ZIP_NAME)
+    size = os.path.getsize(path) if os.path.exists(path) else sum(os.path.getsize(os.path.join(ROOT, "assets/toolkits", x)) for _, f in ZIP_FOLDERS for x in f)
+    return f"{n} files, {size / 1e6:.1f} MB"
+
+
 def build_all():
     check_search_pages()
+    toolkit_zip()
     home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms()
 
 
@@ -1712,7 +1783,7 @@ if __name__ == "__main__":
         build_all()
         built = sorted(os.path.relpath(os.path.join(d, f), OUT) for d, _, fs in os.walk(OUT) for f in fs)
         stale = [f for f in built if not os.path.exists(os.path.join(ROOT, f)) or
-                 open(os.path.join(OUT, f)).read() != open(os.path.join(ROOT, f)).read()]
+                 open(os.path.join(OUT, f), "rb").read() != open(os.path.join(ROOT, f), "rb").read()]
         if stale:
             print("These pages differ from what src/ builds. Run python3 src/build.py and commit:", ", ".join(stale))
             sys.exit(1)
