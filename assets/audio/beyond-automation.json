@@ -1,0 +1,36 @@
+{
+ "duration": 492.7,
+ "bytes": 3942847,
+ "hash": "cb4f2d440ed29908",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   51.65,
+   "AI before and after"
+  ],
+  [
+   78.92,
+   "The power of AI: the engine of modern customer service"
+  ],
+  [
+   152.03,
+   "The irreplaceable human factor: the heart of the relationship"
+  ],
+  [
+   217.29,
+   "The perfect partnership: using AI to create quick wins"
+  ],
+  [
+   330.92,
+   "Going the extra mile: research as the ultimate human touch"
+  ],
+  [
+   449.22,
+   "The future is collaborative"
+  ]
+ ]
+}

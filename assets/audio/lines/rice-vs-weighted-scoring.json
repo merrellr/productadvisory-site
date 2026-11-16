@@ -1,0 +1,217 @@
+[
+[
+0.0,
+4.76,
+"RICE or Weighted Scoring: Which Prioritization Framework Should You Use?"
+],
+[
+4.91,
+11.56,
+"The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one."
+],
+[
+11.71,
+13.42,
+"From Product Advisory."
+],
+[
+14.17,
+32.37,
+"Short answer: use RICE when you're ordering many similar items in one product area and you can measure how many people each one reaches. Use weighted scoring when you're choosing between different kinds of bets and the real question is what matters most right now. Many teams use both."
+],
+[
+32.87,
+47.01,
+"The longer answer matters, because the two methods can point in opposite directions. Score the same backlog both ways and the order can flip. That isn't a flaw in either one. It's each method telling you what it values."
+],
+[
+48.01,
+49.18,
+"What RICE is."
+],
+[
+49.88,
+56.9,
+"RICE was created by Sean McBride on the product team at Intercom. Every item gets four numbers:"
+],
+[
+57.4,
+62.82,
+"Reach: how many people it affects in a set period, for example users per quarter."
+],
+[
+62.97,
+73.3,
+"Impact: how much it moves each of them, on a fixed scale: 3 massive, 2 high, 1 medium, 0.5 low, 0.25 minimal."
+],
+[
+73.45,
+77.91,
+"Confidence: how sure you are of the other estimates, as a percentage."
+],
+[
+78.06,
+80.94,
+"Effort: how much work it takes, in person-months."
+],
+[
+81.44,
+87.17,
+"The score is Reach \u00d7 Impact \u00d7 Confidence \u00f7 Effort. Higher is better."
+],
+[
+87.67,
+101.18,
+"Its strength is that reach anchors everything. It's hard to argue a feature up the list when it touches a few dozen people. It's also quick to learn and compares well across teams that calibrate impact the same way."
+],
+[
+101.68,
+122.39,
+"Its weakness is everything the formula leaves out. Strategic fit, revenue, risk and compliance don't appear unless you squeeze them into \"impact\". And it quietly assumes the items are alike: a reach number for an enterprise security feature and one for a self-serve onboarding tweak aren't measuring the same thing."
+],
+[
+123.39,
+124.95,
+"What weighted scoring is."
+],
+[
+125.65,
+146.49,
+"Weighted scoring starts with a decision about what matters. You choose a handful of criteria, give each one a weight, and score every option on each criterion, usually from 1 to 5. Costs such as effort and risk count the other way round, so lower is better. Each option's weighted total becomes its score."
+],
+[
+146.99,
+165.25,
+"Its strength is that it makes your strategy visible. If the company is moving upmarket, \"strategic fit\" gets a high weight and everyone can see why an enterprise feature rises. It also copes with options that aren't alike, because every one is judged on the same criteria."
+],
+[
+165.75,
+185.68,
+"Its weakness is the weights. Choosing them is a genuine debate, and whoever chooses the criteria can tilt the result toward their favourite item. The fix is simple but needs discipline: agree the criteria and weights before anyone scores, and keep any single criterion under about half of the total."
+],
+[
+187.03,
+188.93,
+"Same backlog, two answers."
+],
+[
+189.63,
+197.76,
+"Here's a small example. A B2B product team has four candidates and a strategy to win larger customers this year."
+],
+[
+198.26,
+201.8,
+"Self-serve onboarding: smoother setup for new accounts."
+],
+[
+201.95,
+207.39,
+"SSO for enterprise: single sign-on that large customers require."
+],
+[
+207.54,
+210.2,
+"Bulk export: a quick, popular request."
+],
+[
+210.35,
+216.61,
+"AI usage summary: a weekly AI digest of how each account uses the product."
+],
+[
+217.11,
+231.93,
+"With RICE, bulk export wins (900), just ahead of onboarding (800), with the AI summary third (300). SSO comes last (135): few users touch it, so its reach is tiny."
+],
+[
+232.43,
+257.56,
+"With weighted scoring, using customer value, strategic fit, revenue impact, effort and risk, the order almost reverses. SSO comes first (75 out of 100), onboarding second (67), the AI summary third (51) and bulk export last (42). Strategic fit and revenue lift SSO; the same criteria sink bulk export, however cheap it is."
+],
+[
+258.41,
+278.62,
+"Neither answer is wrong. RICE is telling you what helps the most people for the least work. Weighted scoring is telling you what serves this year's strategy. If the strategy really is to move upmarket, a team running RICE alone would ship bulk export first and keep postponing the feature its biggest prospects need."
+],
+[
+279.62,
+280.81,
+"How to choose."
+],
+[
+281.51,
+283.05,
+"Ask two questions."
+],
+[
+283.55,
+295.86,
+"Are the options the same kind of thing? If they're features for the same users in one area, RICE fits. If they're different kinds of bets, or strategy is changing, use weighted scoring."
+],
+[
+296.01,
+308.93,
+"Can you estimate reach with some confidence? If yes, RICE. If not, a lighter method such as ICE (Impact, Confidence, Ease) is more honest than a RICE score built on guessed reach."
+],
+[
+309.43,
+325.18,
+"In practice, the strongest teams combine them. Once a quarter, use weighted scoring to decide which themes and bets matter, with leadership agreeing the weights. Then, within each theme, use RICE to order the individual items week to week."
+],
+[
+326.53,
+327.81,
+"Common mistakes."
+],
+[
+328.51,
+334.89,
+"Scoring before agreeing the weights. The weights are the strategy. Set them first, together, then score."
+],
+[
+335.04,
+346.41,
+"False precision. A score of 66.7 against 64.2 isn't a real difference. Treat close calls as ties and decide them on evidence."
+],
+[
+346.56,
+355.11,
+"One criterion doing all the work. If a single criterion carries more than half the weight, you're really using one criterion."
+],
+[
+355.26,
+361.58,
+"Never revisiting confidence. Low-confidence scores should trigger a cheap test, not a commitment."
+],
+[
+361.73,
+378.73,
+"Treating the score as the decision. A framework orders the conversation. Judgement, timing and context still decide. As we wrote in The Feature Fallacy, the goal is the smallest change that moves the outcome, not the longest list of shipped features."
+],
+[
+379.73,
+381.67,
+"Try it on your own backlog."
+],
+[
+382.37,
+405.94,
+"Our free Feature Prioritization Scorecard now does both. Score your features with weighted scoring, then with RICE, and the Compare tab shows the two rankings side by side, with a line for each feature and a plain-English note on where they disagree. You can open this article's example in Compare and change the weights or the reach to see how quickly the order moves."
+],
+[
+406.44,
+419.73,
+"For the wall or the next planning meeting, download the one-page Which prioritization method? cheat sheet: the two questions, the three methods at a glance, and six rules for a ranking you can defend."
+],
+[
+420.23,
+433.35,
+"If your team is arguing about the roadmap rather than the weights, that's the conversation worth having first. It's the kind of work we do in product strategy engagements, and a free call is a good place to start."
+],
+[
+434.45,
+447.28,
+"This was RICE or Weighted Scoring: Which Prioritization Framework Should You Use?, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

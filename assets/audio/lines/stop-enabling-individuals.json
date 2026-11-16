@@ -1,0 +1,147 @@
+[
+[
+0.0,
+4.18,
+"Stop enabling individuals. Start enabling the organization."
+],
+[
+4.33,
+11.2,
+"From novice to organization: why Copilot Studio is the bridge to real AI enablement."
+],
+[
+11.35,
+13.06,
+"From Product Advisory."
+],
+[
+13.81,
+50.17,
+"Most companies are stuck in the same place right now. A handful of curious employees are using AI tools on their own, building clever prompts, saving themselves an hour here and there, and quietly becoming the \"AI person\" on their team. Meanwhile, the organization as a whole has no shared capability at all. If that employee leaves, the knowledge leaves with them. If a new hire joins, they start from zero. This is what I call novice, individual AI enablement, and it's where the vast majority of companies sit today."
+],
+[
+51.02,
+93.79,
+"The next stage, organizational AI enablement, looks completely different. It means the organization itself, not just a handful of power users, has durable AI capability. Workflows are automated in a way that survives turnover. Institutional knowledge is captured in a system rather than trapped in someone's head. New employees inherit capability on day one instead of building it from scratch. That shift, from individual cleverness to organizational infrastructure, is the single biggest unlock most companies are missing right now, and it's exactly the gap that Microsoft Copilot Studio is built to close."
+],
+[
+94.79,
+98.87,
+"Why Copilot Studio matters for organizational enablement."
+],
+[
+99.57,
+126.89,
+"Copilot Studio isn't just another chatbot builder. It's a low code environment for building agents that plug directly into the systems your organization already runs on: SharePoint, Dataverse, Teams, your CRM, your internal APIs. That matters more than it sounds like on the surface, because it means the agents you build aren't isolated experiments. They're extensions of your actual business processes."
+],
+[
+127.39,
+133.22,
+"There are a few reasons this matters specifically for the novice to organizational transition."
+],
+[
+133.72,
+159.0,
+"First, it lowers the floor for who can build. You don't need a data science team to stand up a working agent. A product manager, an operations lead, or a customer success rep with real process knowledge can build something useful. That matters because the people who understand a workflow best are rarely the people with engineering resources, and Copilot Studio closes that gap."
+],
+[
+159.5,
+186.61,
+"Second, it raises the ceiling for what \"enabled\" means. An individual using ChatGPT well is enabled. An organization with a library of agents handling onboarding questions, pulling data from internal systems, and routing tickets based on real business logic is enabled in a completely different way. Copilot Studio gives you a path from one to the other without requiring a full platform rebuild."
+],
+[
+187.11,
+226.53,
+"Third, and this is the part leadership teams underestimate, it creates a governance layer. Individual AI use is invisible to the organization. Nobody knows what prompts people are running, what data they're pasting into a chat window, or what decisions are being informed by an ungoverned tool. Agents built in Copilot Studio live inside your tenant, respect your security boundaries, and can be monitored, versioned, and improved like any other piece of software. That's the difference between AI as a shadow practice and AI as a managed capability."
+],
+[
+227.53,
+231.84,
+"Building for the organization vs. building for the individual."
+],
+[
+232.54,
+238.39,
+"It's worth sitting with this distinction because it changes how you should be thinking about ROI."
+],
+[
+238.89,
+253.61,
+"When you build for an individual, you're optimizing for one person's time. That's real value, but it's capped. It scales only as far as that person's workload and only as long as they're using the tool consistently."
+],
+[
+254.46,
+295.15,
+"When you build for the organization, you're optimizing for a process. A well built agent that handles first line customer questions, or triages internal support tickets, or walks a new employee through a benefits enrollment process, doesn't just save one person time. It removes friction from the system itself. It runs the same way at 9am and at midnight. It doesn't forget a step because it's a Friday afternoon. And critically, it compounds. Every improvement you make to that agent benefits every person who touches that process going forward, not just the one person who happened to build it."
+],
+[
+295.65,
+324.41,
+"There's also a change management benefit that gets overlooked. When AI capability lives in individual habits, adoption is fragile and uneven. Some people embrace it, some people ignore it, and leadership has almost no visibility into which is happening. When AI capability lives in organizational agents, adoption becomes a rollout you can actually manage, measure, and support, the same way you'd roll out any other piece of enterprise software."
+],
+[
+324.91,
+345.11,
+"None of this means individual enablement doesn't matter. People still need to build comfort and fluency with these tools, and that comfort is often what generates the ideas that eventually become organizational agents. But if individual enablement is where you stop, you're leaving almost all of the value on the table."
+],
+[
+346.11,
+350.08,
+"Getting started: building your first Copilot Studio agent."
+],
+[
+350.78,
+354.64,
+"If you're new to this, here's the practical path I'd recommend."
+],
+[
+355.14,
+379.48,
+"Start narrow. Pick one process that is well understood, has a clear start and end point, and causes real friction today. Something like answering the same five questions your HR team gets asked every week, or routing a specific type of internal request. Resist the urge to start with something ambitious. Your first agent should be boring and useful, not impressive."
+],
+[
+380.33,
+397.44,
+"Map the process before you build anything. Write out the actual steps a human takes today, including the exceptions and edge cases. Most first agents fail not because the tool couldn't handle it, but because nobody wrote down what \"handling it\" actually meant."
+],
+[
+397.94,
+423.25,
+"Ground the agent in real data. Connect it to the actual source of truth, whether that's a SharePoint site, a knowledge base, or a Dataverse table, rather than relying on generic model knowledge. This is where Copilot Studio's connectors earn their keep. An agent that can pull real, current information from your systems is dramatically more useful than one guessing from general training."
+],
+[
+423.75,
+436.97,
+"Test with the people who live in the process every day, not just your own team. The person handling these requests today will find the gaps in an afternoon that you'd miss after weeks of testing on your own."
+],
+[
+437.47,
+456.16,
+"Plan for ownership before you launch. Somebody needs to own this agent the way they'd own a piece of software, monitoring how it performs, updating it as the process changes, and retiring it if it stops earning its keep. An agent nobody owns quietly becomes technical debt."
+],
+[
+456.66,
+472.55,
+"Finally, treat your first agent as a proof point, not the finish line. The real payoff isn't the single automation. It's what that first success teaches your organization about what's possible, and the credibility it builds for the next ten agents."
+],
+[
+473.55,
+474.77,
+"The bigger picture."
+],
+[
+475.47,
+511.96,
+"The organizations that will separate themselves over the next few years aren't the ones with the most individual AI enthusiasts. They're the ones that figured out how to turn individual enthusiasm into organizational capability, and did it in a way that's governed, durable, and built on real business processes rather than good intentions. Copilot Studio isn't the only way to make that transition, but it's one of the most accessible on ramps available right now, particularly for organizations that already live inside the Microsoft ecosystem."
+],
+[
+512.81,
+530.95,
+"If your company is still in the novice stage, the good news is that the jump to organizational enablement doesn't require a massive transformation program. It requires picking one real process, building one real agent, and proving it out. Everything else follows from there."
+],
+[
+532.05,
+543.95,
+"This was Stop enabling individuals. Start enabling the organization, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

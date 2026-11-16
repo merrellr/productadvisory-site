@@ -1,0 +1,392 @@
+[
+[
+0.0,
+5.65,
+"Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot."
+],
+[
+5.8,
+18.67,
+"Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here's how a PM scopes, designs and prioritizes the squad."
+],
+[
+18.82,
+20.52,
+"From Product Advisory."
+],
+[
+21.27,
+25.11,
+"Most teams start their AI journey by adding a chatbot."
+],
+[
+25.61,
+46.35,
+"It is a natural first step, but it also creates a common trap: treating AI like a single general-purpose assistant that you ask to do everything. The result is usually inconsistent quality, unclear ownership, and a product experience that feels impressive in a demo but unreliable in daily work."
+],
+[
+46.85,
+69.98,
+"A better mental model is to design an AI product team. Not humans, but a virtual squad of specialized agents with clear roles, clear inputs, and clear success criteria. This article walks through how a product manager can scope, design, and prioritize an agentic squad that plugs into an existing product organization."
+],
+[
+70.98,
+74.11,
+"Why one chatbot fails in real product work."
+],
+[
+74.81,
+99.28,
+"A single assistant is asked to do too many jobs: research a market, summarize customer feedback, propose features, draft PRDs, write launch messaging, analyze experiments, and answer stakeholder questions. Each of these jobs requires different context, different tools, different tone, and different evaluation. When everything goes through one assistant, you get three problems:"
+],
+[
+99.78,
+106.88,
+"Context overload. The assistant does not know which sources to trust or which priorities matter today."
+],
+[
+107.03,
+113.41,
+"Mixed quality. A response can be strong in one area and weak in another, and nobody knows why."
+],
+[
+113.56,
+120.35,
+"No clear ownership. When something is wrong, it is unclear which part of the system failed and how to fix it."
+],
+[
+120.85,
+125.14,
+"The solution is specialization. Just like a real product team."
+],
+[
+126.49,
+130.37,
+"The core concept: design agents like roles on a team."
+],
+[
+131.07,
+145.94,
+"Instead of \"an AI,\" think \"a squad.\" Each agent has a role description, a clear scope and boundaries, specific inputs it can use, outputs it is expected to produce, and evaluation metrics tied to that role."
+],
+[
+146.44,
+160.86,
+"A practical starting squad for product teams is a Researcher, an Analyst, a Copywriter and an Experiment Designer. You can add more later, but these four cover a surprising amount of PM leverage."
+],
+[
+162.21,
+165.05,
+"Step 1: Start with workflows, not models."
+],
+[
+165.75,
+184.8,
+"The biggest mistake is starting with the technology. Start with a workflow you want to improve. Pick a recurring product ritual that is expensive in time and attention, such as weekly backlog grooming, the monthly insights review, quarterly planning, or experiment reviews and writeups."
+],
+[
+185.3,
+195.43,
+"Then ask: where do we lose time, where do mistakes happen, and where do we lack consistency? Those pain points become your first agent responsibilities."
+],
+[
+195.93,
+218.31,
+"Take discovery and validation for a new initiative. The common pain points: feedback is scattered across tools, competitive research is outdated, insights are not consistently synthesized, hypotheses and experiments vary in quality, and messaging is rushed at launch. This workflow is a perfect place for a squad."
+],
+[
+219.31,
+222.25,
+"Step 2: Define the squad roles and handoffs."
+],
+[
+222.95,
+228.71,
+"Now define each agent as a role with a job to do, not as a generic assistant."
+],
+[
+229.86,
+231.27,
+"Researcher Agent."
+],
+[
+231.77,
+236.29,
+"Purpose: keep you informed and reduce time spent gathering raw inputs."
+],
+[
+236.79,
+247.2,
+"Inputs: customer call notes and transcripts, support tickets and tags, public competitor pages and announcements, and internal documents you provide."
+],
+[
+247.35,
+258.26,
+"Outputs: weekly themes and emerging issues, competitive snapshots and change alerts, and source-linked summaries that can be traced back to the original evidence."
+],
+[
+258.41,
+265.15,
+"Boundaries: does not make product decisions, does not invent sources, and flags uncertainty clearly."
+],
+[
+265.95,
+267.4,
+"Analyst Agent."
+],
+[
+267.9,
+271.74,
+"Purpose: translate raw data into decision-ready insights."
+],
+[
+272.24,
+279.02,
+"Inputs: product analytics dashboards, event data extracts, cohort metrics, and experiment results."
+],
+[
+279.17,
+290.39,
+"Outputs: metric narratives (what changed, and why it might have changed), segment and cohort analysis suggestions, and anomaly summaries with likely drivers."
+],
+[
+290.54,
+298.97,
+"Boundaries: does not declare causality without experimental support, and clearly separates observation from hypothesis."
+],
+[
+299.77,
+301.24,
+"Copywriter Agent."
+],
+[
+301.74,
+306.61,
+"Purpose: increase the speed and consistency of user-facing messaging."
+],
+[
+307.11,
+318.67,
+"Inputs: the feature description, target audience and context, a style guide or examples of your product voice, and compliance or regulated-language rules if needed."
+],
+[
+318.82,
+329.27,
+"Outputs: in-product microcopy options, release notes, FAQs and onboarding messages, and value proposition variants for different segments."
+],
+[
+329.42,
+337.25,
+"Boundaries: does not make up product capabilities, avoids risky claims, and calls out where legal review is needed."
+],
+[
+338.05,
+340.18,
+"Experiment Designer Agent."
+],
+[
+340.68,
+346.04,
+"Purpose: improve the quality and consistency of how your team tests ideas."
+],
+[
+346.54,
+356.57,
+"Inputs: the problem statement and hypothesis, primary and guardrail metrics, traffic assumptions and constraints, and prior experiments and learnings."
+],
+[
+356.72,
+366.42,
+"Outputs: a structured experiment brief, variants and instrumentation suggestions, and a pre-launch checklist and post-launch analysis outline."
+],
+[
+366.57,
+372.46,
+"Boundaries: does not pick strategy; proposes options and tradeoffs, not a single answer."
+],
+[
+373.26,
+374.8,
+"The handoff design."
+],
+[
+375.3,
+400.3,
+"A squad works when outputs become inputs. For example: the Researcher surfaces a theme and evidence, the Analyst quantifies impact and identifies segments, the Experiment Designer proposes how to test a change, and the Copywriter drafts the messaging for the variant and the eventual launch. That turns your squad into a repeatable system rather than four disconnected tools."
+],
+[
+401.3,
+403.92,
+"Step 3: Scope the MVP squad."
+],
+[
+404.62,
+416.61,
+"You do not need to automate everything. The goal is an MVP that is useful weekly, small enough to maintain, and easy to evaluate. A simple MVP scope:"
+],
+[
+417.11,
+426.16,
+"Researcher: a weekly summary of the top five customer pain points with links to sources, and a monthly competitor change digest."
+],
+[
+426.31,
+435.4,
+"Analyst: a weekly KPI narrative for three to five core metrics, and simple anomaly alerts with suggested next questions."
+],
+[
+435.55,
+444.21,
+"Experiment Designer: a one-page experiment brief filled in from your inputs, and a checklist for instrumentation and launch readiness."
+],
+[
+444.36,
+450.39,
+"Copywriter: three microcopy options per feature, and one release note draft per launch."
+],
+[
+450.89,
+455.99,
+"If you ship this, your squad will already save time and reduce inconsistency."
+],
+[
+456.99,
+460.9,
+"Step 4: Prioritize agents with a simple scoring model."
+],
+[
+461.6,
+470.07,
+"PMs need a rational way to decide which agents to build first. Use a lightweight rubric across four factors:"
+],
+[
+470.57,
+473.64,
+"Frequency: how often does this workflow happen?"
+],
+[
+473.79,
+477.59,
+"Time cost: how much PM and team time does it consume?"
+],
+[
+477.74,
+480.4,
+"Risk: what is the downside if it goes wrong?"
+],
+[
+480.55,
+485.05,
+"Leverage: does it unblock multiple teams, or compound improvements?"
+],
+[
+485.9,
+511.06,
+"The Analyst might score high on frequency and leverage. The Copywriter might score high on time cost if your team ships weekly. The Experiment Designer might score high on risk reduction. Start with the agent that provides the highest weekly value with manageable risk, not the most impressive demo. You can score your own candidates with the free AI Use Case Prioritization tool."
+],
+[
+512.06,
+515.85,
+"Step 5: Plug the squad into your existing product org."
+],
+[
+516.55,
+538.21,
+"The squad should fit into the tools and rituals your team already uses: Slack or Teams for daily interactions and digests, Jira or Linear for turning insights into tickets and epics, Notion, Confluence or Google Docs for living briefs and summaries, and your analytics platform for KPI monitoring and reporting."
+],
+[
+538.71,
+557.78,
+"The goal is not \"another tool.\" The goal is reducing friction inside the system your team already lives in. A practical pattern: agents produce outputs on a cadence, humans review them in a short ritual, and approved outputs become artifacts and actions in your normal tools."
+],
+[
+558.78,
+562.15,
+"Step 6: Evaluate each agent like a product."
+],
+[
+562.85,
+566.99,
+"Treat each agent like a mini product with its own success metrics:"
+],
+[
+567.49,
+578.0,
+"Researcher: coverage (are we capturing the right themes?), traceability (can we click back to sources?), and usefulness (do PMs and leaders cite it in decisions?)."
+],
+[
+578.15,
+588.46,
+"Analyst: accuracy of metrics and summaries, time saved in KPI reviews, and the number of decisions or actions triggered by its insights."
+],
+[
+588.61,
+599.87,
+"Experiment Designer: consistency of experiment briefs, fewer failed launches due to missing instrumentation, and faster cycle time from hypothesis to result."
+],
+[
+600.02,
+610.16,
+"Copywriter: fewer editing cycles, clarity measured by user behavior or support volume, and alignment with brand voice and compliance rules."
+],
+[
+610.66,
+613.17,
+"If you cannot evaluate it, it will drift."
+],
+[
+614.17,
+616.07,
+"What changes for the PM."
+],
+[
+616.77,
+637.29,
+"When you move from a chatbot to a squad, your job becomes clearer. You are defining roles, not writing prompts. You are designing workflows and handoffs, not asking for one-off answers. You are managing quality through evaluation, not relying on vibes. And you are building leverage into your product practice."
+],
+[
+637.79,
+649.29,
+"The end state is a product org where agents do the repetitive first-draft work, and humans do the judgment, collaboration, and decision making. That is how you get real value."
+],
+[
+650.29,
+653.26,
+"A simple starting plan you can run next week."
+],
+[
+653.96,
+656.22,
+"Pick one workflow that repeats weekly."
+],
+[
+656.37,
+659.02,
+"Define two agents for it, not four."
+],
+[
+659.17,
+662.3,
+"Give each agent a clear output format and cadence."
+],
+[
+662.45,
+665.1,
+"Run a weekly review ritual for two weeks."
+],
+[
+665.25,
+667.93,
+"Refine based on what actually got used."
+],
+[
+668.43,
+678.59,
+"The goal is not to build the perfect AI product team. The goal is to build the first version that earns a permanent place in how your team operates."
+],
+[
+679.69,
+693.34,
+"This was Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

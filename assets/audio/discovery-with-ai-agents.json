@@ -1,0 +1,40 @@
+{
+ "duration": 491.5,
+ "bytes": 3932524,
+ "hash": "dba9cea2a32a80ac",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   94.33,
+   "1. Start with human-led customer conversations"
+  ],
+  [
+   171.62,
+   "2. Use AI agents to synthesize, not interpret"
+  ],
+  [
+   248.45,
+   "3. Let humans do the sense making"
+  ],
+  [
+   310.64,
+   "4. Use AI to generate and challenge hypotheses"
+  ],
+  [
+   368.63,
+   "5. Close the loop with customers again"
+  ],
+  [
+   414.44,
+   "The most common failure mode"
+  ],
+  [
+   453.62,
+   "Final thought"
+  ]
+ ]
+}

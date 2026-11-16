@@ -1,0 +1,192 @@
+[
+[
+0.0,
+1.49,
+"The Feature Fallacy."
+],
+[
+1.64,
+5.82,
+"Why shipping more isn't helping your users, and what to do instead."
+],
+[
+5.97,
+7.68,
+"From Product Advisory."
+],
+[
+8.43,
+14.38,
+"If you measure progress by how many features ship, you'll eventually ship yourself into irrelevance."
+],
+[
+14.88,
+26.94,
+"In healthcare, and increasingly across every SaaS category, the teams that win aren't the ones with the longest release notes. They're the ones with the shortest path to a meaningful outcome."
+],
+[
+27.44,
+43.78,
+"This isn't anti-shipping. It's pro value density: the ratio of outcome created to effort required. When value density goes up, adoption, retention, and trust follow. When it goes down, your backlog grows faster than your business."
+],
+[
+45.13,
+48.2,
+"Three invisible taxes you're probably paying."
+],
+[
+48.9,
+65.6,
+"Context-switch tax. Every new feature branches the mental model, for users and for teams. Users pay with cognitive load; teams pay with QA, docs, analytics events, and support scripts. The more branches, the slower everything gets."
+],
+[
+65.75,
+77.42,
+"Adoption tax. Features don't adopt themselves. They need activation points, enablement, and discoverability. \"Shipping\" without an adoption path is just inventory."
+],
+[
+77.57,
+90.57,
+"Quality tax. More surface area means more edge cases. In regulated spaces like healthcare, quality debt compounds with safety and compliance risk. It's quiet, until it isn't."
+],
+[
+91.92,
+96.67,
+"A better north star: outcome-first, evidence-backed, minimally sufficient."
+],
+[
+97.37,
+100.94,
+"I use a simple loop that travels well across domains:"
+],
+[
+101.44,
+112.0,
+"Outcome-first: Define the end state in observable terms (for example, \"Reduce median prescription time from 4:30 to 2:00\")."
+],
+[
+112.15,
+118.55,
+"Evidence-backed: Tie the bet to a falsifiable hypothesis and minimum viable measurement plan."
+],
+[
+118.7,
+125.76,
+"Minimally sufficient: Ship the smallest intervention that can move the outcome for a narrow segment. Then scale."
+],
+[
+126.26,
+129.5,
+"Think OEM: Outcome \u2192 Evidence \u2192 Minimum."
+],
+[
+130.85,
+132.28,
+"What to do this quarter."
+],
+[
+132.98,
+148.27,
+"Replace roadmaps with bet maps. \"We believe doing X for Y segment will drive Z outcome.\" Add confidence, leading indicators, and kill criteria. Review monthly. Kill or double down based on signal, not opinions."
+],
+[
+148.42,
+162.21,
+"Segment before you scale. Design for one high-value workflow first (for example, \"charge nurse during shift change\"). Optimize locally, then generalize. Cleaner UX, clearer causal signal."
+],
+[
+162.36,
+174.35,
+"Default to workflow, not widgets. Ask, \"What steps disappear?\" not \"What screens can we add?\" Inline actions, automation hooks, and smart defaults tend to beat net-new features."
+],
+[
+174.5,
+188.98,
+"Measure the path, not the page. Instrument end-to-end: start rate, completion rate, time-to-complete, drop-offs. Report \"time-to-outcome\" like you report uptime. Latency that matters is the user's time-to-value."
+],
+[
+189.13,
+199.97,
+"Design for reversibility. Feature flags, shadow modes, opt-in cohorts. Make wrong bets cheap and reversible; make irreversible bets rare and deliberate."
+],
+[
+201.32,
+204.99,
+"A quick example (illustrative; healthcare, but universal)"
+],
+[
+205.69,
+216.82,
+"Problem: Clinicians were abandoning an Orders flow at 38% completion. The instinct: build \"Orders 2.0\" with templates and bulk actions."
+],
+[
+217.32,
+218.77,
+"The OEM approach:"
+],
+[
+219.27,
+226.19,
+"Outcome: Raise completion to 70%, cut median time from 3:10 to 1:45."
+],
+[
+226.34,
+233.01,
+"Evidence: Replays and path analysis showed friction on patient context switching and code search."
+],
+[
+233.16,
+242.19,
+"Minimum: Auto-attach patient context, pre-populate three likely order codes by unit and shift, add keyboard-first quick search."
+],
+[
+242.69,
+251.8,
+"Result (6 weeks): 74% completion, 1:41 median time, zero net-new \"features.\" Massive value density."
+],
+[
+253.15,
+255.66,
+"How Product and Engineering win together."
+],
+[
+256.36,
+264.98,
+"Product: ruthlessly prioritize the fewest interventions that move the outcome. Own problem definition and kill criteria."
+],
+[
+265.13,
+276.03,
+"Engineering: collapse time-to-learning. Instrument the path, ship behind flags, and treat reliability, latency and observability as user value, not plumbing."
+],
+[
+276.18,
+282.52,
+"Ritual: a weekly Outcomes Review. What did we learn? What can we ship next week to learn faster?"
+],
+[
+283.52,
+284.95,
+"The courage to delete."
+],
+[
+285.65,
+298.94,
+"Create a quarterly decommission list. Remove underused features, consolidate patterns, and redesign flows that require explanation. Celebrate deletion with the same fanfare as launches."
+],
+[
+299.94,
+300.84,
+"The ask."
+],
+[
+301.54,
+319.69,
+"If you're shipping a lot but moving little, run OEM on a single critical path this month. Define the outcome, gather minimal evidence, ship the smallest intervention, and measure the path. Send me your before and after, and I'll share the best anonymized examples."
+],
+[
+320.79,
+329.49,
+"This was The Feature Fallacy, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

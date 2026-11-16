@@ -1,0 +1,56 @@
+{
+ "duration": 810.4,
+ "bytes": 6484007,
+ "hash": "240a560cdb35175a",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   87.92,
+   "1. Building around the founder's vision instead of the user's workflow"
+  ],
+  [
+   174.85,
+   "2. Trying to build too much too early"
+  ],
+  [
+   243.59,
+   "3. Underestimating integration"
+  ],
+  [
+   320.46,
+   "4. Leaving security and compliance for later"
+  ],
+  [
+   391.01,
+   "5. Confusing user enthusiasm with buying intent"
+  ],
+  [
+   458.62,
+   "6. Not proving measurable value quickly enough"
+  ],
+  [
+   526.95,
+   "7. Running pilots that never reach a decision"
+  ],
+  [
+   588.41,
+   "8. Building without enough clinical or domain expertise"
+  ],
+  [
+   653.64,
+   "9. Ignoring implementation as part of product design"
+  ],
+  [
+   707.92,
+   "10. Chasing credibility signals instead of readiness"
+  ],
+  [
+   759.74,
+   "Complexity can become a moat"
+  ]
+ ]
+}

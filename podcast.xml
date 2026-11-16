@@ -7,7 +7,7 @@
   <language>en-us</language>
   <copyright>© Product Advisory, LLC</copyright>
   <description>Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement for product managers and the leaders who work with them.</description>
-  <lastBuildDate></lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 12:00:00 +0000</lastBuildDate>
   <itunes:author>Product Advisory</itunes:author>
   <itunes:summary>Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement for product managers and the leaders who work with them.</itunes:summary>
   <itunes:type>episodic</itunes:type>
@@ -18,5 +18,209 @@
   <itunes:category text="Technology"/>
   <itunes:explicit>false</itunes:explicit>
   <podcast:locked>no</podcast:locked>
+  <item>
+    <title>The Five Second Test</title>
+    <description>How to review your pricing page the way your customers actually read it. Read the article, with its charts: https://www.productadvisory.co/insights/five-second-test</description>
+    <link>https://www.productadvisory.co/insights/five-second-test</link>
+    <guid isPermaLink="false">productadvisory-audio-five-second-test</guid>
+    <pubDate>Tue, 10 Nov 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/five-second-test.mp3" length="6677290" type="audio/mpeg"/>
+    <itunes:duration>835</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>The $3.67 Listener</title>
+    <description>How Spotify and Netflix build tiers that pay for each other, and what it teaches product managers about segmentation. Read the article, with its charts: https://www.productadvisory.co/insights/367-listener</description>
+    <link>https://www.productadvisory.co/insights/367-listener</link>
+    <guid isPermaLink="false">productadvisory-audio-367-listener</guid>
+    <pubDate>Tue, 10 Nov 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/367-listener.mp3" length="7164200" type="audio/mpeg"/>
+    <itunes:duration>895</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>RICE or Weighted Scoring: Which Prioritization Framework Should You Use?</title>
+    <description>The same four features, ranked two ways, come out almost in reverse. Here&#x27;s when to trust each one. Read the article, with its charts: https://www.productadvisory.co/insights/rice-vs-weighted-scoring</description>
+    <link>https://www.productadvisory.co/insights/rice-vs-weighted-scoring</link>
+    <guid isPermaLink="false">productadvisory-audio-rice-vs-weighted-scoring</guid>
+    <pubDate>Sat, 24 Oct 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/rice-vs-weighted-scoring.mp3" length="3580190" type="audio/mpeg"/>
+    <itunes:duration>447</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>The $1.50 Hot Dog</title>
+    <description>Costco sells memberships, not groceries, and what that teaches product managers about where the money really is. Read the article, with its charts: https://www.productadvisory.co/insights/150-hot-dog</description>
+    <link>https://www.productadvisory.co/insights/150-hot-dog</link>
+    <guid isPermaLink="false">productadvisory-audio-150-hot-dog</guid>
+    <pubDate>Tue, 13 Oct 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/150-hot-dog.mp3" length="7271911" type="audio/mpeg"/>
+    <itunes:duration>909</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>The $100 Staircase</title>
+    <description>What Apple&#x27;s pricing teaches product managers about the art of the upsell. Read the article, with its charts: https://www.productadvisory.co/insights/100-staircase</description>
+    <link>https://www.productadvisory.co/insights/100-staircase</link>
+    <guid isPermaLink="false">productadvisory-audio-100-staircase</guid>
+    <pubDate>Tue, 29 Sep 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/100-staircase.mp3" length="8212328" type="audio/mpeg"/>
+    <itunes:duration>1026</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)</title>
+    <description>Agents do the reading, summarizing and watching. Every real decision still belongs to the PM. Read the article, with its charts: https://www.productadvisory.co/insights/day-in-the-life</description>
+    <link>https://www.productadvisory.co/insights/day-in-the-life</link>
+    <guid isPermaLink="false">productadvisory-audio-day-in-the-life</guid>
+    <pubDate>Mon, 17 Aug 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/day-in-the-life.mp3" length="3890468" type="audio/mpeg"/>
+    <itunes:duration>486</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Stop enabling individuals. Start enabling the organization.</title>
+    <description>From novice to organization: why Copilot Studio is the bridge to real AI enablement. Read the article, with its charts: https://www.productadvisory.co/insights/stop-enabling-individuals</description>
+    <link>https://www.productadvisory.co/insights/stop-enabling-individuals</link>
+    <guid isPermaLink="false">productadvisory-audio-stop-enabling-individuals</guid>
+    <pubDate>Mon, 03 Aug 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/stop-enabling-individuals.mp3" length="4353552" type="audio/mpeg"/>
+    <itunes:duration>544</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Agentic AI as an Internal Product: Building PM Copilots for Your Own Organization</title>
+    <description>Treat internal AI like a product: discovery, a tight pilot, honest feedback and real adoption metrics. Read the article, with its charts: https://www.productadvisory.co/insights/pm-copilots</description>
+    <link>https://www.productadvisory.co/insights/pm-copilots</link>
+    <guid isPermaLink="false">productadvisory-audio-pm-copilots</guid>
+    <pubDate>Mon, 06 Jul 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/pm-copilots.mp3" length="4617003" type="audio/mpeg"/>
+    <itunes:duration>577</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>AI Is Not a Project. It&#x27;s a Practice. Here&#x27;s How to Build One.</title>
+    <description>Stop waiting for perfect. Start with one use case, one experiment and one person willing to share what they learned. Read the article, with its charts: https://www.productadvisory.co/insights/ai-is-a-practice</description>
+    <link>https://www.productadvisory.co/insights/ai-is-a-practice</link>
+    <guid isPermaLink="false">productadvisory-audio-ai-is-a-practice</guid>
+    <pubDate>Tue, 02 Jun 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/ai-is-a-practice.mp3" length="3082517" type="audio/mpeg"/>
+    <itunes:duration>385</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Overcoming Common Pitfalls in Early Stage Product Development for Healthcare SaaS</title>
+    <description>Most healthcare startups don&#x27;t fail on the idea. They fail on assumptions that don&#x27;t hold up in real healthcare environments. Read the article, with its charts: https://www.productadvisory.co/insights/healthcare-saas-pitfalls</description>
+    <link>https://www.productadvisory.co/insights/healthcare-saas-pitfalls</link>
+    <guid isPermaLink="false">productadvisory-audio-healthcare-saas-pitfalls</guid>
+    <pubDate>Mon, 11 May 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/healthcare-saas-pitfalls.mp3" length="6484007" type="audio/mpeg"/>
+    <itunes:duration>810</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>How to Run Product Discovery with AI Agents Without Losing the Voice of the Customer</title>
+    <description>Humans talk to customers. Agents synthesize and augment what humans heard. Get that order right and AI makes discovery better, not just faster. Read the article, with its charts: https://www.productadvisory.co/insights/discovery-with-ai-agents</description>
+    <link>https://www.productadvisory.co/insights/discovery-with-ai-agents</link>
+    <guid isPermaLink="false">productadvisory-audio-discovery-with-ai-agents</guid>
+    <pubDate>Mon, 04 May 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/discovery-with-ai-agents.mp3" length="3932524" type="audio/mpeg"/>
+    <itunes:duration>492</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Improving Accessibility with AI: Tools and Innovations Making Life Easier</title>
+    <description>AI is turning accessibility from a compliance afterthought into something built in by default. Here&#x27;s what&#x27;s working, where it falls short, and how to start this week. Read the article, with its charts: https://www.productadvisory.co/insights/ai-accessibility</description>
+    <link>https://www.productadvisory.co/insights/ai-accessibility</link>
+    <guid isPermaLink="false">productadvisory-audio-ai-accessibility</guid>
+    <pubDate>Mon, 27 Apr 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/ai-accessibility.mp3" length="4711841" type="audio/mpeg"/>
+    <itunes:duration>589</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot</title>
+    <description>Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here&#x27;s how a PM scopes, designs and prioritizes the squad. Read the article, with its charts: https://www.productadvisory.co/insights/squad-of-agents</description>
+    <link>https://www.productadvisory.co/insights/squad-of-agents</link>
+    <guid isPermaLink="false">productadvisory-audio-squad-of-agents</guid>
+    <pubDate>Mon, 06 Apr 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/squad-of-agents.mp3" length="5548773" type="audio/mpeg"/>
+    <itunes:duration>694</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>Beyond Automation: Win Customers for Life</title>
+    <description>How AI supercharges the human factor, and why the real magic happens when technology amplifies your team instead of replacing it. Read the article, with its charts: https://www.productadvisory.co/insights/beyond-automation</description>
+    <link>https://www.productadvisory.co/insights/beyond-automation</link>
+    <guid isPermaLink="false">productadvisory-audio-beyond-automation</guid>
+    <pubDate>Mon, 23 Mar 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/beyond-automation.mp3" length="3942847" type="audio/mpeg"/>
+    <itunes:duration>493</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager&#x27;s Job</title>
+    <description>Agents can own the first pass of backlog grooming, market research, experiment design and KPI reviews. The PM&#x27;s job moves to orchestration and sense making. Read the article, with its charts: https://www.productadvisory.co/insights/roadmaps-to-rituals</description>
+    <link>https://www.productadvisory.co/insights/roadmaps-to-rituals</link>
+    <guid isPermaLink="false">productadvisory-audio-roadmaps-to-rituals</guid>
+    <pubDate>Mon, 12 Jan 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/roadmaps-to-rituals.mp3" length="5488679" type="audio/mpeg"/>
+    <itunes:duration>686</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>How to Build Product-Focused AI Agents That Actually Make Better Decisions</title>
+    <description>How to shape LLMs to improve product judgment, decision quality and outcomes. Read the article, with its charts: https://www.productadvisory.co/insights/product-focused-ai-agents</description>
+    <link>https://www.productadvisory.co/insights/product-focused-ai-agents</link>
+    <guid isPermaLink="false">productadvisory-audio-product-focused-ai-agents</guid>
+    <pubDate>Tue, 06 Jan 2026 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/product-focused-ai-agents.mp3" length="2782818" type="audio/mpeg"/>
+    <itunes:duration>348</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
+  <item>
+    <title>The Feature Fallacy</title>
+    <description>Why shipping more isn&#x27;t helping your users, and what to do instead. Read the article, with its charts: https://www.productadvisory.co/insights/feature-fallacy</description>
+    <link>https://www.productadvisory.co/insights/feature-fallacy</link>
+    <guid isPermaLink="false">productadvisory-audio-feature-fallacy</guid>
+    <pubDate>Mon, 10 Nov 2025 12:00:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/audio/feature-fallacy.mp3" length="2637993" type="audio/mpeg"/>
+    <itunes:duration>330</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  </item>
 </channel>
 </rss>

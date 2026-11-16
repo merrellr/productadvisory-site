@@ -1,0 +1,332 @@
+[
+[
+0.0,
+2.62,
+"The $1.50 Hot Dog."
+],
+[
+2.77,
+10.5,
+"Costco sells memberships, not groceries, and what that teaches product managers about where the money really is."
+],
+[
+10.65,
+12.35,
+"From Product Advisory."
+],
+[
+13.1,
+17.6,
+"Costco doesn't sell you groceries. It sells you a reason to come back."
+],
+[
+18.1,
+34.68,
+"Two weeks after rebuilding Cadence's pricing, Jordan had a good problem. The new staircase was working. Customers were climbing out of Starter, average revenue per account was up, and the sales team had stopped asking for discount approvals every other day."
+],
+[
+35.18,
+42.56,
+"Then the CFO stopped by her desk with a question she couldn't answer. \"Which of our customers actually make us money?\""
+],
+[
+43.06,
+62.37,
+"Jordan knew which plans brought in the most revenue. She knew which features got used the most. But when she tried to trace a dollar of revenue all the way down to a dollar of profit, the trail went cold. She had spent a month obsessing over what customers paid and almost no time on what Cadence kept."
+],
+[
+62.87,
+91.03,
+"That Saturday she took her kids to Costco. The cart filled up the way Costco carts always do: paper towels, a flat of berries, a tire rotation appointment, a sweater nobody needed. At the end of the trip they stopped at the food court and she bought two hot dogs with sodas for $1.50 each. Standing at the counter, she did the math on what that hot dog must cost to make and serve, and realized Costco almost certainly loses money on it."
+],
+[
+91.53,
+104.71,
+"Then she looked back at the warehouse, packed on a Saturday morning with people who had each paid for the privilege of walking in the door, and understood that the hot dog was never the business. Neither were the paper towels."
+],
+[
+105.71,
+108.49,
+"Two percent of revenue, most of the profit."
+],
+[
+109.19,
+129.47,
+"On Monday Jordan pulled Costco's latest annual results, released just days earlier for the fiscal year ending in August 2026. The headline numbers are enormous. Costco brought in about $303 billion in total revenue and earned $9.2 billion in net income."
+],
+[
+129.97,
+147.32,
+"The detail that changes everything sits in one line: membership fees. Costco collected about $5.9 billion in fees last year. That is roughly 2 percent of its revenue. It is also equal to about 64 percent of its net income."
+],
+[
+148.17,
+176.29,
+"Those two numbers are measuring different things, so it's worth being careful. Fees are not literally 64 percent of profit, because Costco's expenses are shared across the whole business. But the comparison makes the shape of the company plain. The merchandise side runs on very thin margins, and the membership fee is nearly pure margin. Take the fees away and Costco would be a very large, very efficient store that barely breaks even."
+],
+[
+176.79,
+187.07,
+"In other words, Costco is a membership company that happens to run warehouses. The groceries are how it delivers the value. The membership is what it sells."
+],
+[
+187.57,
+194.16,
+"Jordan wrote the question she should have been asking all along at the top of a blank page: what is our membership?"
+],
+[
+195.16,
+197.06,
+"The hot dog is a promise."
+],
+[
+197.76,
+230.29,
+"The hot dog and soda combo has cost $1.50 since the mid 1980s. The rotisserie chicken has been $4.99 since 2009. Costco executives have publicly promised, more than once, that the hot dog price is safe. Meanwhile the membership fee has quietly risen in small steps every five or six years, from $25 when the first warehouse opened in 1983 to $65 today."
+],
+[
+231.14,
+247.16,
+"On paper, holding a price for forty years looks like a strange decision. A product manager looking only at the food court would call it a margin leak and fix it. That would be a mistake, because the hot dog isn't a product. It's a promise."
+],
+[
+247.66,
+270.85,
+"Every member who buys a $1.50 hot dog gets a small, tangible piece of evidence that Costco is on their side. It's the most visible proof of the value they paid for at the door. The chicken does the same job at the back of the store, which is exactly why it sits at the back of the store. You walk past everything else on the way to get it."
+],
+[
+271.35,
+298.74,
+"Costco protects the few prices people notice and remember, and it adjusts the one price people pay once a year and rarely think about. When the fee went up by $5 in 2024, it was the first increase in seven years, and it landed on a base of members who had spent those seven years eating $1.50 hot dogs. By at least one estimate, the fee is still lower in real terms than it was in 1983."
+],
+[
+299.24,
+319.68,
+"Jordan thought about Cadence's equivalent. Clinics loved one feature more than any other: the automatic reminder text that cut down on missed appointments. Office managers talked about it at conferences. It was the reason most referrals happened. And under the new pricing, it was metered and billed like everything else."
+],
+[
+320.68,
+322.62,
+"Low margins are the product."
+],
+[
+323.32,
+332.9,
+"Here is the part that took Jordan the longest to appreciate. Costco's thin margins are not a weakness it tolerates. They are the thing it's selling."
+],
+[
+333.4,
+358.8,
+"Calculated from its reported sales and merchandise costs, Costco keeps only about 11 cents of every sales dollar before operating expenses. The company has long kept its markups well below typical retail, and it treats that discipline as sacred. The low price on every shelf is what makes the membership worth paying for, and the membership fees are what allow the prices to stay that low."
+],
+[
+359.65,
+382.33,
+"It is a loop that feeds itself. Low prices bring in members and keep them visiting. More visits mean more volume. More volume gives Costco more buying power with suppliers. More buying power keeps prices low. The membership fee sits in the middle, funding the whole thing and turning a low margin retail business into a highly profitable one."
+],
+[
+382.83,
+403.52,
+"For a product manager, the lesson is subtle. Costco does not try to squeeze profit out of every item. It deliberately gives away margin in the places customers can see, and collects it in one place they have agreed to pay. The customer never feels nickel and dimed, because the nickel and dime were collected at the door."
+],
+[
+404.02,
+421.84,
+"Jordan looked at Cadence's pricing again and saw the opposite pattern. Every plan was profitable on its own. Every add on had its own margin. Customers could feel the meter running on almost everything they did, and it made them cautious about using the product at all."
+],
+[
+422.84,
+424.78,
+"The upgrade that pays for itself."
+],
+[
+425.48,
+443.55,
+"Costco offers two main memberships in the US. Gold Star costs $65 a year. Executive costs $130 a year and gives back 2 percent of what you spend at Costco as an annual reward, up to $1,250."
+],
+[
+444.05,
+466.6,
+"That structure is quietly brilliant, because it makes the upgrade decision almost mathematical. The Executive tier costs $65 more. At 2 percent back, a household that spends $3,250 a year at Costco, about $63 a week, breaks even. Anyone who spends more than that comes out ahead."
+],
+[
+467.45,
+489.38,
+"Most regular Costco households clear that bar easily, and Costco tells them so at the register. The upgrade stops feeling like an upsell and starts feeling like a mistake to skip. And once a member has upgraded, the reward check gives them one more reason to consolidate their shopping at Costco rather than splitting it across other stores."
+],
+[
+489.88,
+509.08,
+"The results speak for themselves. Costco ended fiscal 2026 with 84.1 million paid memberships, and 42.3 million of them were Executive, about half. Those Executive members accounted for roughly three quarters of Costco's sales in the fourth quarter."
+],
+[
+509.58,
+522.44,
+"Notice what Costco did here. It built a premium tier whose value the customer can calculate on the back of a receipt. It didn't hide the math or bury it in fine print. It made the math the pitch."
+],
+[
+523.44,
+525.75,
+"Renewal is the real scoreboard."
+],
+[
+526.45,
+542.3,
+"If membership is the product, then renewal is the metric that matters most, and Costco's is extraordinary. In the US and Canada, 92.3 percent of members renewed. Worldwide, the rate was 89.8 percent."
+],
+[
+543.15,
+566.74,
+"That number is what makes the whole model work. A 92 percent renewal rate means the membership base is a durable, predictable stream of nearly pure margin. It's why Costco can hold the hot dog at $1.50 for decades, run the thinnest margins in retail, and still raise its fee every several years without losing its members."
+],
+[
+567.24,
+595.47,
+"It's also why Costco watches the number so closely. Paid membership growth has slowed for several straight quarters, and analysts ask about it on every earnings call. The company's answer is telling. It points to younger members joining through digital channels, who renew at slightly lower rates at first and then settle in as their households grow. Costco manages renewal the way most software companies say they manage retention, and very few actually do."
+],
+[
+595.97,
+604.82,
+"Jordan realized Cadence reported monthly revenue to the board every month and had never once reported renewal as a headline number."
+],
+[
+605.82,
+607.29,
+"What Jordan changed."
+],
+[
+607.99,
+620.6,
+"Jordan spent the next two weeks answering the CFO's question properly. She worked with finance to trace every revenue line down to gross profit, and the result surprised everyone in the room."
+],
+[
+621.45,
+646.52,
+"Subscription plans brought in about two thirds of Cadence's revenue but more than four fifths of its gross profit. Patient messaging, the text and email reminders, brought in about a quarter of revenue but only a sliver of profit, because carrier costs ate nearly all of it. Cadence had been treating its thinnest margin line as a growth driver and metering its most beloved feature like a utility."
+],
+[
+647.02,
+650.0,
+"So Jordan borrowed four ideas from Costco."
+],
+[
+650.5,
+676.72,
+"First, she found Cadence's hot dog. Appointment reminders became included on every plan at a generous level, with a public promise that the included amount would never shrink. Messaging revenue would dip a little, but it was barely profitable anyway. What Cadence gained was the one feature every office manager already bragged about, now free of any meter and tied directly to the value of being a customer."
+],
+[
+677.22,
+698.77,
+"Second, she started selling access instead of transactions. Cadence introduced annual plans at the equivalent of ten months' pricing, and the sales team began describing Cadence as a membership for the front desk rather than a set of billable features. Customers paid once a year for everything they needed, and stopped watching usage."
+],
+[
+699.27,
+721.71,
+"Third, she built an upgrade that pays for itself. The Pro plan on annual terms now credits back a portion of each clinic's heavy messaging usage, and the pricing page shows the exact break even point in plain language. A practice that sends more than a set number of reminders a month comes out ahead by upgrading, and the page says so."
+],
+[
+722.21,
+729.72,
+"Fourth, she changed the scoreboard. Renewal rate became the first number on the monthly board report, above revenue."
+],
+[
+730.22,
+750.74,
+"A quarter later, the share of customers on annual terms had grown from under a fifth to more than two fifths, and the renewal rate was on track to climb into the high eighties. Revenue from messaging dipped slightly, exactly as expected. Gross profit didn't, because Cadence had stopped chasing revenue it was never keeping."
+],
+[
+751.74,
+753.19,
+"Borrowing the playbook."
+],
+[
+753.89,
+769.25,
+"Costco can look like a simple business: big boxes, bulk goods, low prices. Underneath, it is one of the clearest examples anywhere of a company that knows exactly where it makes its money and designs everything else to protect it."
+],
+[
+769.75,
+773.66,
+"For product managers, the lessons carry well past retail."
+],
+[
+774.16,
+785.78,
+"Know where you actually make money. Revenue and profit tell different stories. Trace every line of revenue down to what you keep before you decide what to grow, discount, or give away."
+],
+[
+785.93,
+797.86,
+"Protect your hot dog. Find the one thing customers notice, love, and talk about, and hold its price like a promise. It's the proof of value that makes everything else feel fair."
+],
+[
+798.01,
+810.43,
+"Sell access, not transactions. When customers pay for the relationship up front, they stop watching the meter and start using the product. Usage builds habit, and habit builds renewal."
+],
+[
+810.58,
+821.73,
+"Make the upgrade math obvious. A premium tier the customer can calculate for themselves doesn't need a sales pitch. Show the break even point and let the numbers do the work."
+],
+[
+821.88,
+831.27,
+"Put renewal at the top of the scoreboard. If your business depends on customers coming back, measure that first and manage it like the product it is."
+],
+[
+831.77,
+843.8,
+"Jordan still goes to Costco most Saturdays. The kids still get the hot dog. She has stopped thinking of it as the cheapest thing in the building and started thinking of it as the most important one."
+],
+[
+844.3,
+848.8,
+"Costco doesn't sell you groceries. It sells you a reason to come back."
+],
+[
+849.8,
+850.76,
+"Sources."
+],
+[
+851.46,
+860.53,
+"Costco fiscal 2026 fourth quarter and full year results, via 24/7 Wall St. and FinanceFeeds."
+],
+[
+860.68,
+869.43,
+"Costco paid memberships, Executive share of sales, and renewal rates for fiscal 2026, via Yahoo Finance."
+],
+[
+869.58,
+876.08,
+"Costco gross margin calculation for fiscal 2026, via Insider Monkey."
+],
+[
+876.23,
+879.37,
+"Costco membership fee history, via Chowhound."
+],
+[
+879.52,
+886.58,
+"Costco 2024 fee increase and Executive reward changes, via Retail TouchPoints."
+],
+[
+886.73,
+891.81,
+"Hot dog combo and rotisserie chicken price history, via The Motley Fool."
+],
+[
+892.31,
+896.89,
+"Jordan and Cadence are fictional, and the Cadence figures are illustrative."
+],
+[
+897.99,
+908.75,
+"This was The $1.50 Hot Dog, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

@@ -1,0 +1,157 @@
+[
+[
+0.0,
+6.85,
+"A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)"
+],
+[
+7.0,
+13.97,
+"Agents do the reading, summarizing and watching. Every real decision still belongs to the PM."
+],
+[
+14.12,
+15.83,
+"From Product Advisory."
+],
+[
+16.58,
+25.82,
+"Jordan's alarm goes off at 6:45, and by the time coffee is brewing, the first decision of the day has already been made without them."
+],
+[
+27.17,
+29.54,
+"7:10 AM, kitchen counter."
+],
+[
+30.24,
+62.96,
+"The phone shows a single notification, not forty. Overnight, the inbox agent read through 62 new emails, three Slack threads that spilled into email, and a handful of automated alerts. It didn't just sort them, it wrote a two paragraph digest: one urgent thing (a key account flagged a bug in yesterday's release), one thing worth knowing (a competitor shipped a feature Jordan's team has been debating for a quarter), and everything else filed under \"nothing needs you today.\""
+],
+[
+63.46,
+80.8,
+"Five years ago this would have been forty minutes of scrolling and triage before Jordan even sat down. Now it's ninety seconds of reading, and one reply dictated back through the phone: \"loop in support lead on the account bug, tell them I'll join the call if needed.\""
+],
+[
+81.8,
+84.94,
+"8:05 AM, train into the office."
+],
+[
+85.64,
+111.26,
+"Jordan has a 9:30 with engineering about a delayed feature, and normally that meeting would start with someone summarizing where things stand. Not anymore. A meeting prep agent has already pulled together a one page brief: ticket status across the sprint, which ones moved, which ones didn't, and a flag that one blocked ticket has been sitting untouched for four days with no comment from anyone."
+],
+[
+111.76,
+134.07,
+"Jordan reads it twice. The four day silence is the real story here, more than the delay itself. That's a conversation worth having directly with the engineer, not something to raise in front of the whole team. The agent didn't know that distinction, it just surfaced the fact. Knowing what to do with the fact is still entirely Jordan's job."
+],
+[
+135.07,
+136.88,
+"9:30 AM, standup."
+],
+[
+137.58,
+163.85,
+"The meeting itself is short, because nobody's reciting status anymore. The agent generated brief already did that job, so the team spends the time actually talking through the blocked ticket. Turns out the engineer has been stuck on an ambiguous requirement and didn't want to hold up the meeting asking about it. Jordan clears it up in ninety seconds, something that might have quietly cost three more days if it hadn't surfaced."
+],
+[
+164.85,
+167.77,
+"11:00 AM, customer call."
+],
+[
+168.47,
+193.68,
+"Before a call with a mid sized account renewing next quarter, an account context agent has pulled together a summary: usage trends over the last two quarters, every support ticket filed, and the two feature requests this account has raised more than once. It also flags something Jordan wouldn't have caught easily on their own, usage of a core feature dropped sharply after last month's release."
+],
+[
+194.18,
+216.29,
+"That single flag changes the whole tone of the call. Instead of a routine check in, Jordan opens by asking directly about the drop, and learns the new release broke a workflow the account's team quietly worked around instead of filing a ticket about. That's exactly the kind of quiet churn risk that used to slip through undetected for months."
+],
+[
+217.29,
+221.38,
+"1:00 PM, back at a desk, lunch half finished."
+],
+[
+222.08,
+241.75,
+"An analytics agent has been watching product usage dashboards all morning and sends a note: a specific onboarding step is seeing a completion rate drop across several accounts, not just the one from this morning's call. It's not urgent enough to be an alert, but it's a pattern worth Jordan's attention."
+],
+[
+242.25,
+269.41,
+"This is the part of the job that's changed the most. Jordan isn't the one staring at dashboards looking for something interesting anymore. The agent does that constant watching, and brings forward the handful of things that actually deserve a human's judgment about what they mean and what, if anything, to do about them. Jordan still has to decide if this is worth a fix now or a note for next quarter's roadmap. That call is still entirely theirs."
+],
+[
+270.41,
+272.65,
+"2:30 PM, writing time."
+],
+[
+273.35,
+292.34,
+"Time to draft a short PRD for a fix to the onboarding step. Jordan talks through the problem out loud to a writing agent for a few minutes, the way you'd talk through an idea with a smart colleague, and gets back a rough first draft: problem statement, proposed approach, open questions."
+],
+[
+292.84,
+320.18,
+"It's not right. The agent's framing of the problem is a little too narrow, focused on the mechanics of the drop off rather than the actual user confusion behind it. Jordan rewrites the problem statement almost entirely, keeps most of the proposed approach, and tightens the open questions down to the two that actually matter. Twenty minutes of real editing turned a rough draft into something worth sharing, instead of two hours of blank page staring."
+],
+[
+321.53,
+324.09,
+"4:00 PM, planning."
+],
+[
+324.79,
+345.47,
+"A task management agent has been quietly rescoring the backlog all week based on the same signals: this morning's account risk, the onboarding drop, a few engineering estimates that came in higher than expected. It proposes a reordering and explains its reasoning in plain language, not just a ranked list."
+],
+[
+345.97,
+366.34,
+"Jordan agrees with most of it, overrides one recommendation because there's context about an upcoming exec review that the agent has no way of knowing about, and approves the rest. The backlog gets updated, and everyone on the team sees the reasoning behind the new order, not just the new order itself."
+],
+[
+367.34,
+369.96,
+"5:45 PM, wrapping up."
+],
+[
+370.66,
+393.66,
+"The end of day digest arrives before Jordan even closes the laptop: what happened today, what's still open, and three things flagged for tomorrow morning's attention. It's honest about what it doesn't know, too, noting that it couldn't tell whether the blocked ticket from standup actually got resolved, since that conversation happened outside any tool it can see."
+],
+[
+394.16,
+414.15,
+"Jordan closes the laptop having spent the day almost entirely on judgment calls: which risk mattered, which draft needed a firmer hand, which backlog item needed a human reason the agent couldn't have. Every hour of typing, scrolling, and repetitive digging got quietly absorbed somewhere else."
+],
+[
+415.5,
+417.14,
+"What's actually different."
+],
+[
+417.84,
+447.24,
+"None of this is about agents making decisions instead of Jordan. Every meaningful call today, the account risk worth escalating, the PRD framing, the backlog override, still came from a person weighing context an agent didn't have. What changed is everything sitting underneath those decisions. The reading, the summarizing, the watching, the first draft, the constant low grade vigilance that used to eat most of a PM's day now happens quietly in the background."
+],
+[
+447.74,
+470.57,
+"The job hasn't gotten smaller. It's gotten more concentrated. Jordan spent the day being a product manager, not an inbox processor, a dashboard watcher, or a status reciter. That's the actual shift worth paying attention to, not that AI agents are doing the job, but that they're clearing enough space for someone to finally do it properly."
+],
+[
+471.67,
+486.05,
+"This was A Day in the Life of a Product Manager Working with AI Agents (2026 Edition), from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

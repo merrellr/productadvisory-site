@@ -1,0 +1,36 @@
+{
+ "duration": 588.9,
+ "bytes": 4711841,
+ "hash": "7746959f1a1aaba0",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   68.14,
+   "Where AI is already making a difference"
+  ],
+  [
+   219.4,
+   "Accessibility is moving into mainstream products"
+  ],
+  [
+   262.18,
+   "AI is an enabler, not a shortcut"
+  ],
+  [
+   316.99,
+   "How to get started"
+  ],
+  [
+   421.78,
+   "Quick wins you can turn on today"
+  ],
+  [
+   526.31,
+   "Accessibility as innovation, not obligation"
+  ]
+ ]
+}

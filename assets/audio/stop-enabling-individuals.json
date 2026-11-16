@@ -1,0 +1,28 @@
+{
+ "duration": 544.1,
+ "bytes": 4353552,
+ "hash": "e7c581ab348f5e2e",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   94.79,
+   "Why Copilot Studio matters for organizational enablement"
+  ],
+  [
+   227.53,
+   "Building for the organization vs. building for the individual"
+  ],
+  [
+   346.11,
+   "Getting started: building your first Copilot Studio agent"
+  ],
+  [
+   473.55,
+   "The bigger picture"
+  ]
+ ]
+}

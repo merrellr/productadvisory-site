@@ -1,0 +1,44 @@
+{
+ "duration": 686.0,
+ "bytes": 5488679,
+ "hash": "54da6005e586a971",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   87.21,
+   "From tasks to rituals: what actually changes?"
+  ],
+  [
+   141.14,
+   "1. Backlog grooming"
+  ],
+  [
+   242.83,
+   "2. Market research"
+  ],
+  [
+   331.55,
+   "3. Experiment design"
+  ],
+  [
+   433.06,
+   "4. KPI reviews"
+  ],
+  [
+   518.08,
+   "So what does the PM job become?"
+  ],
+  [
+   574.95,
+   "How to start: three practical steps"
+  ],
+  [
+   622.48,
+   "The opportunity for PMs"
+  ]
+ ]
+}

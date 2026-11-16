@@ -1,0 +1,36 @@
+{
+ "duration": 447.4,
+ "bytes": 3580190,
+ "hash": "c1afdf9bdcb46b4c",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   48.01,
+   "What RICE is"
+  ],
+  [
+   123.39,
+   "What weighted scoring is"
+  ],
+  [
+   187.03,
+   "Same backlog, two answers"
+  ],
+  [
+   279.62,
+   "How to choose"
+  ],
+  [
+   326.53,
+   "Common mistakes"
+  ],
+  [
+   379.73,
+   "Try it on your own backlog"
+  ]
+ ]
+}

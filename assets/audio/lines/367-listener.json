@@ -1,0 +1,312 @@
+[
+[
+0.0,
+2.28,
+"The $3.67 Listener."
+],
+[
+2.43,
+9.86,
+"How Spotify and Netflix build tiers that pay for each other, and what it teaches product managers about segmentation."
+],
+[
+10.01,
+11.71,
+"From Product Advisory."
+],
+[
+12.46,
+16.88,
+"One price fits nobody. The right tiers fit almost everybody."
+],
+[
+17.38,
+33.0,
+"Jordan's teenage son asked her to upgrade the family's Spotify account. Not to a better plan, exactly. He wanted to be added to the Family plan that his older sister was already on, so he could stop listening to ads on the free version."
+],
+[
+33.5,
+65.53,
+"Jordan looked at the numbers while she was at it. The Family plan cost $21.99 a month for up to six people. Her own Individual plan cost $12.99. If the whole household joined, Spotify would be charging about $3.67 a person, less than a third of what she paid alone. Her son, meanwhile, had been using Spotify for free for two years. A friend of his at college paid $6.99 on a Student plan."
+],
+[
+66.03,
+77.89,
+"Four people, one household, one product, and four completely different prices. And somehow Spotify was making more money from all of them than it would from any single price."
+],
+[
+78.39,
+104.72,
+"Jordan thought about the email that had been sitting in her inbox all week. A community health center wanted to use Cadence but couldn't afford the Starter plan. A six location orthopedic group wanted it too, and was asking for a custom quote that the sales team didn't know how to build. Cadence had one price list for everyone. Spotify had figured out how to have a different price for almost everyone, without anyone feeling cheated."
+],
+[
+105.22,
+107.84,
+"She put her phone down and started sketching."
+],
+[
+108.84,
+111.13,
+"One price leaves money on the table."
+],
+[
+111.83,
+125.46,
+"Every product has customers who value it very differently. Some would pay almost anything. Some would pay a little. Many would pay something in between. When you pick a single price, you make two mistakes at once."
+],
+[
+125.96,
+135.92,
+"Customers who would have paid more get a bargain, and you never see that extra money. Customers who can't afford your price walk away, and you never see them at all."
+],
+[
+136.77,
+169.08,
+"Tiers are how you recover both. A lower tier brings in customers who were priced out. A higher tier charges more to customers who value the product most. Done well, the tiers don't compete with each other. They each capture a different slice of the market, and together they capture much more than any single price could. Economists call it price discrimination, which sounds sinister. Product managers call it segmentation, and consumer streaming companies are among the best in the world at it."
+],
+[
+170.08,
+172.56,
+"The cheapest seat is on the biggest plan."
+],
+[
+173.26,
+195.3,
+"Spotify's US lineup looks simple. A free tier with ads. Student at $6.99 a month. Individual at $12.99. Duo, for two people at the same address, at $18.99. Family, for up to six accounts in one household, at $21.99."
+],
+[
+195.8,
+201.85,
+"Look at what each plan costs per account and per person, and the design starts to reveal itself."
+],
+[
+202.7,
+235.08,
+"The Family plan is Spotify's most expensive plan per account and its cheapest per person. That sounds like a pricing mistake until you think about who buys it. A family of six would never pay $77.94 a month for six Individual plans. Most would keep one account and share it, or put the kids on the free tier. At $21.99, the whole household pays, every month, and each person gets their own account, playlists, and recommendations."
+],
+[
+235.58,
+252.76,
+"That last part matters. Six people with six sets of saved music is a household that is very hard to move to a competitor. Spotify gives up revenue per person and gets back something more valuable: an entire household, paying, and deeply attached."
+],
+[
+253.26,
+275.46,
+"The Student plan works the same way from the other direction. Students have little money and a lot of time to form habits. At $6.99, Spotify gets them paying now, at a price they can manage, and has several years to become the service they can't imagine leaving before they graduate into the $12.99 plan."
+],
+[
+276.46,
+278.09,
+"A fence for every tier."
+],
+[
+278.79,
+291.8,
+"The obvious question is why everyone doesn't just buy the cheapest option. The answer is that each tier comes with a fence: a condition that keeps the wrong customers out without driving the right ones away."
+],
+[
+292.65,
+312.64,
+"The Student plan requires proof of enrollment. Duo and Family require members to live at the same address. Netflix Premium reserves 4K and four simultaneous streams for its top tier, which matters a great deal to a movie lover with a large TV and not at all to someone who watches on a phone."
+],
+[
+313.14,
+337.27,
+"The most elegant fence of all is the one customers put up themselves. The free and ad supported tiers don't require any proof of anything. They simply come with ads. People who value their time and attention will pay to remove them. People who don't mind them won't. Each customer sorts themselves into the right tier, and nobody feels judged or excluded, because the choice was theirs."
+],
+[
+337.77,
+376.37,
+"Good fences have one thing in common: they feel fair. A student discount feels fair. A family plan feels fair. What doesn't feel fair is a fence that seems to punish customers for who they are. In one large field test, a women's clothing catalog tried charging more for larger sizes. Customers who needed the larger sizes saw the premium as unfair and bought less, and the premium pricing cut the catalog's gross profits by 6 to 8 percent. The segmentation was economically logical and commercially disastrous, because the fence was drawn in the wrong place."
+],
+[
+377.37,
+379.61,
+"The free tier is not a charity."
+],
+[
+380.31,
+405.4,
+"Spotify's free tier is enormous. At the end of June 2026, Spotify had 777 million monthly users. 494 million of them used the free, ad supported version, and 300 million people paid for Premium. (Spotify counts listeners and paying subscribers in different ways, so the two figures don't add up to the total.)"
+],
+[
+405.9,
+408.4,
+"The revenue tells a very different story."
+],
+[
+409.25,
+429.79,
+"In the second quarter of 2026, Premium brought in about \u20ac4.33 billion. The ad supported business brought in about \u20ac446 million. Averaged per user, a Premium subscriber generated roughly sixteen times as much revenue in the quarter as a free listener."
+],
+[
+430.29,
+463.01,
+"So why keep the free tier at all? Because it does two jobs no paid plan can. It earns advertising revenue from people who would otherwise pay nothing. And it is the widest possible front door. Every free listener is a potential Premium subscriber who has already built playlists, followed artists, and trained the recommendations. When they finally get tired of the ads, or take a long flight and want offline listening, the upgrade is one tap away and everything they built comes with them."
+],
+[
+463.51,
+469.08,
+"The free tier isn't the cheap version of the product. It's the first step of the staircase."
+],
+[
+470.08,
+472.02,
+"Netflix and the widening gap."
+],
+[
+472.72,
+477.99,
+"Netflix offers a different lesson, about what you do with the tiers once they exist."
+],
+[
+478.49,
+504.52,
+"When Netflix launched its ad supported plan in November 2022, it cost $6.99 a month, and a cheaper ad free option called Basic still existed at $9.99. Over the next two years, Netflix closed Basic to new members and then retired it entirely. And with each price change since, the ad free plans have risen faster than the plan with ads."
+],
+[
+505.37,
+531.52,
+"Today, Standard with ads costs $8.99, Standard costs $19.99, and Premium costs $26.99. The gap between the ad tier and Standard has widened from $8.50 to $11 a month. For a price sensitive household, the choice is now clear. The ad tier is the affordable way in, and the cheap ad free exit is gone."
+],
+[
+532.02,
+566.87,
+"This isn't a trick. It reflects what each tier is worth to Netflix. An ad tier subscriber pays less, but also generates advertising revenue that a Standard subscriber doesn't. By one industry estimate, roughly 40 percent of active Netflix accounts are now on ad supported plans, and Netflix reportedly expects its ad revenue to about double this year. Removing Basic didn't shrink the audience. It moved price sensitive viewers into the tier that pays Netflix twice: once from the viewer and once from the advertiser."
+],
+[
+567.37,
+582.14,
+"The broader point for product managers is that tiers aren't static. The gaps between them are a lever. Widen one gap and customers drift toward the tier you want to grow. Close a tier, and you decide where its customers go next."
+],
+[
+583.14,
+584.61,
+"What Jordan changed."
+],
+[
+585.31,
+600.05,
+"Jordan spent the next week mapping Cadence's customers the way Spotify maps listeners. Who valued the product most? Who was priced out entirely? And what fence would let her serve each group differently without anyone feeling cheated?"
+],
+[
+600.55,
+606.31,
+"She ended up with three new tiers around the staircase she had already built, each with a clear fence."
+],
+[
+607.16,
+627.83,
+"The first was Community, for federally qualified health centers and nonprofit clinics. It carried the full Growth feature set at a steep discount, and its fence was verification, just like Spotify Student. A for profit practice couldn't qualify, and a health center that did qualify got a tool it could finally afford."
+],
+[
+628.33,
+657.17,
+"The second was Group, for practices with several locations. Like Spotify Family, it cost more per account and less per location, with one shared admin console, one bill, and pooled messaging across every site. The orthopedic group that had wanted a custom quote could now buy from the pricing page. And because every location's schedules and patient history lived in one account, a Group customer would be far harder to lose than six separate practices."
+],
+[
+657.67,
+686.32,
+"The third was Solo, a free plan for single provider practices. Its fence was the one customers choose for themselves: every reminder text a Solo practice sent included a short line saying it was powered by Cadence. Practices that minded the branding could remove it by upgrading to Starter. Practices that didn't mind it got a genuinely useful tool for free, and Cadence got its name in front of thousands of patients and the other clinics they visit."
+],
+[
+686.82,
+714.45,
+"Six months later, the Community tier had brought in dozens of health centers that had never been able to afford Cadence before. The average Group account was worth about three times a single practice. And close to one in ten Solo practices had upgraded to a paid plan, most within their first four months. None of the new tiers had taken meaningful revenue from the existing plans, because each fence kept its tier aimed at the customers it was built for."
+],
+[
+715.45,
+716.9,
+"Borrowing the playbook."
+],
+[
+717.6,
+733.03,
+"It's tempting to think of pricing tiers as good, better, and best versions of a product. The best companies think of them differently, as separate products for separate customers, each designed to capture value that a single price would miss."
+],
+[
+733.53,
+739.09,
+"For product managers, a few principles carry over from streaming to almost any business."
+],
+[
+739.59,
+750.82,
+"Map willingness to pay before you set prices. Find the customers who would pay much more and the ones who can't afford you at all. Both groups are money you're leaving on the table."
+],
+[
+750.97,
+763.21,
+"Build a fence for every tier. Each tier needs a condition that makes it right for its target customer and wrong for everyone else. Without a fence, customers will just buy the cheapest option."
+],
+[
+763.36,
+776.25,
+"Let customers sort themselves when you can. The best fences are choices, not checkpoints. Ads, branding, or limits that one group minds and another doesn't let customers pick their own tier."
+],
+[
+776.4,
+783.52,
+"Make every fence feel fair. A fence that seems to punish customers for who they are will cost you more than it earns."
+],
+[
+783.67,
+792.23,
+"Use free to open the door, not to give the house away. A free tier works when it builds habits and data that make upgrading natural."
+],
+[
+792.38,
+799.31,
+"Treat the gaps as a lever. The distance between tiers steers customers. Widen and narrow it on purpose."
+],
+[
+799.81,
+810.58,
+"Jordan added her son to the Family plan that night. He thanked her by saying nothing and immediately making a playlist, which is exactly what Spotify was counting on."
+],
+[
+811.08,
+815.5,
+"One price fits nobody. The right tiers fit almost everybody."
+],
+[
+816.5,
+817.46,
+"Sources."
+],
+[
+818.16,
+833.22,
+"Spotify Q2 2026 results, including users, subscribers, and revenue by segment, from Spotify's second quarter 2026 earnings release (also filed with the SEC)"
+],
+[
+833.37,
+842.69,
+"Spotify US price increase effective February 2026, via Variety, and plan details via Free Your Music."
+],
+[
+842.84,
+854.75,
+"Netflix US plan price history, via Streaming Price Tracker, Digital Trends' guide to Netflix plans and prices, and its report on Netflix retiring the Basic plan."
+],
+[
+854.9,
+863.69,
+"Netflix March 2026 price increase, and ad tier share and revenue estimates, via The Keyword and Digital Trends."
+],
+[
+863.84,
+872.5,
+"Anderson and Simester, Does Demand Fall When Customers Perceive That Prices Are Unfair? Marketing Science, 2008."
+],
+[
+873.0,
+883.9,
+"Per person and per user figures are calculated from the published prices and reported results. Jordan and Cadence are fictional, and the Cadence figures are illustrative."
+],
+[
+885.0,
+895.28,
+"This was The $3.67 Listener, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

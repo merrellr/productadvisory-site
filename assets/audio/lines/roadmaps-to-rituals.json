@@ -1,0 +1,692 @@
+[
+[
+0.0,
+6.55,
+"From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job."
+],
+[
+6.7,
+18.86,
+"Agents can own the first pass of backlog grooming, market research, experiment design and KPI reviews. The PM's job moves to orchestration and sense making."
+],
+[
+19.01,
+20.72,
+"From Product Advisory."
+],
+[
+21.47,
+26.14,
+"Most product managers did not sign up to be professional plate spinners."
+],
+[
+26.64,
+44.52,
+"We spend our days jumping between writing PRDs, chasing status updates, pulling data for reviews, and answering the same questions in slightly different formats. The strategic work that actually moves the needle often gets squeezed into the margins of our calendar."
+],
+[
+45.02,
+47.64,
+"Agentic AI is changing that."
+],
+[
+48.14,
+64.31,
+"Not \"AI as a smarter autocomplete,\" but AI as a set of agents that can take on entire workflows with light supervision. When you design for that, the PM role shifts from task execution to orchestration and sense making."
+],
+[
+64.81,
+67.39,
+"In other words, from roadmaps to rituals."
+],
+[
+67.89,
+79.43,
+"In this article I will walk through how agentic AI changes four core PM workflows, and what a more strategic PM job looks like on the other side:"
+],
+[
+79.93,
+81.26,
+"Backlog grooming."
+],
+[
+81.41,
+82.71,
+"Market research."
+],
+[
+82.86,
+84.44,
+"Experiment design."
+],
+[
+84.59,
+86.21,
+"KPI reviews."
+],
+[
+87.21,
+90.47,
+"From tasks to rituals: what actually changes?"
+],
+[
+91.17,
+94.24,
+"Think of your current PM work in two buckets:"
+],
+[
+94.74,
+96.96,
+"High volume, repeatable tasks."
+],
+[
+97.11,
+99.84,
+"High judgment, high context decisions."
+],
+[
+100.34,
+107.06,
+"Agentic AI is very good at the first bucket and, when used well, can amplify you on the second."
+],
+[
+107.91,
+121.67,
+"The key mindset shift is this. Instead of thinking \"What can I ask an AI model for?\" think \"Which recurring ritual in my product practice can be supported or partly owned by an AI agent?\""
+],
+[
+122.17,
+136.93,
+"A ritual is anything you do on a predictable cadence with a clear purpose. For example, weekly grooming, monthly KPI reviews, or quarterly strategy updates. These are perfect places to embed agents."
+],
+[
+137.43,
+140.14,
+"Let us look at some \"before and after\" views."
+],
+[
+141.14,
+142.72,
+"1. Backlog grooming."
+],
+[
+143.72,
+146.11,
+"Before: the manual triage grind."
+],
+[
+146.61,
+150.05,
+"Typical grooming for many PMs looks like this:"
+],
+[
+150.55,
+155.58,
+"Collect a long list of Jira tickets, Slack messages, and customer requests."
+],
+[
+155.73,
+158.23,
+"Manually de-duplicate and clarify."
+],
+[
+158.38,
+162.75,
+"Rewrite titles and descriptions so engineering can understand them."
+],
+[
+162.9,
+166.91,
+"Re-prioritize based on gut feel and fragmented inputs."
+],
+[
+167.41,
+172.19,
+"It is slow, noisy, and hard to keep consistent across weeks and teams."
+],
+[
+172.99,
+176.49,
+"After: an AI agent that owns the first pass."
+],
+[
+176.99,
+181.94,
+"With an agentic approach, you can set up an \"Intake and Grooming\" agent that:"
+],
+[
+182.44,
+186.02,
+"Monitors incoming tickets, feedback, and support issues."
+],
+[
+186.17,
+188.67,
+"Clusters them by theme and product area."
+],
+[
+188.82,
+190.74,
+"Flags obvious duplicates."
+],
+[
+190.89,
+195.84,
+"Drafts clear problem statements and acceptance criteria based on templates."
+],
+[
+195.99,
+203.26,
+"Suggests an initial priority based on rules you define (impact, frequency, segment, effort signals)"
+],
+[
+203.76,
+205.87,
+"Your new grooming ritual becomes:"
+],
+[
+206.37,
+209.74,
+"Review the agent's proposed clusters and priorities."
+],
+[
+209.89,
+212.43,
+"Adjust based on strategy and context."
+],
+[
+212.58,
+215.21,
+"Approve, merge, or close with one click."
+],
+[
+215.71,
+222.79,
+"Your time shifts from rewriting and sorting to making tradeoffs and explaining the \"why\" behind priorities."
+],
+[
+223.59,
+225.55,
+"What still needs a PM?"
+],
+[
+226.05,
+229.55,
+"Connecting work to strategy and OKRs."
+],
+[
+229.7,
+233.37,
+"Partnering with engineering on feasibility and sequencing."
+],
+[
+233.52,
+236.91,
+"Saying \"no\" with a clear narrative for stakeholders."
+],
+[
+237.41,
+241.83,
+"The agent makes the backlog more coherent. You decide what matters."
+],
+[
+242.83,
+244.43,
+"2. Market research."
+],
+[
+245.43,
+247.95,
+"Before: scattered and reactive research."
+],
+[
+248.45,
+251.75,
+"Many PMs do market research in bursts:"
+],
+[
+252.25,
+256.54,
+"A new competitor appears, so you rush to analyze their feature set."
+],
+[
+256.69,
+262.02,
+"Leadership asks about a space, so you spend a weekend pulling together a slide deck."
+],
+[
+262.17,
+265.93,
+"You read reports and bookmark links that are quickly forgotten."
+],
+[
+266.43,
+271.14,
+"The research is often shallow, fragmented, and hard to keep up to date."
+],
+[
+271.94,
+274.31,
+"After: always-on research agents."
+],
+[
+274.81,
+278.8,
+"An \"Insights\" agent can run continuously in the background to:"
+],
+[
+279.3,
+283.48,
+"Track competitor release notes, pricing pages, and blog posts."
+],
+[
+283.63,
+288.3,
+"Monitor job postings and investor updates for strategic signals."
+],
+[
+288.45,
+292.96,
+"Digest analyst reports and news into short, structured summaries."
+],
+[
+293.11,
+297.01,
+"Highlight changes that are relevant to your product or segment."
+],
+[
+297.51,
+299.83,
+"Your market research ritual becomes:"
+],
+[
+300.33,
+304.45,
+"A weekly or biweekly \"insights digest\" the agent prepares."
+],
+[
+304.6,
+309.04,
+"A 30-minute session where you review, annotate, and tag implications."
+],
+[
+309.19,
+313.86,
+"A short writeup of \"So what does this mean for our strategy and roadmap?\""
+],
+[
+314.66,
+316.62,
+"What still needs a PM?"
+],
+[
+317.12,
+319.49,
+"Interpreting weak signals versus hype."
+],
+[
+319.64,
+322.48,
+"Deciding whether to react, watch, or ignore."
+],
+[
+322.63,
+325.83,
+"Translating research into clear bets and non-bets."
+],
+[
+326.33,
+330.55,
+"The agent collects and summarizes. You turn noise into narrative."
+],
+[
+331.55,
+333.49,
+"3. Experiment design."
+],
+[
+334.49,
+337.35,
+"Before: experimentation as a bottleneck."
+],
+[
+337.85,
+340.97,
+"Experimentation often feels heavier than it should:"
+],
+[
+341.47,
+346.4,
+"Coming up with ideas is ad hoc and biased toward whoever speaks the loudest."
+],
+[
+346.55,
+350.02,
+"Designing experiments takes time and statistical skill."
+],
+[
+350.17,
+354.29,
+"Documenting hypotheses, metrics, and variants is inconsistent."
+],
+[
+354.79,
+360.72,
+"Many teams end up with a mix of A/B tests, \"ship and pray,\" and opinion wars."
+],
+[
+361.52,
+364.68,
+"After: an agentic experimentation partner."
+],
+[
+365.18,
+368.21,
+"An \"Experiment Designer\" agent can help you:"
+],
+[
+368.71,
+373.51,
+"Generate experiment ideas from user feedback, logs, and prior tests."
+],
+[
+373.66,
+377.88,
+"Translate ideas into clear hypotheses and success metrics."
+],
+[
+378.03,
+381.85,
+"Propose sample size and duration based on your traffic."
+],
+[
+382.0,
+386.99,
+"Produce consistent experiment briefs for design, engineering, and analytics."
+],
+[
+387.14,
+391.52,
+"Afterward, summarize results and detect patterns across experiments."
+],
+[
+392.02,
+394.47,
+"Your experimentation ritual becomes:"
+],
+[
+394.97,
+399.45,
+"Monthly (or quarterly) \"idea harvesting\" with help from the agent."
+],
+[
+399.6,
+404.51,
+"A weekly review of proposed experiments, where you choose which ones to run."
+],
+[
+404.66,
+408.92,
+"A simple, consistent debrief ritual after each experiment."
+],
+[
+409.72,
+411.69,
+"What still needs a PM?"
+],
+[
+412.19,
+416.13,
+"Choosing which experiments align with strategy and constraints."
+],
+[
+416.28,
+420.89,
+"Balancing exploitation (what works) versus exploration (new bets)"
+],
+[
+421.04,
+425.84,
+"Owning the learning agenda across quarters, not just isolated tests."
+],
+[
+426.34,
+432.06,
+"The agent turns experimentation into a repeatable engine. You decide where to point it."
+],
+[
+433.06,
+435.02,
+"4. KPI reviews."
+],
+[
+436.02,
+437.85,
+"Before: dashboard overload."
+],
+[
+438.35,
+442.54,
+"Most PMs have too many dashboards and too little insight:"
+],
+[
+443.04,
+447.62,
+"Jump between analytics tools, BI dashboards, and custom reports."
+],
+[
+447.77,
+450.25,
+"Spend time formatting data for reviews."
+],
+[
+450.4,
+454.26,
+"React to metrics instead of proactively spotting patterns."
+],
+[
+454.76,
+460.07,
+"KPI reviews become a reporting meeting instead of a decision meeting."
+],
+[
+460.87,
+464.82,
+"After: KPI agents as always-on analysts."
+],
+[
+465.32,
+466.96,
+"A \"Metrics\" agent can:"
+],
+[
+467.46,
+470.81,
+"Monitor your core metrics and alert you to anomalies."
+],
+[
+470.96,
+474.65,
+"Generate weekly or monthly \"state of the product\" summaries."
+],
+[
+474.8,
+479.92,
+"Highlight cohorts, segments, or flows that have changed in meaningful ways."
+],
+[
+480.07,
+483.74,
+"Suggest follow-up questions and possible root causes."
+],
+[
+484.24,
+487.01,
+"Your KPI review ritual becomes:"
+],
+[
+487.51,
+490.05,
+"Read the agent's summary before the meeting."
+],
+[
+490.2,
+493.49,
+"Spend the meeting discussing implications and decisions."
+],
+[
+493.64,
+497.6,
+"Capture next steps so the agent can track impact next time."
+],
+[
+498.4,
+500.37,
+"What still needs a PM?"
+],
+[
+500.87,
+504.26,
+"Choosing which metrics truly matter and which are noise."
+],
+[
+504.41,
+508.08,
+"Connecting metric changes to product and business context."
+],
+[
+508.23,
+511.94,
+"Making tradeoffs when metrics move in opposite directions."
+],
+[
+512.44,
+516.73,
+"The agent describes what is happening. You define what to do about it."
+],
+[
+518.08,
+520.75,
+"So what does the PM job become?"
+],
+[
+521.45,
+526.91,
+"When you design these agentic rituals into your work, your role starts to look different:"
+],
+[
+527.41,
+531.78,
+"Less time spent creating artifacts, more time aligning people."
+],
+[
+531.93,
+536.11,
+"Less energy chasing status, more energy shaping strategy."
+],
+[
+536.26,
+540.17,
+"Fewer one-off tasks, more reusable systems and playbooks."
+],
+[
+540.67,
+543.5,
+"In practice, your calendar starts to shift to:"
+],
+[
+544.0,
+547.61,
+"Regular review rituals with AI-prepared inputs."
+],
+[
+547.76,
+551.83,
+"Deep-dive sessions with design, engineering, and stakeholders."
+],
+[
+551.98,
+555.67,
+"Focus time for thinking, writing, and decision-making."
+],
+[
+556.17,
+560.21,
+"You become less of a project manager and more of a conductor."
+],
+[
+560.71,
+573.95,
+"Not because you work less, but because more of your effort is directed at the uniquely human parts of product management. Framing problems, telling the story, and making hard choices under uncertainty."
+],
+[
+574.95,
+577.45,
+"How to start: three practical steps."
+],
+[
+578.15,
+583.61,
+"You do not need a full \"AI transformation\" to see value. You can begin small."
+],
+[
+584.11,
+594.27,
+"Pick one ritual. Choose a single workflow that already happens regularly. For example, weekly backlog grooming or monthly KPI reviews."
+],
+[
+594.42,
+608.32,
+"Define a \"good enough\" first agent. Be explicit about what your agent should do: gather inputs, summarize, group, or propose options. Accept that version one will be imperfect and improve through your feedback."
+],
+[
+608.47,
+621.13,
+"Protect your judgment time. Use the time you save to deepen your strategic work. Do not immediately fill the gap with more meetings or busywork. Treat that time as your \"sense making\" block."
+],
+[
+622.48,
+624.54,
+"The opportunity for PMs."
+],
+[
+625.24,
+635.21,
+"Agentic AI will not replace product managers. It will replace parts of the job that pulled us away from the work we are uniquely suited for."
+],
+[
+635.71,
+639.55,
+"The PMs who thrive in this shift will be the ones who:"
+],
+[
+640.05,
+642.76,
+"Design rituals, not one-off prompts."
+],
+[
+642.91,
+646.7,
+"Treat agents as team members and invest in training them."
+],
+[
+646.85,
+651.7,
+"Use the leverage to push deeper into strategy, storytelling, and leadership."
+],
+[
+652.2,
+663.7,
+"If you are a PM today, the real question is not \"Will AI take my job?\" It is \"How quickly can I redesign my job around the things only I can do?\""
+],
+[
+664.2,
+670.4,
+"That is the promise of moving from roadmaps to rituals in the age of agentic AI."
+],
+[
+671.5,
+685.84,
+"This was From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
+]
+]

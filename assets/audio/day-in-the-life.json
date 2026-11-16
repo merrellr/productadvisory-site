@@ -1,0 +1,48 @@
+{
+ "duration": 486.2,
+ "bytes": 3890468,
+ "hash": "2169c92977f9272b",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   27.17,
+   "7:10 AM, kitchen counter"
+  ],
+  [
+   81.8,
+   "8:05 AM, train into the office"
+  ],
+  [
+   135.07,
+   "9:30 AM, standup"
+  ],
+  [
+   164.85,
+   "11:00 AM, customer call"
+  ],
+  [
+   217.29,
+   "1:00 PM, back at a desk, lunch half finished"
+  ],
+  [
+   270.41,
+   "2:30 PM, writing time"
+  ],
+  [
+   321.53,
+   "4:00 PM, planning"
+  ],
+  [
+   367.34,
+   "5:45 PM, wrapping up"
+  ],
+  [
+   415.5,
+   "What's actually different"
+  ]
+ ]
+}

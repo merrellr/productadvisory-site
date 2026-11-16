@@ -1,0 +1,40 @@
+{
+ "duration": 329.6,
+ "bytes": 2637993,
+ "hash": "e5aa5175125c6ab4",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Introduction"
+  ],
+  [
+   45.13,
+   "Three invisible taxes you're probably paying"
+  ],
+  [
+   91.92,
+   "A better north star: outcome-first, evidence-backed, minimally sufficient"
+  ],
+  [
+   130.85,
+   "What to do this quarter"
+  ],
+  [
+   201.32,
+   "A quick example (illustrative; healthcare, but universal)"
+  ],
+  [
+   253.15,
+   "How Product and Engineering win together"
+  ],
+  [
+   283.52,
+   "The courage to delete"
+  ],
+  [
+   299.94,
+   "The ask"
+  ]
+ ]
+}

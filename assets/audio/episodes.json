@@ -1,4 +1,826 @@
 {
  "title": "Product+ Audio",
- "episodes": []
+ "episodes": [
+  {
+   "slug": "five-second-test",
+   "title": "The Five Second Test",
+   "dek": "How to review your pricing page the way your customers actually read it.",
+   "topic": "Pricing",
+   "date": "2026-11-10",
+   "duration": 834.6,
+   "audio": "https://www.productadvisory.co/assets/audio/five-second-test.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     131.6,
+     "Start with the glance"
+    ],
+    [
+     201.76,
+     "More choices, fewer buyers"
+    ],
+    [
+     297.35,
+     "The option nobody picks"
+    ],
+    [
+     435.1,
+     "Prices are read, not calculated"
+    ],
+    [
+     499.8,
+     "The scorecard"
+    ],
+    [
+     551.11,
+     "What Jordan changed"
+    ],
+    [
+     672.23,
+     "Borrowing the playbook"
+    ],
+    [
+     775.17,
+     "Sources"
+    ]
+   ],
+   "areas": [
+    "strategy"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "367-listener",
+   "title": "The $3.67 Listener",
+   "dek": "How Spotify and Netflix build tiers that pay for each other, and what it teaches product managers about segmentation.",
+   "topic": "Pricing",
+   "date": "2026-11-10",
+   "duration": 895.4,
+   "audio": "https://www.productadvisory.co/assets/audio/367-listener.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     108.84,
+     "One price leaves money on the table"
+    ],
+    [
+     170.08,
+     "The cheapest seat is on the biggest plan"
+    ],
+    [
+     276.46,
+     "A fence for every tier"
+    ],
+    [
+     377.37,
+     "The free tier is not a charity"
+    ],
+    [
+     470.08,
+     "Netflix and the widening gap"
+    ],
+    [
+     583.14,
+     "What Jordan changed"
+    ],
+    [
+     715.45,
+     "Borrowing the playbook"
+    ],
+    [
+     816.5,
+     "Sources"
+    ]
+   ],
+   "areas": [
+    "strategy"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "rice-vs-weighted-scoring",
+   "title": "RICE or Weighted Scoring: Which Prioritization Framework Should You Use?",
+   "dek": "The same four features, ranked two ways, come out almost in reverse. Here's when to trust each one.",
+   "topic": "Product strategy",
+   "date": "2026-10-24",
+   "duration": 447.4,
+   "audio": "https://www.productadvisory.co/assets/audio/rice-vs-weighted-scoring.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     48.01,
+     "What RICE is"
+    ],
+    [
+     123.39,
+     "What weighted scoring is"
+    ],
+    [
+     187.03,
+     "Same backlog, two answers"
+    ],
+    [
+     279.62,
+     "How to choose"
+    ],
+    [
+     326.53,
+     "Common mistakes"
+    ],
+    [
+     379.73,
+     "Try it on your own backlog"
+    ]
+   ],
+   "areas": [
+    "prioritization"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "150-hot-dog",
+   "title": "The $1.50 Hot Dog",
+   "dek": "Costco sells memberships, not groceries, and what that teaches product managers about where the money really is.",
+   "topic": "Business models",
+   "date": "2026-10-13",
+   "duration": 908.9,
+   "audio": "https://www.productadvisory.co/assets/audio/150-hot-dog.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     105.71,
+     "Two percent of revenue, most of the profit"
+    ],
+    [
+     195.16,
+     "The hot dog is a promise"
+    ],
+    [
+     320.68,
+     "Low margins are the product"
+    ],
+    [
+     422.84,
+     "The upgrade that pays for itself"
+    ],
+    [
+     523.44,
+     "Renewal is the real scoreboard"
+    ],
+    [
+     605.82,
+     "What Jordan changed"
+    ],
+    [
+     751.74,
+     "Borrowing the playbook"
+    ],
+    [
+     849.8,
+     "Sources"
+    ]
+   ],
+   "areas": [
+    "strategy"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "100-staircase",
+   "title": "The $100 Staircase",
+   "dek": "What Apple's pricing teaches product managers about the art of the upsell.",
+   "topic": "Pricing",
+   "date": "2026-09-29",
+   "duration": 1026.5,
+   "audio": "https://www.productadvisory.co/assets/audio/100-staircase.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     117.08,
+     "The staircase has no tall steps"
+    ],
+    [
+     233.12,
+     "Every rung connects to another ladder"
+    ],
+    [
+     338.56,
+     "The base model is built to be almost enough"
+    ],
+    [
+     469.84,
+     "The anchor at the top changes how the middle feels"
+    ],
+    [
+     587.96,
+     "The sale does not end at checkout"
+    ],
+    [
+     717.95,
+     "What Jordan changed"
+    ],
+    [
+     867.32,
+     "Borrowing the playbook"
+    ],
+    [
+     978.5,
+     "Sources"
+    ]
+   ],
+   "areas": [
+    "strategy"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "day-in-the-life",
+   "title": "A Day in the Life of a Product Manager Working with AI Agents (2026 Edition)",
+   "dek": "Agents do the reading, summarizing and watching. Every real decision still belongs to the PM.",
+   "topic": "AI agents",
+   "date": "2026-08-17",
+   "duration": 486.2,
+   "audio": "https://www.productadvisory.co/assets/audio/day-in-the-life.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     27.17,
+     "7:10 AM, kitchen counter"
+    ],
+    [
+     81.8,
+     "8:05 AM, train into the office"
+    ],
+    [
+     135.07,
+     "9:30 AM, standup"
+    ],
+    [
+     164.85,
+     "11:00 AM, customer call"
+    ],
+    [
+     217.29,
+     "1:00 PM, back at a desk, lunch half finished"
+    ],
+    [
+     270.41,
+     "2:30 PM, writing time"
+    ],
+    [
+     321.53,
+     "4:00 PM, planning"
+    ],
+    [
+     367.34,
+     "5:45 PM, wrapping up"
+    ],
+    [
+     415.5,
+     "What's actually different"
+    ]
+   ],
+   "areas": [
+    "aiIndividual"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "stop-enabling-individuals",
+   "title": "Stop enabling individuals. Start enabling the organization.",
+   "dek": "From novice to organization: why Copilot Studio is the bridge to real AI enablement.",
+   "topic": "AI enablement",
+   "date": "2026-08-03",
+   "duration": 544.1,
+   "audio": "https://www.productadvisory.co/assets/audio/stop-enabling-individuals.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     94.79,
+     "Why Copilot Studio matters for organizational enablement"
+    ],
+    [
+     227.53,
+     "Building for the organization vs. building for the individual"
+    ],
+    [
+     346.11,
+     "Getting started: building your first Copilot Studio agent"
+    ],
+    [
+     473.55,
+     "The bigger picture"
+    ]
+   ],
+   "areas": [
+    "aiOrg"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "pm-copilots",
+   "title": "Agentic AI as an Internal Product: Building PM Copilots for Your Own Organization",
+   "dek": "Treat internal AI like a product: discovery, a tight pilot, honest feedback and real adoption metrics.",
+   "topic": "Agentic AI",
+   "date": "2026-07-06",
+   "duration": 577.0,
+   "audio": "https://www.productadvisory.co/assets/audio/pm-copilots.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     93.86,
+     "Why internal AI tools deserve product rigor, not IT rigor"
+    ],
+    [
+     163.24,
+     "Discovery: find the work worth automating, not the work that looks impressive"
+    ],
+    [
+     247.54,
+     "Pilot: small, real, and closely watched"
+    ],
+    [
+     315.2,
+     "Feedback: listen for corrections, not compliments"
+    ],
+    [
+     379.58,
+     "Iteration: earn the next stage of rollout"
+    ],
+    [
+     420.56,
+     "Adoption: measure it like the product it is"
+    ],
+    [
+     499.97,
+     "The mindset shift"
+    ]
+   ],
+   "areas": [
+    "aiOrg"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "ai-is-a-practice",
+   "title": "AI Is Not a Project. It's a Practice. Here's How to Build One.",
+   "dek": "Stop waiting for perfect. Start with one use case, one experiment and one person willing to share what they learned.",
+   "topic": "AI enablement",
+   "date": "2026-06-02",
+   "duration": 385.2,
+   "audio": "https://www.productadvisory.co/assets/audio/ai-is-a-practice.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     78.94,
+     "Where most people get stuck"
+    ],
+    [
+     123.67,
+     "How to actually get started"
+    ],
+    [
+     250.16,
+     "How to scale once you have traction"
+    ],
+    [
+     326.6,
+     "The bottom line"
+    ]
+   ],
+   "areas": [
+    "aiOrg"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "healthcare-saas-pitfalls",
+   "title": "Overcoming Common Pitfalls in Early Stage Product Development for Healthcare SaaS",
+   "dek": "Most healthcare startups don't fail on the idea. They fail on assumptions that don't hold up in real healthcare environments.",
+   "topic": "Product strategy",
+   "date": "2026-05-11",
+   "duration": 810.4,
+   "audio": "https://www.productadvisory.co/assets/audio/healthcare-saas-pitfalls.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     87.92,
+     "1. Building around the founder's vision instead of the user's workflow"
+    ],
+    [
+     174.85,
+     "2. Trying to build too much too early"
+    ],
+    [
+     243.59,
+     "3. Underestimating integration"
+    ],
+    [
+     320.46,
+     "4. Leaving security and compliance for later"
+    ],
+    [
+     391.01,
+     "5. Confusing user enthusiasm with buying intent"
+    ],
+    [
+     458.62,
+     "6. Not proving measurable value quickly enough"
+    ],
+    [
+     526.95,
+     "7. Running pilots that never reach a decision"
+    ],
+    [
+     588.41,
+     "8. Building without enough clinical or domain expertise"
+    ],
+    [
+     653.64,
+     "9. Ignoring implementation as part of product design"
+    ],
+    [
+     707.92,
+     "10. Chasing credibility signals instead of readiness"
+    ],
+    [
+     759.74,
+     "Complexity can become a moat"
+    ]
+   ],
+   "areas": [
+    "discovery",
+    "execution"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "discovery-with-ai-agents",
+   "title": "How to Run Product Discovery with AI Agents Without Losing the Voice of the Customer",
+   "dek": "Humans talk to customers. Agents synthesize and augment what humans heard. Get that order right and AI makes discovery better, not just faster.",
+   "topic": "AI agents",
+   "date": "2026-05-04",
+   "duration": 491.5,
+   "audio": "https://www.productadvisory.co/assets/audio/discovery-with-ai-agents.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     94.33,
+     "1. Start with human-led customer conversations"
+    ],
+    [
+     171.62,
+     "2. Use AI agents to synthesize, not interpret"
+    ],
+    [
+     248.45,
+     "3. Let humans do the sense making"
+    ],
+    [
+     310.64,
+     "4. Use AI to generate and challenge hypotheses"
+    ],
+    [
+     368.63,
+     "5. Close the loop with customers again"
+    ],
+    [
+     414.44,
+     "The most common failure mode"
+    ],
+    [
+     453.62,
+     "Final thought"
+    ]
+   ],
+   "areas": [
+    "discovery",
+    "aiIndividual"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "ai-accessibility",
+   "title": "Improving Accessibility with AI: Tools and Innovations Making Life Easier",
+   "dek": "AI is turning accessibility from a compliance afterthought into something built in by default. Here's what's working, where it falls short, and how to start this week.",
+   "topic": "AI enablement",
+   "date": "2026-04-27",
+   "duration": 588.9,
+   "audio": "https://www.productadvisory.co/assets/audio/ai-accessibility.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     68.14,
+     "Where AI is already making a difference"
+    ],
+    [
+     219.4,
+     "Accessibility is moving into mainstream products"
+    ],
+    [
+     262.18,
+     "AI is an enabler, not a shortcut"
+    ],
+    [
+     316.99,
+     "How to get started"
+    ],
+    [
+     421.78,
+     "Quick wins you can turn on today"
+    ],
+    [
+     526.31,
+     "Accessibility as innovation, not obligation"
+    ]
+   ],
+   "areas": [
+    "aiIndividual"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "squad-of-agents",
+   "title": "Your First AI Product Team: Designing a Squad of Agents, Not Just One Chatbot",
+   "dek": "Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here's how a PM scopes, designs and prioritizes the squad.",
+   "topic": "AI agents",
+   "date": "2026-04-06",
+   "duration": 693.5,
+   "audio": "https://www.productadvisory.co/assets/audio/squad-of-agents.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     70.98,
+     "Why one chatbot fails in real product work"
+    ],
+    [
+     126.49,
+     "The core concept: design agents like roles on a team"
+    ],
+    [
+     162.21,
+     "Step 1: Start with workflows, not models"
+    ],
+    [
+     219.31,
+     "Step 2: Define the squad roles and handoffs"
+    ],
+    [
+     401.3,
+     "Step 3: Scope the MVP squad"
+    ],
+    [
+     456.99,
+     "Step 4: Prioritize agents with a simple scoring model"
+    ],
+    [
+     512.06,
+     "Step 5: Plug the squad into your existing product org"
+    ],
+    [
+     558.78,
+     "Step 6: Evaluate each agent like a product"
+    ],
+    [
+     614.17,
+     "What changes for the PM"
+    ],
+    [
+     650.29,
+     "A simple starting plan you can run next week"
+    ]
+   ],
+   "areas": [
+    "aiIndividual",
+    "aiOrg"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "beyond-automation",
+   "title": "Beyond Automation: Win Customers for Life",
+   "dek": "How AI supercharges the human factor, and why the real magic happens when technology amplifies your team instead of replacing it.",
+   "topic": "Customers",
+   "date": "2026-03-23",
+   "duration": 492.7,
+   "audio": "https://www.productadvisory.co/assets/audio/beyond-automation.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     51.65,
+     "AI before and after"
+    ],
+    [
+     78.92,
+     "The power of AI: the engine of modern customer service"
+    ],
+    [
+     152.03,
+     "The irreplaceable human factor: the heart of the relationship"
+    ],
+    [
+     217.29,
+     "The perfect partnership: using AI to create quick wins"
+    ],
+    [
+     330.92,
+     "Going the extra mile: research as the ultimate human touch"
+    ],
+    [
+     449.22,
+     "The future is collaborative"
+    ]
+   ],
+   "areas": [
+    "discovery",
+    "stakeholder"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "roadmaps-to-rituals",
+   "title": "From Roadmaps to Rituals: How Agentic AI Is Rewriting the Product Manager's Job",
+   "dek": "Agents can own the first pass of backlog grooming, market research, experiment design and KPI reviews. The PM's job moves to orchestration and sense making.",
+   "topic": "Agentic AI",
+   "date": "2026-01-12",
+   "duration": 686.0,
+   "audio": "https://www.productadvisory.co/assets/audio/roadmaps-to-rituals.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     87.21,
+     "From tasks to rituals: what actually changes?"
+    ],
+    [
+     141.14,
+     "1. Backlog grooming"
+    ],
+    [
+     242.83,
+     "2. Market research"
+    ],
+    [
+     331.55,
+     "3. Experiment design"
+    ],
+    [
+     433.06,
+     "4. KPI reviews"
+    ],
+    [
+     518.08,
+     "So what does the PM job become?"
+    ],
+    [
+     574.95,
+     "How to start: three practical steps"
+    ],
+    [
+     622.48,
+     "The opportunity for PMs"
+    ]
+   ],
+   "areas": [
+    "execution",
+    "aiIndividual"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "product-focused-ai-agents",
+   "title": "How to Build Product-Focused AI Agents That Actually Make Better Decisions",
+   "dek": "How to shape LLMs to improve product judgment, decision quality and outcomes.",
+   "topic": "AI agents",
+   "date": "2026-01-06",
+   "duration": 347.7,
+   "audio": "https://www.productadvisory.co/assets/audio/product-focused-ai-agents.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     58.44,
+     "Step 1: Treat agents as product teammates, not tools"
+    ],
+    [
+     106.75,
+     "Step 2: Ground the agent in product reality"
+    ],
+    [
+     168.73,
+     "Step 3: Intentionally influence how the agent thinks"
+    ],
+    [
+     211.38,
+     "Step 4: Embed agents into real product moments"
+    ],
+    [
+     254.0,
+     "Step 5: Maintain the agent as a living system"
+    ],
+    [
+     283.76,
+     "The real advantage is better product judgment at scale"
+    ]
+   ],
+   "areas": [
+    "aiIndividual"
+   ],
+   "youtube": ""
+  },
+  {
+   "slug": "feature-fallacy",
+   "title": "The Feature Fallacy",
+   "dek": "Why shipping more isn't helping your users, and what to do instead.",
+   "topic": "Product strategy",
+   "date": "2025-11-10",
+   "duration": 329.6,
+   "audio": "https://www.productadvisory.co/assets/audio/feature-fallacy.mp3",
+   "chapters": [
+    [
+     0.0,
+     "Introduction"
+    ],
+    [
+     45.13,
+     "Three invisible taxes you're probably paying"
+    ],
+    [
+     91.92,
+     "A better north star: outcome-first, evidence-backed, minimally sufficient"
+    ],
+    [
+     130.85,
+     "What to do this quarter"
+    ],
+    [
+     201.32,
+     "A quick example (illustrative; healthcare, but universal)"
+    ],
+    [
+     253.15,
+     "How Product and Engineering win together"
+    ],
+    [
+     283.52,
+     "The courage to delete"
+    ],
+    [
+     299.94,
+     "The ask"
+    ]
+   ],
+   "areas": [
+    "strategy",
+    "discovery"
+   ],
+   "youtube": ""
+  }
+ ]
 }
