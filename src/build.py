@@ -837,6 +837,7 @@ def scorecard():
             <li><b>Argue about weights, not scores.</b> Agree what matters first; the ranking follows.</li>
             <li><b>Write down why.</b> The CSV or PDF is your record when someone asks later.</li>
             <li><b>Re-run it each quarter.</b> Goals change, and so should the weights.</li>
+            <li><b>Score it as a team.</b> Everyone scores alone, then you reveal the scores side by side and talk through the gaps. Save the scorecard to your account, then choose <a href="{ASSESS}my-tools" {EXT}>Score as a team</a>.</li>
           </ul>
           <p class="muted" style="margin-top:12px">Not sure which method fits? <a href="assets/toolkits/which-prioritization-method.pdf" {EXT}>Download the one-page cheat sheet</a> or read <a href="/insights/rice-vs-weighted-scoring">RICE or weighted scoring?</a></p>
           <hr class="rule">
@@ -915,6 +916,7 @@ def ai_use_cases():
       </div>
     </div>
 
+    {xlsx_row("assets/toolkits/ai-use-case-prioritization.xlsx", "prioritization")}
     <div class="card tint sc-tips uc-tips">
       <h3>Make it stick</h3>
       <ul class="book-list">
@@ -927,7 +929,6 @@ def ai_use_cases():
       <p>Want help choosing and running your first AI pilot?</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
     </div>
-    {xlsx_row("assets/toolkits/ai-use-case-prioritization.xlsx", "prioritization")}
     {tools_nav("ai", bottom=True)}
   </div>
 </section>
@@ -989,6 +990,7 @@ def ai_readiness():
       </div>
     </div>
 
+    {xlsx_row("assets/toolkits/ai-readiness-checklist.xlsx", "checklist")}
     <div class="card tint sc-tips uc-tips">
       <h3>Make it stick</h3>
       <ul class="book-list">
@@ -1001,7 +1003,6 @@ def ai_readiness():
       <p>Want help turning the gaps into a plan?</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
     </div>
-    {xlsx_row("assets/toolkits/ai-readiness-checklist.xlsx", "checklist")}
     {tools_nav("ready", bottom=True)}
   </div>
 </section>

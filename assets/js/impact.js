@@ -87,7 +87,9 @@
     hr.appendChild(el("th", { scope: "col" }, "Weight"));
     state.items.forEach(function (it, j) {
       var th = el("th", { scope: "col", "class": "im-col" }), wrap = el("div", { "class": "im-col-head" });
-      var name = el("input", { "class": "sc-feat-name", maxlength: "80", placeholder: "Initiative " + (j + 1), "data-j": j, "data-f": "iname", "aria-label": "Initiative " + (j + 1) + " name" });
+      // two lines, so a longer name wraps instead of being cut off; Enter finishes rather than adding a line
+      var name = el("textarea", { "class": "sc-feat-name im-iname", rows: "2", maxlength: "80", placeholder: "Initiative " + (j + 1), "data-j": j, "data-f": "iname", "aria-label": "Initiative " + (j + 1) + " name" });
+      name.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); name.blur(); } });
       name.value = it.name;
       wrap.append(name, el("button", { type: "button", "class": "sc-x", "data-rmi": j, "aria-label": "Remove " + itemName(it, j) }, "×"));
       th.appendChild(wrap); hr.appendChild(th);
@@ -220,7 +222,7 @@
       else k[f] = t.value;
       paintGrid(); changed(); return;
     }
-    if (f === "iname") { state.items[+t.getAttribute("data-j")].name = t.value; changed(); }
+    if (f === "iname") { state.items[+t.getAttribute("data-j")].name = t.value.replace(/\s*\n\s*/g, " "); changed(); }
   });
   root.addEventListener("change", function (e) {
     var t = e.target;

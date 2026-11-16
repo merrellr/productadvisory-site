@@ -149,10 +149,11 @@
       track.appendChild(fill);
       var facts = [];
       if (r.costTotal[o.key] != null) facts.push(usd(r.costTotal[o.key]) + " over 3 years");
-      if (r.months[o.key] != null) facts.push(r.months[o.key] + " months to first value");
+      if (r.months[o.key] > 0) facts.push(r.months[o.key] + (r.months[o.key] === 1 ? " month" : " months") + " to first value");
       var meta = el("div", { "class": "uc-tags" });
-      if (r.lowestCost.indexOf(o.key) > -1) meta.appendChild(el("span", { "class": "bb-badge" }, "Lowest cost"));
-      if (r.fastest.indexOf(o.key) > -1) meta.appendChild(el("span", { "class": "bb-badge" }, "Fastest"));
+      // a badge only marks a real winner: not while every option is the same (for example, nothing entered yet)
+      if (r.lowestCost.indexOf(o.key) > -1 && r.lowestCost.length < B.OPTIONS.length) meta.appendChild(el("span", { "class": "bb-badge" }, "Lowest cost"));
+      if (r.fastest.indexOf(o.key) > -1 && r.fastest.length < B.OPTIONS.length) meta.appendChild(el("span", { "class": "bb-badge" }, "Fastest"));
       if (facts.length) meta.appendChild(el("span", { "class": "uc-meta" }, facts.join(" · ")));
       row.append(top, track, meta);
       if (r.contributions[o.key]) row.appendChild(el("small", { "class": "sc-why" }, "Strongest on " + r.contributions[o.key]));
