@@ -1354,52 +1354,264 @@
   }
 
   /* ---------- Product+ Audio: the article player ----------
-     Plays assets/audio/<slug>.mp3 (made by src/audio/make_audio.py). Chapters jump to a heading; the speed is remembered. */
+     Plays assets/audio/<slug>.mp3 (made by src/audio/make_audio.py). Chapters show as segments of the bar and as a
+     list; previous/next jump between chapters and -15/+30 skip. Read along (on by default) highlights the paragraph
+     being read and the words as they're spoken, and keeps it in view; scrolling away pauses the following, and
+     "Back to where I'm listening" picks it up again. With read along on, a click on any paragraph plays from there.
+     Each section heading gets "Listen from here". A slim player stays at the bottom once the full one is out of view.
+     The position, speed and read-along choice are remembered, and phone lock screens get the chapters too. */
   function initListen() {
     var box = document.querySelector("[data-listen]");
     if (!box) return;
-    var audio = box.querySelector("audio"), play = box.querySelector(".listen-play"), seek = box.querySelector(".listen-seek");
-    var at = box.querySelector(".listen-at"), now = box.querySelector(".listen-now span"), status = box.querySelector(".listen-status");
-    var chs = Array.prototype.slice.call(box.querySelectorAll(".listen-chapters button"));
-    var slug = box.getAttribute("data-slug"), started = false, dragging = false, statusText = status.textContent;
-    var marks = [25, 50, 75, 100], sent = {};
+    var audio = box.querySelector("audio"), seek = box.querySelector(".listen-seek"), mini = document.querySelector(".listen-mini");
+    var at = box.querySelector(".listen-at"), left = box.querySelector(".listen-left"), status = box.querySelector(".listen-status");
+    var nowN = box.querySelector(".listen-now-n"), nowName = box.querySelector(".listen-now-name"), speedBtn = box.querySelector(".listen-speed");
+    var chBtns = Array.prototype.slice.call(box.querySelectorAll(".listen-chapters button"));
+    var segs = Array.prototype.slice.call(box.querySelectorAll(".listen-seg i"));
+    var starts = chBtns.map(function (b) { return +b.getAttribute("data-t"); });
+    var duration = +seek.max, slug = box.getAttribute("data-slug"), title = box.getAttribute("data-title");
+    var started = false, dragging = false, cur = -1, marks = [25, 50, 75, 100], sent = {}, lastSave = 0;
+    var KEY = "pa-listen-pos:" + slug, SPEEDS = [1, 1.25, 1.5, 2];
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     function clock(s) { s = Math.max(0, Math.round(s || 0)); var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = ("0" + s % 60).slice(-2); return h ? h + ":" + ("0" + m).slice(-2) + ":" + x : m + ":" + x; }
+    function store(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { } }
+    function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function chapterAt(t) { var i = 0; starts.forEach(function (s, j) { if (t + 0.4 >= s) i = j; }); return i; }
+    function endOf(i) { return i + 1 < starts.length ? starts[i + 1] : duration; }
+    function play() { var p = audio.play(); if (p && p.catch) p.catch(function () { }); }
+    function go(t, from) {
+      t = Math.max(0, Math.min(duration - 0.5, t));
+      audio.currentTime = t;
+      follow = true; showFollow();
+      refresh(t);
+      if (audio.paused) play();
+      if (from) track("audio_jump", { article: slug, from: from });
+    }
     function setSpeed(v) {
       audio.playbackRate = v;
-      box.querySelectorAll("[data-speed]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-speed") === v)); });
-      try { localStorage.setItem("pa-listen-speed", String(v)); } catch (e) { }
+      speedBtn.textContent = v + "x";
+      speedBtn.setAttribute("aria-label", "Playback speed: " + v + "x. Change it");
+      store("pa-listen-speed", String(v));
     }
-    var saved = 1; try { saved = +localStorage.getItem("pa-listen-speed") || 1; } catch (e) { }
-    function go(t) {
-      audio.currentTime = t;
-      if (audio.paused) audio.play();
-    }
-    function refresh() {
-      var t = audio.currentTime;
+    function refresh(tt) {
+      var t = typeof tt === "number" ? tt : audio.currentTime;
       if (!dragging) seek.value = Math.floor(t);
       at.textContent = clock(t);
-      var cur = 0;
-      chs.forEach(function (b, i) { if (t + 0.5 >= +b.getAttribute("data-t")) cur = i; });
-      chs.forEach(function (b, i) { b.classList.toggle("on", i === cur); });
-      if (chs[cur]) now.textContent = chs[cur].lastChild.textContent;
-      var d = audio.duration || +seek.max, pct = d ? t / d * 100 : 0;
+      left.textContent = "-" + clock(duration - t);
+      var i = chapterAt(t);
+      if (i !== cur) {
+        cur = i;
+        chBtns.forEach(function (b, j) { b.classList.toggle("on", j === i); b.classList.toggle("done", j < i); if (j === i) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); });
+        nowN.textContent = "Chapter " + (i + 1) + " of " + starts.length;
+        nowName.textContent = chBtns[i].querySelector(".listen-ch-name").textContent;
+        if (mini) mini.querySelector(".listen-mini-ch").textContent = (i + 1) + " / " + starts.length + " · " + nowName.textContent;
+        document.querySelectorAll(".listen-next").forEach(function (b) { b.disabled = i >= starts.length - 1; });
+      }
+      chBtns.forEach(function (b, j) {
+        var p = j < i ? 100 : j > i ? 0 : Math.min(100, (t - starts[j]) / Math.max(1, endOf(j) - starts[j]) * 100);
+        b.querySelector(".listen-ch-bar i").style.width = p.toFixed(1) + "%";
+        if (segs[j]) segs[j].style.width = p.toFixed(1) + "%";
+      });
+      if (mini) mini.querySelector(".listen-mini-bar i").style.width = (t / duration * 100).toFixed(1) + "%";
+      var pct = t / duration * 100;
       marks.forEach(function (m) { if (pct >= m - 0.5 && !sent[m]) { sent[m] = true; track("audio_progress", { article: slug, percent: m }); } });
+      if (started && Math.abs(t - lastSave) > 5) { lastSave = t; store(KEY, t > 10 && t < duration - 15 ? String(Math.floor(t)) : null); }
+      if ("mediaSession" in navigator && navigator.mediaSession.setPositionState && audio.duration) {
+        try { navigator.mediaSession.setPositionState({ duration: audio.duration, playbackRate: audio.playbackRate, position: Math.min(t, audio.duration) }); } catch (e) { }
+      }
+      readAlongAt(t);
     }
-    play.addEventListener("click", function () { if (audio.paused) audio.play(); else audio.pause(); });
-    audio.addEventListener("play", function () {
-      box.classList.add("playing"); play.setAttribute("aria-label", "Pause");
-      status.textContent = "Playing" + (audio.playbackRate !== 1 ? " at " + audio.playbackRate + "x" : "");
-      if (!started) { started = true; setSpeed(saved); track("audio_play", { article: slug }); }
+    function prevChapter() {
+      var t = audio.currentTime, i = chapterAt(t);
+      go(t - starts[i] > 3 || i === 0 ? starts[i] : starts[i - 1], "previous");   // a few seconds in, "previous" restarts the chapter
+    }
+    function nextChapter() { var i = chapterAt(audio.currentTime); if (i < starts.length - 1) go(starts[i + 1], "next"); }
+
+    /* ---- read along ---- */
+    var raBtn = box.querySelector(".listen-ra");
+    var blocks = Array.prototype.slice.call(document.querySelectorAll(".post-body [data-t]")).filter(function (b) { return !b.closest(".listen"); });
+    var bt = blocks.map(function (b) { return [+b.getAttribute("data-t"), +b.getAttribute("data-e")]; });
+    var readAlong = !!raBtn && read("pa-read-along") !== "off", follow = true, active = -1, words = null, lastWord = -1, raf = 0, autoScrolling = 0;
+    function blockAt(t) {
+      for (var i = 0; i < bt.length; i++) { if (t >= bt[i][0] - 0.05 && t < (i + 1 < bt.length ? bt[i + 1][0] : bt[i][1] + 1)) return i; }
+      return -1;
+    }
+    // Each word of a block in its own <span>, with when it is spoken (its share of the block's time, by length).
+    function wrapWords(el) {
+      if (el._words) return el._words;
+      var list = [], walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var parts = node.nodeValue.split(/(\s+)/);
+        if (parts.length < 2 && !node.nodeValue.trim()) return;
+        var frag = document.createDocumentFragment();
+        parts.forEach(function (p) {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+          var w = document.createElement("span"); w.className = "ra-w"; w.textContent = p; frag.appendChild(w); list.push(w);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+      var total = list.reduce(function (a, w) { return a + w.textContent.length + 1; }, 0) || 1, acc = 0;
+      list.forEach(function (w) { w._at = acc / total; acc += w.textContent.length + 1; });
+      el._words = list;
+      return list;
+    }
+    function clearActive() {
+      if (active > -1) { blocks[active].classList.remove("ra-on"); (blocks[active]._words || []).forEach(function (w) { w.classList.remove("ra-now", "ra-done"); }); }
+      active = -1; words = null; lastWord = -1;
+    }
+    function readAlongAt(t) {
+      if (!readAlong || !started) { if (active > -1) clearActive(); return; }
+      var i = blockAt(t);
+      if (i !== active) {
+        clearActive();
+        if (i < 0) return;
+        active = i; blocks[i].classList.add("ra-on"); words = wrapWords(blocks[i]);
+        if (follow) keepInView(blocks[i]);
+      }
+      if (!words || !words.length) return;
+      var f = (t - bt[active][0]) / Math.max(0.2, bt[active][1] - bt[active][0]), k = 0;
+      for (var j = 0; j < words.length; j++) { if (words[j]._at <= f) k = j; }
+      if (k !== lastWord) {
+        words.forEach(function (w, j) { w.classList.toggle("ra-done", j < k); w.classList.toggle("ra-now", j === k); });
+        lastWord = k;
+      }
+    }
+    function keepInView(el) {
+      var r = el.getBoundingClientRect(), vh = window.innerHeight;
+      if (r.top > vh * 0.18 && r.bottom < vh * 0.72) return;
+      autoScrolling = Date.now();
+      el.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    }
+    function loop() { raf = 0; if (!audio.paused && readAlong) { readAlongAt(audio.currentTime); raf = requestAnimationFrame(loop); } }
+    function showFollow() { var b = mini && mini.querySelector(".listen-follow"); if (b) b.hidden = follow || !readAlong || !started; }
+    // the reader scrolling the page themselves stops the following until they ask for it again
+    ["wheel", "touchmove", "keydown"].forEach(function (ev) {
+      window.addEventListener(ev, function (e) {
+        if (!readAlong || audio.paused || Date.now() - autoScrolling < 900) return;
+        if (ev === "keydown" && ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].indexOf(e.key) < 0) return;
+        if (ev === "keydown" && e.key === " " && e.target !== document.body) return;
+        if (follow) { follow = false; showFollow(); }
+      }, { passive: true });
     });
-    audio.addEventListener("pause", function () { box.classList.remove("playing"); play.setAttribute("aria-label", "Play the article"); status.textContent = "Paused · " + statusText.replace(/^Listen to this article · /, ""); });
-    audio.addEventListener("ended", function () { status.textContent = "Finished. Thanks for listening."; });
-    audio.addEventListener("ratechange", function () { if (!audio.paused) status.textContent = "Playing" + (audio.playbackRate !== 1 ? " at " + audio.playbackRate + "x" : ""); });
-    audio.addEventListener("timeupdate", refresh);
+    if (mini) mini.querySelector(".listen-follow").addEventListener("click", function () {
+      follow = true; showFollow();
+      if (active > -1) keepInView(blocks[active]); else readAlongAt(audio.currentTime);
+    });
+    function setReadAlong(on) {
+      readAlong = on && !!raBtn;
+      if (raBtn) raBtn.setAttribute("aria-pressed", String(readAlong));
+      document.documentElement.classList.toggle("read-along", readAlong && started);
+      store("pa-read-along", readAlong ? null : "off");
+      if (!readAlong) clearActive(); else { follow = true; readAlongAt(audio.currentTime); if (!audio.paused && !raf) raf = requestAnimationFrame(loop); }
+      showFollow();
+    }
+    if (raBtn) raBtn.addEventListener("click", function () { setReadAlong(!readAlong); track("audio_read_along", { article: slug, on: readAlong }); });
+    // with read along on, a click on a paragraph plays from it (but not a click on a link, or while selecting text)
+    blocks.forEach(function (b, i) {
+      b.addEventListener("click", function (e) {
+        if (!readAlong || !started || e.target.closest("a, button") || String(window.getSelection && window.getSelection()).length) return;
+        go(bt[i][0], "paragraph");
+      });
+    });
+
+    /* ---- controls ---- */
+    document.querySelectorAll(".listen .listen-play, .listen-mini .listen-play").forEach(function (b) {
+      b.addEventListener("click", function () { if (audio.paused) play(); else audio.pause(); });
+    });
+    document.querySelectorAll(".listen-next").forEach(function (b) { b.addEventListener("click", nextChapter); });
+    box.querySelector(".listen-prev").addEventListener("click", prevChapter);
+    box.querySelectorAll("[data-skip]").forEach(function (b) { b.addEventListener("click", function () { go(audio.currentTime + +b.getAttribute("data-skip")); }); });
+    chBtns.forEach(function (b) { b.addEventListener("click", function () { go(+b.getAttribute("data-t"), "chapter"); }); });
+    speedBtn.addEventListener("click", function () { setSpeed(SPEEDS[(SPEEDS.indexOf(audio.playbackRate) + 1) % SPEEDS.length]); });
     seek.addEventListener("input", function () { dragging = true; at.textContent = clock(+seek.value); });
     seek.addEventListener("change", function () { dragging = false; go(+seek.value); });
-    box.querySelectorAll("[data-speed]").forEach(function (b) { b.addEventListener("click", function () { setSpeed(+b.getAttribute("data-speed")); }); });
-    chs.forEach(function (b) { b.addEventListener("click", function () { go(+b.getAttribute("data-t")); track("audio_chapter", { article: slug }); }); });
-    setSpeed(saved);
+    var chToggle = box.querySelector(".listen-chtoggle"), chList = box.querySelector(".listen-chapters");
+    function setChapters(open) { chToggle.setAttribute("aria-expanded", String(open)); chList.hidden = !open; }
+    var chPref = read("pa-listen-chapters");
+    setChapters(chPref ? chPref === "open" : window.innerWidth >= 700);
+    chToggle.addEventListener("click", function () { var open = chList.hidden; setChapters(open); store("pa-listen-chapters", open ? "open" : "closed"); });
+    var more = box.querySelector(".listen-more");
+    document.addEventListener("click", function (e) { if (more.open && !more.contains(e.target)) more.open = false; });
+    // "Listen" under the title: go to the player and start
+    document.querySelectorAll("[data-listen-start]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); if (audio.paused) play(); });
+    });
+
+    audio.addEventListener("play", function () {
+      document.querySelectorAll(".listen, .listen-mini").forEach(function (x) { x.classList.add("playing"); });
+      document.querySelectorAll(".listen .listen-play, .listen-mini .listen-play").forEach(function (b) { b.setAttribute("aria-label", "Pause"); });
+      status.textContent = "Playing";
+      box.querySelector(".listen-resume").hidden = true;
+      if (!started) { started = true; track("audio_play", { article: slug }); }
+      document.documentElement.classList.toggle("read-along", readAlong);
+      if (readAlong && !raf) raf = requestAnimationFrame(loop);
+      showMini(); showFollow();
+    });
+    audio.addEventListener("pause", function () {
+      document.querySelectorAll(".listen, .listen-mini").forEach(function (x) { x.classList.remove("playing"); });
+      document.querySelectorAll(".listen .listen-play, .listen-mini .listen-play").forEach(function (b) { b.setAttribute("aria-label", "Play"); });
+      status.textContent = "Paused";
+      store(KEY, audio.currentTime > 10 && audio.currentTime < duration - 15 ? String(Math.floor(audio.currentTime)) : null);
+    });
+    audio.addEventListener("ended", function () { status.textContent = "Finished. Thanks for listening."; store(KEY, null); clearActive(); });
+    audio.addEventListener("timeupdate", function () { refresh(); });
+
+    // pick up where you left off
+    var saved = +read(KEY) || 0, resume = box.querySelector(".listen-resume");
+    if (saved > 10 && saved < duration - 15) {
+      resume.textContent = "Resume from " + clock(saved);
+      resume.hidden = false;
+      refresh(saved);
+      resume.addEventListener("click", function () { go(saved, "resume"); });
+    } else refresh(0);
+
+    // "Listen from here" on each section heading: its chapter has the same name (or, failing that, the same place in order)
+    var norm = function (x) { return String(x || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); };
+    var names = chBtns.map(function (b) { return norm(b.querySelector(".listen-ch-name").textContent); });
+    var heads = Array.prototype.slice.call(document.querySelectorAll(".post-body h2")).filter(function (h) { return !h.closest(".post-faq, .takeaways, .listen"); });
+    heads.forEach(function (h, k) {
+      var i = names.indexOf(norm(h.textContent));
+      if (i < 0 && heads.length === starts.length - 1) i = k + 1;
+      if (i < 1) return;
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "listen-here";
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg>Listen from here <span>' + clock(starts[i]) + "</span>";
+      b.setAttribute("aria-label", "Listen from here: " + h.textContent);
+      b.addEventListener("click", function () { go(starts[i], "heading"); });
+      h.insertAdjacentElement("afterend", b);
+    });
+
+    // the slim player at the bottom, once the full one is out of view and something has played
+    var inView = true;
+    function showMini() { if (mini) mini.hidden = !started || inView; }
+    if (mini && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { inView = es[0].isIntersecting; showMini(); }, { threshold: 0 }).observe(box);
+      mini.querySelector(".listen-mini-up").addEventListener("click", function () {
+        box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+        setTimeout(function () { box.querySelector(".listen-play").focus({ preventScroll: true }); }, 400);
+      });
+    }
+
+    // lock screen, headphones and car controls
+    if ("mediaSession" in navigator) {
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({ title: title, artist: "Product Advisory", album: "Product+ Audio",
+          artwork: [{ src: "/assets/audio/podcast-cover.jpg", sizes: "3000x3000", type: "image/jpeg" }] });
+        var ms = navigator.mediaSession;
+        ms.setActionHandler("play", play);
+        ms.setActionHandler("pause", function () { audio.pause(); });
+        ms.setActionHandler("previoustrack", prevChapter);
+        ms.setActionHandler("nexttrack", nextChapter);
+        ms.setActionHandler("seekbackward", function (d) { go(audio.currentTime - ((d && d.seekOffset) || 15)); });
+        ms.setActionHandler("seekforward", function (d) { go(audio.currentTime + ((d && d.seekOffset) || 30)); });
+        ms.setActionHandler("seekto", function (d) { if (d && typeof d.seekTime === "number") go(d.seekTime); });
+      } catch (e) { /* older browsers: the page controls still work */ }
+    }
+
+    setSpeed(SPEEDS.indexOf(+read("pa-listen-speed")) > -1 ? +read("pa-listen-speed") : 1);
+    if (raBtn) raBtn.setAttribute("aria-pressed", String(readAlong));
     var dl = box.querySelector(".listen-dl"); if (dl) dl.addEventListener("click", function () { track("audio_download", { article: slug }); });
   }
 

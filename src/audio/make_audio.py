@@ -36,9 +36,35 @@ SAY = [
 ]
 
 
+MONEY = re.compile(r'(\b(?:[Aa]n?|[Tt]he)\s+)?\$(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d{1,2}))?(\s?(?:thousand|million|billion|trillion)\b|[kK]\b|M\b|B\b|bn\b)?(?=(\s+[A-Z])?)')
+SCALE = {'k': 'thousand', 'K': 'thousand', 'M': 'million', 'B': 'billion', 'bn': 'billion'}
+
+
+def say_money(m):
+    """"$500" is read "500 dollars", not "dollar 500". $21.99 -> 21 dollars and 99 cents; $5.9 billion -> 5.9 billion dollars.
+    In a title or after a/an/the ("The $100 Staircase", "a $200 phone") it describes the next word: 100 dollar, 3 dollar 67."""
+    art, whole, cents, scale, title_next = m.group(1) or '', m.group(2), m.group(3), m.group(4), m.group(5)
+    if cents and len(cents) == 1:
+        cents += '0'
+    if scale:
+        word = SCALE.get(scale.strip(), scale.strip())
+        return art + whole + ('.' + cents.rstrip('0') if cents and cents.rstrip('0') else '') + ' ' + word + (' dollar' if art else ' dollars')
+    n = int(whole.replace(',', '') or 0)
+    if art or title_next:
+        return art + whole + ' dollar' + (' ' + cents if cents and cents != '00' else '')
+    if n == 0 and cents:
+        return str(int(cents)) + (' cent' if int(cents) == 1 else ' cents')
+    out = whole + (' dollar' if n == 1 else ' dollars')
+    if cents and cents != '00':
+        out += ' and ' + str(int(cents)) + (' cent' if int(cents) == 1 else ' cents')
+    return out
+
+
 def clean(s, say=True):
     s = re.sub(r'<[^>]+>', '', s)
     s = html.unescape(s)
+    if say:
+        s = MONEY.sub(say_money, s)
     for a, b in (SAY if say else []):
         s = re.sub(a, b, s)
     s = re.sub(r'\s+', ' ', s).strip()

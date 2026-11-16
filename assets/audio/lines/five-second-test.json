@@ -26,307 +26,307 @@
 ],
 [
 33.07,
-61.59,
+61.51,
 "She scrolled through the page itself, and for the first time she saw it the way a stranger might. It had become a museum of good ideas. Four plans climbing a gentle staircase. A published enterprise anchor. A monthly and annual toggle. Reminder packs that crossed over to the Plus plan at exactly $99. Messaging credits with a break even note. A footnote explaining the footnote. Every element had a good reason to be there. Together they made a wall."
 ],
 [
-62.09,
-86.2,
+62.01,
+86.11,
 "So Jordan tried something she should have done before launch. Through a friend, she found three office managers at clinics that had never heard of Cadence. The first was Denise, who runs the front desk at a four doctor pediatric practice. Jordan opened the pricing page on a laptop, started a timer, and asked one question: \"Which plan would you buy? Just talk out loud while you decide.\""
 ],
 [
-86.7,
-103.06,
+86.61,
+102.98,
 "Denise scrolled down to the toggle, then back up. She hovered over the Plus card, then asked what a reminder pack was. She found the credits note, read it twice, and laughed. At ninety seconds she leaned back and said, \"Honestly, I'd probably just call someone.\""
 ],
 [
-103.56,
-124.02,
+103.48,
+123.93,
 "At Cadence, calling someone usually meant leaving. Jordan had designed the page for a reader like herself, someone who read it slowly, top to bottom, already knowing the product. Real customers don't read pricing pages. They glance at them, form an impression in a few seconds, and either lean in or move on."
 ],
 [
-124.52,
-130.6,
+124.43,
+130.51,
 "That afternoon, Jordan started building a way to review the page the way customers actually see it."
 ],
 [
-131.6,
-132.94,
+131.51,
+132.86,
 "Start with the glance."
 ],
 [
-133.64,
-143.99,
+133.56,
+143.9,
 "The simplest version of the test takes five minutes and one willing stranger. Show them your pricing page for five seconds. Then hide it and ask three questions."
 ],
 [
-144.49,
-146.13,
+144.4,
+146.05,
 "What does this company sell?"
 ],
 [
-146.28,
-148.82,
+146.2,
+148.74,
 "Which plan is meant for someone like you?"
 ],
 [
-148.97,
-150.55,
+148.89,
+150.46,
 "Roughly what would it cost you?"
 ],
 [
-151.05,
-170.61,
+150.96,
+170.53,
 "If a first time visitor can't answer those three questions after a five second glance, the page is failing before any of your clever pricing ideas get a chance to work. The staircase, the anchor, the upgrade math: none of it matters to a customer who has already decided the page is too much effort."
 ],
 [
-171.11,
-176.89,
+171.03,
+176.81,
 "Jordan turned that idea into eight checkpoints, each tied to a specific part of the page."
 ],
 [
-177.74,
-200.76,
+177.66,
+200.68,
 "Some of these are about clarity, like whether each plan says who it's for. Some are about structure, like whether one plan is clearly recommended. And a few are about trust, like whether the customer can see what happens if they outgrow a plan or want to leave. Two of them turned out to matter far more than Jordan expected, and both have decades of research behind them."
 ],
 [
-201.76,
-203.58,
+201.68,
+203.49,
 "More choices, fewer buyers."
 ],
 [
-204.28,
-219.36,
+204.19,
+219.27,
 "In 2000, psychologists Sheena Iyengar and Mark Lepper set up a tasting table at an upscale grocery store in California. On some hours the table offered 24 flavors of jam. On others, just six."
 ],
 [
-219.86,
-242.26,
+219.77,
+242.17,
 "The big display was better at getting attention. About 60 percent of passing shoppers stopped at the 24 jam table, compared with 40 percent at the six jam table. But when it came to buying, the result flipped. Only about 3 percent of the people who stopped at the big display went on to buy jam, compared with roughly 30 percent at the small one."
 ],
 [
-242.76,
-254.43,
+242.67,
+254.34,
 "Put in terms of every hundred people walking by, the big table produced about two buyers. The small table produced about twelve. More choice drew a crowd and then froze it."
 ],
 [
-255.28,
-278.87,
+255.19,
+278.79,
 "It's worth being honest about this study, because it gets quoted a lot. Later research found that choice overload is real but conditional. It shows up most strongly when options are hard to compare, when people don't already know what they want, and when the decision feels complicated. That is not a reason to ignore it. It's a precise description of most B2B pricing pages."
 ],
 [
-279.37,
-296.35,
+279.29,
+296.27,
 "Jordan did the math on her own page. Four plans. Two billing periods. Zero, one, or two reminder packs. That was 24 possible combinations, the same number as the jam table. She had built the big display without realizing it."
 ],
 [
-297.35,
-299.08,
+297.27,
+299.0,
 "The option nobody picks."
 ],
 [
-299.78,
-321.37,
+299.7,
+321.73,
 "The second lesson comes from a classroom demonstration by behavioral economist Dan Ariely, built on a real subscription page from The Economist. The magazine offered three options: web only for $59, print only for $125, and print plus web, also for $125."
 ],
 [
-321.87,
-336.57,
+322.23,
+336.93,
 "No sensible person picks print only when print plus web costs the same. When Ariely put the three options in front of 100 students, nobody did. Sixteen chose web only, and 84 chose print plus web."
 ],
 [
-337.07,
-347.84,
+337.43,
+348.21,
 "Then he removed the option nobody picked and asked a fresh group of 100. This time, 68 chose web only and just 32 chose print plus web."
 ],
 [
-348.69,
-386.9,
+349.06,
+387.39,
 "An option that nobody chose changed what everybody else chose. With it on the page, the $125 bundle looked like an obvious bargain, because there was something right next to it that was clearly worse. Without it, the same bundle just looked expensive next to $59. Across 100 buyers, the difference was about 43 percent more revenue. It was a classroom exercise rather than a live test, so treat the exact figures with some caution, but the direction has held up across many studies of what researchers call the decoy effect."
 ],
 [
-387.4,
-407.45,
+387.89,
+407.94,
 "The lesson for pricing pages is not to invent fake options. It's that customers never judge a plan on its own. They judge it against whatever sits beside it. Every plan on your page changes how every other plan looks, and the most useful comparisons are the ones the customer can see without doing math."
 ],
 [
-407.95,
-434.1,
+408.44,
+434.7,
 "That was exactly Jordan's problem. Her page technically offered the same honest comparison The Economist did: a Starter customer who added two reminder packs paid $99, the same price as Plus, which included the reminders plus online booking and a waitlist. But the page made customers discover that themselves by adding up line items. Nobody was going to do that in five seconds."
 ],
 [
-435.1,
-437.56,
+435.7,
+438.15,
 "Prices are read, not calculated."
 ],
 [
-438.26,
-462.94,
+438.85,
+463.54,
 "One more piece of research shaped Jordan's review. In a series of field experiments with a women's clothing catalog, marketing professors Eric Anderson and Duncan Simester tested what happened when prices ended in 9. The 9 ending increased demand in all three experiments, and the effect was strongest for new items, where customers had the least information to judge the price."
 ],
 [
-463.44,
-483.13,
+464.04,
+483.73,
 "The takeaway for a B2B page isn't to end every price in 9. It's that customers don't carefully calculate prices. They read them quickly, and they read them in whatever unit makes sense to them. When customers have little else to go on, small cues in how a price is shown carry a lot of weight."
 ],
 [
-483.63,
-498.8,
+484.23,
+499.4,
 "Cadence priced by the clinic per month. Denise thought in providers. She kept trying to work out what Growth would cost per doctor, because that was how her practice budgeted everything else. The price was fine. The unit was foreign."
 ],
 [
-499.8,
-500.95,
+500.4,
+501.55,
 "The scorecard."
 ],
 [
-501.65,
-512.19,
+502.25,
+512.79,
 "Jordan turned all of this into a one page scorecard. Eight questions, each scored from one to five, with a short description of what a strong answer looks like."
 ],
 [
-513.04,
-523.66,
+513.64,
+524.26,
 "She scored the Cadence page honestly, then asked two colleagues from outside the product team to score it too, and averaged the results. The pattern was humbling."
 ],
 [
-524.16,
-549.76,
+524.76,
+550.36,
 "The structure was strong. The staircase, the anchor, and the upgrade math all scored well, because that's where Jordan had spent the last two months. But the page scored poorly on the things a first time visitor notices first: whether they can tell which plan is for them, how many decisions they have to make, and whether anything is recommended. Jordan had built excellent pricing and a confusing page to sell it on."
 ],
 [
-551.11,
-552.58,
+551.71,
+553.18,
 "What Jordan changed."
 ],
 [
-553.28,
-557.1,
+553.88,
+557.7,
 "The redesign took two weeks, and most of it was subtraction."
 ],
 [
-557.6,
-574.26,
+558.2,
+574.86,
 "First, she added a single question above the plans: \"How many providers are in your practice?\" Choosing an answer highlighted the plan most practices that size use. Twenty four combinations became one recommendation, and everything else stayed a click away."
 ],
 [
-574.76,
-588.74,
+575.36,
+589.34,
 "Second, she gave the page a default. The Growth card now carried a simple label, \"Most practices your size choose this.\" It was true, it was specific, and it gave hesitant visitors permission to stop comparing."
 ],
 [
-589.24,
-604.3,
+589.84,
+604.9,
 "Third, she moved reminder packs, messaging credits, and the enterprise details into a section below the plans called \"Everything else.\" Nothing was removed. It just stopped competing for attention in the first five seconds."
 ],
 [
-604.8,
-624.11,
+605.4,
+624.83,
 "Fourth, she made the key comparison visible. One line under the Plus card now read: \"Starter with two reminder packs costs $99. Plus costs $99 and adds online booking and a waitlist.\" The honest version of The Economist's decoy, shown instead of implied."
 ],
 [
-624.61,
-638.49,
+625.33,
+639.28,
 "Fifth, she spoke Denise's language. Each plan now showed an estimate in the customer's own unit, such as \"About $45 per provider for a four provider practice,\" right beneath the monthly price."
 ],
 [
-638.99,
-649.28,
+639.78,
+650.07,
 "Last, she added the reassurance that had been buried in the footnotes: a free trial, what happens if a clinic goes over its limits, and how cancellation works."
 ],
 [
-649.78,
-670.88,
+650.57,
+671.66,
 "Denise agreed to look at the new version a week later. She picked a plan in eleven seconds. Over the following month, the share of pricing page visitors who started a trial rose from about 3.8 percent to about 5.6 percent, and the sales team reported that questions about which plan to choose had roughly halved."
 ],
 [
-672.23,
-673.68,
+673.01,
+674.47,
 "Borrowing the playbook."
 ],
 [
-674.38,
-690.72,
+675.17,
+691.51,
 "The hardest part of reviewing your own pricing page is that you know too much. You know why every element is there, which means you can no longer see what it's like to meet the page cold. The fix isn't more cleverness. It's borrowing someone else's eyes."
 ],
 [
-691.22,
-694.74,
+692.01,
+695.53,
 "For product managers, a few habits make that easier."
 ],
 [
-695.24,
-707.46,
+696.03,
+708.25,
 "Test the glance, not the read. Show the page for five seconds to someone who has never seen it, then ask what you sell, which plan fits them, and what it costs. If they can't answer, start there."
 ],
 [
-707.61,
-719.49,
+708.4,
+720.28,
 "Count combinations, not plans. Three plans with toggles and add ons can quietly become two dozen decisions. Every extra choice has to earn its place in the first screen."
 ],
 [
-719.64,
-731.7,
+720.43,
+732.49,
 "Make the comparison obvious. Customers judge each plan against its neighbors. Put the comparison that favors your recommended plan in plain sight instead of hoping they'll work it out."
 ],
 [
-731.85,
-739.14,
+732.64,
+739.93,
 "Speak in the customer's unit. Price the way your model works, but translate it into the unit your customer budgets in."
 ],
 [
-739.29,
-748.32,
+740.08,
+749.11,
 "Recommend something. A clear default is not pushy. It's a relief to a buyer who doesn't want to become an expert in your pricing to make a decision."
 ],
 [
-748.47,
-758.05,
+749.26,
+758.84,
 "Score it every quarter. Pricing pages drift as new ideas get added. A simple scorecard keeps the page as good as the pricing behind it."
 ],
 [
-758.55,
-768.98,
+759.34,
+769.77,
 "Jordan keeps a printout of the scorecard pinned above her desk now, with Denise's eleven seconds written in the corner. It's the most useful number on the wall."
 ],
 [
-769.48,
-774.17,
+770.27,
+774.96,
 "Your customer won't read your pricing page. They'll glance at it, and decide."
 ],
 [
-775.17,
-776.13,
+775.96,
+776.92,
 "Sources."
 ],
 [
-776.83,
-785.07,
+777.62,
+785.86,
 "Iyengar and Lepper jam study results, including the counts of shoppers who stopped and bought, via Rejoiner and Lumen Learning."
 ],
 [
-785.22,
-792.17,
+786.01,
+792.96,
 "Discussion of the jam study and later research on when choice overload appears, via Jason Collins."
 ],
 [
-792.32,
-801.05,
+793.11,
+801.84,
 "The Economist subscription experiment described by Dan Ariely, via Wikipedia's summary of the decoy effect and Sketchplanations."
 ],
 [
-801.2,
-810.86,
+801.99,
+811.65,
 "Anderson and Simester, Effects of $9 Price Endings on Retail Sales, Quantitative Marketing and Economics, 2003."
 ],
 [
-811.36,
-824.29,
+812.15,
+825.08,
 "Revenue per 100 buyers in the decoy example is calculated from the reported choices and prices. Jordan, Denise, and Cadence are fictional, and the Cadence figures are illustrative."
 ],
 [
-825.39,
-834.41,
+826.18,
+835.2,
 "This was The Five Second Test, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]

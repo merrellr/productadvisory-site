@@ -1444,9 +1444,33 @@ def image_size(path):
     raise ValueError("unsupported image: " + path)
 
 
+def read_along_times(a):
+    """When each spoken block is read: [(start, end)] in body order (headings, paragraphs, quotes and each list item),
+    from assets/audio/lines/<slug>.json. The narration opens with three lines (title, summary, "From Product Advisory")
+    and closes with one. None if the article has no narration, or the text has changed since it was narrated."""
+    path = os.path.join(ROOT, "assets", "audio", "lines", a["slug"] + ".json")
+    if not a.get("body") or not os.path.exists(path):
+        return None
+    with open(path) as f:
+        lines = json.load(f)
+    spoken = sum(len(b[1]) if b[0] in ("ul", "ol") else (0 if b[0] == "fig" else 1) for b in a["body"])
+    if len(lines) != 3 + spoken + 1:
+        return None
+    return [(l[0], l[1]) for l in lines[3:3 + spoken]]
+
+
 def article_body(a):
-    """The article as sections, one per heading, so Ask can find and link to each part."""
+    """The article as sections, one per heading, so Ask can find and link to each part. With narration, each spoken
+    block carries when it is read (data-t, data-e) for the read-along (site.js initListen)."""
     import re
+    times = iter(read_along_times(a) or [])
+    has_times = read_along_times(a) is not None
+
+    def at():
+        if not has_times:
+            return ""
+        t, e = next(times)
+        return f' data-t="{t:.2f}" data-e="{e:.2f}"'
     base = f"assets/insights/{a['slug']}/"
     attrs = f'data-kind="Insight" data-keywords="{a["keywords"]}"'
     parts = [f'<section id="intro" data-ask="{escape(a["title"])}" {attrs}>']
@@ -1454,15 +1478,15 @@ def article_body(a):
         kind = b[0]
         if kind == "h2":
             sid = re.sub(r"[^a-z0-9]+", "-", plain(b[1]).lower()).strip("-")
-            parts.append(f'</section>\n<section id="{sid}" data-ask="{escape(a["title"])}: {escape(plain(b[1]))}" {attrs}>\n<h2>{b[1]}</h2>')
+            parts.append(f'</section>\n<section id="{sid}" data-ask="{escape(a["title"])}: {escape(plain(b[1]))}" {attrs}>\n<h2{at()}>{b[1]}</h2>')
         elif kind == "h3":
-            parts.append(f"<h3>{b[1]}</h3>")
+            parts.append(f"<h3{at()}>{b[1]}</h3>")
         elif kind == "p":
-            parts.append(f"<p>{b[1]}</p>")
+            parts.append(f"<p{at()}>{b[1]}</p>")
         elif kind in ("ul", "ol"):
-            parts.append(f"<{kind}>" + "".join(f"<li>{i}</li>" for i in b[1]) + f"</{kind}>")
+            parts.append(f"<{kind}>" + "".join(f"<li{at()}>{i}</li>" for i in b[1]) + f"</{kind}>")
         elif kind == "quote":
-            parts.append(f"<blockquote><p>{b[1]}</p></blockquote>")
+            parts.append(f"<blockquote><p{at()}>{b[1]}</p></blockquote>")
         elif kind == "fig":
             w, h = image_size(base + b[1])
             cap = f"<figcaption>{b[3]}</figcaption>" if b[3] else ""
@@ -1485,7 +1509,7 @@ def insight_card(a):
     if a.get("body"):
         return (f'<a class="card insight cat-{c} reveal" data-cat="{c}"{find} href="/insights/{a["slug"]}">'
                 f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
-                f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read{f" · {listen_minutes(audio_meta(a))} min listen" if audio_meta(a) else ""}</small></div></a>')
+                f'<div class="insight-body">{head}<small>{fmt_date(a["date"])}</small>{formats_html(a, audio_meta(a))}</div></a>')
     return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}"{find} href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
             f'<div class="insight-body">{head}<small>Read on LinkedIn ↗</small></div></a>')
 
@@ -1639,7 +1663,7 @@ def video_embed(a):
     vid = YOUTUBE.get(a["slug"])
     if not vid:
         return ""
-    return (f'<figure class="post-video"><div class="post-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" '
+    return (f'<figure class="post-video" id="video"><div class="post-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" '
             f'title="{escape(a["title"])}: the video" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" '
             f'referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption>Watch it: the narration with the charts.</figcaption></figure>')
 
@@ -1667,25 +1691,93 @@ def podcast_links_html():
             f'<a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a></p>')
 
 
+# Read / Listen / Watch: the ways into an article, on its card and under its title.
+FMT_ICONS = {
+    "read": '<path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17z"/>',
+    "listen": '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/>',
+    "watch": '<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M10 9.2v5.6a.6.6 0 0 0 .9.5l4.5-2.8a.6.6 0 0 0 0-1l-4.5-2.8a.6.6 0 0 0-.9.5z" fill="currentColor"/>',
+}
+
+
+def fmt_icon(k):
+    return f'<svg viewBox="0 0 24 24" aria-hidden="true">{FMT_ICONS[k]}</svg>'
+
+
+def formats_html(a, m, linked=False):
+    """Read · Listen · Watch. On the article page each one is a link (to the text, the player and the video)."""
+    items = [("read", "Read", f"{read_minutes(a)} min", "#intro")]
+    if m:
+        items.append(("listen", "Listen", f"{listen_minutes(m)} min", "#listen"))
+    if YOUTUBE.get(a["slug"]):
+        items.append(("watch", "Watch", "video", "#video"))
+    if linked:
+        return ('<div class="fmts" aria-label="Ways to take in this article">' + "".join(
+            f'<a class="fmt fmt-{k}" href="{h}"{" data-listen-start" if k == "listen" else ""}>{fmt_icon(k)}<b>{lab}</b><span>{sub}</span></a>'
+            for k, lab, sub, h in items) + '</div>')
+    return ('<span class="fmts">' + "".join(
+        f'<span class="fmt fmt-{k}" title="{lab}: {sub}">{fmt_icon(k)}<b>{lab}</b><span class="fmt-sub">{sub}</span></span>' for k, lab, sub, h in items)
+        + '</span>')
+
+
 def audio_player(a, m):
+    """The article's player: chapters you can see and jump between, skip, speed, and read-along (the paragraph being read
+    is highlighted and followed). A slim player stays on screen while you read. All behaviour: assets/js/site.js, initListen."""
     mp3 = f"/assets/audio/{a['slug']}.mp3"
-    chapters = "".join(f'<li><button type="button" data-t="{t}"><span class="listen-ch-t">{clock(t)}</span><span>{escape(name)}</span></button></li>'
-                       for t, name in m["chapters"])
-    speeds = "".join(f'<button type="button" data-speed="{v}" aria-pressed="{"true" if v == "1" else "false"}">{v}x</button>'
-                     for v in ("1", "1.25", "1.5", "2"))
-    play = ('<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg>'
-            '<svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>')
-    return (f'<section class="listen" data-listen data-slug="{a["slug"]}" aria-label="Listen to this article">'
+    dur = m["duration"]
+    chs = m["chapters"]
+    ends = [c[0] for c in chs[1:]] + [dur]
+    chapters = "".join(
+        f'<li><button type="button" data-t="{t}" data-i="{i}"><span class="listen-ch-n" aria-hidden="true">{i + 1}</span>'
+        f'<span class="listen-ch-name">{escape(name)}</span><span class="listen-ch-t">{clock(t)}</span>'
+        f'<span class="listen-ch-bar" aria-hidden="true"><i></i></span></button></li>'
+        for i, ((t, name), e) in enumerate(zip(chs, ends)))
+    segs = "".join(f'<span class="listen-seg" style="flex:{max(1.0, e - t):.1f}" title="{escape(name)}"><i></i></span>'
+                   for (t, name), e in zip(chs, ends))
+    ico = lambda d, cls="": f'<svg class="{cls}" viewBox="0 0 24 24" aria-hidden="true">{d}</svg>'
+    play = (ico('<path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/>', "i-play")
+            + ico('<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>', "i-pause"))
+    prev = ico('<path d="M6 5v14"/><path d="M19 6.5v11a1 1 0 0 1-1.5.86L9 13.2a1.4 1.4 0 0 1 0-2.4l8.5-5.16A1 1 0 0 1 19 6.5z"/>')
+    nxt = ico('<path d="M18 5v14"/><path d="M5 6.5v11a1 1 0 0 0 1.5.86L15 13.2a1.4 1.4 0 0 0 0-2.4L6.5 5.64A1 1 0 0 0 5 6.5z"/>')
+    back = ico('<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/><text x="12" y="15.5" text-anchor="middle">15</text>')
+    fwd = ico('<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/><text x="12" y="15.5" text-anchor="middle">30</text>')
+    ra = ico('<path d="M4 6h10M4 10h16M4 14h12M4 18h8"/>')
+    links = "".join(f'<a href="{u}" {EXT}>{escape(t)}</a>' for t, u in PODCAST_LINKS)
+    read_along = read_along_times(a) is not None
+    return (f'<section class="listen" id="listen" data-listen data-slug="{a["slug"]}" data-title="{escape(a["title"])}" aria-label="Listen to this article">'
             f'<audio preload="none" src="{mp3}"></audio>'
-            f'<div class="listen-main"><button type="button" class="listen-play" aria-label="Play the article">{play}</button>'
-            f'<div class="listen-info"><div class="listen-status">Listen to this article · {listen_minutes(m)} min</div>'
-            f'<div class="listen-now">Now: <span>{escape(m["chapters"][0][1])}</span></div>'
-            f'<input class="listen-seek" type="range" min="0" max="{int(m["duration"])}" value="0" step="1" aria-label="Position in the audio">'
-            f'<div class="listen-times"><span class="listen-at">0:00</span><span>{clock(m["duration"])}</span></div></div></div>'
-            f'<div class="listen-row"><span class="listen-label">Speed</span>{speeds}<a class="listen-dl" href="{mp3}" download>Download MP3</a></div>'
-            f'<details class="listen-chapters"><summary>Chapters ({len(m["chapters"])})</summary><ol>{chapters}</ol></details>'
-            f'<p class="listen-note">Narrated with a natural AI voice. The charts are in the article below.</p>'
-            f'{podcast_links_html()}</section>')
+            f'<div class="listen-head">'
+            f'<button type="button" class="listen-play" aria-label="Play the article">{play}</button>'
+            f'<div class="listen-title"><b class="listen-status">Listen to this article</b>'
+            f'<span>{listen_minutes(m)} min · {len(chs)} chapters</span></div>'
+            f'<div class="listen-tools">'
+            + (f'<button type="button" class="listen-tool listen-ra" aria-pressed="true" title="Highlight and follow the words as they are read">{ra}<span>Read along</span></button>' if read_along else '')
+            + f'<button type="button" class="listen-tool listen-speed" aria-label="Playback speed: 1x. Change it">1x</button>'
+            f'<details class="listen-more"><summary class="listen-tool" aria-label="More: download and podcast apps">'
+            f'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></summary>'
+            f'<div class="listen-menu"><a class="listen-dl" href="{mp3}" download>Download the MP3</a>'
+            f'<a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a>{links}'
+            f'<p>Narrated with a natural AI voice. The charts are in the article.</p></div></details>'
+            f'</div></div>'
+            f'<div class="listen-nowrow"><div class="listen-now"><span class="listen-now-n">Chapter 1 of {len(chs)}</span>'
+            f'<span class="listen-now-name">{escape(chs[0][1])}</span></div>'
+            f'<button type="button" class="listen-resume" hidden></button></div>'
+            f'<div class="listen-track"><div class="listen-segs" aria-hidden="true">{segs}</div>'
+            f'<input class="listen-seek" type="range" min="0" max="{int(dur)}" value="0" step="1" aria-label="Position in the audio"></div>'
+            f'<div class="listen-times"><span class="listen-at">0:00</span><span class="listen-left">-{clock(dur)}</span></div>'
+            f'<div class="listen-controls">'
+            f'<button type="button" class="listen-skip" data-skip="-15" aria-label="Back 15 seconds">{back}</button>'
+            f'<button type="button" class="listen-prev" aria-label="Previous chapter">{prev}</button>'
+            f'<button type="button" class="listen-next" aria-label="Next chapter">{nxt}</button>'
+            f'<button type="button" class="listen-skip" data-skip="30" aria-label="Forward 30 seconds">{fwd}</button>'
+            f'<button type="button" class="listen-chtoggle" aria-expanded="true" aria-controls="listen-ch-list">Chapters <span>{len(chs)}</span></button></div>'
+            f'<ol class="listen-chapters" id="listen-ch-list">{chapters}</ol>'
+            f'</section>'
+            f'<div class="listen-mini" hidden role="region" aria-label="Now playing">'
+            f'<button type="button" class="listen-play" aria-label="Pause">{play}</button>'
+            f'<div class="listen-mini-info"><div class="listen-mini-ch"></div><div class="listen-mini-bar"><i></i></div></div>'
+            f'<button type="button" class="listen-follow" hidden>Back to where I\'m listening</button>'
+            f'<button type="button" class="listen-next" aria-label="Next chapter">{nxt}</button>'
+            f'<button type="button" class="listen-mini-up" aria-label="Show the full player">Player</button></div>')
 
 
 def podcast():
@@ -1754,7 +1846,8 @@ def article_page(a, full):
       <div class="eyebrow cat-{category(a)}"><a class="eyebrow-link" href="/insights?topic={category(a)}">{a["topic"]}</a> · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
-      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated} · {read_minutes(a)} min read{f" · {listen_minutes(m)} min listen" if m else ""}</p>
+      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated}</p>
+      {formats_html(a, m, linked=True)}
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
