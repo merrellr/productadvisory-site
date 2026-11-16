@@ -851,6 +851,7 @@ def scorecard():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
     write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "Free interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight criteria, score features, compare rankings and share the result.", body,
@@ -933,6 +934,7 @@ def ai_use_cases():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/ai-usecases-core.js"></script>
 <script src="assets/js/ai-usecases.js"></script>'''
     write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "Free AI use case prioritization tool: score AI ideas on value, data readiness, cost, team readiness and risk, map them, and get the first pilot to run.", body,
@@ -1007,6 +1009,7 @@ def ai_readiness():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/ai-readiness-core.js"></script>
 <script src="assets/js/ai-readiness.js"></script>'''
     write("ai-readiness.html", page("ai-readiness.html", "AI Readiness Checklist", "Free AI readiness checklist: 24 statements across strategy, data, people, use cases, tools and guardrails. See where you are on the AI adoption journey and get your next three moves.", body,
@@ -1062,18 +1065,17 @@ def sheet_menu(files, label="Get the spreadsheet"):
 
 
 def tour_link(tid):
-    """New here? The tool's 2-minute tour (src/audio/make_tour.py and video/tour.mjs): a button that opens the video,
-    with a Just listen option (site.js initTours). Nothing shows until the tour's files exist."""
-    base = os.path.join(ROOT, "assets", "audio", "tours", tid)
-    if not (os.path.exists(base + ".mp4") and os.path.exists(base + ".json")):
+    """New here? The tool's quick tour: a click-through guide on the page itself (assets/js/guide.js), with the steps
+    from src/guides.json built into the button. No video or audio to download."""
+    with open(os.path.join(ROOT, "src", "guides.json")) as f:
+        g = json.load(f).get(tid)
+    if not g:
         return ""
-    with open(base + ".json") as f:
-        secs = json.load(f)["duration"] + 3.5
-    mins = f"{int(secs) // 60}:{int(secs) % 60:02d}"
-    url = f"/assets/audio/tours/{tid}"
-    return (f'<button type="button" class="tour-btn" data-tour="{tid}" data-video="{url}.mp4" data-audio="{url}.mp3" data-poster="{url}.webp">'
-            f'<span class="tour-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg></span>'
-            f'<span><b>New here? Take the 2-minute tour</b><small>Video · {mins} · or just listen</small></span></button>')
+    cfg = escape(json.dumps({k: g[k] for k in ("title", "restore", "steps") if k in g}, ensure_ascii=False, separators=(",", ":")), quote=True)
+    n = len(g["steps"])
+    return (f'<button type="button" class="guide-btn" data-tour="{tid}" data-guide="{cfg}">'
+            f'<span class="guide-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>'
+            f'<span><b>New here? Take the quick tour</b><small>{n} steps · about a minute</small></span></button>')
 
 
 def xlsx_row(path, name):
@@ -1177,6 +1179,7 @@ def build_buy_partner():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/bbp-core.js"></script>
 <script src="assets/js/bbp.js"></script>'''
     write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "Free Build, Buy, or Partner decision matrix: score each option on ten weighted criteria, compare the three-year cost, and record the decision and its risks.", body,
@@ -1264,6 +1267,7 @@ def impact_score():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/impact-core.js"></script>
 <script src="assets/js/impact.js"></script>'''
     write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "Free Organizational Impact Score: rate initiatives against your KPIs, adjust for confidence, and rank them with an action for each: do now, big bet, quick win.", body,
