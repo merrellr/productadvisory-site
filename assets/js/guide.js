@@ -24,6 +24,7 @@
     ".guide-pop .g-dots{flex:1;display:flex;flex-wrap:wrap;gap:5px}.guide-pop .g-dots i{width:7px;height:7px;border-radius:50%;background:#d5deea}.guide-pop .g-dots i.on{background:#1c4587}" +
     ".guide-pop .g-b{min-height:38px;padding:0 16px;border-radius:19px;border:1.5px solid #c9d5e6;background:#fff;color:#1a4584;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}" +
     ".guide-pop .g-n{border-color:#1c4587;background:#1c4587;color:#fff}" +
+    "html.guide-on [class*=toast]{visibility:hidden!important}" +
     "html.pa-embed .guide-btn{display:none}@media print{.guide-btn{display:none!important}}" +
     "@media (prefers-reduced-motion:reduce){.guide-hole,.guide-pop{transition:none}}";
 
@@ -51,6 +52,7 @@
     pop.innerHTML = '<div class="g-k"><span class="g-c"></span><button type="button" class="g-x" aria-label="Close the tour">&times;</button></div>' +
       '<h2 id="guideTitle"></h2><p class="g-p" aria-live="polite"></p>' +
       '<div class="g-row"><span class="g-dots" aria-hidden="true"></span><button type="button" class="g-b g-back">Back</button><button type="button" class="g-b g-n">Next</button></div>';
+    document.documentElement.classList.add("guide-on");   // pop-up notices wait until the tour ends
     document.body.appendChild(shield); document.body.appendChild(hole); document.body.appendChild(pop);
     var back = pop.querySelector(".g-back"), next = pop.querySelector(".g-n");
     var i = -1, el = null, raf = 0, furthest = 0;
@@ -106,7 +108,7 @@
     function end(done) {
       window.removeEventListener("scroll", later, true); window.removeEventListener("resize", later);
       document.removeEventListener("keydown", key, true);
-      shield.remove(); hole.remove(); pop.remove();
+      shield.remove(); hole.remove(); pop.remove(); document.documentElement.classList.remove("guide-on");
       if (restore) restore.click();
       track(done ? "tour_finish" : "tour_close", { step: furthest + 1 });
       btn.focus({ preventScroll: true });
