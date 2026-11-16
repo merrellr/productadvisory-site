@@ -1631,7 +1631,7 @@ def insights():
 PODCAST_TITLE = "Product+ Audio"
 PODCAST_DESC = ("Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement "
                 "for product managers and the leaders who work with them.")
-PODCAST_LINKS = []   # [(label, url)] once the show is listed, e.g. ("Apple Podcasts", "https://podcasts.apple.com/...")
+PODCAST_LINKS = [("Spotify", "https://open.spotify.com/show/08s0KLGXnK1jcJmVGRYkTs")]   # [(label, url)]; add ("Apple Podcasts", "https://podcasts.apple.com/...") once listed
 # The YouTube video for an article (src/audio/make_video.py makes it): slug -> video id, the part after "watch?v=".
 YOUTUBE = {}
 # Which Product Advisory Learning skill areas each article goes deeper on (Learning's "Listen & watch" page links to those courses).
