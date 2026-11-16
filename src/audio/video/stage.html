@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product+ Audio video stage</title>
+<!-- Drawn by src/audio/video/render.mjs: it calls window.setup(data) once, then window.draw(t) for every frame and
+     takes a screenshot. Nothing here runs on the website. Everything is drawn from t alone, so any frame can be
+     drawn in any order. -->
+<style>
+  :root { --navy: #12305e; --navy2: #0b1f40; --blue: #1c4587; --mid: #3466c0; --cyan: #35c2e8; --orange: #f08a3c; --white: #ffffff; --soft: #c9d7ee; --dim: #8fa4c8; --green: #4fd18b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--navy2); font-family: "Lato", sans-serif; color: var(--white); }
+  #bg { position: absolute; inset: 0; background: radial-gradient(1200px 800px at 75% 20%, #1d4a8f 0%, rgba(29,74,143,0) 60%), linear-gradient(160deg, #12305e 0%, #0b1f40 70%); }
+  #dots { position: absolute; inset: 0; opacity: .18; background-image: radial-gradient(#5f86c9 1.4px, transparent 1.6px); background-size: 48px 48px; }
+  #brand { position: absolute; left: 80px; top: 48px; font-weight: 900; font-size: 34px; color: var(--cyan); letter-spacing: .01em; }
+  #brand span { color: var(--white); }
+  #chapter { position: absolute; right: 80px; top: 52px; font-weight: 700; font-size: 28px; color: var(--soft); text-align: right; max-width: 1100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #stage { position: absolute; left: 80px; right: 80px; top: 120px; height: 700px; }
+  .layer { position: absolute; inset: 0; }
+  #caps { position: absolute; left: 160px; right: 160px; top: 850px; height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 44px; line-height: 1.32; }
+  #caps .w { color: rgba(255,255,255,.55); }
+  #caps .w.done { color: var(--white); }
+  #caps .w.now { color: var(--navy2); background: var(--cyan); border-radius: 8px; box-shadow: 0 0 0 4px var(--cyan); }
+  #bar { position: absolute; left: 80px; right: 80px; bottom: 40px; height: 8px; display: flex; gap: 6px; }
+  #bar i { position: relative; flex: 1; border-radius: 4px; background: rgba(255,255,255,.14); overflow: hidden; }
+  #bar i b { position: absolute; inset: 0 auto 0 0; background: var(--cyan); }
+  #wave { position: absolute; left: 80px; bottom: 60px; height: 36px; display: flex; align-items: center; gap: 5px; }
+  #wave i { width: 6px; border-radius: 3px; background: var(--cyan); opacity: .85; }
+  /* shared pieces */
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .eyebrow { font-weight: 700; font-size: 30px; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+  .huge { font-weight: 900; font-size: 210px; line-height: 1; letter-spacing: -.02em; }
+  .big { font-weight: 900; font-size: 96px; line-height: 1.05; }
+  .mid { font-weight: 700; font-size: 44px; line-height: 1.3; color: var(--soft); }
+  .card { position: absolute; background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.12); border-radius: 28px; }
+  .tag { display: inline-block; padding: 8px 20px; border-radius: 30px; font-weight: 900; font-size: 30px; }
+  svg text { font-family: "Lato", sans-serif; }
+</style>
+</head>
+<body>
+<div id="bg"></div><div id="dots"></div>
+<div id="brand">Product+ <span>Audio</span></div>
+<div id="chapter"></div>
+<div id="stage"></div>
+<div id="caps"></div>
+<div id="wave"></div>
+<div id="bar"></div>
+<script>
+/* ------------------------------------------------------------------ helpers */
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };   // in-out cubic
+const out = (x) => 1 - Math.pow(1 - clamp(x), 3);                                                       // out cubic
+const back = (x) => { x = clamp(x); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, start, dur) => clamp((t - start) / dur);
+const money = (v, cur) => (cur || '$') + (Math.round(v * 100) / 100).toFixed(2).replace(/\.00$/, '');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const h = (html) => { const d = document.createElement('div'); d.className = 'layer'; d.innerHTML = html; return d; };
+const show = (el, k, dy) => { el.style.opacity = k; el.style.transform = 'translateY(' + ((1 - k) * (dy == null ? 40 : dy)) + 'px)'; };
+
+let D = null;   // { title, dek, duration, chapters, scenes:[{type, start, end, ...}], caps:[{start,end,words:[{w,at}]}], amp:[...], fps }
+
+/* ------------------------------------------------------------------ scenes
+   Each scene type: build(scene) -> element (made once), and frame(el, scene, local t, t) to set every moving part. */
+const SCENES = {
+  title: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-a>Product+ Audio · ${esc(D.topic || '')}</div>
+      <div class="big" data-b style="font-size:132px; margin:28px 0 22px; max-width:1500px">${D.title.split(' ').map(w => '<span style="display:inline-block">' + esc(w) + '&nbsp;</span>').join('')}</div>
+      <div class="mid" data-c style="max-width:1300px">${esc(D.dek)}</div>
+      <div data-d style="margin-top:42px; font-size:30px; color:var(--dim); font-weight:700">Narrated by Product Advisory</div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-a]'), out(lt / .8));
+      el.querySelectorAll('[data-b] span').forEach((w, i) => { const k = back((lt - .3 - i * .12) / .7); w.style.opacity = clamp(k); w.style.transform = 'translateY(' + (1 - k) * 60 + 'px)'; });
+      show(el.querySelector('[data-c]'), out((lt - 1.4) / .9));
+      show(el.querySelector('[data-d]'), out((lt - 2.2) / .9));
+    }
+  },
+  quote: {
+    build: (s) => h(`<div class="center"><svg width="120" height="90" viewBox="0 0 120 90" data-q><path d="M10 80 V48 Q10 12 48 6 L52 18 Q30 24 30 44 H50 V80Z M66 80 V48 Q66 12 104 6 L108 18 Q86 24 86 44 H106 V80Z" fill="#35c2e8"/></svg>
+      <div class="big" data-t style="max-width:1500px; margin-top:30px; font-style:italic">${s.text.split(' ').map(w => '<span style="display:inline-block">' + esc(w) + '&nbsp;</span>').join('')}</div>
+      <div data-u style="margin-top:40px; height:8px; width:520px; border-radius:4px; background:var(--cyan); transform-origin:left"></div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-q]'), out(lt / .6), 20);
+      el.querySelectorAll('[data-t] span').forEach((w, i) => { const k = out((lt - .2 - i * .08) / .6); w.style.opacity = k; w.style.transform = 'translateY(' + (1 - k) * 30 + 'px)'; });
+      el.querySelector('[data-u]').style.transform = 'scaleX(' + ease((lt - 1) / 1.2) + ')';
+    }
+  },
+  chapter: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-a>Chapter ${s.n} of ${D.chapters.length - 1}</div>
+      <div class="big" data-b style="font-size:120px; margin-top:26px; max-width:1500px">${esc(s.title)}</div>
+      <div data-c style="display:flex; gap:14px; margin-top:56px">${D.chapters.slice(1).map((c, i) => '<i style="width:' + (i + 1 === s.n ? 90 : 26) + 'px; height:12px; border-radius:6px; background:' + (i + 1 < s.n ? 'rgba(53,194,232,.55)' : i + 1 === s.n ? '#35c2e8' : 'rgba(255,255,255,.18)') + '"></i>').join('')}</div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-a]'), out(lt / .5));
+      const k = back((lt - .15) / .8), b = el.querySelector('[data-b]'); b.style.opacity = clamp(k); b.style.transform = 'scale(' + lerp(.85, 1, k) + ')';
+      show(el.querySelector('[data-c]'), out((lt - .5) / .6), 20);
+    }
+  },
+  // $21.99 a month ÷ 6 people = $3.67 a person
+  divide: {
+    build: (s) => h(`<div class="center">
+      <div class="eyebrow" data-l>${esc(s.label)}</div>
+      <div style="display:flex; align-items:center; gap:56px; margin-top:34px">
+        <div data-a><div class="huge" style="color:var(--white)">${money(s.total)}</div><div class="mid">a month</div></div>
+        <div data-op class="huge" style="color:var(--cyan); font-size:150px">÷ ${s.by}</div>
+        <div data-p style="display:grid; grid-template-columns:repeat(3, 70px); gap:16px">${Array.from({ length: s.by }, () => '<svg width="70" height="80" viewBox="0 0 70 80"><circle cx="35" cy="20" r="16" fill="#c9d7ee"/><path d="M6 78 Q6 44 35 44 Q64 44 64 78Z" fill="#c9d7ee"/></svg>').join('')}</div>
+      </div>
+      <div data-r style="margin-top:50px; display:flex; align-items:baseline; gap:26px"><span class="huge" data-n style="color:var(--orange)">$21.99</span><span class="mid" style="font-size:52px">a person</span></div>
+      <div data-cmp class="mid" style="margin-top:22px; font-size:36px">Her own Individual plan: <b style="color:var(--white)">${money(s.compare)}</b></div></div>`),
+    frame: (el, s, lt, t) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      show(el.querySelector('[data-a]'), out((lt - .2) / .7));
+      const ko = t >= s.splitAt ? out((t - s.splitAt) / .6) : 0;
+      show(el.querySelector('[data-op]'), ko, 0); el.querySelector('[data-op]').style.transform = 'scale(' + lerp(.6, 1, ko) + ')';
+      el.querySelectorAll('[data-p] svg').forEach((p, i) => { const k = t >= s.splitAt ? back((t - s.splitAt - .3 - i * .12) / .5) : 0; p.style.opacity = clamp(k); p.style.transform = 'scale(' + k + ')'; });
+      const kr = t >= s.resultAt ? (t - s.resultAt) : -1;
+      show(el.querySelector('[data-r]'), kr < 0 ? 0 : out(kr / .5));
+      el.querySelector('[data-n]').textContent = money(kr < 0 ? s.total : lerp(s.total, s.result || s.total / s.by, ease(kr / 1.6)));
+      show(el.querySelector('[data-cmp]'), t >= s.compareAt ? out((t - s.compareAt) / .6) : 0);
+    }
+  },
+  // four people, four prices
+  people: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-l>${esc(s.label)}</div><div style="display:flex; gap:56px; margin-top:60px">${s.people.map(p => `
+      <div data-p style="width:300px; text-align:center"><svg width="150" height="170" viewBox="0 0 70 80"><circle cx="35" cy="20" r="16" fill="${p[3]}"/><path d="M6 78 Q6 44 35 44 Q64 44 64 78Z" fill="${p[3]}"/></svg>
+      <div style="font-size:40px; font-weight:900; margin-top:14px">${esc(p[0])}</div><div class="mid" style="font-size:30px">${esc(p[1])}</div>
+      <div data-tag class="tag" style="margin-top:22px; background:${p[3]}; color:#0b1f40; font-size:44px">${esc(p[2])}</div></div>`).join('')}</div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      el.querySelectorAll('[data-p]').forEach((p, i) => show(p, out((lt - .3 - i * .35) / .6)));
+      el.querySelectorAll('[data-tag]').forEach((g, i) => { const k = back((lt - 1.8 - i * .4) / .5); g.style.opacity = clamp(k); g.style.transform = 'scale(' + k + ')'; });
+    }
+  },
+  // an article figure, slowly pushing in
+  image: {
+    build: (s) => h(`<div class="center"><div data-f style="width:1500px; height:680px; border-radius:26px; overflow:hidden; background:#fff; box-shadow:0 30px 80px rgba(0,0,0,.35)"><img src="${s.src}" style="width:100%; height:100%; object-fit:${s.fit || 'cover'}"></div></div>`),
+    frame: (el, s, lt) => {
+      const f = el.querySelector('[data-f]'), k = out(lt / .8); f.style.opacity = k; f.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
+      const z = lerp(1, s.zoom || 1.08, clamp(lt / Math.max(4, s.end - s.start)));
+      f.querySelector('img').style.transform = 'scale(' + z + ')';
+    }
+  },
+  // one price against tiers on a willingness-to-pay curve (illustrative, as in the article's figure)
+  curve: {
+    build: (s) => {
+      const n = 40, W = 1300, H = 560, x0 = 140, y0 = 620;
+      const wtp = (i) => 30 * Math.pow(1 - i / n, 1.6) + 1;   // highest to lowest willingness to pay
+      const bars = Array.from({ length: n }, (_, i) => { const v = wtp(i), bh = v / 31 * H; return `<rect data-bar="${i}" x="${x0 + i * W / n + 3}" y="${y0 - bh}" width="${W / n - 6}" height="${bh}" rx="4" fill="#3466c0"/>`; }).join('');
+      return h(`<svg width="1760" height="700" viewBox="0 0 1760 700">
+        <text x="${x0}" y="40" fill="#35c2e8" font-size="30" font-weight="700" letter-spacing="4">CUSTOMERS, FROM WHO WOULD PAY THE MOST TO THE LEAST</text>
+        <g data-bars>${bars}</g>
+        <line x1="${x0}" x2="${x0 + W}" y1="${y0}" y2="${y0}" stroke="#8fa4c8" stroke-width="3"/>
+        <g data-one><line x1="${x0}" x2="${x0 + W}" y1="${y0 - 12 / 31 * H}" y2="${y0 - 12 / 31 * H}" stroke="#f08a3c" stroke-width="6" stroke-dasharray="18 12"/>
+          <text x="${x0 + W + 20}" y="${y0 - 12 / 31 * H + 12}" fill="#f08a3c" font-size="40" font-weight="900">One price</text></g>
+        <g data-tiers>${[[6, 26], [14, 18], [24, 12], [34, 6]].map(([end, p], k, a) => { const st = k ? a[k - 1][0] : 0; const y = y0 - p / 31 * H; return `<line x1="${x0 + st * W / n}" x2="${x0 + end * W / n}" y1="${y}" y2="${y}" stroke="#35c2e8" stroke-width="7"/>`; }).join('')}
+          <text x="${x0 + W + 20}" y="${y0 - 18 / 31 * H}" fill="#35c2e8" font-size="40" font-weight="900">Four tiers</text></g>
+        <g data-k1><text x="${x0 + 640}" y="200" fill="#ffffff" font-size="120" font-weight="900" data-v1>0%</text><text x="${x0 + 640}" y="250" fill="#c9d7ee" font-size="34" font-weight="700">of the value captured with one price</text></g>
+        <g data-k2><text x="${x0 + 640}" y="200" fill="#35c2e8" font-size="120" font-weight="900" data-v2>36%</text><text x="${x0 + 640}" y="250" fill="#c9d7ee" font-size="34" font-weight="700">captured with four tiers</text></g>
+        <text x="${x0}" y="690" fill="#8fa4c8" font-size="26">Illustrative curve, as in the article's figure.</text></svg>`);
+    },
+    frame: (el, s, lt, t) => {
+      const n = 40, T2 = s.tiersAt;
+      el.querySelectorAll('[data-bar]').forEach((b, i) => {
+        const k = out((lt - i * .03) / .6); b.style.transformOrigin = 'center bottom'; b.style.transformBox = 'fill-box'; b.style.transform = 'scaleY(' + k + ')';
+        // with one price: those who would pay 12 or more buy (orange); later, with tiers, almost everyone buys (cyan)
+        const v = 30 * Math.pow(1 - i / n, 1.6) + 1, kt = t >= T2 ? clamp((t - T2 - i * .03) / .4) : 0;
+        const one = t >= s.oneAt ? clamp((t - s.oneAt - i * .02) / .4) : 0;
+        b.setAttribute('fill', kt > .5 && i < 34 ? '#35c2e8' : one > .5 ? (v >= 12 ? '#f08a3c' : 'rgba(143,164,200,.35)') : '#3466c0');
+      });
+      const ko = t >= s.oneAt ? out((t - s.oneAt) / .6) : 0, kt = t >= T2 ? out((t - T2) / .6) : 0;
+      el.querySelector('[data-one]').style.opacity = ko * (1 - .5 * kt);
+      el.querySelector('[data-tiers]').style.opacity = kt;
+      el.querySelector('[data-k1]').style.opacity = ko * (1 - kt);
+      el.querySelector('[data-v1]').textContent = Math.round(36 * ease((t - s.oneAt - .4) / 1.2)) + '%';
+      el.querySelector('[data-k2]').style.opacity = kt;
+      el.querySelector('[data-v2]').textContent = Math.round(lerp(36, 71, ease((t - T2 - .4) / 1.4))) + '%';
+    }
+  },
+  // price per account, then per person
+  plans: {
+    build: (s) => {
+      const max = 24, H = 470, x0 = 200, gap = 330, y0 = 600;
+      return h(`<svg width="1760" height="700" viewBox="0 0 1760 700">
+        <text x="${x0 - 60}" y="40" fill="#35c2e8" font-size="30" font-weight="700" letter-spacing="4" data-head>SPOTIFY US PREMIUM, A MONTH</text>
+        <line x1="${x0 - 60}" x2="${x0 + gap * 4}" y1="${y0}" y2="${y0}" stroke="#8fa4c8" stroke-width="3"/>
+        ${s.plans.map((p, i) => { const x = x0 + i * gap; return `<g data-plan="${i}">
+          <rect data-acct x="${x}" y="${y0 - p[1] / max * H}" width="110" height="${p[1] / max * H}" rx="10" fill="#3466c0"/>
+          <rect data-pers x="${x + 125}" y="${y0 - p[2] / max * H}" width="110" height="${p[2] / max * H}" rx="10" fill="#f08a3c"/>
+          <text data-va x="${x + 55}" y="${y0 - p[1] / max * H - 18}" text-anchor="middle" fill="#ffffff" font-size="34" font-weight="900">${money(p[1])}</text>
+          <text data-vp x="${x + 180}" y="${y0 - p[2] / max * H - 18}" text-anchor="middle" fill="#f08a3c" font-size="34" font-weight="900">${money(p[2])}</text>
+          <text x="${x + 117}" y="${y0 + 50}" text-anchor="middle" fill="#ffffff" font-size="40" font-weight="900">${esc(p[0])}</text>
+          <text x="${x + 117}" y="${y0 + 88}" text-anchor="middle" fill="#8fa4c8" font-size="26">${esc(p[3])}</text></g>`; }).join('')}
+        <g data-legend><rect x="1300" y="70" width="28" height="28" rx="6" fill="#3466c0"/><text x="1340" y="94" fill="#c9d7ee" font-size="30" font-weight="700">Per account</text>
+          <rect x="1300" y="116" width="28" height="28" rx="6" fill="#f08a3c"/><text x="1340" y="140" fill="#c9d7ee" font-size="30" font-weight="700">Per person, at full use</text></g>
+        <g data-ring><circle cx="${x0 + 3 * gap + 180}" cy="${y0 - 3.67 / max * H - 30}" r="88" fill="none" stroke="#f08a3c" stroke-width="6"/></g></svg>`);
+    },
+    frame: (el, s, lt, t) => {
+      el.querySelector('[data-head]').style.opacity = out(lt / .6);
+      el.querySelectorAll('[data-plan]').forEach((g, i) => {
+        const at = s.planAt[i], k = t >= at ? out((t - at) / .7) : 0;
+        const a = g.querySelector('[data-acct]'); a.style.transformBox = 'fill-box'; a.style.transformOrigin = 'center bottom'; a.style.transform = 'scaleY(' + k + ')';
+        g.querySelector('[data-va]').style.opacity = k;
+        g.style.opacity = t >= at ? 1 : .0;
+        const kp = t >= s.perAt ? out((t - s.perAt - i * .35) / .7) : 0;
+        const p = g.querySelector('[data-pers]'); p.style.transformBox = 'fill-box'; p.style.transformOrigin = 'center bottom'; p.style.transform = 'scaleY(' + kp + ')';
+        g.querySelector('[data-vp]').style.opacity = kp;
+      });
+      el.querySelector('[data-legend]').style.opacity = t >= s.perAt ? out((t - s.perAt) / .5) : 0;
+      const r = el.querySelector('[data-ring]'), kr = t >= s.perAt + 2.2 ? back((t - s.perAt - 2.2) / .6) : 0;
+      r.style.opacity = clamp(kr); r.style.transformBox = 'fill-box'; r.style.transformOrigin = 'center'; r.style.transform = 'scale(' + kr + ')';
+    }
+  },
+  // two amounts side by side
+  versus: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-l>${esc(s.label)}</div><div style="display:flex; gap:120px; margin-top:60px; align-items:flex-end">
+      ${s.items.map((it, i) => `<div data-i style="text-align:center"><div style="display:flex; gap:10px; justify-content:center; margin-bottom:26px">${Array.from({ length: it[2] }, () => '<svg width="56" height="64" viewBox="0 0 70 80"><circle cx="35" cy="20" r="16" fill="' + (i ? '#35c2e8' : '#8fa4c8') + '"/><path d="M6 78 Q6 44 35 44 Q64 44 64 78Z" fill="' + (i ? '#35c2e8' : '#8fa4c8') + '"/></svg>').join('')}</div>
+        <div class="huge" data-v style="font-size:170px; color:${i ? 'var(--cyan)' : 'var(--white)'}">${esc(it[1])}</div><div class="mid">${esc(it[0])}</div></div>`).join('<div data-vs class="big" style="color:var(--dim); align-self:center">vs</div>')}</div>
+      <div data-n class="mid" style="margin-top:56px; font-size:40px; color:var(--white)">${esc(s.note || '')}</div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      el.querySelectorAll('[data-i]').forEach((x, i) => show(x, out((lt - .3 - i * .9) / .7)));
+      el.querySelectorAll('[data-vs]').forEach(x => show(x, out((lt - .9) / .5), 0));
+      show(el.querySelector('[data-n]'), out((lt - 2.2) / .7));
+    }
+  },
+  // a short, big statement
+  callout: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-l>${esc(s.label || '')}</div><div class="huge" data-b style="font-size:${s.size || 170}px; margin:30px 0; color:${s.color || 'var(--white)'}">${esc(s.big)}</div><div class="mid" data-c style="max-width:1300px">${esc(s.text || '')}</div></div>`),
+    frame: (el, s, lt) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      const k = back((lt - .2) / .8), b = el.querySelector('[data-b]'); b.style.opacity = clamp(k); b.style.transform = 'scale(' + lerp(.7, 1, k) + ')';
+      show(el.querySelector('[data-c]'), out((lt - .9) / .7));
+    }
+  },
+  // the three fences, each appearing as it's named
+  fences: {
+    build: (s) => h(`<div class="eyebrow" data-l style="position:absolute; left:0; right:0; top:10px; text-align:center">${esc(s.label)}</div>
+      ${s.cards.map((c, i) => `<div class="card" data-c style="left:${30 + i * 590}px; top:110px; width:530px; height:520px; padding:44px">
+        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#35c2e8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${c[3]}</svg>
+        <div style="font-size:58px; font-weight:900; margin-top:26px">${esc(c[0])}</div>
+        <div class="tag" style="margin-top:18px; background:rgba(53,194,232,.18); color:var(--cyan)">${esc(c[1])}</div>
+        <div class="mid" style="font-size:32px; margin-top:26px">${esc(c[2])}</div></div>`).join('')}`),
+    frame: (el, s, lt, t) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      el.querySelectorAll('[data-c]').forEach((c, i) => { const at = s.cardAt[i], k = t >= at ? back((t - at) / .7) : 0; c.style.opacity = clamp(k); c.style.transform = 'translateY(' + (1 - k) * 80 + 'px) rotate(' + (1 - clamp(k)) * (i - 1) * 4 + 'deg)'; });
+    }
+  },
+  // users, then revenue: the same split, turned around
+  split: {
+    build: (s) => h(`<div class="eyebrow" data-l style="position:absolute; left:0; right:0; top:0; text-align:center">${esc(s.label)}</div>
+      ${['users', 'revenue'].map((k, r) => `<div data-row="${k}" style="position:absolute; left:120px; right:120px; top:${130 + r * 250}px">
+        <div style="font-size:40px; font-weight:900; margin-bottom:16px">${r ? 'Revenue, second quarter 2026' : 'Monthly users, June 2026'}</div>
+        <div style="display:flex; height:110px; border-radius:18px; overflow:hidden; background:rgba(255,255,255,.08)"><div data-a style="background:#8fa4c8; display:flex; align-items:center; padding-left:26px; font-size:38px; font-weight:900; color:#0b1f40; white-space:nowrap"></div>
+        <div data-b style="background:#35c2e8; display:flex; align-items:center; justify-content:flex-end; padding-right:26px; font-size:38px; font-weight:900; color:#0b1f40; white-space:nowrap"></div></div>
+        <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:30px; color:var(--soft); font-weight:700"><span>Free, with ads<b data-la style="color:#fff; margin-left:12px"></b></span><span>Premium</span></div></div>`).join('')}
+      <div data-x style="position:absolute; right:120px; top:650px; font-size:44px; font-weight:900; color:var(--cyan)">${esc(s.times)}</div>`),
+    frame: (el, s, lt, t) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      const row = (k, a, b, la, lb, at) => {
+        const r = el.querySelector('[data-row="' + k + '"]'), kk = t >= at ? ease((t - at) / 1.2) : 0;
+        show(r, t >= at ? out((t - at) / .5) : 0);
+        const fa = a / (a + b) * 100;
+        r.querySelector('[data-a]').style.width = (fa * kk) + '%'; r.querySelector('[data-b]').style.width = ((100 - fa) * kk) + '%';
+        const thin = fa < 15;   // too thin to hold its own label: say it underneath
+        r.querySelector('[data-a]').textContent = kk > .6 && !thin ? la : ''; r.querySelector('[data-b]').textContent = kk > .6 ? lb : '';
+        r.querySelector('[data-la]').textContent = kk > .6 && thin ? la : '';
+      };
+      row('users', 494, 300, '494 million', '300 million', s.start + .4);
+      row('revenue', 446, 4331, '€446M', '€4.3 billion', s.revenueAt);
+      show(el.querySelector('[data-x]'), t >= s.timesAt ? out((t - s.timesAt) / .6) : 0);
+    }
+  },
+  // Netflix: 2022 to 2026, the gap widening
+  slope: {
+    build: (s) => {
+      const y = (v) => 620 - (v - 4) / 26 * 560, xa = 660, xb = 1150;
+      // the gap between the ad tier and Standard, as a bracket beside one end
+      const bracket = (x, hi, lo, label, left) => { const tx = left ? x - 30 : x + 30, a = left ? 'end' : 'start';
+        return `<line x1="${x}" x2="${x}" y1="${y(hi)}" y2="${y(lo)}" stroke="#f08a3c" stroke-width="6"/><line x1="${x - 18}" x2="${x + 18}" y1="${y(hi)}" y2="${y(hi)}" stroke="#f08a3c" stroke-width="6"/><line x1="${x - 18}" x2="${x + 18}" y1="${y(lo)}" y2="${y(lo)}" stroke="#f08a3c" stroke-width="6"/>
+        <text x="${tx}" y="${(y(hi) + y(lo)) / 2 + 4}" text-anchor="${a}" fill="#f08a3c" font-size="54" font-weight="900">${label}</text><text x="${tx}" y="${(y(hi) + y(lo)) / 2 + 44}" text-anchor="${a}" fill="#c9d7ee" font-size="26" font-weight="700">to drop the ads</text>`; };
+      return h(`<svg width="1760" height="700" viewBox="0 0 1760 700">
+        <text x="${xa}" y="680" text-anchor="middle" fill="#c9d7ee" font-size="34" font-weight="700">Nov 2022</text><text x="${xb}" y="680" text-anchor="middle" fill="#c9d7ee" font-size="34" font-weight="700">2026</text>
+        ${s.lines.map((l, i) => `<g data-line="${i}"><line x1="${xa}" y1="${y(l[1])}" x2="${xb}" y2="${y(l[2])}" stroke="${l[3]}" stroke-width="8" stroke-linecap="round" data-seg/>
+          <circle cx="${xa}" cy="${y(l[1])}" r="12" fill="${l[3]}"/><circle cx="${xb}" cy="${y(l[2])}" r="12" fill="${l[3]}" data-end/>
+          <text x="${xa - 30}" y="${y(l[1]) + 12}" text-anchor="end" fill="${l[3]}" font-size="38" font-weight="900">${money(l[1])}</text>
+          <text x="${xb + 30}" y="${y(l[2]) + 12}" fill="${l[3]}" font-size="38" font-weight="900" data-endv>${money(l[2])} <tspan fill="#c9d7ee" font-size="30" font-weight="700">${esc(l[0])}</tspan></text></g>`).join('')}
+        <g data-gap0>${bracket(xa - 220, 15.49, 6.99, '$8.50', true)}</g>
+        <g data-gap1>${bracket(xb + 330, 19.99, 8.99, '$11')}</g>
+</svg>`);
+    },
+    frame: (el, s, lt, t) => {
+      el.querySelectorAll('[data-line]').forEach((g, i) => {
+        const k = out((lt - .3 - i * .5) / 1.2);
+        g.style.opacity = clamp(k * 3);
+        const seg = g.querySelector('[data-seg]'), len = 900; seg.style.strokeDasharray = len; seg.style.strokeDashoffset = len * (1 - k);
+        g.querySelector('[data-end]').style.opacity = k > .95 ? 1 : 0; g.querySelector('[data-endv]').style.opacity = clamp((k - .9) * 10);
+      });
+      el.querySelector('[data-gap0]').style.opacity = t >= s.gapAt ? out((t - s.gapAt) / .6) : 0;
+      el.querySelector('[data-gap1]').style.opacity = t >= s.gapAt + 1.6 ? out((t - s.gapAt - 1.6) / .6) : 0;
+    }
+  },
+  // Cadence: the old staircase, and three new tiers around it
+  tiers: {
+    build: (s) => h(`<div class="eyebrow" data-l style="position:absolute; left:0; right:0; top:0; text-align:center">${esc(s.label)}</div>
+      <div data-old class="card" style="left:540px; top:250px; width:680px; height:300px; padding:36px; border-style:dashed">
+        <div style="font-size:30px; color:var(--dim); font-weight:700">ALREADY THERE</div><div style="font-size:56px; font-weight:900; margin-top:10px">Starter to Pro</div>
+        <div class="mid" style="font-size:34px; margin-top:6px">${esc(s.old)}</div>
+        <svg width="420" height="77" viewBox="0 0 600 110" style="margin-top:14px">${[0, 1, 2, 3].map(i => `<rect x="${i * 150}" y="${90 - i * 28}" width="140" height="${20 + i * 28}" rx="8" fill="#3466c0"/>`).join('')}</svg></div>
+      ${s.tiers.map((c, i) => `<div class="card" data-t style="left:${[30, 1270, 1270][i]}px; top:${[250, 70, 390][i]}px; width:${i ? 450 : 470}px; height:300px; padding:28px 30px; border-color:#35c2e8; background:rgba(53,194,232,.10)">
+        <div class="tag" style="background:#35c2e8; color:#0b1f40; font-size:26px">NEW</div>
+        <div style="font-size:52px; font-weight:900; margin-top:14px">${esc(c[0])}</div><div class="mid" style="font-size:30px; margin-top:6px">${esc(c[1])}</div>
+        <div style="font-size:24px; color:var(--cyan); font-weight:700; margin-top:10px">Fence: ${esc(c[2])}</div></div>`).join('')}
+      <div data-n style="position:absolute; left:0; right:0; top:660px; text-align:center; font-size:26px; color:var(--dim)">Cadence is fictional; its figures are illustrative.</div>`),
+    frame: (el, s, lt, t) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      show(el.querySelector('[data-old]'), out((lt - .3) / .7));
+      el.querySelectorAll('[data-t]').forEach((c, i) => { const at = s.tierAt[i], k = t >= at ? back((t - at) / .7) : 0; c.style.opacity = clamp(k); c.style.transform = 'translateX(' + (1 - k) * (i ? 120 : -120) + 'px)'; });
+      el.querySelector('[data-n]').style.opacity = out((lt - 1) / .6);
+    }
+  },
+  // the principles, each appearing as it's read
+  list: {
+    build: (s) => h(`<div class="eyebrow" data-l style="position:absolute; left:0; top:0">${esc(s.label)}</div>
+      <div style="position:absolute; left:0; right:0; top:80px; display:grid; grid-template-columns:1fr 1fr; gap:26px 40px">${s.items.map((it, i) => `<div data-i style="display:flex; gap:26px; align-items:flex-start; padding:28px 30px; border-radius:24px; background:rgba(255,255,255,.06); border:2px solid rgba(255,255,255,.10)">
+        <div style="flex:none; width:64px; height:64px; border-radius:50%; background:#35c2e8; color:#0b1f40; display:grid; place-items:center; font-size:34px; font-weight:900">${i + 1}</div>
+        <div style="font-size:38px; font-weight:900; line-height:1.2">${esc(it)}</div></div>`).join('')}</div>`),
+    frame: (el, s, lt, t) => {
+      show(el.querySelector('[data-l]'), out(lt / .6));
+      el.querySelectorAll('[data-i]').forEach((x, i) => {
+        const at = s.itemAt[i], k = t >= at ? out((t - at) / .6) : 0, nowOn = t >= at && (i + 1 >= s.itemAt.length || t < s.itemAt[i + 1]);
+        x.style.opacity = k ? (nowOn ? 1 : .55) : 0; x.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
+        x.style.borderColor = nowOn ? '#35c2e8' : 'rgba(255,255,255,.10)';
+      });
+    }
+  },
+  sources: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-l>Sources</div><div data-s style="margin-top:40px; max-width:1400px; text-align:left">${s.items.map(x => '<div style="font-size:34px; color:var(--soft); margin:14px 0; font-weight:700">· ' + esc(x) + '</div>').join('')}</div>
+      <div data-n class="mid" style="margin-top:30px; font-size:30px; color:var(--dim)">Full links are in the article.</div></div>`),
+    frame: (el, s, lt) => { show(el.querySelector('[data-l]'), out(lt / .6)); el.querySelectorAll('[data-s] div').forEach((x, i) => show(x, out((lt - .3 - i * .25) / .6), 20)); show(el.querySelector('[data-n]'), out((lt - 2) / .6)); }
+  },
+  end: {
+    build: (s) => h(`<div class="center"><div class="eyebrow" data-a>Product+ Audio</div><div class="big" data-b style="margin:30px 0; max-width:1500px">${esc(D.title)}</div>
+      <div class="mid" data-c>Read it, with its charts, at</div><div data-d style="font-size:64px; font-weight:900; color:var(--cyan); margin-top:10px">productadvisory.co/insights</div></div>`),
+    frame: (el, s, lt) => { show(el.querySelector('[data-a]'), out(lt / .6)); show(el.querySelector('[data-b]'), out((lt - .3) / .7)); show(el.querySelector('[data-c]'), out((lt - .9) / .6)); show(el.querySelector('[data-d]'), out((lt - 1.2) / .6)); }
+  }
+};
+
+/* ------------------------------------------------------------------ the frame */
+const built = new Map();
+let lastCap = -1;
+window.setup = (data) => {
+  D = data;
+  document.getElementById('bar').innerHTML = D.chapters.map(() => '<i><b></b></i>').join('');
+  document.getElementById('wave').innerHTML = Array.from({ length: 28 }, () => '<i></i>').join('');
+};
+function sceneEl(i) {
+  if (!built.has(i)) { const s = D.scenes[i], el = SCENES[s.type].build(s); el.style.opacity = 0; document.getElementById('stage').appendChild(el); built.set(i, el); }
+  return built.get(i);
+}
+window.draw = (t) => {
+  const FADE = .45;
+  let cur = D.scenes.findIndex(s => t >= s.start && t < s.end); if (cur < 0) cur = D.scenes.length - 1;
+  built.forEach((el, i) => { if (i !== cur && i !== cur - 1) { el.remove(); built.delete(i); } });
+  const s = D.scenes[cur], el = sceneEl(cur), lt = t - s.start;
+  SCENES[s.type].frame(el, s, lt, t);
+  el.style.opacity = clamp(lt / FADE);
+  if (cur > 0) {   // the scene before fades out as this one comes in
+    const p = D.scenes[cur - 1], pe = sceneEl(cur - 1);
+    if (lt < FADE) { SCENES[p.type].frame(pe, p, t - p.start, t); pe.style.opacity = 1 - lt / FADE; } else pe.style.opacity = 0;
+  }
+  // chapter name, progress by chapter, the waveform
+  let ci = 0; D.chapters.forEach((c, i) => { if (t >= c[0]) ci = i; });
+  document.getElementById('chapter').textContent = ci ? D.chapters[ci][1] : D.title;
+  document.querySelectorAll('#bar b').forEach((b, i) => { const s0 = D.chapters[i][0], e0 = i + 1 < D.chapters.length ? D.chapters[i + 1][0] : D.duration; b.style.width = clamp((t - s0) / (e0 - s0)) * 100 + '%'; });
+  const f = Math.floor(t * D.ampRate);
+  document.querySelectorAll('#wave i').forEach((w, i) => { const a = D.amp[Math.max(0, f - (27 - i))] || 0; w.style.height = (6 + a * 30) + 'px'; });
+  // captions: the words of the current line, lit as they're spoken
+  const ci2 = D.caps.findIndex(c => t >= c.start && t < c.end + .25);
+  const box = document.getElementById('caps');
+  if (ci2 !== lastCap) { box.innerHTML = ci2 < 0 ? '' : '<div>' + D.caps[ci2].words.map(w => '<span class="w">' + esc(w.w) + '</span>').join(' ') + '</div>'; lastCap = ci2; }
+  if (ci2 >= 0) { const c = D.caps[ci2], k = (t - c.start) / Math.max(.2, c.end - c.start); box.querySelectorAll('.w').forEach((w, i) => { const at = c.words[i].at; const nx = i + 1 < c.words.length ? c.words[i + 1].at : 1; w.className = 'w' + (k >= nx ? ' done' : k >= at ? ' now' : ''); }); }
+};
+</script>
+</body>
+</html>

@@ -28,6 +28,28 @@ machine, so there is no API key and no cost.
 
 For one-time setup (the model files and the fonts), see the top of `make_audio.py` and `make_video.py`.
 
+## Animated videos (storyboards)
+
+`make_video.py` makes a simple video for any article: its figures, with captions. For an animated one, write a
+storyboard, `src/audio/storyboards/<slug>.json`. It's a list of scenes, each pinned to a phrase in the narration
+(`"at": "The Family plan cost"`). Keys ending in `At` name phrases that trigger moves inside a scene. Because the
+phrases are words, not times, the video stays in sync if the article is narrated again.
+
+The scene types are in `src/audio/video/stage.html`:
+- title, quote, chapter (added at each chapter by itself) and end
+- divide (a price split between people) and people (a price tag each)
+- curve (one price against tiers), plans (bars per account and per person) and versus (two amounts)
+- callout, fences (cards appearing one by one), split (users against revenue) and slope (prices then and now)
+- tiers (new tiers around an existing staircase), list (points appearing as they're read) and sources
+- image (an article figure, slowly pushing in)
+
+Use only figures from the article.
+
+    node src/audio/video/render.mjs <slug> --fonts <folder> --stills 30,120,400 --out <folder>   # check a few frames
+    node src/audio/video/render.mjs <slug> --fonts <folder> --out <file.mp4>                     # the whole video
+
+It needs Node, Playwright with Chromium, ffmpeg and the Lato fonts. A 15-minute article takes about 20 minutes to render.
+
 ## Listing the podcast (once)
 
 The feed is `https://www.productadvisory.co/podcast.xml`.
