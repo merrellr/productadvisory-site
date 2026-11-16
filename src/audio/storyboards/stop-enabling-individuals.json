@@ -1,0 +1,209 @@
+{
+  "about": "Scenes for the animated video of Stop enabling individuals. Start enabling the organization. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    {
+      "type": "title",
+      "at": 0
+    },
+    {
+      "type": "callout",
+      "at": "Most companies are stuck in the same place",
+      "label": "Where most companies are stuck",
+      "big": "A few power users",
+      "size": 150,
+      "color": "#f08a3c",
+      "text": "Clever prompts, an hour saved here and there, and capability that lives in a few people's heads."
+    },
+    {
+      "type": "versus",
+      "at": "The next stage, organizational AI enablement",
+      "label": "Two stages of AI enablement",
+      "items": [
+        [
+          "a handful of enthusiasts",
+          "Individual",
+          0
+        ],
+        [
+          "durable capability, owned and governed",
+          "Organization",
+          0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "type": "callout",
+      "at": "Copilot Studio isn't just another chatbot builder",
+      "label": "Copilot Studio",
+      "big": "Low-code agents",
+      "size": 150,
+      "color": "#35c2e8",
+      "text": "Plugged into the systems you already run: SharePoint, Dataverse, Teams and more."
+    },
+    {
+      "type": "cards",
+      "at": "First, it lowers the floor",
+      "label": "Why it matters for the jump to organizational enablement",
+      "cards": [
+        [
+          "Lowers the floor",
+          "Who can build",
+          "A PM, an ops lead or a CS rep with real process knowledge.",
+          "<path d='M12 19V5M5 12l7 7 7-7'/>"
+        ],
+        [
+          "Raises the ceiling",
+          "What enabled means",
+          "A library of agents handling real work, not one person's prompts.",
+          "<path d='M12 5v14M5 12l7-7 7 7'/>"
+        ],
+        [
+          "A governance layer",
+          "What leaders underestimate",
+          "Individual AI use is invisible. Agents can be seen, managed and secured.",
+          "<path d='M12 3l7 4v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V7z'/>"
+        ]
+      ],
+      "cardAt": [
+        "First, it lowers the floor",
+        "Second, it raises the ceiling",
+        "Third, and this is the part"
+      ]
+    },
+    {
+      "type": "versus",
+      "at": "When you build for an individual",
+      "label": "Building for…",
+      "items": [
+        [
+          "one person's time: capped",
+          "An individual",
+          0
+        ],
+        [
+          "a process: it compounds",
+          "The organization",
+          0
+        ]
+      ],
+      "note": "It changes how you should think about ROI."
+    },
+    {
+      "type": "cards",
+      "at": "A well built agent that handles",
+      "label": "Processes worth an agent",
+      "cards": [
+        [
+          "First-line customer questions",
+          "",
+          ""
+        ],
+        [
+          "Internal support triage",
+          "",
+          ""
+        ],
+        [
+          "New-employee onboarding",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "There's also a change management benefit",
+      "label": "Change management",
+      "big": "Fragile → durable",
+      "size": 150,
+      "color": "#35c2e8",
+      "text": "Capability in individual habits is uneven. Built into a shared process, it lasts."
+    },
+    {
+      "type": "callout",
+      "at": "None of this means individual enablement doesn't matter",
+      "label": "Individuals still matter",
+      "big": "Fluency feeds ideas",
+      "size": 130,
+      "color": "#35c2e8",
+      "text": "Personal comfort with the tools often generates the ideas that become organizational agents."
+    },
+    {
+      "type": "steps",
+      "at": "Start narrow",
+      "label": "Your first Copilot Studio agent",
+      "items": [
+        [
+          "Start narrow",
+          "one clear process, like the same 5 HR questions every week"
+        ],
+        [
+          "Map it first",
+          "the real steps, exceptions and edge cases"
+        ],
+        [
+          "Ground it in data",
+          "SharePoint, a knowledge base, Dataverse"
+        ],
+        [
+          "Test with doers",
+          "the people who live in the process"
+        ],
+        [
+          "Plan ownership",
+          "monitor, update, retire"
+        ],
+        [
+          "A proof point",
+          "not the finish line"
+        ]
+      ],
+      "itemAt": [
+        "Start narrow",
+        "Map the process",
+        "Ground the agent",
+        "Test with the people",
+        "Plan for ownership",
+        "Finally, treat your first agent"
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "The organizations that will separate themselves",
+      "label": "The bigger picture",
+      "big": "Enthusiasm → capability",
+      "size": 130,
+      "color": "#35c2e8",
+      "text": "Not the most AI enthusiasts. The ones who turn enthusiasm into durable, shared capability."
+    },
+    {
+      "type": "formula",
+      "at": "It requires picking one real process",
+      "label": "The jump from novice",
+      "terms": [
+        [
+          "1",
+          "real process"
+        ],
+        [
+          "1",
+          "agent"
+        ],
+        [
+          "1",
+          "owner"
+        ]
+      ],
+      "ops": [
+        "+",
+        "+"
+      ],
+      "note": "No massive transformation program required."
+    },
+    {
+      "type": "end",
+      "at": "This was Stop enabling individuals"
+    }
+  ]
+}

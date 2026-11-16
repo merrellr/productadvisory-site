@@ -56,6 +56,7 @@ const prog = (t, start, dur) => clamp((t - start) / dur);
 const money = (v, cur) => (cur || '$') + (Math.round(v * 100) / 100).toFixed(2).replace(/\.00$/, '');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const h = (html) => { const d = document.createElement('div'); d.className = 'layer'; d.innerHTML = html; return d; };
+const vsSize = (s) => { const n = Math.max(...s.items.map(i => String(i[1]).length)); return s.size || (n > 10 ? 104 : n > 7 ? 130 : 170); };
 const show = (el, k, dy) => { el.style.opacity = k; el.style.transform = 'translateY(' + ((1 - k) * (dy == null ? 40 : dy)) + 'px)'; };
 
 let D = null;   // { title, dek, duration, chapters, scenes:[{type, start, end, ...}], caps:[{start,end,words:[{w,at}]}], amp:[...], fps }
@@ -209,11 +210,11 @@ const SCENES = {
       r.style.opacity = clamp(kr); r.style.transformBox = 'fill-box'; r.style.transformOrigin = 'center'; r.style.transform = 'scale(' + kr + ')';
     }
   },
-  // two amounts side by side
+  // two amounts side by side; long words get smaller so both fit side by side
   versus: {
     build: (s) => h(`<div class="center"><div class="eyebrow" data-l>${esc(s.label)}</div><div style="display:flex; gap:120px; margin-top:60px; align-items:flex-end">
       ${s.items.map((it, i) => `<div data-i style="text-align:center"><div style="display:flex; gap:10px; justify-content:center; margin-bottom:26px">${Array.from({ length: it[2] }, () => '<svg width="56" height="64" viewBox="0 0 70 80"><circle cx="35" cy="20" r="16" fill="' + (i ? '#35c2e8' : '#8fa4c8') + '"/><path d="M6 78 Q6 44 35 44 Q64 44 64 78Z" fill="' + (i ? '#35c2e8' : '#8fa4c8') + '"/></svg>').join('')}</div>
-        <div class="huge" data-v style="font-size:170px; color:${i ? 'var(--cyan)' : 'var(--white)'}">${esc(it[1])}</div><div class="mid">${esc(it[0])}</div></div>`).join('<div data-vs class="big" style="color:var(--dim); align-self:center">vs</div>')}</div>
+        <div class="huge" data-v style="font-size:${vsSize(s)}px; max-width:760px; color:${i ? 'var(--cyan)' : 'var(--white)'}">${esc(it[1])}</div><div class="mid">${esc(it[0])}</div></div>`).join('<div data-vs class="big" style="color:var(--dim); align-self:center">vs</div>')}</div>
       <div data-n class="mid" style="margin-top:56px; font-size:40px; color:var(--white)">${esc(s.note || '')}</div></div>`),
     frame: (el, s, lt) => {
       show(el.querySelector('[data-l]'), out(lt / .6));
