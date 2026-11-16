@@ -7,6 +7,7 @@
 // Needs: ffmpeg, Playwright with Chromium, and the Lato fonts (Lato-Black.ttf, Lato-Bold.ttf, Lato-Regular.ttf) in one folder.
 //   node src/audio/video/render.mjs <slug> --fonts <folder> --out <file.mp4> [--fps 24] [--from 0 --to 60]
 //   node src/audio/video/render.mjs <slug> --fonts <folder> --stills 12,40,180 --out <folder>     (PNG frames, to check a look)
+//   node src/audio/video/render.mjs <slug> --fonts <folder> --scene-stills --out <folder>         (one PNG per scene)
 import fs from 'fs';
 import path from 'path';
 import { spawn, execFileSync } from 'child_process';
@@ -93,7 +94,9 @@ await page.addStyleTag({ content: ['Regular', 400, 'Bold', 700, 'Black', 900].re
 await page.evaluate((d) => window.setup(d), data);
 await page.evaluate(() => document.fonts.ready);
 
-const stills = opt('stills');
+// --scene-stills: one still per scene, a few seconds in (just before it ends, when all its parts are showing), to check every scene's look
+let stills = opt('stills');
+if (args.includes('--scene-stills')) stills = scenes.map(sc => +(sc.type === 'chapter' ? sc.start + 1.5 : Math.max(sc.start + 1.5, sc.end - .5)).toFixed(2)).join(',');
 if (stills) {
   fs.mkdirSync(outPath, { recursive: true });
   for (const t of stills.split(',').map(Number)) {
