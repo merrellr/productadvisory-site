@@ -1,0 +1,359 @@
+{
+  "about": "Scenes for the animated video of Agentic AI as an Internal Product. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    {
+      "type": "title",
+      "at": 0
+    },
+    {
+      "type": "versus",
+      "at": "most of the conversation about agentic AI",
+      "label": "Where agentic AI gets pointed",
+      "items": [
+        [
+          "in front of customers",
+          "Outward",
+          0
+        ],
+        [
+          "inside the company",
+          "Inward",
+          0
+        ]
+      ],
+      "note": "Some of the highest-leverage AI work never touches a customer."
+    },
+    {
+      "type": "callout",
+      "at": "Building a copilot for your own sales or CS team is still product work",
+      "label": "The catch",
+      "big": "Still product work",
+      "size": 150,
+      "color": "#35c2e8",
+      "text": "Treated like IT work, these efforts stall after a promising demo."
+    },
+    {
+      "type": "steps",
+      "at": "Someone in ops says",
+      "label": "How internal tools usually go",
+      "items": [
+        [
+          "“We need a bot”",
+          "to summarize tickets"
+        ],
+        [
+          "An engineer builds it",
+          "in a sprint"
+        ],
+        [
+          "A demo",
+          "that impresses"
+        ],
+        [
+          "Quietly unused",
+          "a few months later"
+        ]
+      ]
+    },
+    {
+      "type": "cards",
+      "at": "nobody validated the problem",
+      "label": "Why it fails, same as external products",
+      "cards": [
+        [
+          "Nobody validated the problem",
+          "",
+          ""
+        ],
+        [
+          "Users weren't involved early",
+          "",
+          ""
+        ],
+        [
+          "No way to learn and adjust",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "at": "run your internal AI agent through the same lifecycle",
+      "label": "The same lifecycle as any product bet",
+      "items": [
+        [
+          "Discovery",
+          "the work worth automating"
+        ],
+        [
+          "Pilot",
+          "small, real, closely watched"
+        ],
+        [
+          "Feedback",
+          "corrections, not compliments"
+        ],
+        [
+          "Iteration",
+          "earn the next rollout"
+        ],
+        [
+          "Adoption",
+          "measured like a product"
+        ]
+      ]
+    },
+    {
+      "type": "versus",
+      "at": "A copilot that handles an entire customer renewal",
+      "label": "Where to start",
+      "items": [
+        [
+          "a whole renewal, end to end",
+          "Impressive",
+          0
+        ],
+        [
+          "a first-draft follow-up email",
+          "Useful",
+          0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "type": "cards",
+      "at": "Spend real time with the team you're building for",
+      "label": "Discovery, done properly",
+      "cards": [
+        [
+          "Sit in on sales calls",
+          "",
+          "",
+          "<path d='M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2'/>"
+        ],
+        [
+          "Read a week of tickets",
+          "",
+          "",
+          "<path d='M5 4h14v16H5z'/><path d='M9 8h6M9 12h6M9 16h4'/>"
+        ],
+        [
+          "Shadow someone's task",
+          "",
+          "",
+          "<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>"
+        ]
+      ]
+    },
+    {
+      "type": "cards",
+      "at": "You're looking for work that is repetitive",
+      "label": "Work worth automating first is…",
+      "cards": [
+        [
+          "Repetitive",
+          "",
+          ""
+        ],
+        [
+          "High volume",
+          "",
+          ""
+        ],
+        [
+          "Low risk",
+          "",
+          "if the agent gets it wrong early."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "ask the team what they'd actually want help with",
+      "label": "Where most failed pilots come from",
+      "big": "The gap",
+      "size": 170,
+      "color": "#f08a3c",
+      "text": "between what the team wants help with and what leadership assumes they need."
+    },
+    {
+      "type": "callout",
+      "at": "A pilot with five to ten people",
+      "label": "A pilot doing real work",
+      "big": "5 to 10 people",
+      "size": 160,
+      "color": "#35c2e8",
+      "text": "doing real work beats a company-wide launch with a flashy announcement."
+    },
+    {
+      "type": "cards",
+      "at": "Treat this phase the way you'd treat a beta",
+      "label": "Run it like a beta",
+      "cards": [
+        [
+          "A range of people",
+          "",
+          "Not just your most enthusiastic early adopters."
+        ],
+        [
+          "Real tasks",
+          "",
+          "Not sandboxed test cases."
+        ],
+        [
+          "Watched closely",
+          "",
+          "Where it helps and where it gets in the way."
+        ]
+      ]
+    },
+    {
+      "type": "versus",
+      "at": "the difference between a demo and a product",
+      "label": "Demo vs product",
+      "items": [
+        [
+          "works with controlled inputs",
+          "Demo",
+          0
+        ],
+        [
+          "survives a half-finished email thread",
+          "Product",
+          0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "type": "callout",
+      "at": "Feedback on an internal AI tool rarely shows up",
+      "label": "Internal feedback is quiet",
+      "big": "Silent edits",
+      "size": 160,
+      "color": "#f08a3c",
+      "text": "Someone editing every draft, or going back to doing it by hand."
+    },
+    {
+      "type": "cards",
+      "at": "three signals in particular",
+      "label": "Three signals to watch",
+      "cards": [
+        [
+          "Correction patterns",
+          "",
+          "What it consistently gets wrong in the same way."
+        ],
+        [
+          "Abandonment",
+          "",
+          "Where people stop trusting the output and take over."
+        ],
+        [
+          "Workarounds",
+          "",
+          "What people do instead: it shows what's missing."
+        ]
+      ],
+      "cardAt": [
+        "Correction patterns",
+        "Abandonment:",
+        "Workarounds:"
+      ]
+    },
+    {
+      "type": "quote",
+      "at": "Churn on an internal tool is quiet",
+      "text": "Churn on an internal tool is quiet. Nobody files a complaint when they just go back to the old way."
+    },
+    {
+      "type": "cards",
+      "at": "Every round of pilot feedback should change something concrete",
+      "label": "Each round should change something concrete",
+      "cards": [
+        [
+          "The prompt or guardrails",
+          "",
+          ""
+        ],
+        [
+          "What it can do unchecked",
+          "",
+          ""
+        ],
+        [
+          "A narrower scope",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "don't expand the rollout until",
+      "label": "A useful rule",
+      "big": "Earn the next rollout",
+      "size": 140,
+      "color": "#35c2e8",
+      "text": "More users won't fix a copilot that's corrected every week. They'll multiply the frustration."
+    },
+    {
+      "type": "cards",
+      "at": "The metrics that matter for a PM Copilot",
+      "label": "Measure adoption like a product",
+      "cards": [
+        [
+          "Weekly active users",
+          "",
+          "Staying power beyond curiosity."
+        ],
+        [
+          "Task success rate",
+          "",
+          "Done without a human fixing it."
+        ],
+        [
+          "Time saved per task",
+          "",
+          "What your VP or CFO will ask, measured honestly."
+        ],
+        [
+          "Voluntary return rate",
+          "",
+          "Coming back without a reminder."
+        ]
+      ],
+      "cardAt": [
+        "Weekly active users",
+        "Task success rate",
+        "Time saved per task",
+        "Voluntary return rate"
+      ]
+    },
+    {
+      "type": "quote",
+      "at": "People don't return to tools that waste their time",
+      "text": "People don't return to tools that waste their time, no matter how good the announcement email."
+    },
+    {
+      "type": "callout",
+      "at": "an internal AI agent is not a shortcut around product discipline",
+      "label": "The mindset shift",
+      "big": "A test of product discipline",
+      "size": 110,
+      "color": "#35c2e8",
+      "text": "Not a shortcut around it. The customers just sit down the hall."
+    },
+    {
+      "type": "quote",
+      "at": "PMs who get good at this",
+      "text": "Turn a promising capability into something people actually trust and use."
+    },
+    {
+      "type": "end",
+      "at": "This was Agentic AI as an Internal Product"
+    }
+  ]
+}
