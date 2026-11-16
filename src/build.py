@@ -428,11 +428,11 @@ def toolkits():
   <div>
     <h3 style="font-size:1.5rem">Feature Prioritization Scorecard <span class="pill">Interactive</span></h3>
     <div>{sc_tags}</div>
-    <ul class="meta"><li><b>Time needed:</b> About 20 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <ul class="meta"><li><b>Time needed:</b> About 20 minutes</li><li><b>Formats:</b> Interactive in your browser, or an Excel template (works in Google Sheets)</li></ul>
     <p>Rank features with criteria you can change, or with RICE, and compare the two rankings side by side, so your roadmap reflects your goals and not the loudest voice. Weight what matters, score each feature, and watch the ranking update as you go.</p>
     <p class="deep"><b>Use it when:</b> the backlog is longer than the quarter, and every stakeholder thinks their feature is first.</p>
     <p class="deep"><b>You walk away with:</b> a ranked list, the criteria behind it, and a link or file you can share.</p>
-    <div class="btn-row"><a class="btn sm" href="scorecard.html">Open the scorecard</a><a class="btn sm ghost" href="assets/toolkits/which-prioritization-method.pdf" {EXT}>Download the cheat sheet (PDF)</a></div>
+    <div class="btn-row"><a class="btn sm" href="scorecard.html">Open the scorecard</a><a class="btn sm ghost" href="assets/toolkits/feature-prioritization-scorecard.xlsx" download>Excel template</a><a class="btn sm ghost" href="assets/toolkits/which-prioritization-method.pdf" {EXT}>Download the cheat sheet (PDF)</a></div>
     <p class="deep" style="margin-top:10px"><b>New:</b> the one-page <i>Which prioritization method?</i> cheat sheet: when to use RICE, weighted scoring or ICE, and six rules for a ranking you can defend.</p>
   </div>
 </article>'''
@@ -444,11 +444,11 @@ def toolkits():
   <div>
     <h3 style="font-size:1.5rem">AI Use Case Prioritization <span class="pill">Interactive</span></h3>
     <div>{uc_tags}</div>
-    <ul class="meta"><li><b>Time needed:</b> About 15 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <ul class="meta"><li><b>Time needed:</b> About 15 minutes</li><li><b>Formats:</b> Interactive in your browser, or an Excel template (works in Google Sheets)</li></ul>
     <p>Choose where AI is worth the effort first. Score each idea on value, data readiness, cost, team readiness and risk, see them on a value and feasibility map, and get the first pilot to run.</p>
     <p class="deep"><b>Use it when:</b> everyone has an AI idea, and you need to pick the one or two worth piloting.</p>
     <p class="deep"><b>You walk away with:</b> a map of your ideas, the first pilot, a next step for each idea, and guardrails for the risky ones.</p>
-    <div class="btn-row"><a class="btn sm" href="ai-use-cases.html">Open the tool</a></div>
+    <div class="btn-row"><a class="btn sm" href="ai-use-cases.html">Open the tool</a><a class="btn sm ghost" href="assets/toolkits/ai-use-case-prioritization.xlsx" download>Excel template</a></div>
   </div>
 </article>'''
     bb_cols = "".join(f'<span class="bb-thumb-col{" is-top" if n == "Partner" else ""}"><i style="--h:{h}%"></i><b>{v}</b><em>{n}</em></span>' for n, h, v in [("Build", 62, "3.26"), ("Buy", 74, "3.39"), ("Partner", 82, "3.41")])
@@ -475,11 +475,11 @@ def toolkits():
   <div>
     <h3 style="font-size:1.5rem">AI Readiness Checklist <span class="pill">New · Interactive</span></h3>
     <div>{rd_tags}</div>
-    <ul class="meta"><li><b>Time needed:</b> About 10 minutes</li><li><b>Format:</b> Interactive, in your browser. Download as CSV or save as PDF</li></ul>
+    <ul class="meta"><li><b>Time needed:</b> About 10 minutes</li><li><b>Formats:</b> Interactive in your browser, or an Excel template (works in Google Sheets)</li></ul>
     <p>Check whether your team, data, tools and guardrails are ready for AI work. Answer 24 statements in six areas, see where you are on the AI adoption journey, and get your next three moves.</p>
     <p class="deep"><b>Use it when:</b> you want to start with AI, or scale it, and need to know what to fix first.</p>
     <p class="deep"><b>You walk away with:</b> a readiness score, a score for each area, your stage on the journey, and three concrete next moves.</p>
-    <div class="btn-row"><a class="btn sm" href="ai-readiness.html">Open the checklist</a></div>
+    <div class="btn-row"><a class="btn sm" href="ai-readiness.html">Open the checklist</a><a class="btn sm ghost" href="assets/toolkits/ai-readiness-checklist.xlsx" download>Excel template</a></div>
   </div>
 </article>'''
     tools = interactive + ai_tool + rd_tool + template_tool("build-buy-partner", "build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", ["practitioner", "leader", "executive"], "About 30 to 60 minutes",
@@ -844,6 +844,7 @@ def scorecard():
         </div>
       </div>
     </div>
+    {xlsx_row("assets/toolkits/feature-prioritization-scorecard.xlsx", "scorecard")}
     {tools_nav("scorecard", bottom=True)}
   </div>
 </section>
@@ -925,6 +926,7 @@ def ai_use_cases():
       <p>Want help choosing and running your first AI pilot?</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
     </div>
+    {xlsx_row("assets/toolkits/ai-use-case-prioritization.xlsx", "prioritization")}
     {tools_nav("ai", bottom=True)}
   </div>
 </section>
@@ -998,6 +1000,7 @@ def ai_readiness():
       <p>Want help turning the gaps into a plan?</p>
       <div class="btn-row"><a class="btn sm" href="{BOOK}">Book a free 30-minute call</a><a class="btn sm ghost" href="services.html#ai">AI Enablement</a></div>
     </div>
+    {xlsx_row("assets/toolkits/ai-readiness-checklist.xlsx", "checklist")}
     {tools_nav("ready", bottom=True)}
   </div>
 </section>
@@ -1054,6 +1057,13 @@ def sheet_menu(files, label="Get the spreadsheet"):
     return (f'<details class="dl-menu"><summary class="btn sm ghost">{label}<span class="dl-caret" aria-hidden="true"></span></summary>'
             f'<div class="dl-pop"><a href="{files[1]}" {EXT}><b>Google Sheets</b><small>Opens a copy in your Google Drive</small></a>'
             f'<a href="{files[3]}" download><b>Excel</b><small>Downloads the .xlsx file</small></a></div></details>')
+
+
+def xlsx_row(path, name):
+    """Prefer a spreadsheet? The browser tool's Excel template (made by src/toolkits/make-sheets.py), same math."""
+    return (f'<div class="card tint tool-files"><div><h3>Prefer a spreadsheet?</h3><p class="muted">The same {name} as an Excel template, '
+            f'with the scoring built in and a worked example. Opens in Google Sheets too (File, then Import).</p></div>'
+            f'<div class="btn-row"><a class="btn sm ghost" href="{path}" download>Download the Excel template</a></div></div>')
 
 
 def files_row(files, name):
@@ -1704,9 +1714,11 @@ def check_search_pages():
 # Built with fixed dates and a fixed order, so the same files always give the same bytes (and --check can compare them).
 ZIP_NAME = "assets/toolkits/product-advisory-toolkits.zip"
 ZIP_FOLDERS = [
-    ("1 Which prioritization method", ["which-prioritization-method.pdf"]),
-    ("2 Build, Buy, or Partner", ["build-buy-partner-matrix.pdf", "build-buy-partner-matrix.xlsx", "build-buy-partner-worked-example.pdf"]),
-    ("3 Organizational Impact Score", ["organizational-impact-score.pdf", "organizational-impact-score.xlsx", "organizational-impact-score-worked-example.pdf"]),
+    ("1 Feature Prioritization Scorecard", ["feature-prioritization-scorecard.xlsx", "which-prioritization-method.pdf"]),
+    ("2 AI Use Case Prioritization", ["ai-use-case-prioritization.xlsx"]),
+    ("3 AI Readiness Checklist", ["ai-readiness-checklist.xlsx"]),
+    ("4 Build, Buy, or Partner", ["build-buy-partner-matrix.pdf", "build-buy-partner-matrix.xlsx", "build-buy-partner-worked-example.pdf"]),
+    ("5 Organizational Impact Score", ["organizational-impact-score.pdf", "organizational-impact-score.xlsx", "organizational-impact-score-worked-example.pdf"]),
 ]
 ZIP_README = """Product Advisory toolkits
 =========================
@@ -1715,15 +1727,25 @@ Free templates and worksheets from Product Advisory. Use them, share them with y
 
 What's inside
 -------------
-1 Which prioritization method
+Each spreadsheet has a Start Here tab, the scoring built in, and a worked example. They open in Excel or
+Google Sheets (File, then Import).
+
+1 Feature Prioritization Scorecard
+  - feature-prioritization-scorecard.xlsx: rank features with weighted criteria or RICE, and compare the two.
   - which-prioritization-method.pdf: a one-page cheat sheet on when to use RICE, weighted scoring or ICE.
 
-2 Build, Buy, or Partner
+2 AI Use Case Prioritization
+  - ai-use-case-prioritization.xlsx: score AI ideas on value, feasibility and risk, and find your first pilot.
+
+3 AI Readiness Checklist
+  - ai-readiness-checklist.xlsx: 24 statements, a score from 0 to 100, your stage, and what to fix first.
+
+4 Build, Buy, or Partner
   - build-buy-partner-matrix.pdf: the printable decision matrix.
   - build-buy-partner-matrix.xlsx: the same matrix as a spreadsheet that does the math (Excel or Google Sheets).
   - build-buy-partner-worked-example.pdf: a filled-in example.
 
-3 Organizational Impact Score
+5 Organizational Impact Score
   - organizational-impact-score.pdf: the printable scorecard.
   - organizational-impact-score.xlsx: the spreadsheet version, with the scoring built in.
   - organizational-impact-score-worked-example.pdf: a filled-in example.
