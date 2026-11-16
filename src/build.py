@@ -7,6 +7,7 @@
 Edit the content here (build.py for the pages, parts.py for the header, footer and icons, content.py for services
 and packages, legal.py for the privacy policy and terms, art.py for the page-head illustrations), then rebuild and
 commit both the source and the pages. Styles and scripts live in assets/ and are not generated."""
+import json
 import math
 import os
 import sys
@@ -1484,7 +1485,7 @@ def insight_card(a):
     if a.get("body"):
         return (f'<a class="card insight cat-{c} reveal" data-cat="{c}"{find} href="/insights/{a["slug"]}">'
                 f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
-                f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read</small></div></a>')
+                f'<div class="insight-body">{head}<small>{fmt_date(a["date"])} · {read_minutes(a)} min read{f" · {listen_minutes(audio_meta(a))} min listen" if audio_meta(a) else ""}</small></div></a>')
     return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}"{find} href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
             f'<div class="insight-body">{head}<small>Read on LinkedIn ↗</small></div></a>')
 
@@ -1571,6 +1572,10 @@ def insights():
       <div class="ask-suggest"><span>Try:</span><button type="button">I'm new to AI agents</button><button type="button">Getting my whole organization to adopt AI</button><button type="button">Which prioritization framework should we use?</button><button type="button">We ship a lot, but users don't notice</button><button type="button">Keeping customers loyal as we automate support</button></div>
       <div class="art-finder-out" aria-live="polite"></div>
     </div>
+    {('<aside class="listen-promo" aria-label="Product+ Audio"><span class="listen-promo-icon" aria-hidden="true">'
+      '<svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="5" height="7" rx="2"/><rect x="16" y="13" width="5" height="7" rx="2"/></svg></span>'
+      '<div><b>New: Product+ Audio.</b> Every article, read aloud, with chapters. Press play on any article, or follow along in your podcast app.</div>'
+      + podcast_links_html() + '</aside>') if any(audio_meta(x) for x in full) else ""}
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ Newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
@@ -1596,8 +1601,133 @@ def insights():
         article_page(a, full)
 
 
+# ---------------------------------------------------------------- Product+ Audio
+# src/audio/make_audio.py narrates each article into assets/audio/<slug>.mp3 and writes <slug>.json (duration, size, chapters).
+PODCAST_TITLE = "Product+ Audio"
+PODCAST_DESC = ("Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement "
+                "for product managers and the leaders who work with them.")
+PODCAST_LINKS = []   # [(label, url)] once the show is listed, e.g. ("Apple Podcasts", "https://podcasts.apple.com/...")
+# The YouTube video for an article (src/audio/make_video.py makes it): slug -> video id, the part after "watch?v=".
+YOUTUBE = {}
+# Which Product Advisory Learning skill areas each article goes deeper on (Learning's "Listen & watch" page links to those courses).
+LEARNING_AREAS = {
+    "rice-vs-weighted-scoring": ["prioritization"], "day-in-the-life": ["aiIndividual"], "stop-enabling-individuals": ["aiOrg"],
+    "feature-fallacy": ["strategy", "discovery"], "product-focused-ai-agents": ["aiIndividual"], "ai-accessibility": ["aiIndividual"],
+    "squad-of-agents": ["aiIndividual", "aiOrg"], "discovery-with-ai-agents": ["discovery", "aiIndividual"],
+    "healthcare-saas-pitfalls": ["discovery", "execution"], "ai-is-a-practice": ["aiOrg"], "pm-copilots": ["aiOrg"],
+    "roadmaps-to-rituals": ["execution", "aiIndividual"], "beyond-automation": ["discovery", "stakeholder"],
+    "five-second-test": ["strategy"], "367-listener": ["strategy"], "100-staircase": ["strategy"], "150-hot-dog": ["strategy"],
+}
+
+
+def episodes_json():
+    """assets/audio/episodes.json: every narrated article, newest first, for Learning's "Listen & watch" page."""
+    eps = []
+    for a in sorted(published(), key=lambda x: (x["date"], x["slug"]), reverse=True):
+        m = audio_meta(a)
+        if m:
+            eps.append({"slug": a["slug"], "title": a["title"], "dek": a["dek"], "topic": a["topic"], "date": a["date"],
+                        "duration": m["duration"], "audio": f"{SITE}assets/audio/{a['slug']}.mp3", "chapters": m["chapters"],
+                        "areas": LEARNING_AREAS.get(a["slug"], []), "youtube": YOUTUBE.get(a["slug"], "")})
+    os.makedirs(os.path.join(OUT, "assets", "audio"), exist_ok=True)
+    with open(os.path.join(OUT, "assets", "audio", "episodes.json"), "w") as f:
+        json.dump({"title": PODCAST_TITLE, "episodes": eps}, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+
+
+def video_embed(a):
+    vid = YOUTUBE.get(a["slug"])
+    if not vid:
+        return ""
+    return (f'<figure class="post-video"><div class="post-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" '
+            f'title="{escape(a["title"])}: the video" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" '
+            f'referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption>Watch it: the narration with the charts.</figcaption></figure>')
+
+
+def audio_meta(a):
+    path = os.path.join(ROOT, "assets", "audio", a["slug"] + ".json")
+    if not a.get("body") or not os.path.exists(path):
+        return None
+    with open(path) as f:
+        return json.load(f)
+
+
+def clock(sec):
+    sec = int(round(sec))
+    return f"{sec // 3600}:{sec % 3600 // 60:02d}:{sec % 60:02d}" if sec >= 3600 else f"{sec // 60}:{sec % 60:02d}"
+
+
+def listen_minutes(m):
+    return max(1, round(m["duration"] / 60))
+
+
+def podcast_links_html():
+    links = "".join(f'<a href="{u}" {EXT}>{escape(t)}</a> · ' for t, u in PODCAST_LINKS)
+    return (f'<p class="listen-subscribe">Listen in your podcast app: {links}'
+            f'<a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a></p>')
+
+
+def audio_player(a, m):
+    mp3 = f"/assets/audio/{a['slug']}.mp3"
+    chapters = "".join(f'<li><button type="button" data-t="{t}"><span class="listen-ch-t">{clock(t)}</span><span>{escape(name)}</span></button></li>'
+                       for t, name in m["chapters"])
+    speeds = "".join(f'<button type="button" data-speed="{v}" aria-pressed="{"true" if v == "1" else "false"}">{v}x</button>'
+                     for v in ("1", "1.25", "1.5", "2"))
+    play = ('<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg>'
+            '<svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>')
+    return (f'<section class="listen" data-listen data-slug="{a["slug"]}" aria-label="Listen to this article">'
+            f'<audio preload="none" src="{mp3}"></audio>'
+            f'<div class="listen-main"><button type="button" class="listen-play" aria-label="Play the article">{play}</button>'
+            f'<div class="listen-info"><div class="listen-status">Listen to this article · {listen_minutes(m)} min</div>'
+            f'<div class="listen-now">Now: <span>{escape(m["chapters"][0][1])}</span></div>'
+            f'<input class="listen-seek" type="range" min="0" max="{int(m["duration"])}" value="0" step="1" aria-label="Position in the audio">'
+            f'<div class="listen-times"><span class="listen-at">0:00</span><span>{clock(m["duration"])}</span></div></div></div>'
+            f'<div class="listen-row"><span class="listen-label">Speed</span>{speeds}<a class="listen-dl" href="{mp3}" download>Download MP3</a></div>'
+            f'<details class="listen-chapters"><summary>Chapters ({len(m["chapters"])})</summary><ol>{chapters}</ol></details>'
+            f'<p class="listen-note">Narrated with a natural AI voice. The charts are in the article below.</p>'
+            f'{podcast_links_html()}</section>')
+
+
+def podcast():
+    """podcast.xml: the Product+ Audio feed for Apple Podcasts, Spotify and any podcast app."""
+    import datetime
+    eps = [(a, audio_meta(a)) for a in published()]
+    eps = sorted(((a, m) for a, m in eps if m), key=lambda x: (x[0]["date"], x[0]["slug"]), reverse=True)
+
+    def rfc(d):
+        return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 12:00:00 +0000")
+    cover = f"{SITE}assets/audio/podcast-cover.jpg"
+    items = "".join(
+        f'\n  <item>\n    <title>{escape(a["title"])}</title>\n'
+        f'    <description>{escape(a["dek"])} Read the article, with its charts: {SITE}insights/{a["slug"]}</description>\n'
+        f'    <link>{SITE}insights/{a["slug"]}</link>\n    <guid isPermaLink="false">productadvisory-audio-{a["slug"]}</guid>\n'
+        f'    <pubDate>{rfc(a["date"])}</pubDate>\n'
+        f'    <enclosure url="{SITE}assets/audio/{a["slug"]}.mp3" length="{m["bytes"]}" type="audio/mpeg"/>\n'
+        f'    <itunes:duration>{int(round(m["duration"]))}</itunes:duration>\n    <itunes:episodeType>full</itunes:episodeType>\n'
+        f'    <itunes:explicit>false</itunes:explicit>\n    <itunes:image href="{cover}"/>\n  </item>' for a, m in eps)
+    head = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" '
+        'xmlns:podcast="https://podcastindex.org/namespace/1.0">\n<channel>\n'
+        f'  <title>{PODCAST_TITLE}</title>\n  <link>{SITE}insights</link>\n'
+        f'  <atom:link href="{SITE}podcast.xml" rel="self" type="application/rss+xml"/>\n'
+        '  <language>en-us</language>\n  <copyright>© Product Advisory, LLC</copyright>\n'
+        f'  <description>{escape(PODCAST_DESC)}</description>\n'
+        f'  <lastBuildDate>{rfc(eps[0][0]["date"]) if eps else ""}</lastBuildDate>\n'
+        '  <itunes:author>Product Advisory</itunes:author>\n'
+        f'  <itunes:summary>{escape(PODCAST_DESC)}</itunes:summary>\n  <itunes:type>episodic</itunes:type>\n'
+        '  <itunes:owner><itunes:name>Product Advisory</itunes:name><itunes:email>info@productadvisory.co</itunes:email></itunes:owner>\n'
+        f'  <itunes:image href="{cover}"/>\n'
+        f'  <image><url>{cover}</url><title>{PODCAST_TITLE}</title><link>{SITE}insights</link></image>\n'
+        '  <itunes:category text="Business"><itunes:category text="Management"/></itunes:category>\n'
+        '  <itunes:category text="Technology"/>\n  <itunes:explicit>false</itunes:explicit>\n  <podcast:locked>no</podcast:locked>')
+    with open(os.path.join(OUT, "podcast.xml"), "w") as f:
+        f.write(head + items + "\n</channel>\n</rss>\n")
+
+
 def article_page(a, full):
     url = f"{SITE}insights/{a['slug']}"
+    m = audio_meta(a)
     art = {"@type": "BlogPosting", "headline": a["title"], "description": a["dek"],
            "image": f"{SITE}assets/insights/{a['slug']}/og.jpg", "datePublished": a["date"], "dateModified": a.get("updated") or a["date"],
            "mainEntityOfPage": url, "articleSection": a["topic"], "author": ORG, "publisher": ORG, "isPartOf": {"@id": SITE + "insights#blog"}}
@@ -1605,6 +1735,9 @@ def article_page(a, full):
         art["keywords"] = ", ".join(a["keywords"].split())
     if a.get("linkedin"):
         art["sameAs"] = [a["linkedin"]]
+    if m:
+        art["audio"] = {"@type": "AudioObject", "name": a["title"], "contentUrl": f"{SITE}assets/audio/{a['slug']}.mp3",
+                        "encodingFormat": "audio/mpeg", "duration": f"PT{int(m['duration']) // 60}M{int(m['duration']) % 60}S"}
     head_ld = ld(art, *([faq_ld(a["faq"])] if a.get("faq") else []), crumbs=[("Insights", "insights"), (a["title"], f"insights/{a['slug']}")])
     takeaways = (f'<aside class="takeaways cat-{category(a)}" aria-labelledby="tk-{a["slug"]}"><h2 id="tk-{a["slug"]}">Key takeaways</h2>'
                  f'<ul>{"".join(f"<li>{escape(t)}</li>" for t in a["takeaways"])}</ul></aside>') if a.get("takeaways") else ""
@@ -1621,11 +1754,13 @@ def article_page(a, full):
       <div class="eyebrow cat-{category(a)}"><a class="eyebrow-link" href="/insights?topic={category(a)}">{a["topic"]}</a> · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
-      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated} · {read_minutes(a)} min read</p>
+      <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated} · {read_minutes(a)} min read{f" · {listen_minutes(m)} min listen" if m else ""}</p>
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
   <div class="wrap narrow">
+    {audio_player(a, m) if m else ""}
+    {video_embed(a)}
     {takeaways}
     <div class="prose post-body">
 {article_body(a)}
@@ -1646,7 +1781,8 @@ def article_page(a, full):
   </div>
 </section>'''
     write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a.get("seo_title") or a["title"], a.get("description") or a["dek"], body,
-          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld,
+          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld
+          + (f'\n<link rel="alternate" type="application/rss+xml" title="{PODCAST_TITLE}" href="{SITE}podcast.xml">' if m else ""),
           image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
 
 
@@ -1795,7 +1931,7 @@ def toolkit_zip_label():
 def build_all():
     check_search_pages()
     toolkit_zip()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json()
 
 
 if __name__ == "__main__":

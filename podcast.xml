@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+<channel>
+  <title>Product+ Audio</title>
+  <link>https://www.productadvisory.co/insights</link>
+  <atom:link href="https://www.productadvisory.co/podcast.xml" rel="self" type="application/rss+xml"/>
+  <language>en-us</language>
+  <copyright>© Product Advisory, LLC</copyright>
+  <description>Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement for product managers and the leaders who work with them.</description>
+  <lastBuildDate></lastBuildDate>
+  <itunes:author>Product Advisory</itunes:author>
+  <itunes:summary>Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement for product managers and the leaders who work with them.</itunes:summary>
+  <itunes:type>episodic</itunes:type>
+  <itunes:owner><itunes:name>Product Advisory</itunes:name><itunes:email>info@productadvisory.co</itunes:email></itunes:owner>
+  <itunes:image href="https://www.productadvisory.co/assets/audio/podcast-cover.jpg"/>
+  <image><url>https://www.productadvisory.co/assets/audio/podcast-cover.jpg</url><title>Product+ Audio</title><link>https://www.productadvisory.co/insights</link></image>
+  <itunes:category text="Business"><itunes:category text="Management"/></itunes:category>
+  <itunes:category text="Technology"/>
+  <itunes:explicit>false</itunes:explicit>
+  <podcast:locked>no</podcast:locked>
+</channel>
+</rss>

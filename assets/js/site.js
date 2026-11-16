@@ -1353,6 +1353,68 @@
     });
   }
 
+  /* ---------- Product+ Audio: the article player ----------
+     Plays assets/audio/<slug>.mp3 (made by src/audio/make_audio.py). Chapters jump to a heading; the speed is remembered. */
+  function initListen() {
+    var box = document.querySelector("[data-listen]");
+    if (!box) return;
+    var audio = box.querySelector("audio"), play = box.querySelector(".listen-play"), seek = box.querySelector(".listen-seek");
+    var at = box.querySelector(".listen-at"), now = box.querySelector(".listen-now span"), status = box.querySelector(".listen-status");
+    var chs = Array.prototype.slice.call(box.querySelectorAll(".listen-chapters button"));
+    var slug = box.getAttribute("data-slug"), started = false, dragging = false, statusText = status.textContent;
+    var marks = [25, 50, 75, 100], sent = {};
+    function clock(s) { s = Math.max(0, Math.round(s || 0)); var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = ("0" + s % 60).slice(-2); return h ? h + ":" + ("0" + m).slice(-2) + ":" + x : m + ":" + x; }
+    function setSpeed(v) {
+      audio.playbackRate = v;
+      box.querySelectorAll("[data-speed]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-speed") === v)); });
+      try { localStorage.setItem("pa-listen-speed", String(v)); } catch (e) { }
+    }
+    var saved = 1; try { saved = +localStorage.getItem("pa-listen-speed") || 1; } catch (e) { }
+    function go(t) {
+      audio.currentTime = t;
+      if (audio.paused) audio.play();
+    }
+    function refresh() {
+      var t = audio.currentTime;
+      if (!dragging) seek.value = Math.floor(t);
+      at.textContent = clock(t);
+      var cur = 0;
+      chs.forEach(function (b, i) { if (t + 0.5 >= +b.getAttribute("data-t")) cur = i; });
+      chs.forEach(function (b, i) { b.classList.toggle("on", i === cur); });
+      if (chs[cur]) now.textContent = chs[cur].lastChild.textContent;
+      var d = audio.duration || +seek.max, pct = d ? t / d * 100 : 0;
+      marks.forEach(function (m) { if (pct >= m - 0.5 && !sent[m]) { sent[m] = true; track("audio_progress", { article: slug, percent: m }); } });
+    }
+    play.addEventListener("click", function () { if (audio.paused) audio.play(); else audio.pause(); });
+    audio.addEventListener("play", function () {
+      box.classList.add("playing"); play.setAttribute("aria-label", "Pause");
+      status.textContent = "Playing" + (audio.playbackRate !== 1 ? " at " + audio.playbackRate + "x" : "");
+      if (!started) { started = true; setSpeed(saved); track("audio_play", { article: slug }); }
+    });
+    audio.addEventListener("pause", function () { box.classList.remove("playing"); play.setAttribute("aria-label", "Play the article"); status.textContent = "Paused · " + statusText.replace(/^Listen to this article · /, ""); });
+    audio.addEventListener("ended", function () { status.textContent = "Finished. Thanks for listening."; });
+    audio.addEventListener("ratechange", function () { if (!audio.paused) status.textContent = "Playing" + (audio.playbackRate !== 1 ? " at " + audio.playbackRate + "x" : ""); });
+    audio.addEventListener("timeupdate", refresh);
+    seek.addEventListener("input", function () { dragging = true; at.textContent = clock(+seek.value); });
+    seek.addEventListener("change", function () { dragging = false; go(+seek.value); });
+    box.querySelectorAll("[data-speed]").forEach(function (b) { b.addEventListener("click", function () { setSpeed(+b.getAttribute("data-speed")); }); });
+    chs.forEach(function (b) { b.addEventListener("click", function () { go(+b.getAttribute("data-t")); track("audio_chapter", { article: slug }); }); });
+    setSpeed(saved);
+    var dl = box.querySelector(".listen-dl"); if (dl) dl.addEventListener("click", function () { track("audio_download", { article: slug }); });
+  }
+
+  /* "Copy the podcast feed (RSS)": copies the feed's address for pasting into a podcast app (opens the feed if copying isn't possible). */
+  function initFeedCopy() {
+    document.querySelectorAll("[data-copy-feed]").forEach(function (feed) {
+      feed.addEventListener("click", function (e) {
+        if (!navigator.clipboard) return;
+        e.preventDefault();
+        navigator.clipboard.writeText(feed.href).then(function () { toast("Podcast feed copied. Paste it into your podcast app."); track("podcast_feed_copy", {}); },
+          function () { location.href = feed.href; });
+      });
+    });
+  }
+
   /* ---------- go ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
@@ -1371,6 +1433,8 @@
     initSubscribe();
     initConsent();
     initFigureZoom();
+    initListen();
+    initFeedCopy();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();
