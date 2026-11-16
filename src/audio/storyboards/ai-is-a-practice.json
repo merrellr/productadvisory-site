@@ -1,0 +1,196 @@
+{
+  "about": "Scenes for the animated video of AI Is Not a Project. It's a Practice. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    {
+      "type": "title",
+      "at": 0
+    },
+    {
+      "type": "callout",
+      "at": "Someone brings up AI",
+      "label": "The same conversation, a dozen times",
+      "big": "“We're just not ready”",
+      "size": 130,
+      "color": "#f08a3c",
+      "text": "In conference rooms, and on the sidelines of a soccer game."
+    },
+    {
+      "type": "quote",
+      "at": "Nobody is ready. And that is okay",
+      "text": "Nobody is ready. And that is okay. You start anyway."
+    },
+    {
+      "type": "cards",
+      "at": "The biggest misconception I hear",
+      "label": "The misconception: before you start, you need…",
+      "cards": [
+        [
+          "To build something",
+          "",
+          ""
+        ],
+        [
+          "A massive platform",
+          "",
+          ""
+        ],
+        [
+          "Everyone retrained",
+          "",
+          ""
+        ],
+        [
+          "A five-year strategy",
+          "",
+          "blessed by the board."
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "The organizations that are moving forward",
+      "label": "Who's moving forward",
+      "big": "Permission to start small",
+      "size": 120,
+      "color": "#35c2e8",
+      "text": "Not the ones who had everything figured out first."
+    },
+    {
+      "type": "cards",
+      "at": "Start with your own curiosity",
+      "label": "Step 1: start with your own curiosity. Use it to…",
+      "cards": [
+        [
+          "Draft emails",
+          "",
+          ""
+        ],
+        [
+          "Summarize a long report",
+          "",
+          ""
+        ],
+        [
+          "Think through a problem",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "cards",
+      "at": "Every team has at least one",
+      "label": "Every team has one painful, repetitive task",
+      "cards": [
+        [
+          "The weekly status report",
+          "",
+          "that takes two hours to compile."
+        ],
+        [
+          "The meeting notes",
+          "",
+          "nobody has time to write."
+        ],
+        [
+          "The first draft",
+          "",
+          "that always starts from a blank page."
+        ]
+      ],
+      "cardAt": [
+        "The weekly status report",
+        "The meeting notes",
+        "The first draft"
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "That is like trying a new recipe once",
+      "label": "One imperfect result isn't a verdict",
+      "big": "Try the recipe again",
+      "size": 130,
+      "color": "#35c2e8",
+      "text": "AI tools respond to how you ask. Iterate."
+    },
+    {
+      "type": "callout",
+      "at": "give your people explicit permission",
+      "label": "If you lead a team",
+      "big": "Just permission",
+      "size": 160,
+      "color": "#35c2e8",
+      "text": "Not a formal program with KPIs and quarterly reviews."
+    },
+    {
+      "type": "list",
+      "at": "Share what is working",
+      "label": "How to scale once you have traction",
+      "items": [
+        "Share what is working",
+        "Standardize the wins",
+        "Connect AI to outcomes you care about"
+      ],
+      "itemAt": [
+        "Share what is working",
+        "Standardize the wins",
+        "Connect AI to outcomes"
+      ]
+    },
+    {
+      "type": "cards",
+      "at": "They talk about reducing time to first draft",
+      "label": "Talk outcomes, not AI adoption",
+      "cards": [
+        [
+          "Time to first draft",
+          "",
+          ""
+        ],
+        [
+          "Response times",
+          "",
+          ""
+        ],
+        [
+          "Repetitive work",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "formula",
+      "at": "You need one use case",
+      "label": "The bottom line: all you need",
+      "terms": [
+        [
+          "1",
+          "use case"
+        ],
+        [
+          "1",
+          "experiment"
+        ],
+        [
+          "1",
+          "person who shares"
+        ]
+      ],
+      "ops": [
+        "+",
+        "+"
+      ],
+      "note": "Everything else grows from there."
+    },
+    {
+      "type": "quote",
+      "at": "Start small. Stay curious",
+      "text": "Start small. Stay curious. Share what you find. That's the whole playbook."
+    },
+    {
+      "type": "end",
+      "at": "This was AI Is Not a Project"
+    }
+  ]
+}

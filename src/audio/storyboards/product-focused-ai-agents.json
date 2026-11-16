@@ -1,0 +1,33 @@
+{
+  "about": "Scenes for the animated video of How to Build Product-Focused AI Agents. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    { "type": "title", "at": 0 },
+    { "type": "versus", "at": "The real question is not", "label": "Most teams start in the wrong place",
+      "items": [["“How do we add an agent?”", "Wrong", 0], ["“How does it think like our best PM?”", "Right", 0]], "note": "" },
+    { "type": "callout", "at": "Large Language Models are powerful", "label": "Without direction, LLMs are…", "big": "Articulate generalists", "size": 130, "color": "#f08a3c", "text": "Real leverage comes from shaping the agent's product judgment." },
+    { "type": "cards", "at": "They are clear on", "label": "Step 1: define the agent like a role",
+      "cards": [["Decisions", "", "What decisions it influences."], ["Context", "", "What it must always understand."], ["Tradeoffs", "", "What it should prioritize."]],
+      "cardAt": ["What decisions the agent influences", "What context the agent must always", "What tradeoffs the agent should"] },
+    { "type": "quote", "at": "This agent exists to challenge", "text": "This agent exists to challenge product assumptions, surface risk, and improve decision quality before engineering effort is committed." },
+    { "type": "cards", "at": "grounded in four categories of context", "label": "Step 2: ground the agent in four kinds of context",
+      "cards": [["Product truths", "", "The problem it solves, its users, what success means today."], ["Strategic constraints", "", "Business model, regulation, architecture."], ["Customer signals", "", "Objections, lost deals, support and research patterns."], ["Product philosophy", "", "Speed vs quality, opinionated vs flexible, long vs short term."]],
+      "cardAt": ["Product truths.", "Strategic constraints.", "Customer signals.", "Product philosophy."] },
+    { "type": "callout", "at": "This information should be persistently available", "label": "Context", "big": "Always there", "size": 160, "color": "#35c2e8", "text": "Not reintroduced in every interaction." },
+    { "type": "list", "at": "Examples of productive bias include", "label": "Step 3: productive bias",
+      "items": ["Question requests without a clear user outcome", "Surface second-order effects first", "Put long-term trust over short-term engagement"],
+      "itemAt": ["Question feature requests", "Surface second-order effects", "Prioritize long-term customer trust"] },
+    { "type": "quote", "at": "The goal is not neutrality", "text": "The goal is not neutrality. The goal is aligned judgment." },
+    { "type": "steps", "at": "moments where judgment matters most", "label": "Step 4: embed agents where judgment matters",
+      "items": [["Discovery", "and problem framing"], ["PRDs", "and scope"], ["Roadmaps", "and prioritization"], ["Launch readiness", "and risk"], ["Post-launch", "evaluation"]],
+      "itemAt": ["Discovery and problem framing", "PRDs and scope definition", "Roadmapping and prioritization", "Launch readiness", "Post-launch evaluation"] },
+    { "type": "quote", "at": "Review this PRD as a skeptical product leader", "text": "“Review this PRD as a skeptical product leader and identify assumptions, risks, and gaps.”" },
+    { "type": "cards", "at": "Strong teams", "label": "Step 5: maintain the agent as a living system",
+      "cards": [["Refresh context", "Quarterly", ""], ["Remove", "Outdated assumptions", ""], ["Add", "New customer insights", ""], ["Adjust bias", "As strategy changes", ""]],
+      "cardAt": ["Refresh agent context quarterly", "Remove outdated assumptions", "Add new customer insights", "Adjust bias"] },
+    { "type": "list", "at": "Well-designed agents", "label": "Agents amplify product leadership. They…",
+      "items": ["Reduce cognitive load on senior leaders", "Increase consistency in decision quality", "Surface blind spots early", "Enable speed without sacrificing thinking"],
+      "itemAt": ["Reduce cognitive load", "Increase consistency", "Surface blind spots", "Enable speed"] },
+    { "type": "quote", "at": "The future of product is not just AI-powered", "text": "The future of product is not just AI-powered. It is judgment-driven." },
+    { "type": "end", "at": "This was How to Build" }
+  ]
+}
