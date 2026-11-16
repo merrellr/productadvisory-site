@@ -326,7 +326,8 @@ const SCENES = {
     frame: (el, s, lt, t) => {
       show(el.querySelector('[data-l]'), out(lt / .6));
       el.querySelectorAll('[data-i]').forEach((x, i) => {
-        const at = s.itemAt[i], k = t >= at ? out((t - at) / .6) : 0, nowOn = t >= at && (i + 1 >= s.itemAt.length || t < s.itemAt[i + 1]);
+        const ats = s.itemAt || s.items.map((_, j) => s.start + .6 + j * .7);   // without cues, one after another
+        const at = ats[i], k = t >= at ? out((t - at) / .6) : 0, nowOn = s.itemAt ? t >= at && (i + 1 >= ats.length || t < ats[i + 1]) : t >= at;
         x.style.opacity = k ? (nowOn ? 1 : .55) : 0; x.style.transform = 'translateY(' + (1 - k) * 40 + 'px)';
         x.style.borderColor = nowOn ? '#35c2e8' : 'rgba(255,255,255,.10)';
       });
