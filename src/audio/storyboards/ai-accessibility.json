@@ -1,0 +1,222 @@
+{
+  "about": "Scenes for the animated video of Improving Accessibility with AI. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    {
+      "type": "title",
+      "at": 0
+    },
+    {
+      "type": "versus",
+      "at": "For years, digital accessibility was often treated",
+      "label": "Digital accessibility",
+      "items": [
+        [
+          "a compliance afterthought",
+          "Then",
+          0
+        ],
+        [
+          "built in by default",
+          "Now",
+          0
+        ]
+      ],
+      "note": "AI is helping make the shift."
+    },
+    {
+      "type": "callout",
+      "at": "I see accessibility not as a niche feature set",
+      "label": "Not a niche feature set",
+      "big": "Better for everyone",
+      "size": 140,
+      "color": "#35c2e8",
+      "text": "Products designed to meet people where they are become easier for everyone to use."
+    },
+    {
+      "type": "cards",
+      "at": "Voice interfaces.",
+      "label": "Where AI is already making a difference",
+      "cards": [
+        [
+          "Voice interfaces",
+          "Mobility, dexterity, vision",
+          "Speech replaces precise taps and typing.",
+          "<rect x='9' y='3' width='6' height='11' rx='3'/><path d='M5 11a7 7 0 0 0 14 0M12 18v3'/>"
+        ],
+        [
+          "Visual assistance",
+          "Blind and low vision",
+          "Read text, describe scenes, identify objects, navigate.",
+          "<path d='M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z'/><circle cx='12' cy='12' r='3'/>"
+        ],
+        [
+          "Captions and transcripts",
+          "Deaf and hard of hearing",
+          "Live captions in calls, videos and events.",
+          "<rect x='3' y='5' width='18' height='14' rx='2'/><path d='M7 12h4M13 12h4M7 15h10'/>"
+        ],
+        [
+          "Cognitive support",
+          "Dyslexia, attention, memory",
+          "Content at a person's own needs and pace.",
+          "<path d='M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3z'/>"
+        ]
+      ],
+      "cardAt": [
+        "Speech-powered interfaces",
+        "Visual assistance.",
+        "Captioning and transcription.",
+        "Adaptive learning and cognitive support."
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "What makes this moment especially exciting",
+      "label": "No longer specialized devices",
+      "big": "Built into what people already use",
+      "size": 96,
+      "color": "#35c2e8",
+      "text": "Phones, laptops, browsers and workplace tools."
+    },
+    {
+      "type": "cards",
+      "at": "Voice systems can still struggle",
+      "label": "AI is an enabler, not a shortcut. It still struggles with…",
+      "cards": [
+        [
+          "Accents and speech patterns",
+          "",
+          "Voice systems."
+        ],
+        [
+          "Context",
+          "",
+          "Image recognition can miss it."
+        ],
+        [
+          "Accuracy",
+          "",
+          "Automation can't carry accessibility alone."
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "at": "Build with transparency and flexibility",
+      "label": "Design responsibly",
+      "items": [
+        [
+          "Transparent",
+          "users understand what the AI does, and its limits"
+        ],
+        [
+          "Flexible",
+          "easy to turn on, adjust and correct"
+        ],
+        [
+          "Human-checked",
+          "people still review what matters"
+        ]
+      ]
+    },
+    {
+      "type": "steps",
+      "at": "begin with real user needs",
+      "label": "How to get started",
+      "items": [
+        [
+          "Identify the friction",
+          "reading, hearing, navigating, responding"
+        ],
+        [
+          "Pick one or two use cases",
+          "voice, captions, image descriptions"
+        ],
+        [
+          "Involve the right people",
+          "including people with disabilities"
+        ],
+        [
+          "Define success",
+          "abandonment, completion, comprehension"
+        ],
+        [
+          "Pilot, refine, expand",
+          "until it's part of the product"
+        ]
+      ],
+      "itemAt": [
+        "Identify the friction",
+        "Pick one or two high-impact",
+        "Involve the right people",
+        "Define success metrics",
+        "Pilot and refine"
+      ]
+    },
+    {
+      "type": "list",
+      "at": "Live captions by default",
+      "label": "Quick wins you can turn on today",
+      "items": [
+        "Live captions in meetings",
+        "Transcripts and meeting summaries",
+        "AI recaps after customer calls",
+        "AI action items after meetings",
+        "Alt text suggestions for images",
+        "Summaries of long documents"
+      ],
+      "itemAt": [
+        "Live captions by default",
+        "Meeting transcripts and summaries",
+        "AI recaps after customer calls",
+        "AI-generated action items",
+        "Automatic alt text",
+        "Document summaries"
+      ]
+    },
+    {
+      "type": "list",
+      "at": "Read aloud for knowledge articles",
+      "label": "More quick wins",
+      "items": [
+        "Read aloud for articles and learning",
+        "Translation for multilingual teams",
+        "Voice typing, replies and formatting",
+        "Public channels for shared context"
+      ],
+      "itemAt": [
+        "Read aloud",
+        "Translation in chats",
+        "Voice typing",
+        "Public channels"
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "accessibility is not always about building something entirely new",
+      "label": "The bigger point",
+      "big": "Be intentional",
+      "size": 150,
+      "color": "#35c2e8",
+      "text": "Often it's about using the tools you already have, thoughtfully."
+    },
+    {
+      "type": "callout",
+      "at": "approach accessibility as innovation",
+      "label": "The opportunity for product leaders",
+      "big": "Innovation, not obligation",
+      "size": 120,
+      "color": "#35c2e8",
+      "text": "Tools that help more people access information, navigate systems and communicate."
+    },
+    {
+      "type": "quote",
+      "at": "Accessibility is not just about accommodating limitations",
+      "text": "Accessibility is not just about accommodating limitations. It is about expanding possibility."
+    },
+    {
+      "type": "end",
+      "at": "This was Improving Accessibility"
+    }
+  ]
+}
