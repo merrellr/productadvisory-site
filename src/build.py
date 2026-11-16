@@ -1689,7 +1689,7 @@ def listen_minutes(m):
 def podcast_links_html():
     links = "".join(f'<a href="{u}" {EXT}>{escape(t)}</a> · ' for t, u in PODCAST_LINKS)
     return (f'<p class="listen-subscribe">Listen in your podcast app: {links}'
-            f'<a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a></p>')
+            f'<a href="/listen">How to follow the show</a> · <a href="/podcast.xml" data-copy-feed>Copy the feed</a></p>')
 
 
 # Read / Listen / Watch: the ways into an article, on its card and under its title.
@@ -1756,7 +1756,7 @@ def audio_player(a, m):
             f'<details class="listen-more"><summary class="listen-tool" aria-label="More: download and podcast apps">'
             f'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></summary>'
             f'<div class="listen-menu"><a class="listen-dl" href="{mp3}" download>Download the MP3</a>'
-            f'<a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a>{links}'
+            f'<a href="/listen">Follow in your podcast app</a><a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a>{links}'
             f'<p>Narrated with a natural AI voice. The charts are in the article.</p></div></details>'
             f'</div></div>'
             f'<div class="listen-nowrow"><div class="listen-now"><span class="listen-now-n">Chapter 1 of {len(chs)}</span>'
@@ -1779,6 +1779,92 @@ def audio_player(a, m):
             f'<button type="button" class="listen-follow" hidden>Back to where I\'m listening</button>'
             f'<button type="button" class="listen-next" aria-label="Next chapter">{nxt}</button>'
             f'<button type="button" class="listen-mini-up" aria-label="Show the full player">Player</button></div>')
+
+
+FEED = "https://www.productadvisory.co/podcast.xml"
+
+
+def subscribe_buttons():
+    """One-tap ways to follow the show: Apple Podcasts, Spotify (once listed), Overcast, Pocket Casts, or the feed."""
+    links = dict(PODCAST_LINKS)
+    feed_bare = FEED.split("://", 1)[1]
+    apple = links.get("Apple Podcasts") or f"podcast://{feed_bare}"
+    items = [
+        ("apple", "Apple Podcasts", "iPhone, iPad and Mac", apple, True),
+        ("spotify", "Spotify", "Any device" if links.get("Spotify") else "Coming soon", links.get("Spotify", ""), bool(links.get("Spotify"))),
+        ("overcast", "Overcast", "iPhone and iPad", f"overcast://x-callback-url/add?url={FEED}", True),
+        ("pocketcasts", "Pocket Casts", "iPhone, Android and web", f"pktc://subscribe/{feed_bare}", True),
+    ]
+    out = []
+    for key, name, sub, href, live in items:
+        inner = f'<span class="sub-ico sub-{key}" aria-hidden="true"></span><span><b>{name}</b><small>{sub}</small></span>'
+        out.append(f'<a class="sub-btn" href="{href}" data-sub="{key}">{inner}</a>' if live
+                   else f'<span class="sub-btn is-soon" aria-disabled="true">{inner}</span>')
+    out.append(f'<a class="sub-btn" href="/podcast.xml" data-copy-feed data-sub="rss"><span class="sub-ico sub-rss" aria-hidden="true"></span>'
+               f'<span><b>Any other app</b><small>Copy the feed address</small></span></a>')
+    return '<div class="sub-grid">' + "".join(out) + '</div>'
+
+
+def listen_page():
+    """listen.html: Product+ Audio, how to follow it in a podcast app (step by step), and every episode."""
+    eps = [(a, audio_meta(a)) for a in published()]
+    eps = [(a, m) for a, m in eps if m]
+    rows = "".join(
+        f'<li><a href="/insights/{a["slug"]}#listen"><b>{escape(a["title"])}</b><span>{fmt_date(a["date"])} · {listen_minutes(m)} min</span></a></li>'
+        for a, m in eps)
+    spotify_listed = dict(PODCAST_LINKS).get("Spotify")
+    steps = [
+        ("iphone", "iPhone or iPad (Apple Podcasts)", [
+            "Tap <b>Apple Podcasts</b> above. The Podcasts app opens on the show.",
+            "Tap <b>Follow</b> (the + button). New episodes arrive by themselves.",
+            "If the app doesn't open: in the Podcasts app, go to <b>Library</b>, tap the <b>⋯</b> button at the top, choose "
+            "<b>Follow a Show by URL</b>, and paste the feed address."]),
+        ("mac", "Mac (Apple Podcasts)", [
+            "Click <b>Apple Podcasts</b> above, or open the Podcasts app.",
+            "In the menu bar, choose <b>File</b>, then <b>Follow a Show by URL</b>.",
+            "Paste the feed address and click <b>Follow</b>."]),
+        ("spotify", "Spotify", [
+            "Tap <b>Spotify</b> above, or search Spotify for <b>Product+ Audio</b>, then tap <b>Follow</b>."] if spotify_listed else [
+            "Product+ Audio is on its way to Spotify. Spotify doesn't let listeners add a show by its feed address, so once "
+            "it's listed, search Spotify for <b>Product+ Audio</b> and tap <b>Follow</b>.",
+            "Until then, use any of the other apps here, or listen on the article pages."]),
+        ("android", "Android", [
+            "Tap <b>Pocket Casts</b> above if you use it.",
+            "In most Android podcast apps (Podcast Addict, AntennaPod, Podverse): tap <b>+</b> or <b>Add</b>, choose "
+            "<b>RSS feed</b> or <b>Add by URL</b>, and paste the feed address."]),
+        ("other", "Any other app", [
+            "Tap <b>Any other app</b> above to copy the feed address.",
+            "In your app, look for <b>Add by URL</b>, <b>Add RSS feed</b> or <b>Follow a show by URL</b>, and paste it."]),
+    ]
+    guide = "".join(
+        f'<details class="card how-step"{" open" if i == 0 else ""}><summary><span class="sub-ico sub-{key}" aria-hidden="true"></span>{title}</summary>'
+        f'<ol>{"".join(f"<li>{x}</li>" for x in lines)}</ol></details>' for i, (key, title, lines) in enumerate(steps))
+    art = '<div class="listen-cover"><img src="assets/audio/podcast-cover.jpg" alt="Product+ Audio" width="320" height="320"></div>'
+    body = f'''{page_head("Product+ Audio", "Every Product+ article, read aloud. Listen on any article page, or follow the show in your podcast app.", art)}
+<section>
+  <div class="wrap narrow-wide">
+    <div class="section-head"><h2>Follow it in one tap</h2><p class="muted">Pick your app. New episodes arrive by themselves when a new article is published.</p></div>
+    {subscribe_buttons()}
+    <div class="feed-box"><label for="feed-url">The feed address, for any podcast app</label>
+      <div class="feed-row"><input id="feed-url" readonly value="{FEED}"><a class="btn sm" href="/podcast.xml" data-copy-feed>Copy</a></div></div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap narrow-wide">
+    <div class="section-head"><h2>Step by step</h2><p class="muted">Choose your device.</p></div>
+    <div class="how-steps">{guide}</div>
+  </div>
+</section>
+<section>
+  <div class="wrap narrow-wide">
+    <div class="section-head"><h2>Episodes</h2><p class="muted">Or listen right on the article page, with chapters and read along.</p></div>
+    <ol class="ep-list">{rows}</ol>
+  </div>
+</section>'''
+    write("listen.html", page("listen.html", "Product+ Audio: listen in your podcast app",
+                              "Every Product+ article from Product Advisory, read aloud. Follow Product+ Audio in Apple Podcasts, "
+                              "Overcast, Pocket Casts or any podcast app, step by step.", body, nav="insights.html",
+                              extra_head=f'<link rel="alternate" type="application/rss+xml" title="{PODCAST_TITLE}" href="{FEED}">'))
 
 
 def podcast():
@@ -1885,7 +1971,7 @@ def sitemap():
     arts = published()
     newest = max((a.get("updated") or a["date"] for a in arts), default="")
     pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
-            [(p, "") for p in ("about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "privacy-policy", "terms-of-use")]
+            [(p, "") for p in ("listen", "about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "privacy-policy", "terms-of-use")]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
@@ -2025,7 +2111,7 @@ def toolkit_zip_label():
 def build_all():
     check_search_pages()
     toolkit_zip()
-    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json()
+    home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json(); listen_page()
 
 
 if __name__ == "__main__":

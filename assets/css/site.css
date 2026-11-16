@@ -1848,3 +1848,39 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .listen-promo .listen-subscribe { margin: 0; font-size: .875rem; }
 .listen-promo-icon { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: grid; place-items: center; }
 .listen-promo-icon svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+
+/* ---------- Product+ Audio: listen.html ---------- */
+.narrow-wide { max-width: 960px; }
+.listen-cover img { display: block; width: min(320px, 70vw); height: auto; border-radius: 22px; box-shadow: 0 24px 60px rgba(18, 48, 94, .25); }
+.sub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); gap: 12px; }
+.sub-btn { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 14px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+.sub-btn:hover { border-color: var(--primary); transform: translateY(-1px); }
+.sub-btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.sub-btn b { display: block; color: var(--navy); }
+.sub-btn small { display: block; color: var(--muted); font-size: .8rem; }
+.sub-btn.is-soon { opacity: .6; border-style: dashed; }
+.sub-btn.is-soon:hover { transform: none; border-color: var(--line); }
+.sub-ico { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--c, var(--primary)); }
+.sub-ico::before { content: ""; width: 22px; height: 22px; background: #fff;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 14v-2a8 8 0 0 1 16 0v2'/%3E%3Crect x='3' y='14' width='5' height='7' rx='2'/%3E%3Crect x='16' y='14' width='5' height='7' rx='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 14v-2a8 8 0 0 1 16 0v2'/%3E%3Crect x='3' y='14' width='5' height='7' rx='2'/%3E%3Crect x='16' y='14' width='5' height='7' rx='2'/%3E%3C/svg%3E") center / contain no-repeat; }
+.sub-apple { --c: #8e44c8; } .sub-spotify { --c: #1aa34a; } .sub-overcast { --c: #f28c28; } .sub-pocketcasts { --c: #e0393e; } .sub-rss, .sub-other { --c: #3466c0; } .sub-iphone, .sub-mac { --c: #8e44c8; } .sub-android { --c: #2e8b57; }
+.feed-box { margin-top: 18px; padding: 16px 18px; border-radius: 16px; background: var(--tint); }
+.feed-box label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 8px; color: var(--navy); }
+.feed-row { display: flex; gap: 8px; }
+.feed-row input { flex: 1; min-width: 0; font: inherit; font-size: .9rem; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); }
+.how-steps { display: grid; gap: 12px; }
+.how-step { padding: 0; }
+.how-step summary { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 18px; cursor: pointer; font-weight: 700; color: var(--navy); list-style: none; }
+.how-step summary::-webkit-details-marker { display: none; }
+.how-step summary::after { content: ""; margin-left: auto; width: 9px; height: 9px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .2s; }
+.how-step[open] summary::after { transform: rotate(-135deg); }
+.how-step summary .sub-ico { width: 34px; height: 34px; border-radius: 10px; }
+.how-step summary .sub-ico::before { width: 18px; height: 18px; }
+.how-step ol { margin: 0; padding: 0 22px 18px 72px; display: grid; gap: 10px; line-height: 1.55; }
+.ep-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ep-list a { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); text-decoration: none; color: var(--ink); }
+.ep-list a:hover { border-color: var(--primary); }
+.ep-list b { color: var(--navy); }
+.ep-list span { color: var(--muted); font-size: .88rem; }
+@media (max-width: 560px) { .how-step ol { padding-left: 40px; } .feed-row { flex-direction: column; } }
