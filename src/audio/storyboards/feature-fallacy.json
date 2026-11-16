@@ -1,0 +1,238 @@
+{
+  "about": "Scenes for the animated video of The Feature Fallacy. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs. The example's figures are from the article (illustrative).",
+  "scenes": [
+    {
+      "type": "title",
+      "at": 0
+    },
+    {
+      "type": "quote",
+      "at": "If you measure progress by how many features ship",
+      "text": "If you measure progress by how many features ship, you'll eventually ship yourself into irrelevance."
+    },
+    {
+      "type": "versus",
+      "at": "the teams that win aren't the ones",
+      "label": "The teams that win",
+      "items": [
+        [
+          "the longest release notes",
+          "Not",
+          0
+        ],
+        [
+          "the shortest path to an outcome",
+          "But",
+          0
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "type": "formula",
+      "at": "It's pro value density",
+      "label": "Value density",
+      "terms": [
+        [
+          "Outcome",
+          "created"
+        ],
+        [
+          "Effort",
+          "required"
+        ]
+      ],
+      "ops": [
+        "÷"
+      ],
+      "note": "When it goes up, adoption, retention and trust follow."
+    },
+    {
+      "type": "cards",
+      "at": "Context-switch tax",
+      "label": "Three invisible taxes you're probably paying",
+      "cards": [
+        [
+          "Context-switch tax",
+          "",
+          "Every feature branches the mental model. Users pay in cognitive load; teams in QA, docs and support."
+        ],
+        [
+          "Adoption tax",
+          "",
+          "Features don't adopt themselves. Shipping without an adoption path is just inventory."
+        ],
+        [
+          "Quality tax",
+          "",
+          "More surface, more edge cases. In healthcare, quality debt compounds with safety risk."
+        ]
+      ],
+      "cardAt": [
+        "Context-switch tax",
+        "Adoption tax",
+        "Quality tax"
+      ]
+    },
+    {
+      "type": "steps",
+      "at": "I use a simple loop",
+      "label": "A better north star: OEM",
+      "items": [
+        [
+          "Outcome-first",
+          "observable, e.g. median prescription time from 4:30 to 2:00"
+        ],
+        [
+          "Evidence-backed",
+          "a falsifiable hypothesis and a measurement plan"
+        ],
+        [
+          "Minimally sufficient",
+          "the smallest intervention for a narrow segment, then scale"
+        ]
+      ],
+      "itemAt": [
+        "Outcome-first:",
+        "Evidence-backed:",
+        "Minimally sufficient:"
+      ]
+    },
+    {
+      "type": "list",
+      "at": "Replace roadmaps with bet maps",
+      "label": "What to do this quarter",
+      "items": [
+        "Replace roadmaps with bet maps",
+        "Segment before you scale",
+        "Default to workflow, not widgets",
+        "Measure the path, not the page",
+        "Design for reversibility"
+      ],
+      "itemAt": [
+        "Replace roadmaps with bet maps",
+        "Segment before you scale",
+        "Default to workflow",
+        "Measure the path",
+        "Design for reversibility"
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "Clinicians were abandoning an Orders flow",
+      "label": "An example (illustrative)",
+      "big": "38% completion",
+      "size": 170,
+      "color": "#f08a3c",
+      "text": "Clinicians were abandoning the Orders flow. The instinct: build “Orders 2.0”."
+    },
+    {
+      "type": "steps",
+      "at": "The OEM approach",
+      "label": "The OEM approach",
+      "items": [
+        [
+          "Outcome",
+          "70% completion; median time from 3:10 to 1:45"
+        ],
+        [
+          "Evidence",
+          "replays showed friction in context switching and code search"
+        ],
+        [
+          "Minimum",
+          "auto-attach context, pre-fill three likely codes, keyboard search"
+        ]
+      ],
+      "itemAt": [
+        "Outcome: Raise completion",
+        "Evidence: Replays",
+        "Minimum: Auto-attach"
+      ]
+    },
+    {
+      "type": "bars",
+      "at": "Result (6 weeks)",
+      "label": "Six weeks later",
+      "max": 100,
+      "span": 60,
+      "items": [
+        [
+          "Completion, before",
+          38,
+          "38%",
+          "#8fa4c8"
+        ],
+        [
+          "Completion, after",
+          74,
+          "74%"
+        ]
+      ],
+      "note": "Median time: 3:10 → 1:41. Zero net-new features."
+    },
+    {
+      "type": "cards",
+      "at": "Product: ruthlessly prioritize",
+      "label": "How Product and Engineering win together",
+      "cards": [
+        [
+          "Product",
+          "",
+          "The fewest interventions that move the outcome. Owns the problem and the kill criteria."
+        ],
+        [
+          "Engineering",
+          "",
+          "Collapse time to learning: instrument, ship behind flags, treat reliability as user value."
+        ],
+        [
+          "A weekly ritual",
+          "Outcomes Review",
+          "What did we learn? What can we ship next week to learn faster?"
+        ]
+      ],
+      "cardAt": [
+        "Product: ruthlessly",
+        "Engineering: collapse",
+        "Ritual: a weekly"
+      ]
+    },
+    {
+      "type": "callout",
+      "at": "Create a quarterly decommission list",
+      "label": "The courage to delete",
+      "big": "Celebrate deletion",
+      "size": 150,
+      "color": "#35c2e8",
+      "text": "Remove underused features, consolidate patterns, redesign flows that need explaining."
+    },
+    {
+      "type": "steps",
+      "at": "run OEM on a single critical path",
+      "label": "The ask: one critical path, this month",
+      "items": [
+        [
+          "Define the outcome",
+          ""
+        ],
+        [
+          "Gather minimal evidence",
+          ""
+        ],
+        [
+          "Ship the smallest intervention",
+          ""
+        ],
+        [
+          "Measure the path",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "end",
+      "at": "This was The Feature Fallacy"
+    }
+  ]
+}

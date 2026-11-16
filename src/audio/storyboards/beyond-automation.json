@@ -1,0 +1,30 @@
+{
+  "about": "Scenes for the animated video of Beyond Automation: Win Customers for Life. Each scene starts at a phrase in the narration (\"at\"); keys ending in At name phrases that trigger a move inside the scene. Chapter cards are added by render.mjs.",
+  "scenes": [
+    { "type": "title", "at": 0 },
+    { "type": "callout", "at": "many companies are missing the point", "label": "The promise of AI", "big": "Missing the point", "size": 150, "color": "#f08a3c", "text": "Efficiency, personalization and growth are real. But that's not the whole story." },
+    { "type": "versus", "at": "But technology on its own", "label": "AI before and after",
+      "items": [["technology on its own", "Replace", 0], ["technology amplifying your team", "Amplify", 0]], "note": "The real magic happens in the second." },
+    { "type": "cards", "at": "24/7 availability", "label": "What AI does exceptionally well",
+      "cards": [["24/7 availability", "", "Common questions answered instantly, any time of day.", "<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>"],
+                ["Personalization", "", "Tailored recommendations from a customer's history.", "<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>"],
+                ["Efficiency", "", "Routing, workflows, and summaries that get agents up to speed in seconds.", "<path d='M13 2L4 14h7l-1 8 9-12h-7z'/>"]],
+      "cardAt": ["24/7 availability", "Data-driven personalization", "Unmatched efficiency"] },
+    { "type": "versus", "at": "While AI handles the", "label": "The partnership",
+      "items": [["AI handles", "the what", 0], ["your team delivers", "the how", 0]], "note": "Warmth, empathy, and creative problem-solving." },
+    { "type": "cards", "at": "Empathy and understanding", "label": "The irreplaceable human factor",
+      "cards": [["Empathy", "", "Reading between the lines, and responding with genuine care."], ["Complex problems", "", "When it's off-script: creative thinking, and bending the rules when needed."], ["Rapport and trust", "", "The trust that turns a satisfied customer into a loyal one."]],
+      "cardAt": ["Empathy and understanding", "Complex problem-solving", "Building rapport and trust"] },
+    { "type": "callout", "at": "collaborative intelligence", "label": "Not AI or people", "big": "Collaborative intelligence", "size": 120, "color": "#35c2e8", "text": "AI as a co-pilot for your customer service team." },
+    { "type": "steps", "at": "The AI does the legwork by flagging an account", "label": "Example 1: proactive, personal outreach",
+      "items": [["AI flags", "an account repeatedly misusing a new feature"], ["A specialist is alerted", "instead of a generic help article"], ["A personal fix", "delivered by a person"]] },
+    { "type": "steps", "at": "An AI-powered sentiment analysis tool", "label": "Example 2: empathetic escalation",
+      "items": [["AI detects", "a frustrated tone in a chat"], ["A warm handoff", "to a senior agent: “High frustration detected”"], ["Empathy first", "the agent leads with understanding"]] },
+    { "type": "callout", "at": "this collaborative model frees up your team", "label": "Going the extra mile", "big": "Time for research", "size": 150, "color": "#35c2e8", "text": "When AI handles high-volume, low-complexity work, people can do deep, proactive research." },
+    { "type": "steps", "at": "Imagine a customer in a specialized field", "label": "Renewable energy logistics: a support ticket",
+      "items": [["AI logs the ticket", ""], ["An agent solves it", "the immediate problem"], ["An hour of research", "compliance, supply chains for turbine parts"], ["A consulting engagement", "from a simple request"]] },
+    { "type": "callout", "at": "The customer is not just satisfied", "label": "The impact", "big": "Astonished", "size": 180, "color": "#f08a3c", "text": "A partner who invested in understanding their world." },
+    { "type": "quote", "at": "Ultimately, AI is a powerful force", "text": "AI is a powerful force, but its direction is guided by your strategy." },
+    { "type": "end", "at": "This was Beyond Automation" }
+  ]
+}
