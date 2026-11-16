@@ -1,0 +1,17 @@
+{
+  "title": "Feature Prioritization Scorecard",
+  "page": "scorecard.html",
+  "about": "The 2-minute tour. Each beat is one or two sentences, and what the screen shows while they're spoken: run the steps in `do` (click, select, fill), then spotlight `spot` with an optional `label`.",
+  "beats": [
+    { "say": "This is the Feature Prioritization Scorecard. It ranks the features you're weighing by what matters to your business, so your roadmap reflects your goals, not the loudest voice in the room.", "spot": ".page-head", "top": true },
+    { "say": "Start by giving it a name, so you can find it later.", "spot": "#sc-title", "do": [["fill", "#sc-title", "Q1 roadmap"]], "label": "Name it" },
+    { "say": "Step one is choosing what matters. Pick a template, then rename, reweight, or add criteria. Effort and risk count the other way: lower is better.", "spot": "#sc-criteria", "label": "1 · What matters" },
+    { "say": "Each slider sets a weight from zero to five. A weight of zero switches a criterion off.", "spot": "#sc-criteria .sc-crit", "label": "Weight" },
+    { "say": "Step two is scoring your features, one to five on each criterion. Fill in an example to see how it works.", "spot": "#sc-features", "do": [["click", "#sc-features [data-sc=examples]"]], "label": "2 · Score them" },
+    { "say": "Step three updates as you go: your ranking, from zero to one hundred, with what drove each score.", "spot": "#sc-results", "label": "3 · Your ranking" },
+    { "say": "Prefer RICE? Switch to it, add reach, impact, confidence and effort, and get a second ranking.", "spot": "[data-method=rice]", "do": [["click", "[data-method=rice]"]], "label": "RICE" },
+    { "say": "Compare both puts the two rankings side by side. Where they disagree is where the real conversation is.", "spot": "[data-method=compare]", "do": [["click", "[data-method=compare]"]], "label": "Compare both" },
+    { "say": "When you're done, save it to your account, share a link, or export a CSV or PDF. Nothing leaves your browser unless you choose to.", "spot": ".sc-actions", "do": [["click", "[data-method=weighted]"]], "label": "Save, share, export" },
+    { "say": "Tip: have two people score on their own, then compare. And for a whole team, save it to your account and choose Score as a team. That's the tour. Give it a try.", "spot": ".sc-tips", "label": "Make it stick" }
+  ]
+}

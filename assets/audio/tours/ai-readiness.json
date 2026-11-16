@@ -1,0 +1,42 @@
+{
+ "duration": 61.7,
+ "bytes": 494143,
+ "hash": "cf35607d1629b867",
+ "beats": [
+  [
+   0.6,
+   10.93,
+   "This is the AI Readiness Checklist. It checks whether your team, data, tools and guardrails are ready for AI work, and gives you your next three moves."
+  ],
+  [
+   11.63,
+   14.63,
+   "Name the check, for example by team and month."
+  ],
+  [
+   15.33,
+   29.14,
+   "Answer twenty-four statements in six areas, for your team as it is today: yes, partly, no, or not sure. Be honest: a no is more useful than a hopeful yes. Fill in an example to see it."
+  ],
+  [
+   29.84,
+   33.16,
+   "Where you are shows your readiness score and what it means."
+  ],
+  [
+   33.86,
+   42.95,
+   "The AI adoption journey shows your stage, from starting with you to organization-wide capability, and a score for each area."
+  ],
+  [
+   43.65,
+   49.77,
+   "Your next three moves come from the gaps in your weakest areas first, with what you said that led to each."
+  ],
+  [
+   50.47,
+   60.97,
+   "Save it, share a link, or export it, or download the Excel version. Answer it together, act on one move at a time, and re-run it each quarter. That's the tour."
+  ]
+ ]
+}

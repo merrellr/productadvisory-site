@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product Advisory tour stage</title>
+<!-- Drawn by src/audio/video/tour.mjs: setup(data) once, then draw(t) per frame. Each beat shows a capture of the real
+     tool page with a spotlight on what's being described, pushing in slowly towards it. Nothing here runs on the website. -->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b1f40; font-family: "Lato", sans-serif; color: #fff; }
+  #bg { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 80% 10%, #1d4a8f 0%, rgba(29,74,143,0) 60%), linear-gradient(160deg, #12305e 0%, #0b1f40 70%); }
+  #top { position: absolute; left: 240px; right: 240px; top: 22px; height: 50px; display: flex; align-items: center; justify-content: space-between; }
+  #brand { font-weight: 900; font-size: 30px; color: #35c2e8; } #brand span { color: #fff; }
+  #what { font-weight: 700; font-size: 26px; color: #c9d7ee; }
+  #frame { position: absolute; left: 240px; top: 84px; width: 1440px; height: 810px; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+  .shot { position: absolute; inset: 0; transform-origin: 0 0; }
+  .shot img { position: absolute; left: 0; top: 0; width: 1440px; height: 810px; }
+  .spot { position: absolute; border-radius: 14px; box-shadow: 0 0 0 4px #35c2e8, 0 0 0 9999px rgba(11, 31, 64, .42); pointer-events: none; }
+  .label { position: absolute; padding: 10px 20px; border-radius: 26px; background: #35c2e8; color: #0b1f40; font-weight: 900; font-size: 28px; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+  #caps { position: absolute; left: 160px; right: 160px; top: 908px; height: 120px; display: flex; align-items: center; justify-content: center; }
+  #caps div { max-width: 1500px; text-align: center; font-weight: 700; font-size: 38px; line-height: 1.32; }
+  #caps .w { color: rgba(255,255,255,.6); } #caps .w.done { color: #fff; } #caps .w.now { color: #0b1f40; background: #35c2e8; border-radius: 6px; box-shadow: 0 0 0 3px #35c2e8; }
+  #bar { position: absolute; left: 240px; right: 240px; bottom: 22px; height: 8px; display: flex; gap: 6px; }
+  #bar i { position: relative; flex: 1; border-radius: 4px; background: rgba(255,255,255,.16); overflow: hidden; }
+  #bar i b { position: absolute; inset: 0 auto 0 0; background: #35c2e8; }
+  #intro, #outro { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  #intro .e, #outro .e { font-weight: 700; font-size: 30px; letter-spacing: .12em; text-transform: uppercase; color: #35c2e8; }
+  #intro .t, #outro .t { font-weight: 900; font-size: 110px; line-height: 1.05; margin: 22px 0; max-width: 1500px; }
+  #intro .s, #outro .s { font-weight: 700; font-size: 40px; color: #c9d7ee; }
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="top"><div id="brand">Product+ <span>Advisory</span></div><div id="what"></div></div>
+<div id="frame"></div>
+<div id="caps"></div>
+<div id="bar"></div>
+<div id="intro"><div class="e">The 2-minute tour</div><div class="t"></div><div class="s">productadvisory.co</div></div>
+<div id="outro"><div class="e">Free · no sign-up</div><div class="t"></div><div class="s"></div></div>
+<script>
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const out = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const ease = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let D = null, lastCap = -1;
+const FW = 1440, FH = 810, SCALE = FW / 1280;   // captures are of a 1280x720 window; the frame shows them at 1440x810
+
+window.setup = (data) => {
+  D = data;
+  document.getElementById('what').textContent = D.kicker;
+  document.querySelector('#intro .t').textContent = D.title;
+  document.querySelector('#outro .t').textContent = 'Give it a try';
+  document.querySelector('#outro .s').textContent = D.url;
+  document.getElementById('frame').innerHTML = D.beats.map((b, i) => `<div class="shot" data-i="${i}" style="opacity:0"><img src="${b.img}">
+    ${b.rect ? `<div class="spot" style="left:${b.rect.x * SCALE - 10}px; top:${b.rect.y * SCALE - 10}px; width:${b.rect.w * SCALE + 20}px; height:${b.rect.h * SCALE + 20}px"></div>` : ''}
+    ${b.label && b.rect ? `<div class="label" style="left:${Math.min(FW - 380, Math.max(16, b.rect.x * SCALE))}px; top:${b.rect.y * SCALE - 62 < 10 ? b.rect.y * SCALE + b.rect.h * SCALE + 22 : b.rect.y * SCALE - 62}px">${esc(b.label)}</div>` : ''}</div>`).join('');
+  document.getElementById('bar').innerHTML = D.beats.map(() => '<i><b></b></i>').join('');
+};
+
+window.draw = (t) => {
+  const INTRO = D.intro, end = D.duration;
+  // the title card at the start, and "Give it a try" at the end
+  const ki = 1 - clamp((t - INTRO + .4) / .4);
+  document.getElementById('intro').style.opacity = ki;
+  document.querySelector('#intro .t').style.transform = 'translateY(' + (1 - out(t / .8)) * 40 + 'px)';
+  const ko = clamp((t - (end - 3)) / .5);
+  document.getElementById('outro').style.opacity = ko;
+  const showFrame = 1 - Math.max(ki, ko);
+  ['frame', 'caps'].forEach(id => document.getElementById(id).style.opacity = showFrame);
+  document.getElementById('bar').style.opacity = 1;
+  // which beat: each starts when its words do (the first takes over from the title card)
+  let cur = 0; D.beats.forEach((b, i) => { if (t >= b.start - .25) cur = i; });
+  document.querySelectorAll('.shot').forEach((el, i) => {
+    const b = D.beats[i], s0 = b.start - .25, e0 = i + 1 < D.beats.length ? D.beats[i + 1].start - .25 : end;
+    const vis = i === cur ? clamp((t - s0) / .35) : 0;
+    el.style.opacity = vis;
+    if (!vis) return;
+    // push in slowly towards the spotlight (never past the capture's edges)
+    const k = ease((t - s0) / Math.max(1, e0 - s0)), z = 1 + (b.zoom || .12) * k;
+    const cx = b.rect ? (b.rect.x + b.rect.w / 2) * SCALE : FW / 2, cy = b.rect ? (b.rect.y + b.rect.h / 2) * SCALE : FH / 2;
+    const tx = Math.min(0, Math.max(FW - FW * z, FW / 2 - cx * z)), ty = Math.min(0, Math.max(FH - FH * z, FH / 2 - cy * z));
+    const mix = clamp(k * 1.4);
+    el.style.transform = 'translate(' + (tx * mix) + 'px,' + (ty * mix) + 'px) scale(' + z + ')';
+    const sp = el.querySelector('.spot'), lb = el.querySelector('.label'), ks = out((t - s0 - .3) / .5);
+    if (sp) sp.style.opacity = ks;
+    if (lb) { lb.style.opacity = out((t - s0 - .6) / .4); lb.style.transform = 'scale(' + (1 / z) + ') translateY(' + (1 - out((t - s0 - .6) / .4)) * 12 + 'px)'; lb.style.transformOrigin = '0 0'; }
+  });
+  document.querySelectorAll('#bar b').forEach((bb, i) => { const s0 = D.beats[i].start, e0 = i + 1 < D.beats.length ? D.beats[i + 1].start : end; bb.style.width = clamp((t - s0) / (e0 - s0)) * 100 + '%'; });
+  // captions: the beat's words, lit as they're spoken
+  const ci = D.caps.findIndex(c => t >= c.start && t < c.end + .3);
+  const box = document.getElementById('caps');
+  if (ci !== lastCap) { box.innerHTML = ci < 0 ? '' : '<div>' + D.caps[ci].words.map(w => '<span class="w">' + esc(w.w) + '</span>').join(' ') + '</div>'; lastCap = ci; }
+  if (ci >= 0) { const c = D.caps[ci], k = (t - c.start) / Math.max(.2, c.end - c.start); box.querySelectorAll('.w').forEach((w, i) => { const at = c.words[i].at, nx = i + 1 < c.words.length ? c.words[i + 1].at : 1; w.className = 'w' + (k >= nx ? ' done' : k >= at ? ' now' : ''); }); }
+};
+</script>
+</body>
+</html>

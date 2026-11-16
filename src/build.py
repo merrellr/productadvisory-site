@@ -756,7 +756,7 @@ def scorecard():
                    for k, n in [("balanced", "Balanced"), ("customer", "Customer-led"), ("growth", "Growth"), ("ice", "ICE")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("scorecard")}</div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Feature Prioritization Scorecard</h1><p>Rank features with criteria you can change, or with RICE, and compare the two, so your roadmap reflects your goals and not the loudest voice. About 20 minutes, no sign-up, and nothing leaves your browser.</p>{tour_link("scorecard")}{tools_nav("scorecard")}</div>
     <div class="art">{toolkit_tool("scorecard")}</div>
   </div>
 </header>
@@ -873,7 +873,7 @@ def ai_use_cases():
                     for k, n, q, lo, hi in factors)
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("ai")}</div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Use Case Prioritization</h1><p>List your AI ideas, answer five questions for each, and see which to pilot first, which to fix before you start, and which to park. About 15 minutes, no sign-up, and nothing leaves your browser.</p>{tour_link("ai-use-cases")}{tools_nav("ai")}</div>
     <div class="art">{toolkit_tool("ai")}</div>
   </div>
 </header>
@@ -951,7 +951,7 @@ def ai_readiness():
         ("Team traction", "Share wins, peer learning spreads"), ("Org capability", "Standardized, tied to business goals")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Readiness Checklist</h1><p>Check whether your team, data, tools and guardrails are ready for AI work. Answer 24 statements in six areas, see where you are on the AI adoption journey, and get your next three moves. About 10 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("ready")}</div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>AI Readiness Checklist</h1><p>Check whether your team, data, tools and guardrails are ready for AI work. Answer 24 statements in six areas, see where you are on the AI adoption journey, and get your next three moves. About 10 minutes, no sign-up, and nothing leaves your browser.</p>{tour_link("ai-readiness")}{tools_nav("ready")}</div>
     <div class="art">{toolkit_tool("ready")}</div>
   </div>
 </header>
@@ -1061,6 +1061,21 @@ def sheet_menu(files, label="Get the spreadsheet"):
             f'<a href="{files[3]}" download><b>Excel</b><small>Downloads the .xlsx file</small></a></div></details>')
 
 
+def tour_link(tid):
+    """New here? The tool's 2-minute tour (src/audio/make_tour.py and video/tour.mjs): a button that opens the video,
+    with a Just listen option (site.js initTours). Nothing shows until the tour's files exist."""
+    base = os.path.join(ROOT, "assets", "audio", "tours", tid)
+    if not (os.path.exists(base + ".mp4") and os.path.exists(base + ".json")):
+        return ""
+    with open(base + ".json") as f:
+        secs = json.load(f)["duration"] + 3.5
+    mins = f"{int(secs) // 60}:{int(secs) % 60:02d}"
+    url = f"/assets/audio/tours/{tid}"
+    return (f'<button type="button" class="tour-btn" data-tour="{tid}" data-video="{url}.mp4" data-audio="{url}.mp3" data-poster="{url}.webp">'
+            f'<span class="tour-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg></span>'
+            f'<span><b>New here? Take the 2-minute tour</b><small>Video · {mins} · or just listen</small></span></button>')
+
+
 def xlsx_row(path, name):
     """Prefer a spreadsheet? The browser tool's Excel template (made by src/toolkits/make-sheets.py), same math."""
     return (f'<div class="card tint tool-files"><div><h3>Prefer a spreadsheet?</h3><p class="muted">The same {name} as an Excel template, '
@@ -1097,7 +1112,7 @@ def build_buy_partner():
     opt_html = "".join(f'<div class="bb-opt o-{k}"><b>{n}</b><p>{d}</p><small>{h}</small></div>' for k, n, d, h in opts)
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Build, Buy, or Partner Decision Matrix</h1><p>Decide how to deliver a capability: build it, buy it or partner for it. Score the three options against ten criteria, compare the real three-year cost, and record a decision your team can stand behind. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("bbp")}</div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Build, Buy, or Partner Decision Matrix</h1><p>Decide how to deliver a capability: build it, buy it or partner for it. Score the three options against ten criteria, compare the real three-year cost, and record a decision your team can stand behind. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tour_link("build-buy-partner")}{tools_nav("bbp")}</div>
     <div class="art">{toolkit_tool("bbp")}</div>
   </div>
 </header>
@@ -1181,7 +1196,7 @@ def impact_score():
         ("Ease", "How hard it is to deliver, from 1 (very hard) to 5 (easy). It separates big bets from quick wins.")])
     body = f'''<header class="page-head">
   <div class="wrap">
-    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Organizational Impact Score</h1><p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most, and what to do with each. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tools_nav("impact")}</div>
+    <div><div class="eyebrow">Free toolkit · Interactive</div><h1>Organizational Impact Score</h1><p>Rate initiatives against the KPIs your organization already tracks, adjust for how sure you are, and see which work moves the numbers that matter most, and what to do with each. About 30 minutes, no sign-up, and nothing leaves your browser.</p>{tour_link("impact-score")}{tools_nav("impact")}</div>
     <div class="art">{toolkit_tool("impact")}</div>
   </div>
 </header>

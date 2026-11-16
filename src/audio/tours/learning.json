@@ -1,0 +1,20 @@
+{
+  "title": "Product Advisory Learning",
+  "kicker": "The 2-minute tour · Product Advisory Learning",
+  "url": "assessment.productadvisory.co",
+  "page": "dash-test.html?scn=growth",
+  "wait": 3000,
+  "about": "Filmed in Learning's UI test harness (tests/ui, fake sign-in and sample learners), served by tests/ui/run-ui-tests.mjs's build at <tmp>/pa-ui-site. Run tour.mjs with --site pointing at it.",
+  "beats": [
+    { "say": "This is Product Advisory Learning: courses, tools and audio for product managers, built around where you are today.", "spot": "#homeBand", "top": true },
+    { "say": "Your home shows your next best step: the course to do now, and what comes after it.", "spot": "#homeResume", "label": "Your next best step" },
+    { "say": "My growth compares your first skill check with your latest, area by area, and nudges you to retake it after ninety days.", "spot": "#growthPanel", "label": "My growth" },
+    { "say": "Courses come in seven skill areas, at four levels each. A lesson mixes a short story, real data and practice.", "page": "les-test.html?scn=listen&course=discovery-novice&lesson=2", "spot": "#lessonBody .lb-story", "label": "A lesson" },
+    { "say": "Every lesson has a Listen button, so you can learn on a walk or a commute.", "spot": "#lessonListen", "label": "Listen to the lesson" },
+    { "say": "The course outline shows your progress, the key takeaways, and related listening.", "spot": "#lessonRail", "label": "Course outline" },
+    { "say": "My Toolkits keeps the work you do in the free tools, saved to your account. You can even score a scorecard as a team.", "page": "mytools-test.html?scn=list", "spot": "#hub", "label": "My Toolkits" },
+    { "say": "Listen and watch has every Product+ article, read aloud, with chapters.", "page": "listen-test.html?scn=hash", "spot": "#episodes", "label": "Listen & watch" },
+    { "say": "And when your company joins, admins see team skills and progress, and can assign courses with due dates.", "page": "company-test.html?scn=skills", "spot": "#skillsGridCard", "label": "For teams" },
+    { "say": "Start with the free skill check, then follow your next best step. Welcome to Product Advisory Learning.", "page": "dash-test.html?scn=growth", "spot": "#homeBand", "top": true }
+  ]
+}

@@ -199,7 +199,7 @@ const SCENES = {
         const at = s.planAt[i], k = t >= at ? out((t - at) / .7) : 0;
         const a = g.querySelector('[data-acct]'); a.style.transformBox = 'fill-box'; a.style.transformOrigin = 'center bottom'; a.style.transform = 'scaleY(' + k + ')';
         g.querySelector('[data-va]').style.opacity = k;
-        g.style.opacity = t >= at ? 1 : .0;
+        g.style.opacity = t >= at ? 1 : .28;
         const kp = t >= s.perAt ? out((t - s.perAt - i * .35) / .7) : 0;
         const p = g.querySelector('[data-pers]'); p.style.transformBox = 'fill-box'; p.style.transformOrigin = 'center bottom'; p.style.transform = 'scaleY(' + kp + ')';
         g.querySelector('[data-vp]').style.opacity = kp;
@@ -357,15 +357,16 @@ function sceneEl(i) {
   return built.get(i);
 }
 window.draw = (t) => {
-  const FADE = .45;
+  const OUT = .28, IN_AT = .22, IN = .35;   // the old scene clears first; the new one starts building a moment later
   let cur = D.scenes.findIndex(s => t >= s.start && t < s.end); if (cur < 0) cur = D.scenes.length - 1;
   built.forEach((el, i) => { if (i !== cur && i !== cur - 1) { el.remove(); built.delete(i); } });
-  const s = D.scenes[cur], el = sceneEl(cur), lt = t - s.start;
-  SCENES[s.type].frame(el, s, lt, t);
-  el.style.opacity = clamp(lt / FADE);
-  if (cur > 0) {   // the scene before fades out as this one comes in
+  const s = D.scenes[cur], el = sceneEl(cur), lt = t - s.start, first = cur === 0;
+  // a scene's own animation starts once the one before has cleared (its "At" moments keep their real times)
+  SCENES[s.type].frame(el, s, first ? lt : Math.max(0, lt - IN_AT), first ? t : t - Math.min(lt, IN_AT));
+  el.style.opacity = first ? 1 : clamp((lt - IN_AT) / IN);
+  if (cur > 0) {   // the scene before clears out quickly
     const p = D.scenes[cur - 1], pe = sceneEl(cur - 1);
-    if (lt < FADE) { SCENES[p.type].frame(pe, p, t - p.start, t); pe.style.opacity = 1 - lt / FADE; } else pe.style.opacity = 0;
+    if (lt < OUT) { SCENES[p.type].frame(pe, p, t - p.start, t); pe.style.opacity = 1 - lt / OUT; } else pe.style.opacity = 0;
   }
   // chapter name, progress by chapter, the waveform
   let ci = 0; D.chapters.forEach((c, i) => { if (t >= c[0]) ci = i; });

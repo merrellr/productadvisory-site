@@ -1,0 +1,47 @@
+{
+ "duration": 72.3,
+ "bytes": 579395,
+ "hash": "f86c5895adbabb4b",
+ "beats": [
+  [
+   0.6,
+   9.82,
+   "This is AI Use Case Prioritization. It helps you choose where AI is worth the effort first, and names the first pilot to run."
+  ],
+  [
+   10.52,
+   13.2,
+   "Name your list, so you can find it later."
+  ],
+  [
+   13.9,
+   25.34,
+   "Every idea answers five questions: business value, data readiness, cost and effort, team readiness, and risk if it goes wrong. Each one is scored from one to five."
+  ],
+  [
+   26.04,
+   32.46,
+   "Add your ideas, one per row, as specific as you can. Fill in an example to see it work."
+  ],
+  [
+   33.16,
+   43.04,
+   "The map plots value against feasibility. Quick wins sit top right. Strategic bets are valuable but harder. A dashed ring flags high risk."
+  ],
+  [
+   43.74,
+   53.68,
+   "Your plan ranks every idea with a next step, and Start here names the first pilot: one team, four to six weeks, and one number to judge it by."
+  ],
+  [
+   54.38,
+   63.68,
+   "Save it to your account, share a link, or export a CSV or PDF. Prefer a spreadsheet? There's an Excel version with the same math."
+  ],
+  [
+   64.38,
+   71.63,
+   "Score it with the people who'd use it, pilot one thing at a time, and re-run it after each pilot. That's the tour."
+  ]
+ ]
+}

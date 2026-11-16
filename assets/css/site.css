@@ -1884,3 +1884,27 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .ep-list b { color: var(--navy); }
 .ep-list span { color: var(--muted); font-size: .88rem; }
 @media (max-width: 560px) { .how-step ol { padding-left: 40px; } .feed-row { flex-direction: column; } }
+
+/* ---------- the 2-minute tour (tool pages) ---------- */
+.tour-btn { display: inline-flex; align-items: center; gap: 12px; margin: 12px 0 18px; padding: 8px 18px 8px 8px; border-radius: 34px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: inherit; text-align: left; cursor: pointer; box-shadow: 0 6px 18px rgba(18, 48, 94, .08); transition: border-color .15s, transform .15s; }
+.tour-btn:hover { border-color: var(--primary); transform: translateY(-1px); }
+.tour-btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.tour-play { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; }
+.tour-play svg { width: 18px; height: 18px; fill: currentColor; margin-left: 2px; }
+.tour-btn b { display: block; color: var(--navy); font-size: .95rem; }
+.tour-btn small { display: block; color: var(--muted); font-size: .8rem; }
+.tour-dialog { width: min(1100px, calc(100% - 24px)); padding: 0; border: 0; border-radius: 18px; background: #0b1f40; color: #fff; overflow: hidden; }
+.tour-dialog::backdrop { background: rgba(6, 16, 34, .72); }
+.tour-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px 12px 18px; }
+.tour-bar b { flex: 1; color: #fff; }
+.tour-modes { display: inline-flex; gap: 4px; padding: 3px; border-radius: 20px; background: rgba(255,255,255,.1); }
+.tour-modes button { min-height: 34px; padding: 0 14px; border: 0; border-radius: 17px; background: transparent; color: #c9d7ee; font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.tour-modes button[aria-pressed="true"] { background: #fff; color: #12305e; }
+.tour-close { min-height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.tour-dialog button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.tour-dialog video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.tour-audio { padding: 26px 22px 30px; }
+.tour-audio p { margin: 0 0 14px; color: #c9d7ee; }
+.tour-audio audio { width: 100%; }
+html.pa-embed .tour-btn { display: none; }
+@media print { .tour-btn { display: none !important; } }

@@ -8,7 +8,7 @@
       "splitAt": "for up to six people", "compareAt": "Her own Individual plan", "resultAt": "about $3.67 a person" },
     { "type": "people", "at": "Four people, one household", "label": "One household, four prices",
       "people": [["Her son", "Free, with ads", "$0", "#8fa4c8"], ["A college friend", "Student", "$6.99", "#4fd18b"], ["Jordan", "Individual", "$12.99", "#35c2e8"], ["Her daughter", "Family, per person", "$3.67", "#f08a3c"]] },
-    { "type": "image", "at": "Jordan thought about the email", "src": "card.webp", "zoom": 1.08 },
+    { "type": "callout", "at": "Jordan thought about the email", "label": "Two emails in Cadence's inbox", "big": "Too small. Too big.", "size": 140, "text": "A community health center couldn't afford the Starter plan. A six-location group wanted a custom quote nobody knew how to build." },
     { "type": "curve", "at": "Every product has customers", "oneAt": "When you pick a single price", "tiersAt": "Tiers are how you recover both" },
     { "type": "plans", "at": "Spotify's US lineup looks simple",
       "plans": [["Student", 6.99, 6.99, "1 person"], ["Individual", 12.99, 12.99, "1 person"], ["Duo", 18.99, 9.50, "2 people"], ["Family", 21.99, 3.67, "up to 6"]],

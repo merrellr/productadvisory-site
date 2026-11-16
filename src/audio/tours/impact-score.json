@@ -1,0 +1,14 @@
+{
+  "title": "Organizational Impact Score",
+  "page": "impact-score.html",
+  "beats": [
+    { "say": "This is the Organizational Impact Score. It rates initiatives against the KPIs your organization already tracks, adjusts for how sure you are, and suggests what to do with each.", "spot": ".page-head", "top": true },
+    { "say": "Name the sheet first.", "spot": "#im-title", "do": [["fill", "#im-title", "Next half roadmap"]], "label": "Name it" },
+    { "say": "Step one: your KPIs and their weights. Keep the defaults or rename them. Weights must total one hundred.", "spot": "#im-kpis", "label": "1 · Your KPIs" },
+    { "say": "Step two: score up to six initiatives on how much each would move each KPI, from zero to five. Then add your confidence, and how easy each is to deliver. Fill in the worked example to see it.", "spot": "#im-table", "do": [["click", "[data-im=example]"]], "label": "2 · Score your initiatives" },
+    { "say": "Where they land plots the confidence-adjusted score against ease: do now, big bets, quick wins, and revisit.", "spot": "#im-matrix", "label": "3 · Where they land" },
+    { "say": "The ranking orders every initiative with a suggested action. Scores within five points are effectively tied.", "spot": "#im-plan", "label": "4 · The ranking" },
+    { "say": "Then decide: your top priority, sequencing, what you won't do now, and the assumptions to test first.", "spot": "#im-top", "label": "5 · Decide" },
+    { "say": "Save it, share a link, or export it, or use the fillable PDF and spreadsheet versions. That's the tour.", "spot": ".sc-actions", "label": "Save, share, export" }
+  ]
+}

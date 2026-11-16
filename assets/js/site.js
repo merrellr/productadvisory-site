@@ -1615,6 +1615,36 @@
     var dl = box.querySelector(".listen-dl"); if (dl) dl.addEventListener("click", function () { track("audio_download", { article: slug }); });
   }
 
+  /* ---------- the 2-minute tour on each tool page ----------
+     A dialog with the tour video (it only downloads when opened) and a Just listen button that swaps to the audio. */
+  function initTours() {
+    var btn = document.querySelector("[data-tour]");
+    if (!btn || typeof HTMLDialogElement === "undefined") return;
+    var dlg = document.createElement("dialog");
+    dlg.className = "tour-dialog";
+    dlg.setAttribute("aria-label", "The 2-minute tour");
+    dlg.innerHTML = '<div class="tour-bar"><b>The 2-minute tour</b><span class="tour-modes" role="group" aria-label="Watch or listen">' +
+      '<button type="button" data-mode="video" aria-pressed="true">Watch</button><button type="button" data-mode="audio" aria-pressed="false">Just listen</button></span>' +
+      '<button type="button" class="tour-close" aria-label="Close">Close <span aria-hidden="true">&times;</span></button></div>' +
+      '<video controls playsinline preload="none"></video><div class="tour-audio" hidden><p>Listen while you look around the tool. It keeps playing if you close this.</p><audio controls preload="none"></audio></div>';
+    document.body.appendChild(dlg);
+    var video = dlg.querySelector("video"), audio = dlg.querySelector("audio"), aBox = dlg.querySelector(".tour-audio");
+    video.src = btn.getAttribute("data-video"); video.poster = btn.getAttribute("data-poster");
+    audio.src = btn.getAttribute("data-audio");
+    var tid = btn.getAttribute("data-tour");
+    function mode(m) {
+      dlg.querySelectorAll("[data-mode]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === m)); });
+      video.hidden = m !== "video"; aBox.hidden = m !== "audio";
+      if (m === "audio") { var t = video.currentTime; video.pause(); if (t) audio.currentTime = t; audio.play().catch(function () { }); track("tour_listen", { tour: tid }); }
+      else { var u = audio.currentTime; audio.pause(); if (u) video.currentTime = u; video.play().catch(function () { }); }
+    }
+    dlg.querySelectorAll("[data-mode]").forEach(function (b) { b.addEventListener("click", function () { mode(b.getAttribute("data-mode")); }); });
+    dlg.querySelector(".tour-close").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener("close", function () { video.pause(); btn.focus(); });   // the audio may keep playing, as promised
+    btn.addEventListener("click", function () { dlg.showModal(); if (aBox.hidden) video.play().catch(function () { }); track("tour_open", { tour: tid }); });
+  }
+
   /* "Copy the podcast feed (RSS)": copies the feed's address for pasting into a podcast app (opens the feed if copying isn't possible). */
   function initFeedCopy() {
     document.querySelectorAll("[data-copy-feed]").forEach(function (feed) {
@@ -1647,6 +1677,7 @@
     initFigureZoom();
     initListen();
     initFeedCopy();
+    initTours();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();

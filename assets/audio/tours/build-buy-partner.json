@@ -1,0 +1,47 @@
+{
+ "duration": 68.6,
+ "bytes": 549455,
+ "hash": "cf9609b7629183c3",
+ "beats": [
+  [
+   0.6,
+   10.84,
+   "This is the Build, Buy, or Partner Decision Matrix. It helps you decide how to get a new capability: build it, buy it, or partner for it, and record why."
+  ],
+  [
+   11.54,
+   13.1,
+   "Name the decision first."
+  ],
+  [
+   13.8,
+   26.0,
+   "Score each option from one to five on ten criteria, from strategic differentiation to exit flexibility. Weights must add up to one hundred. Fill in the worked example to see it."
+  ],
+  [
+   26.7,
+   31.54,
+   "Then compare the three-year cost. Years two and three often decide the outcome."
+  ],
+  [
+   32.24,
+   42.67,
+   "The result shows each option's weighted score out of five, plus its cost and time to first value. Scores within a quarter point are a tie, which is common."
+  ],
+  [
+   43.37,
+   50.18,
+   "Check these before you commit points out where a small change in weights would change the answer, and the risks to plan for."
+  ],
+  [
+   50.88,
+   59.88,
+   "Finally, decide and record it: why this option, the top risks, what would make you reopen it, and the next steps. It's saved with the matrix."
+  ],
+  [
+   60.58,
+   67.88,
+   "Save it, share a link, or export it, or download the fillable PDF and spreadsheet versions. That's the tour."
+  ]
+ ]
+}

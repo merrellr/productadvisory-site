@@ -1,0 +1,57 @@
+{
+ "duration": 84.0,
+ "bytes": 673097,
+ "hash": "4573c8c84f15905c",
+ "beats": [
+  [
+   0.6,
+   12.53,
+   "This is the Feature Prioritization Scorecard. It ranks the features you're weighing by what matters to your business, so your roadmap reflects your goals, not the loudest voice in the room."
+  ],
+  [
+   13.23,
+   16.38,
+   "Start by giving it a name, so you can find it later."
+  ],
+  [
+   17.08,
+   26.79,
+   "Step one is choosing what matters. Pick a template, then rename, reweight, or add criteria. Effort and risk count the other way: lower is better."
+  ],
+  [
+   27.49,
+   33.31,
+   "Each slider sets a weight from zero to five. A weight of zero switches a criterion off."
+  ],
+  [
+   34.01,
+   41.31,
+   "Step two is scoring your features, one to five on each criterion. Fill in an example to see how it works."
+  ],
+  [
+   42.01,
+   48.24,
+   "Step three updates as you go: your ranking, from zero to one hundred, with what drove each score."
+  ],
+  [
+   48.94,
+   55.08,
+   "Prefer RICE? Switch to it, add reach, impact, confidence and effort, and get a second ranking."
+  ],
+  [
+   55.78,
+   62.72,
+   "Compare both puts the two rankings side by side. Where they disagree is where the real conversation is."
+  ],
+  [
+   63.42,
+   72.55,
+   "When you're done, save it to your account, share a link, or export a CSV or PDF. Nothing leaves your browser unless you choose to."
+  ],
+  [
+   73.25,
+   83.34,
+   "Tip: have two people score on their own, then compare. And for a whole team, save it to your account and choose Score as a team. That's the tour. Give it a try."
+  ]
+ ]
+}

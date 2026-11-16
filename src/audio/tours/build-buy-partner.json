@@ -1,0 +1,14 @@
+{
+  "title": "Build, Buy, or Partner Decision Matrix",
+  "page": "build-buy-partner.html",
+  "beats": [
+    { "say": "This is the Build, Buy, or Partner Decision Matrix. It helps you decide how to get a new capability: build it, buy it, or partner for it, and record why.", "spot": ".page-head", "top": true },
+    { "say": "Name the decision first.", "spot": "#bb-title", "do": [["fill", "#bb-title", "Payments capability"]], "label": "Name it" },
+    { "say": "Score each option from one to five on ten criteria, from strategic differentiation to exit flexibility. Weights must add up to one hundred. Fill in the worked example to see it.", "spot": "#bb-table", "do": [["click", "[data-bb=example]"]], "label": "Score the options" },
+    { "say": "Then compare the three-year cost. Years two and three often decide the outcome.", "spot": "#bb-cost", "label": "Three-year cost" },
+    { "say": "The result shows each option's weighted score out of five, plus its cost and time to first value. Scores within a quarter point are a tie, which is common.", "spot": "#bb-result", "label": "The result" },
+    { "say": "Check these before you commit points out where a small change in weights would change the answer, and the risks to plan for.", "spot": "#bb-checks", "label": "Check before you commit" },
+    { "say": "Finally, decide and record it: why this option, the top risks, what would make you reopen it, and the next steps. It's saved with the matrix.", "spot": "#bb-choice", "label": "Decide and record it" },
+    { "say": "Save it, share a link, or export it, or download the fillable PDF and spreadsheet versions. That's the tour.", "spot": ".sc-actions", "label": "Save, share, export" }
+  ]
+}

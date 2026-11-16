@@ -1,0 +1,14 @@
+{
+  "title": "AI Use Case Prioritization",
+  "page": "ai-use-cases.html",
+  "beats": [
+    { "say": "This is AI Use Case Prioritization. It helps you choose where AI is worth the effort first, and names the first pilot to run.", "spot": ".page-head", "top": true },
+    { "say": "Name your list, so you can find it later.", "spot": "#uc-title", "do": [["fill", "#uc-title", "Customer support AI ideas"]], "label": "Name it" },
+    { "say": "Every idea answers five questions: business value, data readiness, cost and effort, team readiness, and risk if it goes wrong. Each one is scored from one to five.", "spot": ".uc-guide", "label": "Five questions" },
+    { "say": "Add your ideas, one per row, as specific as you can. Fill in an example to see it work.", "spot": "#uc-table", "do": [["click", "[data-uc=example]"]], "label": "Score your ideas" },
+    { "say": "The map plots value against feasibility. Quick wins sit top right. Strategic bets are valuable but harder. A dashed ring flags high risk.", "spot": "#uc-matrix", "label": "Where they land" },
+    { "say": "Your plan ranks every idea with a next step, and Start here names the first pilot: one team, four to six weeks, and one number to judge it by.", "spot": "#uc-plan", "label": "Your plan" },
+    { "say": "Save it to your account, share a link, or export a CSV or PDF. Prefer a spreadsheet? There's an Excel version with the same math.", "spot": ".sc-actions", "label": "Save, share, export" },
+    { "say": "Score it with the people who'd use it, pilot one thing at a time, and re-run it after each pilot. That's the tour.", "spot": ".uc-tips", "label": "Make it stick" }
+  ]
+}

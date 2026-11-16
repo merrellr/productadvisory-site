@@ -1,0 +1,13 @@
+{
+  "title": "AI Readiness Checklist",
+  "page": "ai-readiness.html",
+  "beats": [
+    { "say": "This is the AI Readiness Checklist. It checks whether your team, data, tools and guardrails are ready for AI work, and gives you your next three moves.", "spot": ".page-head", "top": true },
+    { "say": "Name the check, for example by team and month.", "spot": "#rd-title", "do": [["fill", "#rd-title", "Support team, November"]], "label": "Name it" },
+    { "say": "Answer twenty-four statements in six areas, for your team as it is today: yes, partly, no, or not sure. Be honest: a no is more useful than a hopeful yes. Fill in an example to see it.", "spot": "#rd-areas", "do": [["click", "[data-rd=example]"]], "label": "1 · Answer the statements" },
+    { "say": "Where you are shows your readiness score and what it means.", "spot": "#rd-level", "label": "Where you are" },
+    { "say": "The AI adoption journey shows your stage, from starting with you to organization-wide capability, and a score for each area.", "spot": "#rd-journey", "label": "2 · Your journey" },
+    { "say": "Your next three moves come from the gaps in your weakest areas first, with what you said that led to each.", "spot": "#rd-moves", "label": "3 · Next three moves" },
+    { "say": "Save it, share a link, or export it, or download the Excel version. Answer it together, act on one move at a time, and re-run it each quarter. That's the tour.", "spot": ".sc-actions", "label": "Save, share, export" }
+  ]
+}
