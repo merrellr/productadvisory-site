@@ -28,6 +28,19 @@ machine, so there is no API key and no cost.
 
 For one-time setup (the model files and the fonts), see the top of `make_audio.py` and `make_video.py`.
 
+## Making it sound human
+
+`make_audio.py` rewrites each line before the voice reads it:
+- **Short forms** (AI, PM, PMs, KPIs, LLMs, UX, ROI, SaaS…) are in `LEX`, each with its sound written out. They're said
+  as one word with no gap; spelled with dots ("A.I.") the voice stops after every letter. Add any new short form there.
+- **Money**: "$500" is "500 dollars", "The $100 Staircase" is "the 100 dollar staircase".
+- **Years and times**: 2026 is "twenty twenty six", the 1980s "nineteen eighties"; 7:10 AM is "7 ten AM";
+  without AM/PM, 4:30 is a time taken ("4 minutes thirty").
+- **Units and symbols**: 512GB is "512 gigabytes", 24/7 "twenty four seven", A/B "A B", % "percent".
+
+To hear what will be said, run `python src/audio/make_audio.py --script <slug>`. Any change here narrates every
+article again the next time `make_audio.py` runs.
+
 ## Animated videos (storyboards)
 
 `make_video.py` makes a simple video for any article: its figures, with captions. For an animated one, write a
