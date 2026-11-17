@@ -12,7 +12,7 @@
    ================================================================ */
 (function () {
   "use strict";
-  var DEFAULTS = { style: "classic", accent: "", lens: "", depth: "full", text: "m", density: "comfortable", motion: "full" };
+  var DEFAULTS = { style: "classic", accent: "", lens: "", depth: "full", text: "m", density: "comfortable", motion: "full", format: "read" };
   var CHOICES = {
     style: ["classic", "editorial", "boardroom", "lab"],
     accent: ["", "cyan", "green", "blue", "plum", "coral", "gold"],
@@ -20,7 +20,8 @@
     depth: ["full", "brief"],
     text: ["s", "m", "l", "xl"],
     density: ["comfortable", "compact"],
-    motion: ["full", "reduced"]
+    motion: ["full", "reduced"],
+    format: ["read", "listen", "watch"]   // how they like Product+ articles: read, listen or watch
   };
   var MODES = ["light", "dark"];
   // Extra fonts, loaded only for the styles that use them.
@@ -78,7 +79,7 @@
     if (d) { try { document.cookie = LOOK + "=; Domain=" + d + "; Path=/; Max-Age=0; SameSite=Lax; Secure"; } catch (e) { /* ignore */ } }
     else set("localStorage", LOOK, null);
   }
-  var SHARED = ["style", "accent", "text", "density", "motion"];
+  var SHARED = ["style", "accent", "text", "density", "motion", "format"];
 
   /** The visitor's own saved choices. */
   function read() {

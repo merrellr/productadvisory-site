@@ -1354,6 +1354,11 @@ def book():
 
 
 # ---------------------------------------------------------------- preferences
+FORMAT_PICK = ('<div class="seg" role="radiogroup" aria-label="Read, listen or watch" data-pref="format">'
+               '<button type="button" role="radio" data-value="read">Read</button><button type="button" role="radio" data-value="listen">Listen</button>'
+               '<button type="button" role="radio" data-value="watch">Watch</button></div>')
+
+
 def preferences():
     def seg(key, label, opts):
         b = "".join(f'<button type="button" role="radio" data-value="{v}">{l}</button>' for v, l in opts)
@@ -1367,6 +1372,7 @@ def preferences():
     {block("Style", "Four complete looks, same content.", STYLE_PICKS)}
     {block("Accent", "The colour for highlights, labels and the dot.", ACCENTS)}
     {block("Where are you today?", "The site highlights the toolkits and first steps that fit you.", level_picker(True, "levels lens-picks"))}
+    {block("Read, listen or watch", "How you like Product+ articles. Insights open straight to the player or the video when there is one.", FORMAT_PICK)}
     {block("Reading depth", "Brief shows the one-line summaries. Full shows every detail.", seg("depth", "Reading depth", [("brief", "Brief"), ("full", "Full detail")]))}
     {block("Colour mode", "Follow your device, or choose.", seg("theme", "Colour mode", [("", "System"), ("light", "Light"), ("dark", "Dark")]))}
     {block("Text size", "Scales every word on the site.", seg("text", "Text size", [("s", '<span style="font-size:.8rem">Aa</span> Small'), ("m", '<span style="font-size:.95rem">Aa</span> Default'), ("l", '<span style="font-size:1.1rem">Aa</span> Large'), ("xl", '<span style="font-size:1.25rem">Aa</span> Larger')]))}
@@ -1390,7 +1396,7 @@ def preferences():
     </details>
   </div>
 </section>'''
-    write("preferences.html", page("preferences.html", "Make it yours", "Change how the Product Advisory site looks and reads: style, accent, your role, reading depth, colour mode, text size, density and motion.", body, noindex=True))
+    write("preferences.html", page("preferences.html", "Make it yours", "Change how the Product Advisory site looks and reads: style, accent, your role, read, listen or watch, reading depth, colour mode, text size, density and motion.", body, noindex=True))
 
 
 STYLE_PICKS = '<div class="style-picks" role="radiogroup" aria-label="Style" data-pref="style">' + "".join(
@@ -1525,7 +1531,8 @@ def insight_card(a):
     find = f' data-id="{a["slug"]}" data-find="{escape(finder_text(a), quote=True)}"'
     head = f'<div class="eyebrow">{a["topic"]}</div><h3>{escape(a["title"])}</h3><p>{escape(a["dek"])}</p>'
     if a.get("body"):
-        return (f'<a class="card insight cat-{c} reveal" data-cat="{c}"{find} href="/insights/{a["slug"]}">'
+        media = (' data-has-audio' if audio_meta(a) else '') + (' data-has-video' if YOUTUBE.get(a["slug"]) else '')   # for the Read / Listen / Watch preference
+        return (f'<a class="card insight cat-{c} reveal" data-cat="{c}"{find}{media} href="/insights/{a["slug"]}">'
                 f'<img src="assets/insights/{a["slug"]}/card.webp" alt="" width="800" height="450" loading="lazy">'
                 f'<div class="insight-body">{head}<small>{fmt_date(a["date"])}</small>{formats_html(a, audio_meta(a))}</div></a>')
     return (f'<a class="card insight text-only cat-{c} reveal" data-cat="{c}"{find} href="{a["linkedin"]}" {EXT} data-ask="{escape(a["title"])}" data-kind="Insight">'
@@ -1618,6 +1625,7 @@ def insights():
       '<svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="5" height="7" rx="2"/><rect x="16" y="13" width="5" height="7" rx="2"/></svg></span>'
       '<div><b>New: Product+ Audio.</b> Every article, read aloud, with chapters. Press play on any article, or follow along in your podcast app.</div>'
       + podcast_links_html() + '</aside>') if any(audio_meta(x) for x in full) else ""}
+    <div class="format-pick"><span>Open articles to</span>{FORMAT_PICK}<small>Saved in Make it yours.</small></div>
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ Newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>

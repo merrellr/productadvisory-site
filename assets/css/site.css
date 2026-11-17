@@ -1892,3 +1892,13 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .post-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .post-video figcaption { margin-top: 10px; color: var(--muted); font-size: .9rem; }
 @media print { .post-video { display: none; } }
+
+/* ---------- Read, listen or watch (a preference) ---------- */
+.format-pick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 18px; color: var(--muted); font-size: .92rem; }
+.format-pick > span { font-weight: 700; color: var(--ink); }
+.format-pick small { font-size: .8rem; color: var(--muted); }
+.fmts .fmt.pick { box-shadow: 0 0 0 2px var(--primary); }
+.fmts .fmt.pick::after { content: "Your pick"; margin-left: 8px; font-size: .68rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--primary); }
+.listen.nudge { animation: listen-nudge 1.3s ease-in-out 2; }
+@keyframes listen-nudge { 50% { box-shadow: 0 0 0 4px var(--cyan), 0 14px 34px rgba(18, 48, 94, .18); } }
+@media (prefers-reduced-motion: reduce) { .listen.nudge { animation: none; box-shadow: 0 0 0 3px var(--cyan); } }

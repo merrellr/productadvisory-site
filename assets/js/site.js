@@ -540,6 +540,34 @@
       });
     });
     applyLens(p.lens);
+    applyFormat(p.format);
+  }
+  /* Read, listen or watch: Insights cards open at the player or the video (Watch falls back to Listen when an
+     article has no video yet), and the preferred badge on an article is marked. */
+  function fmtTarget(el, f) {
+    if (f === "watch" && el.hasAttribute("data-has-video")) return "#video";
+    if ((f === "listen" || f === "watch") && el.hasAttribute("data-has-audio")) return "#listen";
+    return "";
+  }
+  function applyFormat(f) {
+    $$("a.insight[data-has-audio]").forEach(function (a) {
+      var base = a.getAttribute("data-href") || a.getAttribute("href");
+      a.setAttribute("data-href", base);
+      a.setAttribute("href", base + fmtTarget(a, f));
+    });
+    $$(".fmts .fmt").forEach(function (b) { b.classList.toggle("pick", f !== "read" && b.classList.contains("fmt-" + f)); });
+  }
+  /* On an article, a visitor who prefers to listen or watch lands on the player or the video. */
+  function initFormatLanding() {
+    var f = window.SitePrefs && window.SitePrefs.current().format;
+    var player = $("#listen.listen");
+    if (!f || f === "read" || !player || location.hash) return;
+    var video = $("#video"), target = f === "watch" && video ? video : player;
+    setTimeout(function () {
+      target.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      if (target === player) { player.classList.add("nudge"); setTimeout(function () { player.classList.remove("nudge"); }, 2600); }
+      track("format_landing", { format: f, to: target === player ? "listen" : "watch" });
+    }, 350);
   }
   /* Everything that reacts to the lens: start-here cards, toolkit highlights. */
   function applyLens(lens) {
@@ -1656,6 +1684,7 @@
     initListen();
     initFeedCopy();
     initGuide();
+    initFormatLanding();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();
