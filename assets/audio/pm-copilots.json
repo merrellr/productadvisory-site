@@ -1,7 +1,7 @@
 {
- "duration": 577.0,
- "bytes": 4617003,
- "hash": "578f1b0e5b56259e",
+ "duration": 575.7,
+ "bytes": 4606631,
+ "hash": "f8a2780bb26cf30f",
  "voice": "am_michael",
  "chapters": [
   [
@@ -9,31 +9,31 @@
    "Introduction"
   ],
   [
-   93.86,
+   94.01,
    "Why internal AI tools deserve product rigor, not IT rigor"
   ],
   [
-   163.24,
+   162.87,
    "Discovery: find the work worth automating, not the work that looks impressive"
   ],
   [
-   247.54,
+   247.37,
    "Pilot: small, real, and closely watched"
   ],
   [
-   315.2,
+   315.03,
    "Feedback: listen for corrections, not compliments"
   ],
   [
-   379.58,
+   379.17,
    "Iteration: earn the next stage of rollout"
   ],
   [
-   420.56,
+   420.16,
    "Adoption: measure it like the product it is"
   ],
   [
-   499.97,
+   498.64,
    "The mindset shift"
   ]
  ]

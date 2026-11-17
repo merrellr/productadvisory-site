@@ -1753,7 +1753,7 @@ def video_embed(a):
     v = video_data(a)
     if not v:
         return ""
-    return (f'<figure class="post-video" id="video" data-video="{escape(json.dumps(v), quote=True)}"><div class="post-video-frame">'
+    return (f'<figure class="post-video media-panel" id="video" data-video="{escape(json.dumps(v), quote=True)}"><div class="post-video-frame">'
             f'<a class="vfacade" href="https://youtu.be/{v["id"]}" {EXT} aria-label="Play the video: {escape(a["title"])}">'
             f'<img src="{v["thumb"]}" alt="" width="960" height="540" loading="lazy"><span class="vplay" aria-hidden="true"></span>'
             f'<span class="vlen">{v["mins"]} min</span></a></div>'
@@ -1803,8 +1803,10 @@ def formats_html(a, m, linked=False):
     if YOUTUBE.get(a["slug"]):
         items.append(("watch", "Watch", f"{listen_minutes(m)} min" if m else "video", "#video"))
     if linked:
+        # Listen and Watch open the player or the video in place (closed until then, to keep the page quiet): site.js initMediaToggles
+        ctl = {"listen": ' data-open="listen" aria-controls="listen" aria-expanded="false"', "watch": ' data-open="video" aria-controls="video" aria-expanded="false"'}
         return ('<div class="fmts" aria-label="Ways to take in this article">' + "".join(
-            f'<a class="fmt fmt-{k}" href="{h}"{" data-listen-start" if k == "listen" else ""}>{fmt_icon(k)}<b>{lab}</b><span>{sub}</span></a>'
+            f'<a class="fmt fmt-{k}" href="{h}"{ctl.get(k, "")}>{fmt_icon(k)}<b>{lab}</b><span>{sub}</span></a>'
             for k, lab, sub, h in items) + '</div>')
     return ('<span class="fmts">' + "".join(
         f'<span class="fmt fmt-{k}" title="{lab}: {sub}" data-go="{h}">{fmt_icon(k)}<b>{lab}</b><span class="fmt-sub">{sub}</span></span>' for k, lab, sub, h in items)
@@ -1835,7 +1837,7 @@ def audio_player(a, m):
     ra = ico('<path d="M4 6h10M4 10h16M4 14h12M4 18h8"/>')
     links = "".join(f'<a href="{u}" {EXT}>{escape(t)}</a>' for t, u in PODCAST_LINKS)
     read_along = read_along_times(a) is not None
-    return (f'<section class="listen" id="listen" data-listen data-slug="{a["slug"]}" data-title="{escape(a["title"])}" aria-label="Listen to this article">'
+    return (f'<section class="listen media-panel" id="listen" data-listen data-slug="{a["slug"]}" data-title="{escape(a["title"])}" aria-label="Listen to this article">'
             f'<audio preload="none" src="{mp3}"></audio>'
             f'<div class="listen-head">'
             f'<button type="button" class="listen-play" aria-label="Play the article">{play}</button>'
@@ -2024,15 +2026,26 @@ def article_page(a, full):
     more = [x for x in full if x is not a][:3]
     draft = ('<div class="draft-note" role="note"><b>Draft preview.</b> Not published: this page isn\'t listed on the site or shown to search engines. '
              'To publish, remove <code>"draft": True</code> from this article in src/insights.py.</div>') if a.get("draft") else ""
-    body = f'''{draft}<article class="post">
+    import re as _re
+    toc = "".join(f'<li><a href="#{_re.sub(r"[^a-z0-9]+", "-", plain(b[1]).lower()).strip("-")}">{escape(plain(b[1]))}</a></li>'
+                  for b in a.get("body", []) if b[0] == "h2")
+    # The left rail (wide screens): back to Insights, the article's sections and the tour. On narrower screens it's
+    # a single row above the title (the sections list is hidden there). site.js initPostRail marks the section you're in.
+    rail = (f'<aside class="post-rail" aria-label="About this article"><div class="post-rail-in">'
+            f'<a class="link-back" href="insights.html">← All insights</a>'
+            + (f'<nav class="post-toc" aria-label="In this article"><h2>In this article</h2><ol>{toc}</ol></nav>' if toc else "")
+            + (tour_link("article", "How this page works", small=True) + '<button type="button" hidden data-open-quiet="listen"></button>' if m else "") + '</div></aside>')
+    body = f'''{draft}<noscript><style>.media-panel{{display:block!important}}</style></noscript><article class="post">
+ <div class="post-grid">
+  {rail}
+  <div class="post-main">
   <header class="post-head">
     <div class="wrap narrow">
-      <a class="link-back" href="insights.html">← All insights</a>
       <div class="eyebrow cat-{category(a)}"><a class="eyebrow-link" href="/insights?topic={category(a)}">{a["topic"]}</a> · Product+</div>
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
       <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated}</p>
-      {formats_html(a, m, linked=True)}{tour_link("article", "How this page works", small=True) if m else ""}
+      {formats_html(a, m, linked=True)}
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
@@ -2051,6 +2064,8 @@ def article_page(a, full):
       <p class="post-call">Want to talk it through? <a href="{BOOK}">Book a free 30-minute call</a>.</p>
     </aside>
   </div>
+  </div>
+ </div>
 </article>
 <section class="band">
   <div class="wrap">

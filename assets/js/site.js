@@ -565,7 +565,7 @@
     if (!f || f === "read" || !player || location.hash) return;
     var video = $("#video"), target = f === "watch" && video ? video : player;
     setTimeout(function () {
-      target.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      openPanel(target === player ? "listen" : "video", { play: false });
       if (target === player) { player.classList.add("nudge"); setTimeout(function () { player.classList.remove("nudge"); }, 2600); }
       track("format_landing", { format: f, to: target === player ? "listen" : "watch" });
     }, 350);
@@ -1853,10 +1853,67 @@
     $$(".sec-watch[data-vt]").forEach(function (a) {
       a.addEventListener("click", function (e) {
         e.preventDefault();
-        fig.scrollIntoView({ block: "center", behavior: reducedMotion() ? "auto" : "smooth" });
+        openPanel("video", { scroll: true });
         start(+a.getAttribute("data-vt"), "article_section");
       });
     });
+  }
+
+  /* ---------- article: Listen and Watch open in place ----------
+     The player and the video stay closed until someone presses Listen or Watch under the title (or arrives at #listen
+     or #video, or prefers to listen or watch). Pressing it again closes it. Opening Listen starts the audio; opening
+     Watch starts the video. "Watch this section" links appear once the video is open. */
+  function openPanel(which, opts) {
+    opts = opts || {};
+    var panel = $(which === "video" ? "#video.media-panel" : "#listen.media-panel");
+    if (!panel) return false;
+    panel.classList.add("open");
+    $$('.fmts [data-open="' + which + '"]').forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
+    if (which === "video") document.documentElement.classList.add("video-open");
+    if (opts.scroll !== false) setTimeout(function () { panel.scrollIntoView({ block: "center", behavior: reducedMotion() ? "auto" : "smooth" }); }, 30);
+    if (opts.play) {
+      if (which === "listen") { var p = $(".listen-play", panel); if (p && !panel.classList.contains("playing")) p.click(); }
+      else { var f = $(".vfacade", panel); if (f) f.click(); }
+    }
+    return true;
+  }
+  function closePanel(which) {
+    var panel = $(which === "video" ? "#video.media-panel" : "#listen.media-panel");
+    if (!panel) return;
+    if (which === "listen") { var a = $("audio", panel); if (a && !a.paused) a.pause(); }
+    else { players.forEach(function (p) { try { p.pauseVideo(); } catch (e) {} }); document.documentElement.classList.remove("video-open"); }
+    panel.classList.remove("open");
+    $$('.fmts [data-open="' + which + '"]').forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
+  }
+  function initMediaToggles() {
+    $$(".fmts [data-open]").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        var which = b.getAttribute("data-open");
+        if (b.getAttribute("aria-expanded") === "true") { closePanel(which); track("media_close", { format: which }); return; }
+        openPanel(which, { play: true });
+        track("media_open", { format: which });
+      });
+    });
+    $$("[data-open-quiet]").forEach(function (b) {   // the tour opens the player without playing it
+      b.addEventListener("click", function () { openPanel(b.getAttribute("data-open-quiet"), { scroll: false }); });
+    });
+    var h = location.hash;
+    if (h === "#listen" || h === "#video") openPanel(h === "#video" ? "video" : "listen", { play: false });
+  }
+  /* The rail's "In this article" marks the section on screen. */
+  function initPostRail() {
+    var links = $$(".post-toc a");
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    var secs = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+    var mark = function () {
+      var cur = null;
+      secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < window.innerHeight * 0.35) cur = i; });
+      links.forEach(function (a, i) { if (i === cur) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+    };
+    var ticking = false;
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; mark(); }); } }, { passive: true });
+    mark();
   }
 
   /* ---------- go ---------- */
@@ -1879,6 +1936,8 @@
     initFigureZoom();
     initListen();
     initVideos();
+    initMediaToggles();
+    initPostRail();
     initFeedCopy();
     initGuide();
     initFormatLanding();

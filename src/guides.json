@@ -301,14 +301,20 @@
     "title": "this article",
     "steps": [
       {
+        "s": ".post-rail-in",
+        "t": "Find your way",
+        "p": "Back to all insights, and on wide screens the article's sections: click one to jump to it."
+      },
+      {
         "s": ".fmts",
         "t": "Read, listen or watch",
-        "p": "Every Product+ article comes as text and audio, and some as a video. These jump straight to each."
+        "p": "Every Product+ article comes as text and audio, and some as a video. Listen and Watch open the player right here; press again to close it."
       },
       {
         "s": ".listen-play",
         "t": "Listen",
-        "p": "Press play to hear the article read aloud. It keeps playing in a small bar at the bottom as you scroll."
+        "p": "Press play to hear the article read aloud. It keeps playing in a small bar at the bottom as you scroll.",
+        "act": "[data-open-quiet=\"listen\"]"
       },
       {
         "s": ".listen-segs",
