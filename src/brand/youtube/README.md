@@ -8,3 +8,6 @@
   files first (`Lato-Regular.ttf`, `Lato-Bold.ttf`, `Lato-Black.ttf`, `Comfortaa.ttf`), run `node render.cjs`,
   then shrink `mark-800.png` to 150 x 150 for the watermark.
 - `Product-Advisory-Insights-channel-description.txt`: the channel description (under YouTube's 1,000 characters).
+- `thumb.html` + `render-thumbs.cjs`: a 1280 x 720 thumbnail for every video, with the words from `videos.json`
+  (`node render-thumbs.cjs <out-folder> [slug ...]`, fonts in `fonts/` as above).
+- `videos.json`: each video's thumbnail words and its tags (make_video.py reads the tags).

@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: Lato; font-weight: 700; src: url(fonts/Lato-Bold.ttf); }
+  @font-face { font-family: Lato; font-weight: 900; src: url(fonts/Lato-Black.ttf); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 720px; overflow: hidden; font-family: Lato, sans-serif; }
+  #bg { position: absolute; inset: 0; background: radial-gradient(900px 600px at 78% 22%, #1d4a8f 0%, rgba(29,74,143,0) 62%), linear-gradient(160deg, #12305e 0%, #0b1f40 72%); }
+  #dots { position: absolute; inset: 0; opacity: .16; background-image: radial-gradient(#5f86c9 2px, transparent 2.4px); background-size: 48px 48px; }
+  /* bars on the right, echoing the videos' charts */
+  #art { position: absolute; right: 70px; bottom: 0; opacity: .35; }
+  #text { position: absolute; left: 80px; top: 30px; bottom: 130px; width: 1000px; display: flex; flex-direction: column; justify-content: center; }
+  .kicker { display: inline-block; align-self: flex-start; background: #35c2e8; color: #0b1f40; font-weight: 900; font-size: 34px; letter-spacing: .06em; text-transform: uppercase; padding: 10px 22px; border-radius: 12px; }
+  .big { margin-top: 28px; color: #fff; font-weight: 900; line-height: 1.02; letter-spacing: -.01em; text-shadow: 0 6px 24px rgba(0,0,0,.35); }
+  .big em { font-style: normal; color: #35c2e8; }
+  .brand { position: absolute; left: 80px; bottom: 50px; display: flex; align-items: center; gap: 18px; color: #e4ecf8; font-weight: 700; font-size: 32px; }
+  .mark { width: 64px; height: 64px; border-radius: 14px; background: #fff; color: #12305e; font-weight: 900; font-size: 40px; display: flex; align-items: center; justify-content: center; }
+  .mark span { color: #1aa3cc; }
+</style></head>
+<body>
+<div id="bg"></div><div id="dots"></div>
+<svg id="art" width="300" height="560" viewBox="0 0 300 560"><g fill="#35c2e8">
+  <rect x="0" y="400" width="56" height="160" rx="10"/><rect x="80" y="300" width="56" height="260" rx="10"/><rect x="160" y="190" width="56" height="370" rx="10"/></g>
+  <rect x="240" y="40" width="56" height="520" rx="10" fill="#f08a3c"/></svg>
+<div id="text"><div class="kicker" id="k"></div><div class="big" id="b"></div></div>
+<div class="brand"><div class="mark">P<span>+</span></div>Product Advisory Insights</div>
+<script>
+  // ?big=...&hi=...&kicker=...
+  const q = new URLSearchParams(location.search), big = q.get('big') || '', hi = q.get('hi') || '';
+  document.getElementById('k').textContent = q.get('kicker') || '';
+  const b = document.getElementById('b'), esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
+  b.innerHTML = hi && big.includes(hi) ? esc(big).replace(esc(hi), '<em>' + esc(hi) + '</em>') : esc(big);
+  // biggest size that fits in three lines
+  for (let z = 150; z >= 70; z -= 4) { b.style.fontSize = z + 'px'; if (b.scrollWidth <= 1000 && b.offsetHeight <= Math.min(z * 1.02 * 3 + 4, 440)) break; }
+</script>
+</body></html>

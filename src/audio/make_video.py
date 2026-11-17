@@ -186,6 +186,12 @@ def clock(sec):
     return f"{sec // 3600}:{sec % 3600 // 60:02d}:{sec % 60:02d}" if sec >= 3600 else f"{sec // 60}:{sec % 60:02d}"
 
 
+def video_tags(a):
+    """The video's tags as phrases, from src/brand/youtube/videos.json (falls back to the article's keywords)."""
+    extra = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'brand', 'youtube', 'videos.json'))).get(a['slug'], {})
+    return list(dict.fromkeys(extra.get('tags') or a.get('keywords', '').split()) | dict.fromkeys(['Product Advisory', 'Product+']))
+
+
 def youtube_text(a, meta):
     chapters = '\n'.join(f"{clock(t)} {name}" for t, name in meta['chapters'])
     return f"""TITLE
@@ -203,7 +209,7 @@ Product+ Audio: every Product+ article from Product Advisory, read aloud. Narrat
 Book a free 30-minute call: {SITE}book
 
 TAGS
-{', '.join(dict.fromkeys(['product management', 'Product Advisory'] + a.get('keywords', '').split()))}
+{', '.join(video_tags(a))}
 """
 
 
