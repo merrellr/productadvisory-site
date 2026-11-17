@@ -1,0 +1,20 @@
+{
+  "_about": "Each article's YouTube video. Paste the video's link (any form: youtube.com/watch?v=..., youtu.be/..., shorts or embed links, or just the id) next to its article, then run python3 src/build.py. The Watch badge and the video player then appear on the article, on Insights cards, and on Learning's Listen & watch page. Leave \"\" for no video.",
+  "367-listener": "",
+  "100-staircase": "",
+  "150-hot-dog": "",
+  "five-second-test": "",
+  "rice-vs-weighted-scoring": "",
+  "squad-of-agents": "",
+  "healthcare-saas-pitfalls": "",
+  "roadmaps-to-rituals": "",
+  "ai-accessibility": "",
+  "pm-copilots": "",
+  "ai-is-a-practice": "",
+  "product-focused-ai-agents": "",
+  "feature-fallacy": "",
+  "beyond-automation": "",
+  "day-in-the-life": "",
+  "discovery-with-ai-agents": "",
+  "stop-enabling-individuals": ""
+}

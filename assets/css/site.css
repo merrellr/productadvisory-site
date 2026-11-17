@@ -1885,3 +1885,10 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .ep-list span { color: var(--muted); font-size: .88rem; }
 @media (max-width: 560px) { .how-step ol { padding-left: 40px; } .feed-row { flex-direction: column; } }
 
+
+/* ---------- an article's video (YouTube, from src/youtube.json) ---------- */
+.post-video { margin: 28px 0 32px; scroll-margin-top: 90px; }
+.post-video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #0b1f40; box-shadow: 0 14px 34px rgba(18, 48, 94, .16); }
+.post-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.post-video figcaption { margin-top: 10px; color: var(--muted); font-size: .9rem; }
+@media print { .post-video { display: none; } }

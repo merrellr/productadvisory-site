@@ -8,6 +8,7 @@ Edit the content here (build.py for the pages, parts.py for the header, footer a
 and packages, legal.py for the privacy policy and terms, art.py for the page-head illustrations), then rebuild and
 commit both the source and the pages. Styles and scripts live in assets/ and are not generated."""
 import json
+import re
 import math
 import os
 import sys
@@ -1651,8 +1652,18 @@ PODCAST_TITLE = "Product+ Audio"
 PODCAST_DESC = ("Every Product+ article from Product Advisory, read aloud. Product strategy, pricing, AI agents and AI enablement "
                 "for product managers and the leaders who work with them.")
 PODCAST_LINKS = [("Spotify", "https://open.spotify.com/show/08s0KLGXnK1jcJmVGRYkTs")]   # [(label, url)]; add ("Apple Podcasts", "https://podcasts.apple.com/...") once listed
-# The YouTube video for an article (src/audio/make_video.py makes it): slug -> video id, the part after "watch?v=".
-YOUTUBE = {}
+# Each article's YouTube video, from src/youtube.json (paste any YouTube link there): slug -> video id.
+def youtube_id(v):
+    """The 11-character video id from a YouTube link of any form (watch?v=, youtu.be/, shorts/, embed/, live/) or a bare id."""
+    v = (v or "").strip()
+    m = re.search(r"(?:v=|youtu\.be/|/shorts/|/embed/|/live/)([A-Za-z0-9_-]{11})", v) or re.fullmatch(r"([A-Za-z0-9_-]{11})", v)
+    if v and not m:
+        raise SystemExit(f"src/youtube.json: not a YouTube link or id: {v!r}")
+    return m.group(1) if m else ""
+
+
+with open(os.path.join(ROOT, "src", "youtube.json")) as _f:
+    YOUTUBE = {k: youtube_id(v) for k, v in json.load(_f).items() if not k.startswith("_") and youtube_id(v)}
 # Which Product Advisory Learning skill areas each article goes deeper on (Learning's "Listen & watch" page links to those courses).
 LEARNING_AREAS = {
     "rice-vs-weighted-scoring": ["prioritization"], "day-in-the-life": ["aiIndividual"], "stop-enabling-individuals": ["aiOrg"],
@@ -1936,6 +1947,13 @@ def article_page(a, full):
     if m:
         art["audio"] = {"@type": "AudioObject", "name": a["title"], "contentUrl": f"{SITE}assets/audio/{a['slug']}.mp3",
                         "encodingFormat": "audio/mpeg", "duration": f"PT{int(m['duration']) // 60}M{int(m['duration']) % 60}S"}
+    if YOUTUBE.get(a["slug"]):   # so search engines can show the video with the article
+        vid = YOUTUBE[a["slug"]]
+        art["video"] = {"@type": "VideoObject", "name": a["title"], "description": a["dek"], "uploadDate": a["date"],
+                        "thumbnailUrl": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg", "embedUrl": f"https://www.youtube-nocookie.com/embed/{vid}",
+                        "contentUrl": f"https://www.youtube.com/watch?v={vid}"}
+        if m:
+            art["video"]["duration"] = art["audio"]["duration"]
     head_ld = ld(art, *([faq_ld(a["faq"])] if a.get("faq") else []), crumbs=[("Insights", "insights"), (a["title"], f"insights/{a['slug']}")])
     takeaways = (f'<aside class="takeaways cat-{category(a)}" aria-labelledby="tk-{a["slug"]}"><h2 id="tk-{a["slug"]}">Key takeaways</h2>'
                  f'<ul>{"".join(f"<li>{escape(t)}</li>" for t in a["takeaways"])}</ul></aside>') if a.get("takeaways") else ""
