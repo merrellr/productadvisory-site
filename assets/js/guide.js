@@ -26,6 +26,12 @@
     ".guide-pop .g-n{border-color:#1c4587;background:#1c4587;color:#fff}" +
     ".guide-btn.guide-sm{margin:12px 0 0;padding:4px 14px 4px 4px;gap:8px;box-shadow:none}.guide-sm .guide-ico{width:28px;height:28px}.guide-sm .guide-ico svg{width:15px;height:15px}.guide-sm b{font-size:.85rem}" +
     "html.guide-on [class*=toast]{visibility:hidden!important}" +
+    /* once someone has taken a page's tour, its button steps back: a quiet "Replay the tour" link (Learning hides it and
+       keeps it under Help) */
+    ".guide-btn.guide-taken{margin:6px 0;padding:2px 8px 2px 2px;gap:6px;border-color:transparent;background:none;box-shadow:none}" +
+    ".guide-btn.guide-taken:hover{border-color:var(--line,#e3e9f0);transform:none}" +
+    ".guide-taken .guide-ico{width:24px;height:24px;background:none;color:var(--muted,var(--ink-soft,#5a6678));border:1.5px solid currentColor}.guide-taken .guide-ico svg{width:13px;height:13px}" +
+    ".guide-taken b{font-size:.82rem;font-weight:600;color:var(--muted,var(--ink-soft,#5a6678))}.guide-taken small{display:none}" +
     "html.pa-embed .guide-btn{display:none}@media print{.guide-btn{display:none!important}}" +
     "@media (prefers-reduced-motion:reduce){.guide-hole,.guide-pop{transition:none}}";
 
@@ -132,14 +138,42 @@
     window.addEventListener("scroll", later, true); window.addEventListener("resize", later);
     document.addEventListener("keydown", key, true);
     track("tour_open");
+    taken(tid, true);
     go(0, 1);
   }
+
+  // Which tours this visitor has taken (this browser only): their buttons step back on the next visit.
+  var TAKEN = "pa-tours-taken";
+  function taken(id, add) {
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(TAKEN) || "[]") || []; } catch (e) { /* storage off */ }
+    if (!add) return !!id && list.indexOf(id) > -1;
+    if (id && list.indexOf(id) < 0) { list.push(id); try { localStorage.setItem(TAKEN, JSON.stringify(list)); } catch (e) { /* storage off */ } }
+    return true;
+  }
+  // For a Help menu or a search box: start this page's tour (the first one on the page), or say there isn't one.
+  window.PATour = {
+    available: function () { return !!document.querySelector("[data-guide]"); },
+    start: function (id) {
+      var b = document.querySelector(id ? '[data-guide][data-tour="' + id + '"]' : "[data-guide]");
+      if (!b) return false;
+      start(b);
+      return true;
+    }
+  };
 
   function init() {
     var btns = document.querySelectorAll("[data-guide]");
     if (!btns.length) return;
     var style = document.createElement("style"); style.textContent = CSS; document.head.appendChild(style);
-    Array.prototype.forEach.call(btns, function (b) { b.addEventListener("click", function () { start(b); }); });
+    Array.prototype.forEach.call(btns, function (b) {
+      b.addEventListener("click", function () { start(b); });
+      if (taken(b.getAttribute("data-tour"))) {
+        b.classList.add("guide-taken");
+        var label = b.querySelector("b");
+        if (label) { b.setAttribute("data-label", label.textContent); label.textContent = "Replay the tour"; }
+      }
+    });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
