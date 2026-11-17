@@ -1,7 +1,7 @@
 {
- "duration": 693.5,
- "bytes": 5548773,
- "hash": "0912999fff54245f",
+ "duration": 689.6,
+ "bytes": 5517475,
+ "hash": "af0e7c85e2b1ce64",
  "voice": "am_michael",
  "chapters": [
   [
@@ -9,43 +9,43 @@
    "Introduction"
   ],
   [
-   70.98,
+   70.38,
    "Why one chatbot fails in real product work"
   ],
   [
-   126.49,
+   125.89,
    "The core concept: design agents like roles on a team"
   ],
   [
-   162.21,
+   161.21,
    "Step 1: Start with workflows, not models"
   ],
   [
-   219.31,
+   218.31,
    "Step 2: Define the squad roles and handoffs"
   ],
   [
-   401.3,
+   400.3,
    "Step 3: Scope the MVP squad"
   ],
   [
-   456.99,
+   455.29,
    "Step 4: Prioritize agents with a simple scoring model"
   ],
   [
-   512.06,
+   509.13,
    "Step 5: Plug the squad into your existing product org"
   ],
   [
-   558.78,
+   555.79,
    "Step 6: Evaluate each agent like a product"
   ],
   [
-   614.17,
+   610.8,
    "What changes for the PM"
   ],
   [
-   650.29,
+   646.84,
    "A simple starting plan you can run next week"
   ]
  ]

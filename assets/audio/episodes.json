@@ -50,7 +50,8 @@
    "areas": [
     "strategy"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "367-listener",
@@ -101,7 +102,8 @@
    "areas": [
     "strategy"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "rice-vs-weighted-scoring",
@@ -144,7 +146,8 @@
    "areas": [
     "prioritization"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "150-hot-dog",
@@ -195,7 +198,8 @@
    "areas": [
     "strategy"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "100-staircase",
@@ -246,7 +250,8 @@
    "areas": [
     "strategy"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "day-in-the-life",
@@ -301,7 +306,8 @@
    "areas": [
     "aiIndividual"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "stop-enabling-individuals",
@@ -336,7 +342,8 @@
    "areas": [
     "aiOrg"
    ],
-   "youtube": "Idmz_bX5itQ"
+   "youtube": "Idmz_bX5itQ",
+   "thumb": "https://www.productadvisory.co/assets/video/stop-enabling-individuals.webp"
   },
   {
    "slug": "pm-copilots",
@@ -383,7 +390,8 @@
    "areas": [
     "aiOrg"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "ai-is-a-practice",
@@ -418,7 +426,8 @@
    "areas": [
     "aiOrg"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "healthcare-saas-pitfalls",
@@ -482,7 +491,8 @@
     "discovery",
     "execution"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "discovery-with-ai-agents",
@@ -530,7 +540,8 @@
     "discovery",
     "aiIndividual"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "ai-accessibility",
@@ -573,7 +584,8 @@
    "areas": [
     "aiIndividual"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "squad-of-agents",
@@ -581,7 +593,7 @@
    "dek": "Specialized agents with clear roles, inputs and success criteria beat one general-purpose assistant. Here's how a PM scopes, designs and prioritizes the squad.",
    "topic": "AI agents",
    "date": "2026-04-06",
-   "duration": 693.5,
+   "duration": 689.6,
    "audio": "https://www.productadvisory.co/assets/audio/squad-of-agents.mp3",
    "chapters": [
     [
@@ -589,43 +601,43 @@
      "Introduction"
     ],
     [
-     70.98,
+     70.38,
      "Why one chatbot fails in real product work"
     ],
     [
-     126.49,
+     125.89,
      "The core concept: design agents like roles on a team"
     ],
     [
-     162.21,
+     161.21,
      "Step 1: Start with workflows, not models"
     ],
     [
-     219.31,
+     218.31,
      "Step 2: Define the squad roles and handoffs"
     ],
     [
-     401.3,
+     400.3,
      "Step 3: Scope the MVP squad"
     ],
     [
-     456.99,
+     455.29,
      "Step 4: Prioritize agents with a simple scoring model"
     ],
     [
-     512.06,
+     509.13,
      "Step 5: Plug the squad into your existing product org"
     ],
     [
-     558.78,
+     555.79,
      "Step 6: Evaluate each agent like a product"
     ],
     [
-     614.17,
+     610.8,
      "What changes for the PM"
     ],
     [
-     650.29,
+     646.84,
      "A simple starting plan you can run next week"
     ]
    ],
@@ -633,7 +645,8 @@
     "aiIndividual",
     "aiOrg"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "beyond-automation",
@@ -677,7 +690,8 @@
     "discovery",
     "stakeholder"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "roadmaps-to-rituals",
@@ -729,7 +743,8 @@
     "execution",
     "aiIndividual"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "product-focused-ai-agents",
@@ -772,7 +787,8 @@
    "areas": [
     "aiIndividual"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   },
   {
    "slug": "feature-fallacy",
@@ -820,7 +836,8 @@
     "strategy",
     "discovery"
    ],
-   "youtube": ""
+   "youtube": "",
+   "thumb": ""
   }
  ]
 }

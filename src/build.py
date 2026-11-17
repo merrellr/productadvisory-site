@@ -1713,7 +1713,8 @@ def episodes_json():
         if m:
             eps.append({"slug": a["slug"], "title": a["title"], "dek": a["dek"], "topic": a["topic"], "date": a["date"],
                         "duration": m["duration"], "audio": f"{SITE}assets/audio/{a['slug']}.mp3", "chapters": m["chapters"],
-                        "areas": LEARNING_AREAS.get(a["slug"], []), "youtube": YOUTUBE.get(a["slug"], "")})
+                        "areas": LEARNING_AREAS.get(a["slug"], []), "youtube": YOUTUBE.get(a["slug"], ""),
+                        "thumb": (SITE + video_data(a)["thumb"].lstrip("/")) if YOUTUBE.get(a["slug"]) and video_data(a)["thumb"].startswith("/") else ""})
     os.makedirs(os.path.join(OUT, "assets", "audio"), exist_ok=True)
     with open(os.path.join(OUT, "assets", "audio", "episodes.json"), "w") as f:
         json.dump({"title": PODCAST_TITLE, "episodes": eps}, f, indent=1, ensure_ascii=False)
