@@ -115,14 +115,19 @@ const ff = spawn('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'image2pipe', '-fr
   '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', outPath], { stdio: ['pipe', 'inherit', 'inherit'] });
 const frames = Math.ceil((to - from) * fps);
 const t0 = Date.now();
-for (let f = 0; f < frames; f++) {
+// ffmpeg stops at the end of the narration (-shortest), which can be a few frames before the last one we'd send;
+// once it has, stop drawing, or the next write would wait forever for room in the pipe
+let ffDone = false;
+const ffClosed = new Promise(r => ff.on('close', () => { ffDone = true; r(); }));
+ff.stdin.on('error', () => {});
+for (let f = 0; f < frames && !ffDone; f++) {
   const t = from + f / fps;
   await page.evaluate((x) => window.draw(x), t);
   const jpg = await page.screenshot({ type: 'jpeg', quality: 90 });
-  if (!ff.stdin.write(jpg)) await new Promise(r => ff.stdin.once('drain', r));
+  if (!ff.stdin.write(jpg)) await Promise.race([new Promise(r => ff.stdin.once('drain', r)), ffClosed]);
   if (f % (fps * 30) === 0) console.log('frame', f, 'of', frames, '(' + Math.round((Date.now() - t0) / 1000) + 's)');
 }
 ff.stdin.end();
-await new Promise(r => ff.on('close', r));
+await ffClosed;
 await browser.close();
 console.log('wrote', outPath, frames, 'frames in', Math.round((Date.now() - t0) / 1000), 's');
