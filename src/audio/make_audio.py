@@ -2,7 +2,7 @@
 
 Uses Kokoro (an open-source voice model, run locally, no cost, no API key), voice "am_michael".
 Writes, for each article with a body:
-    assets/audio/<slug>.mp3    64 kbps mono, with ID3 title/artist tags
+    assets/audio/<slug>.mp3    128 kbps mono, 44.1 kHz, with the "crisp" finishing pass (FX) and ID3 title/artist tags
     assets/audio/lines/<slug>.json  [[start, end, text], ...] every spoken line, for video captions
     assets/audio/<slug>.json   {"duration": seconds, "bytes": n, "hash": "...", "chapters": [[seconds, title], ...]}
 build.py reads the JSON to add the player to the article page and the episode to podcast.xml.
@@ -24,6 +24,13 @@ sys.path.insert(0, os.path.join(ROOT, 'src'))
 import insights  # noqa: E402
 
 VOICE, SPEED, RATE = 'am_michael', 1.0, 24000
+# The finishing pass ("crisp"): trims rumble below 75 Hz, takes a little mud out at 250 Hz, lifts the presence range
+# where consonants sit (3.8 kHz) and the air above 9 kHz, softens harsh s's, evens out the level, and brings it to
+# podcast loudness (-16 LUFS, peaks under -1.5 dB). Saved as 128 kbps at 44.1 kHz. Timing is unchanged, so the
+# chapters and read-along line up as before. Change it here and every article is narrated again.
+FX = ('aresample=44100:resampler=soxr,highpass=f=75,equalizer=f=250:t=q:w=1.2:g=-2.5,equalizer=f=3800:t=q:w=1.4:g=3,'
+      'highshelf=f=9000:g=2,deesser=i=0.35,acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,'
+      'loudnorm=I=-16:TP=-1.5:LRA=9')
 OUT = os.path.join(ROOT, 'assets', 'audio')
 
 # Words the voice gets wrong as written.
@@ -147,7 +154,7 @@ def script(a):
 
 
 def script_hash(sc):
-    return hashlib.sha256(json.dumps([VOICE, SPEED, LEX, [x[:2] for x in sc]]).encode()).hexdigest()[:16]
+    return hashlib.sha256(json.dumps([VOICE, SPEED, LEX, FX, [x[:2] for x in sc]]).encode()).hexdigest()[:16]
 
 
 def phonemes(kokoro, text):
@@ -190,7 +197,7 @@ def to_mp3(audio, path, title, sf):
     with tempfile.TemporaryDirectory() as d:
         wav = os.path.join(d, 'a.wav')
         sf.write(wav, audio, RATE)
-        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', wav, '-ac', '1', '-codec:a', 'libmp3lame', '-b:a', '64k',
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', wav, '-af', FX, '-ac', '1', '-ar', '44100', '-codec:a', 'libmp3lame', '-b:a', '128k',
                         '-map_metadata', '-1', '-fflags', '+bitexact', '-flags:a', '+bitexact',
                         '-metadata', 'title=' + title, '-metadata', 'artist=Product Advisory', '-metadata', 'album=Product+ Audio',
                         path], check=True)

@@ -7,7 +7,7 @@ machine, so there is no API key and no cost.
 
 | File | What it is | Where it goes |
 |---|---|---|
-| `assets/audio/<slug>.mp3` | the narration, 64 kbps mono | committed; the article page plays it, and so does the podcast feed |
+| `assets/audio/<slug>.mp3` | the narration, 128 kbps mono, with the crisp finishing pass (FX in make_audio.py) | committed; the article page plays it, and so does the podcast feed |
 | `assets/audio/<slug>.json` | its length, size and chapters | committed; `build.py` reads it |
 | `assets/audio/lines/<slug>.json` | when each line is spoken | committed; the video captions use it |
 | `podcast.xml` | the podcast feed, built by `build.py` | committed; Apple Podcasts, Spotify and other apps read it |
