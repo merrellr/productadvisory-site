@@ -1,7 +1,7 @@
 {
- "duration": 810.4,
- "bytes": 6484007,
- "hash": "240a560cdb35175a",
+ "duration": 810.3,
+ "bytes": 6482855,
+ "hash": "9b5b8902d5099d09",
  "voice": "am_michael",
  "chapters": [
   [
@@ -25,31 +25,31 @@
    "4. Leaving security and compliance for later"
   ],
   [
-   391.01,
+   390.9,
    "5. Confusing user enthusiasm with buying intent"
   ],
   [
-   458.62,
+   458.49,
    "6. Not proving measurable value quickly enough"
   ],
   [
-   526.95,
+   526.82,
    "7. Running pilots that never reach a decision"
   ],
   [
-   588.41,
+   588.28,
    "8. Building without enough clinical or domain expertise"
   ],
   [
-   653.64,
+   653.51,
    "9. Ignoring implementation as part of product design"
   ],
   [
-   707.92,
+   707.79,
    "10. Chasing credibility signals instead of readiness"
   ],
   [
-   759.74,
+   759.61,
    "Complexity can become a moat"
   ]
  ]

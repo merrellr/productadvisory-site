@@ -1,152 +1,152 @@
 [
 [
 0.0,
-4.29,
+4.39,
 "AI Is Not a Project. It's a Practice. Here's How to Build One."
 ],
 [
-4.44,
-11.84,
+4.54,
+11.95,
 "Stop waiting for perfect. Start with one use case, one experiment and one person willing to share what they learned."
 ],
 [
-11.99,
-13.7,
+12.1,
+13.8,
 "From Product Advisory."
 ],
 [
-14.45,
-39.19,
+14.55,
+39.3,
 "I have had the same conversation at least a dozen times over the past year. Sometimes it happens in a conference room with colleagues debating our technology roadmap. Sometimes it happens on the sidelines of a soccer game while watching our kids run around and the other parents start asking me questions because they know I work in IT. The conversation almost always goes the same way."
 ],
 [
-39.69,
-46.48,
+39.8,
+46.69,
 "Someone brings up AI. Heads nod. And then someone says the words: \"We are just not ready for that yet.\""
 ],
 [
-46.98,
-73.79,
+47.19,
+74.31,
 "I get it. The pace of change is genuinely overwhelming. Every week there is a new tool, a new model, a new headline about what AI can or cannot do. It is easy to feel like you need to have everything figured out before you take a single step. But here is the thing I have come to believe after working in technology for years and watching this shift happen in real time: waiting for \"ready\" is the same as deciding not to go."
 ],
 [
-74.29,
-77.94,
+74.81,
+78.45,
 "Nobody is ready. And that is okay. You start anyway."
 ],
 [
-78.94,
-80.63,
+79.45,
+81.14,
 "Where most people get stuck."
 ],
 [
-81.33,
-109.08,
+81.84,
+110.36,
 "The biggest misconception I hear is that adopting AI means your organization needs to build something, buy a massive enterprise platform, retrain every employee, and have a five-year AI strategy blessed by the board before anyone touches a thing. That framing makes AI feel like a construction project when it is really more like learning to ride a bike. You do not read every book about cycling before you get on. You get on, you wobble, you adjust."
 ],
 [
-109.58,
-122.32,
+110.86,
+123.32,
 "The organizations that are moving forward with AI right now are not the ones who had everything figured out first. They are the ones who gave themselves permission to start small and learn as they went."
 ],
 [
-123.67,
-125.63,
+124.67,
+126.63,
 "How to actually get started."
 ],
 [
-126.63,
-130.45,
+127.63,
+131.45,
 "Start with your own curiosity, not a company initiative."
 ],
 [
-130.95,
-156.21,
+131.95,
+157.3,
 "Before you think about rolling AI out to a team or a department, spend a few weeks just using it yourself. Use it to draft emails. Use it to summarize a long report you have been putting off. Use it to think through a problem out loud. You will quickly develop your own intuition about where it genuinely helps and where it falls short. That firsthand experience is worth more than any briefing document."
 ],
 [
-157.01,
-160.72,
+158.1,
+161.81,
 "Identify one painful, repetitive task and automate it."
 ],
 [
-161.22,
-188.08,
+162.31,
+189.36,
 "Every team has at least one. The weekly status report that takes two hours to compile. The meeting notes that nobody has time to write. The first draft of a proposal that always starts from a blank page. Pick one. Try using AI to take a meaningful chunk of that work off your plate. Measure the time you get back. That single proof point will do more to build momentum inside your organization than any presentation ever could."
 ],
 [
-188.88,
-191.25,
+190.16,
+192.53,
 "Lower the bar for what counts as a win."
 ],
 [
-191.75,
-218.18,
+193.03,
+219.74,
 "A lot of people try AI once, get an imperfect result, and conclude that it does not work. That is like trying a new recipe once without reading the instructions and deciding you will never cook again. AI tools respond to how you interact with them. Be specific. Give context. Iterate. The people who get the most value out of these tools are the ones who treat every interaction as a conversation, not a one-shot test."
 ],
 [
-218.98,
-221.88,
+220.54,
+223.44,
 "Create a safe space for your team to experiment."
 ],
 [
-222.38,
-248.81,
+223.94,
+249.64,
 "If you are leading a team, one of the best things you can do right now is give your people explicit permission to try things. Not a formal program with KPIs and quarterly reviews. Just permission. Tell them you want to hear what they are experimenting with. Celebrate the experiments that did not work as much as the ones that did. The learning that comes out of both is where your competitive advantage starts to form."
 ],
 [
-250.16,
-252.44,
+250.99,
+253.28,
 "How to scale once you have traction."
 ],
 [
-253.14,
-265.07,
+253.98,
+265.9,
 "Once you have a few small wins under your belt, scaling becomes a lot less scary because you are building on evidence instead of theory. A few things that actually move the needle at scale:"
 ],
 [
-265.57,
-282.21,
+266.4,
+283.04,
 "Share what is working. Create a simple internal channel, a Slack thread, a monthly email, wherever people gather, and have team members share prompts, use cases, and results. Peer learning is faster and stickier than any formal training program."
 ],
 [
-282.36,
-301.88,
+283.19,
+302.31,
 "Standardize the wins. When someone figures out a great way to use AI for a specific task, document it. Turn it into a template or a workflow that others can pick up without having to start from zero. That is how individual experimentation becomes organizational capability."
 ],
 [
-302.03,
-325.6,
+302.46,
+326.33,
 "Connect AI to outcomes you already care about. The most successful teams I have seen do not talk about AI adoption. They talk about reducing time to first draft, improving response times, cutting down on repetitive work. When AI is connected to goals people already have, it stops being a technology initiative and starts being a business tool."
 ],
 [
-326.6,
-327.82,
+327.33,
+328.54,
 "The bottom line."
 ],
 [
-328.52,
-339.12,
+329.24,
+339.85,
 "You do not need a perfect strategy. You do not need executive buy-in on day one. You do not need to understand the technology inside and out before you try it."
 ],
 [
-339.62,
-347.22,
+340.35,
+347.94,
 "You need one use case, one experiment, and one person willing to share what they learned. Everything else grows from there."
 ],
 [
-347.72,
-366.32,
+348.44,
+367.04,
 "The conversation on the soccer sidelines is already happening. The conversation in your conference room is already happening. The only question is whether your organization is going to be the one asking \"how do we get started\" a year from now, or the one answering that question for everyone else."
 ],
 [
-366.82,
-372.07,
+367.54,
+372.79,
 "Start small. Stay curious. Share what you find. That is it. That is the whole playbook."
 ],
 [
-373.17,
-385.07,
+373.89,
+386.03,
 "This was AI Is Not a Project. It's a Practice. Here's How to Build One, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]

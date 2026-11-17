@@ -1,237 +1,237 @@
 [
 [
 0.0,
-6.12,
+5.7,
 "How to Run Product Discovery with AI Agents Without Losing the Voice of the Customer."
 ],
 [
-6.27,
-16.83,
+5.85,
+16.13,
 "Humans talk to customers. Agents synthesize and augment what humans heard. Get that order right and AI makes discovery better, not just faster."
 ],
 [
-16.98,
-18.69,
+16.28,
+17.99,
 "From Product Advisory."
 ],
 [
-19.44,
-27.5,
+18.74,
+26.71,
 "AI has finally earned a seat at the product discovery table. The problem is that many teams are letting it sit at the head."
 ],
 [
-28.0,
-42.0,
+27.21,
+41.21,
 "I keep hearing versions of the same claim. Discovery is faster now. Interviews are summarized automatically. Feedback is analyzed at scale. Agents surface insights in minutes that used to take weeks."
 ],
 [
-42.5,
-47.62,
+41.71,
+46.83,
 "All of that is true. And yet many teams are making worse decisions than before."
 ],
 [
-48.12,
-69.96,
+47.33,
+69.73,
 "The issue is not AI. The issue is where teams place it in the discovery process. When AI becomes the proxy for customer understanding rather than the amplifier of it, discovery quietly breaks. You still get themes. You still get charts. What you lose is voice, emotion, and context. Those losses compound downstream."
 ],
 [
-70.81,
-81.07,
+70.58,
+80.54,
 "The real opportunity is not running discovery with AI. It is running discovery with discipline while using AI to remove friction and bias."
 ],
 [
-81.57,
-86.65,
+81.04,
+86.12,
 "Humans talk to customers. Agents synthesize and augment what humans heard."
 ],
 [
-87.15,
-92.98,
+86.62,
+92.44,
 "That is the rule that matters most. Once you anchor on it, everything else falls into place."
 ],
 [
-94.33,
-97.57,
+93.79,
+97.04,
 "1. Start with human-led customer conversations."
 ],
 [
-98.27,
-118.19,
+97.74,
+117.72,
 "No AI workflow can compensate for skipping real conversations. Product discovery still begins the same way it always has. Someone on the product team talks directly to a customer and listens without trying to sell, validate, or steer the conversation toward a predetermined outcome."
 ],
 [
-118.69,
-138.34,
+118.22,
+137.87,
 "This step matters because customers rarely describe their problems cleanly. They circle around them. They contradict themselves. They use language that does not map neatly to your product or roadmap. They reveal priorities through frustration, hesitation, and workarounds rather than feature requests."
 ],
 [
-138.84,
-153.31,
+138.37,
+152.84,
 "Those signals are easy to miss if discovery is reduced to text analysis alone. A transcript does not capture tone. A summary does not capture tension. A cluster does not capture why something feels urgent."
 ],
 [
-153.81,
-170.62,
+153.34,
+170.36,
 "This is why the people building the product need to hear customers themselves. Not just researchers. Not just summaries. Direct exposure builds intuition, and intuition is still a core product skill. AI belongs later in the process, not here."
 ],
 [
-171.62,
-175.56,
+171.36,
+175.31,
 "2. Use AI agents to synthesize, not interpret."
 ],
 [
-176.26,
-181.36,
+176.01,
+181.11,
 "Once you have real conversations, this is where agents start to earn their keep."
 ],
 [
-181.86,
-197.29,
+181.61,
+197.03,
 "Most teams drown in qualitative data. Interview notes pile up. Support tickets accumulate. Sales call notes live in half a dozen tools. Valuable signals exist, but they are fragmented and exhausting to work through."
 ],
 [
-197.79,
-215.22,
+197.53,
+214.96,
 "AI agents are excellent at organizing chaos. They can group feedback by recurring themes. They can surface commonly used phrases. They can highlight patterns across hundreds or thousands of data points that no human could reasonably process alone."
 ],
 [
-215.72,
-236.6,
+215.46,
+236.34,
 "What they should not do is interpret meaning on your behalf. When agents label clusters, those labels should be reviewed and often rewritten by humans. Customers rarely talk in product taxonomy. They talk in lived experience. Preserving their language is critical, because that language carries intent and emotion."
 ],
 [
-237.1,
-247.45,
+236.84,
+247.19,
 "A good test is simple. If you read a synthesized insight and it sounds like internal jargon rather than something a customer would say, you need to intervene."
 ],
 [
-248.45,
-250.92,
+248.19,
+250.67,
 "3. Let humans do the sense making."
 ],
 [
-251.62,
-257.51,
+251.37,
+257.25,
 "Synthesis is not the same thing as understanding. This is where many teams blur the line."
 ],
 [
-258.01,
-277.7,
+257.75,
+277.44,
 "Once feedback has been organized, the hard work begins. Deciding what matters is not a data problem. It is a judgment problem. It requires context about company strategy, market dynamics, technical constraints, and long-term vision. Humans are responsible for asking questions like:"
 ],
 [
-278.2,
-281.61,
+277.94,
+281.36,
 "Which problems are frequent, and which are consequential?"
 ],
 [
-281.76,
-288.44,
+281.51,
+288.19,
 "Which pain points have customers learned to live with, and which ones cause them to churn or create workarounds?"
 ],
 [
-288.59,
-293.5,
+288.34,
+293.24,
 "Which insights align with where the business is going, rather than where it has been?"
 ],
 [
-294.0,
-302.55,
+293.74,
+302.15,
 "AI can show you patterns. It cannot tell you which tradeoffs are worth making. That accountability belongs to the product team."
 ],
 [
-303.05,
-309.64,
+302.65,
+309.24,
 "This step often feels slower than teams want. That slowness is not inefficiency. It is thinking."
 ],
 [
-310.64,
-314.8,
+310.24,
+314.08,
 "4. Use AI to generate and challenge hypotheses."
 ],
 [
-315.5,
-320.52,
+314.78,
+319.9,
 "This is one of the most underused, high-leverage uses of AI in discovery."
 ],
 [
-321.02,
-337.64,
+320.4,
+337.02,
 "Instead of asking agents what to build, ask them to help you think better. Feed them your synthesized insights and ask for multiple possible explanations. Ask what assumptions you might be making. Ask what evidence would disconfirm your current narrative."
 ],
 [
-338.14,
-355.52,
+337.52,
+354.9,
 "Good agents are surprisingly effective at challenging groupthink. They can surface alternative interpretations that teams may dismiss too quickly. They can suggest follow-up questions that probe deeper into customer motivation rather than surface-level behavior."
 ],
 [
-356.02,
-367.63,
+355.4,
+367.01,
 "Importantly, these outputs should always be treated as hypotheses, not conclusions. Their value lies in expanding the problem space, not collapsing it prematurely."
 ],
 [
-368.63,
-371.21,
+368.01,
+370.59,
 "5. Close the loop with customers again."
 ],
 [
-371.91,
-380.12,
+371.29,
+379.5,
 "Discovery does not end when insights are written down. It ends when understanding is validated through further conversation."
 ],
 [
-380.62,
-400.7,
+380.0,
+400.08,
 "Take your hypotheses back to customers. Share prototypes, workflows, or even problem statements and listen for resonance. Pay attention to how customers react, not just what they say. Watch for shifts in language. Listen for corrections. Those moments are often more informative than agreement."
 ],
 [
-401.2,
-413.44,
+400.58,
+412.82,
 "If customers describe the problem differently than your synthesis, trust them. Discovery is a loop, not a funnel. AI can accelerate each pass through that loop, but it should never replace it."
 ],
 [
-414.44,
-416.19,
+413.82,
+415.57,
 "The most common failure mode."
 ],
 [
-416.89,
-422.48,
+416.27,
+421.86,
 "The biggest mistake teams make is replacing messy conversations with clean outputs."
 ],
 [
-422.98,
-433.39,
+422.36,
+432.73,
 "AI makes discovery feel professional and efficient. Summaries look polished. Themes feel authoritative. But clarity without contact is dangerous."
 ],
 [
-433.89,
-452.62,
+433.23,
+451.96,
 "If your insights feel generic, obvious, or interchangeable with your competitors', you are likely missing the voice of the customer. That voice rarely survives unchecked abstraction. The goal of discovery is not to sound smart. It is to understand something others have missed."
 ],
 [
-453.62,
-454.82,
+452.96,
+454.16,
 "Final thought."
 ],
 [
-455.52,
-459.74,
+454.86,
+459.23,
 "AI will not kill product discovery. Thoughtless use of it might."
 ],
 [
-460.24,
-471.72,
+459.73,
+470.87,
 "The teams that succeed will not be the ones who automate listening. They will be the ones who protect it, scale it, and use AI to sharpen their judgment rather than outsource it."
 ],
 [
-472.22,
-476.21,
+471.37,
+475.36,
 "Humans earn the insight. Agents help us see it more clearly."
 ],
 [
-477.31,
-491.3,
+476.46,
+490.24,
 "This was How to Run Product Discovery with AI Agents Without Losing the Voice of the Customer, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]
