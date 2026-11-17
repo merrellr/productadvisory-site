@@ -1,7 +1,7 @@
 {
- "duration": 447.4,
- "bytes": 3580190,
- "hash": "c1afdf9bdcb46b4c",
+ "duration": 447.7,
+ "bytes": 3582878,
+ "hash": "de5d6d61c5b83d98",
  "voice": "am_michael",
  "chapters": [
   [
@@ -21,15 +21,15 @@
    "Same backlog, two answers"
   ],
   [
-   279.62,
+   279.94,
    "How to choose"
   ],
   [
-   326.53,
+   326.85,
    "Common mistakes"
   ],
   [
-   379.73,
+   380.05,
    "Try it on your own backlog"
   ]
  ]

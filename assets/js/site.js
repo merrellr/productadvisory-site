@@ -556,6 +556,7 @@
       a.setAttribute("href", base + fmtTarget(a, f));
     });
     $$(".fmts .fmt").forEach(function (b) { b.classList.toggle("pick", f !== "read" && b.classList.contains("fmt-" + f)); });
+    showWatchView(f);
   }
   /* On an article, a visitor who prefers to listen or watch lands on the player or the video. */
   function initFormatLanding() {
@@ -1663,6 +1664,201 @@
     document.body.appendChild(sc);
   }
 
+  /* ---------- videos ----------
+     One player for the whole site: YouTube's privacy-mode player, loaded only when someone presses play.
+     Progress is kept in this browser (pa_watch: slug -> {t, d, at}) for "Continue watching", the progress bars
+     and "Continue from 3:12". Nothing is sent anywhere but the analytics events below. */
+  var WATCH_KEY = "pa_watch";
+  function watchLog() { try { return JSON.parse(store(WATCH_KEY) || "{}") || {}; } catch (e) { return {}; } }
+  function watchSave(slug, t, d) {
+    if (!slug || !(d > 0)) return;
+    var log = watchLog();
+    log[slug] = { t: Math.round(t), d: Math.round(d), at: Date.now() };
+    store(WATCH_KEY, JSON.stringify(log));
+  }
+  function watchState(slug) {   // null, or {pct, done, t}
+    var w = watchLog()[slug];
+    if (!w || !(w.d > 0) || w.t < 15) return null;
+    var pct = Math.min(1, w.t / w.d);
+    return { pct: pct, done: pct > 0.92, t: w.t };
+  }
+  function vclock(sec) { sec = Math.max(0, Math.round(sec)); return Math.floor(sec / 60) + ":" + ("0" + (sec % 60)).slice(-2); }
+  var ytReady = null;
+  function loadYT() {
+    if (ytReady) return ytReady;
+    ytReady = new Promise(function (resolve) {
+      if (window.YT && window.YT.Player) return resolve(window.YT);
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function () { if (prev) prev(); resolve(window.YT); };
+      var sc = document.createElement("script");
+      sc.src = "https://www.youtube.com/iframe_api"; sc.async = true;
+      document.head.appendChild(sc);
+    });
+    return ytReady;
+  }
+  var players = [];
+  /* Plays video v ({slug, id, title, ...}) inside box from `start` seconds, replacing whatever is there. */
+  function playVideo(box, v, start, where) {
+    players.forEach(function (p) { try { p.pauseVideo(); } catch (e) {} });
+    var w = watchState(v.slug);
+    if (start == null) start = w && !w.done ? w.t : 0;
+    box.innerHTML = '<div class="vframe"><div></div></div>';
+    var slot = box.querySelector(".vframe div"), timer = null;
+    track("video_play", { article: v.slug, where: where || "", start: Math.round(start) });
+    loadYT().then(function (YT) {
+      var p = new YT.Player(slot, {
+        host: "https://www.youtube-nocookie.com", videoId: v.id,
+        playerVars: { autoplay: 1, rel: 0, playsinline: 1, start: Math.floor(start) },
+        events: {
+          onStateChange: function (e) {
+            clearInterval(timer);
+            var save = function () { try { watchSave(v.slug, p.getCurrentTime(), p.getDuration()); } catch (x) {} };
+            if (e.data === YT.PlayerState.PLAYING) timer = setInterval(save, 5000);
+            if (e.data === YT.PlayerState.PAUSED) save();
+            if (e.data === YT.PlayerState.ENDED) { try { watchSave(v.slug, p.getDuration(), p.getDuration()); } catch (x) {} track("video_complete", { article: v.slug }); }
+            document.dispatchEvent(new CustomEvent("pa:watched"));
+          }
+        }
+      });
+      p.slug = v.slug;
+      players.push(p);
+    });
+  }
+  function thumbHtml(v) {
+    var w = watchState(v.slug);
+    return '<span class="vthumb"><img src="' + esc(v.thumb) + '" alt="" width="960" height="540" loading="lazy"><span class="vplay" aria-hidden="true"></span>' +
+      '<span class="vlen">' + (w && w.done ? "✓ Watched" : v.mins + " min") + "</span>" +
+      (w && !w.done ? '<span class="vbar" style="--p:' + Math.round(w.pct * 100) + '%"></span>' : "") + "</span>";
+  }
+  /* The pop-up player, used from the video cards and the Watch badges on Insights. */
+  function openVideoBox(v, where) {
+    var dlg = $("#vbox");
+    if (!dlg) {
+      dlg = document.createElement("dialog");
+      dlg.id = "vbox"; dlg.className = "vbox";
+      dlg.innerHTML = '<div class="vbox-in"><button type="button" class="vbox-x" aria-label="Close the video">×</button><div class="vbox-stage"></div>' +
+        '<div class="vbox-foot"><div><b></b><p></p></div><div class="vbox-links"></div></div></div>';
+      document.body.appendChild(dlg);
+      var close = function () { if (dlg.open) dlg.close(); };
+      $(".vbox-x", dlg).addEventListener("click", close);
+      dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
+      dlg.addEventListener("close", function () {
+        $(".vbox-stage", dlg).innerHTML = "";
+        players = players.filter(function (p) { return document.body.contains(p.getIframe ? p.getIframe() : null); });
+        document.dispatchEvent(new CustomEvent("pa:watched"));
+      });
+    }
+    $(".vbox-foot b", dlg).textContent = v.title;
+    $(".vbox-foot p", dlg).textContent = v.dek;
+    var sub = $("[data-yt-sub]");
+    $(".vbox-links", dlg).innerHTML = '<a class="btn ghost sm" href="/insights/' + esc(v.slug) + '">Read the article</a>' + (sub ? sub.outerHTML : "");
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    playVideo($(".vbox-stage", dlg), v, null, where);
+  }
+  /* Insights in Watch mode: shown when the visitor picks Watch. */
+  function showWatchView(f) {
+    var view = $("#watch-view");
+    if (!view) return;
+    var on = f === "watch";
+    view.hidden = !on;
+    $$(".art-finder, .listen-promo, .insight-filter, .insight-grid.featured, #insight-status").forEach(function (el) {
+      if (on) { el.setAttribute("data-watch-hid", el.hidden ? "1" : ""); el.hidden = true; }
+      else if (el.hasAttribute("data-watch-hid")) { el.hidden = el.getAttribute("data-watch-hid") === "1"; el.removeAttribute("data-watch-hid"); }
+    });
+    if (on) renderWatchView();
+  }
+  function renderWatchView() {
+    var view = $("#watch-view");
+    if (!view) return;
+    var vs = JSON.parse(view.getAttribute("data-videos") || "[]"), stage = $(".watch-stage", view);
+    if (!vs.length) return;
+    if (!stage.getAttribute("data-slug") || !$(".vframe", stage)) {
+      var hero = vs[0];
+      stage.setAttribute("data-slug", hero.slug);
+      stage.innerHTML = '<button type="button" class="vfacade" aria-label="Play: ' + esc(hero.title) + '">' + thumbHtml(hero) + "</button>" +
+        '<div class="watch-cap"><span class="eyebrow">Newest · ' + esc(hero.topic) + "</span><b>" + esc(hero.title) + "</b><p>" + esc(hero.dek) + "</p></div>";
+    }
+    var cur = stage.getAttribute("data-slug");
+    var next = vs.filter(function (v) { return v.slug !== cur; }).slice(0, 3);
+    $(".watch-next", view).hidden = !next.length;
+    $(".watch-next ol", view).innerHTML = next.map(function (v) {
+      return '<li><button type="button" data-slug="' + esc(v.slug) + '">' + thumbHtml(v) + "<b>" + esc(v.title) + "</b></button></li>";
+    }).join("");
+    var started = vs.filter(function (v) { var w = watchState(v.slug); return v.slug !== cur && w && !w.done; });
+    var cont = $(".watch-continue", view);
+    cont.hidden = !started.length;
+    $(".video-grid", cont).innerHTML = started.map(function (v) {
+      return '<a class="vcard" href="/insights/' + esc(v.slug) + '#video" data-slug="' + esc(v.slug) + '">' + thumbHtml(v) +
+        '<span class="vcard-body"><span class="eyebrow">' + esc(v.topic) + "</span><b>" + esc(v.title) + "</b></span></a>";
+    }).join("");
+    $$(".watch-all + .video-grid .vcard", view).forEach(function (a) {
+      var v = vs.filter(function (x) { return x.slug === a.getAttribute("data-slug"); })[0];
+      if (v) $(".vthumb", a).outerHTML = thumbHtml(v);
+    });
+  }
+  function initVideos() {
+    var view = $("#watch-view"), vs = view ? JSON.parse(view.getAttribute("data-videos") || "[]") : [];
+    var bySlug = function (s) { return vs.filter(function (v) { return v.slug === s; })[0]; };
+    if (view) {
+      view.addEventListener("click", function (e) {
+        var facade = e.target.closest(".watch-stage .vfacade");
+        if (facade) { var hero = bySlug($(".watch-stage", view).getAttribute("data-slug")); playVideo($(".watch-stage", view), hero, null, "insights_hero"); return; }
+        var nx = e.target.closest(".watch-next button");
+        if (nx) {   // play it up top, in the big player
+          var v = bySlug(nx.getAttribute("data-slug")), stage = $(".watch-stage", view);
+          stage.setAttribute("data-slug", v.slug);
+          playVideo(stage, v, null, "insights_next");
+          renderWatchView();
+          stage.scrollIntoView({ block: "nearest", behavior: reducedMotion() ? "auto" : "smooth" });
+          return;
+        }
+        var card = e.target.closest(".vcard");
+        if (card && !e.metaKey && !e.ctrlKey && !e.shiftKey && bySlug(card.getAttribute("data-slug"))) {
+          e.preventDefault();
+          openVideoBox(bySlug(card.getAttribute("data-slug")), "insights_grid");
+        }
+      });
+      document.addEventListener("pa:watched", function () { if (!view.hidden) renderWatchView(); });
+    }
+    /* Read · Listen · Watch badges on the Insights cards go straight to that format; Watch plays here. */
+    $$(".insight .fmt[data-go]").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        var card = b.closest("a.insight");
+        if (!card || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        var go = b.getAttribute("data-go"), v = bySlug(card.getAttribute("data-id"));
+        track("format_badge", { article: card.getAttribute("data-id"), format: go.replace("#", "") || "read" });
+        if (go === "#video" && v) return openVideoBox(v, "insights_badge");
+        location.href = (card.getAttribute("data-href") || card.getAttribute("href")).split("#")[0] + (go === "#intro" ? "" : go);
+      });
+    });
+    /* The article's video: a picture until play; "Watch this section" jumps in at that chapter. */
+    var fig = $("#video[data-video]");
+    if (!fig) return;
+    var v = JSON.parse(fig.getAttribute("data-video")), frame = $(".post-video-frame", fig);
+    var start = function (t, where) {
+      playVideo(frame, v, t, where);
+      $(".vresume", fig).hidden = true;
+    };
+    $(".vfacade", fig).addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault(); start(null, "article");
+    });
+    var w = watchState(v.slug), resume = $(".vresume", fig);
+    if (w && !w.done) {
+      resume.hidden = false;
+      resume.innerHTML = '<button type="button" class="link-btn">Continue from ' + vclock(w.t) + "</button>";
+      $("button", resume).addEventListener("click", function () { start(w.t, "article_resume"); });
+    } else if (w && w.done) { resume.hidden = false; resume.textContent = "✓ You've watched this one."; }
+    $$(".sec-watch[data-vt]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        fig.scrollIntoView({ block: "center", behavior: reducedMotion() ? "auto" : "smooth" });
+        start(+a.getAttribute("data-vt"), "article_section");
+      });
+    });
+  }
+
   /* ---------- go ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
@@ -1682,6 +1878,7 @@
     initConsent();
     initFigureZoom();
     initListen();
+    initVideos();
     initFeedCopy();
     initGuide();
     initFormatLanding();

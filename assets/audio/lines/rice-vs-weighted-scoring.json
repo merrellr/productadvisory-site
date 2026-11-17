@@ -106,112 +106,112 @@
 ],
 [
 201.95,
-207.39,
+207.11,
 "SSO for enterprise: single sign-on that large customers require."
 ],
 [
-207.54,
-210.2,
+207.26,
+209.93,
 "Bulk export: a quick, popular request."
 ],
 [
-210.35,
-216.61,
+210.08,
+216.29,
 "AI usage summary: a weekly AI digest of how each account uses the product."
 ],
 [
-217.11,
-231.93,
+216.79,
+231.46,
 "With RICE, bulk export wins (900), just ahead of onboarding (800), with the AI summary third (300). SSO comes last (135): few users touch it, so its reach is tiny."
 ],
 [
-232.43,
-257.56,
+231.96,
+257.88,
 "With weighted scoring, using customer value, strategic fit, revenue impact, effort and risk, the order almost reverses. SSO comes first (75 out of 100), onboarding second (67), the AI summary third (51) and bulk export last (42). Strategic fit and revenue lift SSO; the same criteria sink bulk export, however cheap it is."
 ],
 [
-258.41,
-278.62,
+258.73,
+278.94,
 "Neither answer is wrong. RICE is telling you what helps the most people for the least work. Weighted scoring is telling you what serves this year's strategy. If the strategy really is to move upmarket, a team running RICE alone would ship bulk export first and keep postponing the feature its biggest prospects need."
 ],
 [
-279.62,
-280.81,
+279.94,
+281.13,
 "How to choose."
 ],
 [
-281.51,
-283.05,
+281.83,
+283.37,
 "Ask two questions."
 ],
 [
-283.55,
-295.86,
+283.87,
+296.18,
 "Are the options the same kind of thing? If they're features for the same users in one area, RICE fits. If they're different kinds of bets, or strategy is changing, use weighted scoring."
 ],
 [
-296.01,
-308.93,
+296.33,
+309.25,
 "Can you estimate reach with some confidence? If yes, RICE. If not, a lighter method such as ICE (Impact, Confidence, Ease) is more honest than a RICE score built on guessed reach."
 ],
 [
-309.43,
-325.18,
+309.75,
+325.5,
 "In practice, the strongest teams combine them. Once a quarter, use weighted scoring to decide which themes and bets matter, with leadership agreeing the weights. Then, within each theme, use RICE to order the individual items week to week."
 ],
 [
-326.53,
-327.81,
+326.85,
+328.13,
 "Common mistakes."
 ],
 [
-328.51,
-334.89,
+328.83,
+335.21,
 "Scoring before agreeing the weights. The weights are the strategy. Set them first, together, then score."
 ],
 [
-335.04,
-346.41,
+335.36,
+346.73,
 "False precision. A score of 66.7 against 64.2 isn't a real difference. Treat close calls as ties and decide them on evidence."
 ],
 [
-346.56,
-355.11,
+346.88,
+355.43,
 "One criterion doing all the work. If a single criterion carries more than half the weight, you're really using one criterion."
 ],
 [
-355.26,
-361.58,
+355.58,
+361.9,
 "Never revisiting confidence. Low-confidence scores should trigger a cheap test, not a commitment."
 ],
 [
-361.73,
-378.73,
+362.05,
+379.05,
 "Treating the score as the decision. A framework orders the conversation. Judgement, timing and context still decide. As we wrote in The Feature Fallacy, the goal is the smallest change that moves the outcome, not the longest list of shipped features."
 ],
 [
-379.73,
-381.67,
+380.05,
+381.99,
 "Try it on your own backlog."
 ],
 [
-382.37,
-405.94,
+382.69,
+406.26,
 "Our free Feature Prioritization Scorecard now does both. Score your features with weighted scoring, then with RICE, and the Compare tab shows the two rankings side by side, with a line for each feature and a plain-English note on where they disagree. You can open this article's example in Compare and change the weights or the reach to see how quickly the order moves."
 ],
 [
-406.44,
-419.73,
+406.76,
+420.05,
 "For the wall or the next planning meeting, download the one-page Which prioritization method? cheat sheet: the two questions, the three methods at a glance, and six rules for a ranking you can defend."
 ],
 [
-420.23,
-433.35,
+420.55,
+433.67,
 "If your team is arguing about the roadmap rather than the weights, that's the conversation worth having first. It's the kind of work we do in product strategy engagements, and a free call is a good place to start."
 ],
 [
-434.45,
-447.28,
+434.77,
+447.6,
 "This was RICE or Weighted Scoring: Which Prioritization Framework Should You Use?, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]

@@ -1,7 +1,7 @@
 {
- "duration": 329.6,
- "bytes": 2637993,
- "hash": "e5aa5175125c6ab4",
+ "duration": 329.7,
+ "bytes": 2638185,
+ "hash": "4942c720f1527870",
  "voice": "am_michael",
  "chapters": [
   [
@@ -17,23 +17,23 @@
    "A better north star: outcome-first, evidence-backed, minimally sufficient"
   ],
   [
-   130.85,
+   129.93,
    "What to do this quarter"
   ],
   [
-   201.32,
+   200.25,
    "A quick example (illustrative; healthcare, but universal)"
   ],
   [
-   253.15,
+   253.19,
    "How Product and Engineering win together"
   ],
   [
-   283.52,
+   283.56,
    "The courage to delete"
   ],
   [
-   299.94,
+   299.98,
    "The ask"
   ]
  ]

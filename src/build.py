@@ -1497,12 +1497,18 @@ def article_body(a):
         return f' data-t="{t:.2f}" data-e="{e:.2f}"'
     base = f"assets/insights/{a['slug']}/"
     attrs = f'data-kind="Insight" data-keywords="{a["keywords"]}"'
+    v = video_data(a)
+    n_h2 = sum(1 for b in a["body"] if b[0] == "h2")
+    sec_times = iter([c[0] for c in v["chapters"][1:]] if v and len(v["chapters"]) == n_h2 + 1 else [])
     parts = [f'<section id="intro" data-ask="{escape(a["title"])}" {attrs}>']
     for b in a["body"]:
         kind = b[0]
         if kind == "h2":
             sid = re.sub(r"[^a-z0-9]+", "-", plain(b[1]).lower()).strip("-")
             parts.append(f'</section>\n<section id="{sid}" data-ask="{escape(a["title"])}: {escape(plain(b[1]))}" {attrs}>\n<h2{at()}>{b[1]}</h2>')
+            st = next(sec_times, None)
+            if st is not None:   # jump to this section in the video (site.js initVideos)
+                parts.append(f'<a class="sec-watch" href="#video" data-vt="{st}">{fmt_icon("watch")}Watch this section <span>{clock(st)}</span></a>')
         elif kind == "h3":
             parts.append(f"<h3{at()}>{b[1]}</h3>")
         elif kind == "p":
@@ -1601,6 +1607,24 @@ def subscribe_form(where, heading="Get new articles by email"):
 </form>'''
 
 
+def watch_view():
+    """Insights in Watch mode (site.js initWatchView): the newest video up top with what's next beside it, the videos
+    someone started, then every video. Shown when the visitor picks Watch; the article list is hidden meanwhile."""
+    vs = videos()
+    if not vs:
+        return ""
+    cards = "".join(f'<a class="vcard" href="/insights/{v["slug"]}#video" data-slug="{v["slug"]}"><span class="vthumb"><img src="{v["thumb"]}" alt="" width="960" height="540" loading="lazy">'
+                    f'<span class="vplay" aria-hidden="true"></span><span class="vlen">{v["mins"]} min</span></span>'
+                    f'<span class="vcard-body"><span class="eyebrow">{escape(v["topic"])}</span><b>{escape(v["title"])}</b></span></a>' for v in vs)
+    return f'''<section class="watch-view" id="watch-view" hidden aria-label="Videos" data-videos="{escape(json.dumps(vs), quote=True)}">
+      <div class="watch-hero"><div class="watch-stage"></div><aside class="watch-next"><h2>Up next</h2><ol></ol></aside></div>
+      <div class="watch-continue" hidden><h2>Continue watching</h2><div class="video-grid"></div></div>
+      <h2 class="watch-all">All videos <em>{len(vs)}</em></h2>
+      <div class="video-grid">{cards}</div>
+      <div class="watch-sub"><div><b>New explainers on YouTube.</b> Every Product+ article as an animated video, with the numbers drawn on screen.</div>{yt_subscribe("btn sm yt-sub")}</div>
+    </section>'''
+
+
 def insights():
     import json
     full, linked = published(), [a for a in listed() if not a.get("body")]
@@ -1625,7 +1649,8 @@ def insights():
       '<svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="5" height="7" rx="2"/><rect x="16" y="13" width="5" height="7" rx="2"/></svg></span>'
       '<div><b>New: Product+ Audio.</b> Every article, read aloud, with chapters. Press play on any article, or follow along in your podcast app.</div>'
       + podcast_links_html() + '</aside>') if any(audio_meta(x) for x in full) else ""}
-    <div class="format-pick"><span>Open articles to</span>{FORMAT_PICK}<small>Saved in Make it yours.</small></div>
+    <div class="format-pick"><span>Read, listen or watch</span>{FORMAT_PICK}<small>Saved in Make it yours.</small></div>
+    {watch_view()}
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
     <p class="sr-only" id="insight-status" role="status" aria-live="polite"></p>
     <div class="insight-grid featured" data-ask="Insights: articles from the Product+ Newsletter" data-kind="Insight" data-keywords="articles blog newsletter writing product+">{"".join(insight_card(a) for a in full)}</div>
@@ -1695,13 +1720,43 @@ def episodes_json():
         f.write("\n")
 
 
-def video_embed(a):
-    vid = YOUTUBE.get(a["slug"])
+YT_CHANNEL = "https://www.youtube.com/@ProductAdvisoryInsights"
+
+
+def video_data(a):
+    """What the page scripts need to play an article's video: its id, length, chapters and thumbnail.
+    The video is rendered from the narration, so the narration's chapter times are the video's too."""
+    vid, m = YOUTUBE.get(a["slug"]), audio_meta(a)
     if not vid:
+        return None
+    thumb = f"assets/video/{a['slug']}.webp"
+    return {"slug": a["slug"], "id": vid, "title": a["title"], "dek": a["dek"], "topic": a["topic"], "date": a["date"],
+            "dur": round(m["duration"]) if m else 0, "mins": listen_minutes(m) if m else 0,
+            "thumb": "/" + thumb if os.path.exists(os.path.join(ROOT, thumb)) else f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+            "chapters": [[round(t), c] for t, c in (m["chapters"] if m else [])]}
+
+
+def videos():
+    return [v for v in (video_data(a) for a in published()) if v]
+
+
+def yt_subscribe(cls="yt-sub"):
+    return (f'<a class="{cls}" href="{YT_CHANNEL}?sub_confirmation=1" {EXT} data-yt-sub>'
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z" fill="#ff0033"/><path d="m10 15 5.2-3L10 9z" fill="#fff"/></svg>'
+            'Subscribe on YouTube</a>')
+
+
+def video_embed(a):
+    """The article's video. Only a picture until someone presses play, so the page stays fast and YouTube loads
+    nothing for readers who never watch (site.js initVideos swaps in the player; without scripts it opens YouTube)."""
+    v = video_data(a)
+    if not v:
         return ""
-    return (f'<figure class="post-video" id="video"><div class="post-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" '
-            f'title="{escape(a["title"])}: the video" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" '
-            f'referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption>Watch it: the narration with the charts.</figcaption></figure>')
+    return (f'<figure class="post-video" id="video" data-video="{escape(json.dumps(v), quote=True)}"><div class="post-video-frame">'
+            f'<a class="vfacade" href="https://youtu.be/{v["id"]}" {EXT} aria-label="Play the video: {escape(a["title"])}">'
+            f'<img src="{v["thumb"]}" alt="" width="960" height="540" loading="lazy"><span class="vplay" aria-hidden="true"></span>'
+            f'<span class="vlen">{v["mins"]} min</span></a></div>'
+            f'<figcaption><span>Watch it: the narration with the charts.</span><span class="vresume" hidden></span>{yt_subscribe()}</figcaption></figure>')
 
 
 def audio_meta(a):
@@ -1745,13 +1800,13 @@ def formats_html(a, m, linked=False):
     if m:
         items.append(("listen", "Listen", f"{listen_minutes(m)} min", "#listen"))
     if YOUTUBE.get(a["slug"]):
-        items.append(("watch", "Watch", "video", "#video"))
+        items.append(("watch", "Watch", f"{listen_minutes(m)} min" if m else "video", "#video"))
     if linked:
         return ('<div class="fmts" aria-label="Ways to take in this article">' + "".join(
             f'<a class="fmt fmt-{k}" href="{h}"{" data-listen-start" if k == "listen" else ""}>{fmt_icon(k)}<b>{lab}</b><span>{sub}</span></a>'
             for k, lab, sub, h in items) + '</div>')
     return ('<span class="fmts">' + "".join(
-        f'<span class="fmt fmt-{k}" title="{lab}: {sub}">{fmt_icon(k)}<b>{lab}</b><span class="fmt-sub">{sub}</span></span>' for k, lab, sub, h in items)
+        f'<span class="fmt fmt-{k}" title="{lab}: {sub}" data-go="{h}">{fmt_icon(k)}<b>{lab}</b><span class="fmt-sub">{sub}</span></span>' for k, lab, sub, h in items)
         + '</span>')
 
 

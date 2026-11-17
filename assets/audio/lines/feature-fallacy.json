@@ -61,132 +61,132 @@
 ],
 [
 101.44,
-112.0,
+111.08,
 "Outcome-first: Define the end state in observable terms (for example, \"Reduce median prescription time from 4:30 to 2:00\")."
 ],
 [
-112.15,
-118.55,
+111.23,
+117.63,
 "Evidence-backed: Tie the bet to a falsifiable hypothesis and minimum viable measurement plan."
 ],
 [
-118.7,
-125.76,
+117.78,
+124.84,
 "Minimally sufficient: Ship the smallest intervention that can move the outcome for a narrow segment. Then scale."
 ],
 [
-126.26,
-129.5,
+125.34,
+128.58,
 "Think OEM: Outcome \u2192 Evidence \u2192 Minimum."
 ],
 [
-130.85,
-132.28,
+129.93,
+131.36,
 "What to do this quarter."
 ],
 [
-132.98,
-148.27,
+132.06,
+147.36,
 "Replace roadmaps with bet maps. \"We believe doing X for Y segment will drive Z outcome.\" Add confidence, leading indicators, and kill criteria. Review monthly. Kill or double down based on signal, not opinions."
 ],
 [
-148.42,
-162.21,
+147.51,
+161.14,
 "Segment before you scale. Design for one high-value workflow first (for example, \"charge nurse during shift change\"). Optimize locally, then generalize. Cleaner UX, clearer causal signal."
 ],
 [
-162.36,
-174.35,
+161.29,
+173.28,
 "Default to workflow, not widgets. Ask, \"What steps disappear?\" not \"What screens can we add?\" Inline actions, automation hooks, and smart defaults tend to beat net-new features."
 ],
 [
-174.5,
-188.98,
+173.43,
+187.91,
 "Measure the path, not the page. Instrument end-to-end: start rate, completion rate, time-to-complete, drop-offs. Report \"time-to-outcome\" like you report uptime. Latency that matters is the user's time-to-value."
 ],
 [
-189.13,
-199.97,
+188.06,
+198.9,
 "Design for reversibility. Feature flags, shadow modes, opt-in cohorts. Make wrong bets cheap and reversible; make irreversible bets rare and deliberate."
 ],
 [
-201.32,
-204.99,
+200.25,
+203.92,
 "A quick example (illustrative; healthcare, but universal)"
 ],
 [
-205.69,
-216.82,
+204.62,
+215.5,
 "Problem: Clinicians were abandoning an Orders flow at 38% completion. The instinct: build \"Orders 2.0\" with templates and bulk actions."
 ],
 [
-217.32,
-218.77,
+216.0,
+217.45,
 "The OEM approach:"
 ],
 [
-219.27,
-226.19,
+217.95,
+225.63,
 "Outcome: Raise completion to 70%, cut median time from 3:10 to 1:45."
 ],
 [
-226.34,
-233.01,
+225.78,
+232.46,
 "Evidence: Replays and path analysis showed friction on patient context switching and code search."
 ],
 [
-233.16,
-242.19,
+232.61,
+241.63,
 "Minimum: Auto-attach patient context, pre-populate three likely order codes by unit and shift, add keyboard-first quick search."
 ],
 [
-242.69,
-251.8,
+242.13,
+251.84,
 "Result (6 weeks): 74% completion, 1:41 median time, zero net-new \"features.\" Massive value density."
 ],
 [
-253.15,
-255.66,
+253.19,
+255.71,
 "How Product and Engineering win together."
 ],
 [
-256.36,
-264.98,
+256.41,
+265.03,
 "Product: ruthlessly prioritize the fewest interventions that move the outcome. Own problem definition and kill criteria."
 ],
 [
-265.13,
-276.03,
+265.18,
+276.08,
 "Engineering: collapse time-to-learning. Instrument the path, ship behind flags, and treat reliability, latency and observability as user value, not plumbing."
 ],
 [
-276.18,
-282.52,
+276.23,
+282.56,
 "Ritual: a weekly Outcomes Review. What did we learn? What can we ship next week to learn faster?"
 ],
 [
-283.52,
-284.95,
+283.56,
+284.99,
 "The courage to delete."
 ],
 [
-285.65,
-298.94,
+285.69,
+298.98,
 "Create a quarterly decommission list. Remove underused features, consolidate patterns, and redesign flows that require explanation. Celebrate deletion with the same fanfare as launches."
 ],
 [
-299.94,
-300.84,
+299.98,
+300.88,
 "The ask."
 ],
 [
-301.54,
-319.69,
+301.58,
+319.73,
 "If you're shipping a lot but moving little, run OEM on a single critical path this month. Define the outcome, gather minimal evidence, ship the smallest intervention, and measure the path. Send me your before and after, and I'll share the best anonymized examples."
 ],
 [
-320.79,
-329.49,
+320.83,
+329.54,
 "This was The Feature Fallacy, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]
