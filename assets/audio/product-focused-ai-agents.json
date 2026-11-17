@@ -1,7 +1,7 @@
 {
- "duration": 347.7,
- "bytes": 2782818,
- "hash": "65eaffdd8d5d778c",
+ "duration": 345.8,
+ "bytes": 2766880,
+ "hash": "545d5ea9659919ab",
  "voice": "am_michael",
  "chapters": [
   [
@@ -9,27 +9,27 @@
    "Introduction"
   ],
   [
-   58.44,
+   57.72,
    "Step 1: Treat agents as product teammates, not tools"
   ],
   [
-   106.75,
+   106.02,
    "Step 2: Ground the agent in product reality"
   ],
   [
-   168.73,
+   167.28,
    "Step 3: Intentionally influence how the agent thinks"
   ],
   [
-   211.38,
+   209.93,
    "Step 4: Embed agents into real product moments"
   ],
   [
-   254.0,
+   252.57,
    "Step 5: Maintain the agent as a living system"
   ],
   [
-   283.76,
+   282.33,
    "The real advantage is better product judgment at scale"
   ]
  ]

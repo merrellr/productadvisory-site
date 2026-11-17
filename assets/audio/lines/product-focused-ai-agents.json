@@ -1,347 +1,347 @@
 [
 [
 0.0,
-5.25,
+5.03,
 "How to Build Product-Focused AI Agents That Actually Make Better Decisions."
 ],
 [
-5.4,
-11.18,
+5.18,
+10.54,
 "How to shape LLMs to improve product judgment, decision quality and outcomes."
 ],
 [
-11.33,
-13.04,
+10.69,
+12.4,
 "From Product Advisory."
 ],
 [
-13.79,
-18.76,
+13.15,
+18.03,
 "Most teams experimenting with AI agents are starting in the wrong place."
 ],
 [
-19.26,
-28.75,
+18.53,
+28.02,
 "The real question is not \"How do we add an agent?\" The real question is \"How do we shape an agent so it thinks like our strongest product leader?\""
 ],
 [
-29.25,
-46.7,
+28.52,
+45.98,
 "Large Language Models are powerful, but without direction they behave like highly articulate generalists. Real leverage comes from intentionally shaping an agent's product judgment so it understands your customers, your constraints, and your definition of success."
 ],
 [
-47.2,
-57.44,
+46.48,
+56.72,
 "This article outlines how to set up product-specific agents and influence them so they help teams build better products faster and with fewer blind spots."
 ],
 [
-58.44,
-62.05,
+57.72,
+61.32,
 "Step 1: Treat agents as product teammates, not tools."
 ],
 [
-62.75,
-68.55,
+62.02,
+67.82,
 "A product-focused agent is not a chatbot or a feature. It is a decision participant."
 ],
 [
-69.05,
-75.47,
+68.32,
+74.74,
 "The most effective teams define agents the same way they define human roles. They are clear on:"
 ],
 [
-75.97,
-78.36,
+75.24,
+77.63,
 "What decisions the agent influences."
 ],
 [
-78.51,
-81.69,
+77.78,
+80.96,
 "What context the agent must always understand."
 ],
 [
-81.84,
-84.5,
+81.11,
+83.78,
 "What tradeoffs the agent should prioritize."
 ],
 [
-85.0,
-90.0,
+84.28,
+89.27,
 "Before designing prompts or workflows, write a one-sentence role definition."
 ],
 [
-90.5,
-99.05,
+89.77,
+98.33,
 "This agent exists to challenge product assumptions, surface risk, and improve decision quality before engineering effort is committed."
 ],
 [
-99.55,
-105.4,
+98.83,
+104.67,
 "If you cannot describe the agent's purpose clearly, it will not deliver consistent value."
 ],
 [
-106.75,
-109.75,
+106.02,
+109.03,
 "Step 2: Ground the agent in product reality."
 ],
 [
-110.45,
-121.68,
+109.73,
+120.23,
 "LLMs have broad knowledge but no inherent understanding of your product. High-performing product agents are grounded in four categories of context."
 ],
 [
-122.48,
-123.71,
+121.03,
+122.26,
 "Product truths."
 ],
 [
-124.21,
-126.37,
+122.76,
+124.92,
 "The real problem the product solves."
 ],
 [
-126.52,
-128.5,
+125.07,
+127.05,
 "Primary and secondary users."
 ],
 [
-128.65,
-130.38,
+127.2,
+128.93,
 "What success means today."
 ],
 [
-131.18,
-132.84,
+129.73,
+131.39,
 "Strategic constraints."
 ],
 [
-133.34,
-134.97,
+131.89,
+133.51,
 "Business model realities."
 ],
 [
-135.12,
-137.78,
+133.66,
+136.33,
 "Regulatory and compliance boundaries."
 ],
 [
-137.93,
-140.98,
+136.48,
+139.53,
 "Engineering or architectural limitations."
 ],
 [
-141.78,
-143.11,
+140.33,
+141.65,
 "Customer signals."
 ],
 [
-143.61,
-145.1,
+142.15,
+143.65,
 "Common objections."
 ],
 [
-145.25,
-146.98,
+143.8,
+145.53,
 "Reasons deals are lost."
 ],
 [
-147.13,
-149.28,
+145.68,
+147.83,
 "Patterns from support and research."
 ],
 [
-150.08,
-151.62,
+148.63,
+150.17,
 "Product philosophy."
 ],
 [
-152.12,
-154.04,
+150.67,
+152.59,
 "Speed versus quality bias."
 ],
 [
-154.19,
-157.32,
+152.74,
+155.87,
 "Opinionated versus flexible design stance."
 ],
 [
-157.47,
-160.42,
+156.02,
+158.97,
 "Long-term vision versus short-term outcomes."
 ],
 [
-160.92,
-167.38,
+159.47,
+165.93,
 "This information should be persistently available to the agent, not reintroduced in every interaction."
 ],
 [
-168.73,
-172.17,
+167.28,
+170.72,
 "Step 3: Intentionally influence how the agent thinks."
 ],
 [
-172.87,
-183.4,
+171.42,
+181.95,
 "Generic system prompts produce generic output. High-quality product agents are intentionally opinionated in the same way strong product leaders are."
 ],
 [
-183.9,
-186.49,
+182.45,
+185.04,
 "Examples of productive bias include:"
 ],
 [
-186.99,
-191.49,
+185.54,
+190.04,
 "Question feature requests unless they tie to a clear user outcome."
 ],
 [
-191.64,
-195.33,
+190.19,
+193.88,
 "Surface second-order effects before recommending solutions."
 ],
 [
-195.48,
-200.06,
+194.03,
+198.61,
 "Prioritize long-term customer trust over short-term engagement."
 ],
 [
-200.56,
-210.38,
+199.11,
+208.93,
 "The goal is not neutrality. The goal is aligned judgment. When bias reflects product strategy, it becomes an advantage rather than a risk."
 ],
 [
-211.38,
-214.77,
+209.93,
+213.32,
 "Step 4: Embed agents into real product moments."
 ],
 [
-215.47,
-224.34,
+214.02,
+222.89,
 "Agents fail when they exist outside the product lifecycle. They succeed when they are embedded into moments where judgment matters most:"
 ],
 [
-224.84,
-227.0,
+223.39,
+225.55,
 "Discovery and problem framing."
 ],
 [
-227.15,
-229.3,
+225.7,
+227.85,
 "PRDs and scope definition."
 ],
 [
-229.45,
-231.59,
+228.0,
+230.14,
 "Roadmapping and prioritization."
 ],
 [
-231.74,
-233.89,
+230.29,
+232.44,
 "Launch readiness and risk assessment."
 ],
 [
-234.04,
-235.86,
+232.59,
+234.4,
 "Post-launch evaluation."
 ],
 [
-236.36,
-240.09,
+234.9,
+238.64,
 "Instead of asking the agent for answers, assign it a role."
 ],
 [
-240.59,
-247.18,
+239.14,
+245.75,
 "Review this PRD as a skeptical product leader and identify assumptions, risks, and gaps."
 ],
 [
-247.68,
-252.65,
+246.25,
+251.22,
 "This shifts the agent from idea generation to decision quality improvement."
 ],
 [
-254.0,
-257.18,
+252.57,
+255.75,
 "Step 5: Maintain the agent as a living system."
 ],
 [
-257.88,
-262.17,
+256.45,
+260.74,
 "Products evolve and agents must evolve with them. Strong teams:"
 ],
 [
-262.67,
-264.91,
+261.24,
+263.48,
 "Refresh agent context quarterly."
 ],
 [
-265.06,
-267.19,
+263.63,
+265.76,
 "Remove outdated assumptions."
 ],
 [
-267.34,
-269.2,
+265.91,
+267.77,
 "Add new customer insights."
 ],
 [
-269.35,
-271.82,
+267.92,
+270.39,
 "Adjust bias as strategy changes."
 ],
 [
-272.32,
-282.41,
+270.89,
+280.98,
 "An outdated agent reinforces old thinking and introduces risk. If continuous learning matters for your team, it must matter for your agents as well."
 ],
 [
-283.76,
-287.5,
+282.33,
+286.07,
 "The real advantage is better product judgment at scale."
 ],
 [
-288.2,
-294.25,
+286.77,
+292.87,
 "AI agents do not replace product leadership. They amplify it. Well-designed agents:"
 ],
 [
-294.75,
-297.46,
+293.37,
+296.08,
 "Reduce cognitive load on senior leaders."
 ],
 [
-297.61,
-300.58,
+296.23,
+299.19,
 "Increase consistency in decision quality."
 ],
 [
-300.73,
-302.73,
+299.34,
+301.35,
 "Surface blind spots early."
 ],
 [
-302.88,
-305.89,
+301.5,
+304.51,
 "Enable speed without sacrificing thinking."
 ],
 [
-306.39,
-316.93,
+305.01,
+315.54,
 "The teams succeeding with agents are not focused on automation. They are focused on improving judgment. That has always been the core of great product management."
 ],
 [
-317.43,
-327.78,
+316.04,
+326.11,
 "If you are exploring product-specific agents or want help shaping AI into your product strategy, this is the work we do at Product Advisory."
 ],
 [
-328.28,
-333.31,
+326.61,
+331.41,
 "The future of product is not just AI-powered. It is judgment-driven."
 ],
 [
-334.41,
-347.6,
+332.51,
+345.61,
 "This was How to Build Product-Focused AI Agents That Actually Make Better Decisions, from Product Advisory. Read it, with its charts, at productadvisory.co/insights."
 ]
 ]
