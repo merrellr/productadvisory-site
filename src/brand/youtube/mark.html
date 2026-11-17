@@ -8,8 +8,12 @@
   .mark { position: absolute; inset: 0; border-radius: 160px; background: linear-gradient(150deg, #1d4a8f 0%, #12305e 55%, #0b1f40 100%);
           display: flex; align-items: center; justify-content: center; font-family: Lato, sans-serif; font-weight: 900; font-size: 470px; line-height: 1; color: #fff; letter-spacing: -.02em; }
   .mark.circle { border-radius: 50%; }
+  /* ?full: edge-to-edge square for the profile picture, so YouTube's round crop never shows a light rim */
+  .mark.full { border-radius: 0; }
   .mark span { color: #35c2e8; margin-left: 6px; font-size: 400px; transform: translateY(-12px); }
 </style></head>
 <body><div class="mark" id="m">P<span>+</span></div>
-<script>if (location.search.indexOf('circle') > -1) document.getElementById('m').classList.add('circle');</script>
+<script>var q = location.search, m = document.getElementById('m');
+if (q.indexOf('circle') > -1) m.classList.add('circle');
+if (q.indexOf('full') > -1) { m.classList.add('full'); document.body.style.background = '#12305e'; }</script>
 </body></html>

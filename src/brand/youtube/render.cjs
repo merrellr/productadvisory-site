@@ -13,6 +13,6 @@ const D = __dirname;
   p = await b.newPage({ viewport: { width: 800, height: 800 } });
   await p.goto('file://' + D + '/mark.html'); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);
   await p.screenshot({ path: D + '/mark-800.png', omitBackground: true });
-  await p.goto('file://' + D + '/mark.html?circle'); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);
-  await p.screenshot({ path: D + '/Product-Advisory-Insights-profile-800x800.png', omitBackground: true });
+  await p.goto('file://' + D + '/mark.html?full'); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(200);
+  await p.screenshot({ path: D + '/Product-Advisory-Insights-profile-800x800.png' });
   await b.close(); })();
