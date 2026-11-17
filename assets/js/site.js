@@ -1627,6 +1627,14 @@
     });
   }
 
+  /* The quick tour (assets/js/guide.js) loads only on pages with a tour button. */
+  function initGuide() {
+    if (!document.querySelector("[data-guide]") || document.querySelector("script[data-guide-js]")) return;
+    var sc = document.createElement("script");
+    sc.src = "/assets/js/guide.js"; sc.defer = true; sc.setAttribute("data-guide-js", "");
+    document.body.appendChild(sc);
+  }
+
   /* ---------- go ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
@@ -1647,6 +1655,7 @@
     initFigureZoom();
     initListen();
     initFeedCopy();
+    initGuide();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
 })();

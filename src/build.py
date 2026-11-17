@@ -200,6 +200,7 @@ def home():
       <div class="eyebrow">Product management consulting</div>
       <h1>Building <em>Market Driven</em> Products</h1>
       <p class="lede">Professional end-to-end product consulting for startups and enterprises. We turn market insight into roadmaps your team can defend, and products people actually want.</p>
+      {tour_link("home", "New here? Take the site tour")}
       <div class="ask" id="ask">
         <form class="ask-form" role="search">
           {tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}
@@ -852,7 +853,6 @@ def scorecard():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
-<script src="assets/js/guide.js"></script>
 <script src="assets/js/scorecard-core.js"></script>
 <script src="assets/js/scorecard.js"></script>'''
     write("scorecard.html", page("scorecard.html", "Feature Prioritization Scorecard", "Free interactive Feature Prioritization Scorecard: weighted scoring and RICE side by side. Weight criteria, score features, compare rankings and share the result.", body,
@@ -935,7 +935,6 @@ def ai_use_cases():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
-<script src="assets/js/guide.js"></script>
 <script src="assets/js/ai-usecases-core.js"></script>
 <script src="assets/js/ai-usecases.js"></script>'''
     write("ai-use-cases.html", page("ai-use-cases.html", "AI Use Case Prioritization", "Free AI use case prioritization tool: score AI ideas on value, data readiness, cost, team readiness and risk, map them, and get the first pilot to run.", body,
@@ -1010,7 +1009,6 @@ def ai_readiness():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
-<script src="assets/js/guide.js"></script>
 <script src="assets/js/ai-readiness-core.js"></script>
 <script src="assets/js/ai-readiness.js"></script>'''
     write("ai-readiness.html", page("ai-readiness.html", "AI Readiness Checklist", "Free AI readiness checklist: 24 statements across strategy, data, people, use cases, tools and guardrails. See where you are on the AI adoption journey and get your next three moves.", body,
@@ -1065,7 +1063,7 @@ def sheet_menu(files, label="Get the spreadsheet"):
             f'<a href="{files[3]}" download><b>Excel</b><small>Downloads the .xlsx file</small></a></div></details>')
 
 
-def tour_link(tid):
+def tour_link(tid, label="New here? Take the quick tour", small=False):
     """New here? The tool's quick tour: a click-through guide on the page itself (assets/js/guide.js), with the steps
     from src/guides.json built into the button. No video or audio to download."""
     with open(os.path.join(ROOT, "src", "guides.json")) as f:
@@ -1074,9 +1072,10 @@ def tour_link(tid):
         return ""
     cfg = escape(json.dumps({k: g[k] for k in ("title", "restore", "steps") if k in g}, ensure_ascii=False, separators=(",", ":")), quote=True)
     n = len(g["steps"])
-    return (f'<button type="button" class="guide-btn" data-tour="{tid}" data-guide="{cfg}">'
+    sub = "" if small else f"<small>{n} steps · about a minute</small>"
+    return (f'<button type="button" class="guide-btn{" guide-sm" if small else ""}" data-tour="{tid}" data-guide="{cfg}">'
             f'<span class="guide-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>'
-            f'<span><b>New here? Take the quick tour</b><small>{n} steps · about a minute</small></span></button>')
+            f'<span><b>{label}</b>{sub}</span></button>')
 
 
 def xlsx_row(path, name):
@@ -1180,7 +1179,6 @@ def build_buy_partner():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
-<script src="assets/js/guide.js"></script>
 <script src="assets/js/bbp-core.js"></script>
 <script src="assets/js/bbp.js"></script>'''
     write("build-buy-partner.html", page("build-buy-partner.html", "Build, Buy, or Partner Decision Matrix", "Free Build, Buy, or Partner decision matrix: score each option on ten weighted criteria, compare the three-year cost, and record the decision and its risks.", body,
@@ -1268,7 +1266,6 @@ def impact_score():
   </div>
 </section>
 <script src="assets/js/save.js"></script>
-<script src="assets/js/guide.js"></script>
 <script src="assets/js/impact-core.js"></script>
 <script src="assets/js/impact.js"></script>'''
     write("impact-score.html", page("impact-score.html", "Organizational Impact Score", "Free Organizational Impact Score: rate initiatives against your KPIs, adjust for confidence, and rank them with an action for each: do now, big bet, quick win.", body,
@@ -1971,7 +1968,7 @@ def article_page(a, full):
       <h1>{escape(a["title"])}</h1>
       <p class="dek">{escape(a["dek"])}</p>
       <p class="byline">Product Advisory · <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{updated}</p>
-      {formats_html(a, m, linked=True)}
+      {formats_html(a, m, linked=True)}{tour_link("article", "How this page works", small=True) if m else ""}
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>

@@ -4,67 +4,352 @@
     "title": "the Scorecard",
     "restore": ".sc-methods [aria-checked=true]",
     "steps": [
-      { "s": ".page-head h1", "t": "Feature Prioritization Scorecard", "p": "It ranks the features you're weighing by what matters to your business, so your roadmap reflects your goals, not the loudest voice in the room." },
-      { "s": "#sc-title", "t": "Name it", "p": "Give it a name, so you can find it later." },
-      { "s": "#sc-criteria", "t": "1 · What matters", "p": "Pick a template, then rename, reweight or add criteria. Effort and risk count the other way: lower is better." },
-      { "s": "#sc-criteria .sc-crit", "t": "Weights", "p": "Each slider sets a weight from 0 to 5. A weight of 0 switches a criterion off." },
-      { "s": "#sc-features", "t": "2 · Score them", "p": "Score each feature from 1 to 5 on each criterion. Not sure where to start? Use Fill in an example to see how it works." },
-      { "s": "#sc-results", "t": "3 · Your ranking", "p": "It updates as you go: a score from 0 to 100 for each feature, with what drove it." },
-      { "s": "[data-method=rice]", "t": "Prefer RICE?", "p": "Switch to RICE, add reach, impact, confidence and effort, and get a second ranking.", "act": ".sc-methods [data-method=rice]" },
-      { "s": "[data-method=compare]", "t": "Compare both", "p": "Puts the two rankings side by side. Where they disagree is where the real conversation is.", "act": ".sc-methods [data-method=compare]" },
-      { "s": ".sc-actions", "t": "Save, share, export", "p": "Save it to your account, share a link, or export a CSV or PDF. Nothing leaves your browser unless you choose to." },
-      { "s": ".sc-tips", "t": "Make it stick", "p": "Have two people score on their own, then compare. For a whole team, save it to your account and choose Score as a team." }
+      {
+        "s": ".page-head h1",
+        "t": "Feature Prioritization Scorecard",
+        "p": "It ranks the features you're weighing by what matters to your business, so your roadmap reflects your goals, not the loudest voice in the room."
+      },
+      {
+        "s": "#sc-title",
+        "t": "Name it",
+        "p": "Give it a name, so you can find it later."
+      },
+      {
+        "s": "#sc-criteria",
+        "t": "1 · What matters",
+        "p": "Pick a template, then rename, reweight or add criteria. Effort and risk count the other way: lower is better."
+      },
+      {
+        "s": "#sc-criteria .sc-crit",
+        "t": "Weights",
+        "p": "Each slider sets a weight from 0 to 5. A weight of 0 switches a criterion off."
+      },
+      {
+        "s": "#sc-features",
+        "t": "2 · Score them",
+        "p": "Score each feature from 1 to 5 on each criterion. Not sure where to start? Use Fill in an example to see how it works."
+      },
+      {
+        "s": "#sc-results",
+        "t": "3 · Your ranking",
+        "p": "It updates as you go: a score from 0 to 100 for each feature, with what drove it."
+      },
+      {
+        "s": "[data-method=rice]",
+        "t": "Prefer RICE?",
+        "p": "Switch to RICE, add reach, impact, confidence and effort, and get a second ranking.",
+        "act": ".sc-methods [data-method=rice]"
+      },
+      {
+        "s": "[data-method=compare]",
+        "t": "Compare both",
+        "p": "Puts the two rankings side by side. Where they disagree is where the real conversation is.",
+        "act": ".sc-methods [data-method=compare]"
+      },
+      {
+        "s": ".sc-actions",
+        "t": "Save, share, export",
+        "p": "Save it to your account, share a link, or export a CSV or PDF. Nothing leaves your browser unless you choose to."
+      },
+      {
+        "s": ".sc-tips",
+        "t": "Make it stick",
+        "p": "Have two people score on their own, then compare. For a whole team, save it to your account and choose Score as a team."
+      }
     ]
   },
   "ai-use-cases": {
     "title": "AI Use Case Prioritization",
     "steps": [
-      { "s": ".page-head h1", "t": "AI Use Case Prioritization", "p": "It helps you choose where AI is worth the effort first, and names the first pilot to run." },
-      { "s": "#uc-title", "t": "Name it", "p": "Name your list, so you can find it later." },
-      { "s": ".uc-guide", "t": "Five questions", "p": "Every idea is scored from 1 to 5 on business value, data readiness, cost and effort, team readiness, and risk if it goes wrong." },
-      { "s": "#uc-table", "t": "Score your ideas", "p": "Add your ideas, one per row, as specific as you can. Use Fill in an example to see it work." },
-      { "s": "#uc-matrix", "t": "Where they land", "p": "Value against feasibility. Quick wins sit top right; strategic bets are valuable but harder. A dashed ring flags high risk." },
-      { "s": "#uc-plan", "t": "Your plan", "p": "Every idea ranked with a next step. Start here names the first pilot: one team, four to six weeks, one number to judge it by." },
-      { "s": ".sc-actions", "t": "Save, share, export", "p": "Save it to your account, share a link, or export a CSV or PDF. Prefer a spreadsheet? There's an Excel version with the same math." },
-      { "s": ".uc-tips", "t": "Make it stick", "p": "Score it with the people who'd use it, pilot one thing at a time, and re-run it after each pilot." }
+      {
+        "s": ".page-head h1",
+        "t": "AI Use Case Prioritization",
+        "p": "It helps you choose where AI is worth the effort first, and names the first pilot to run."
+      },
+      {
+        "s": "#uc-title",
+        "t": "Name it",
+        "p": "Name your list, so you can find it later."
+      },
+      {
+        "s": ".uc-guide",
+        "t": "Five questions",
+        "p": "Every idea is scored from 1 to 5 on business value, data readiness, cost and effort, team readiness, and risk if it goes wrong."
+      },
+      {
+        "s": "#uc-table",
+        "t": "Score your ideas",
+        "p": "Add your ideas, one per row, as specific as you can. Use Fill in an example to see it work."
+      },
+      {
+        "s": "#uc-matrix",
+        "t": "Where they land",
+        "p": "Value against feasibility. Quick wins sit top right; strategic bets are valuable but harder. A dashed ring flags high risk."
+      },
+      {
+        "s": "#uc-plan",
+        "t": "Your plan",
+        "p": "Every idea ranked with a next step. Start here names the first pilot: one team, four to six weeks, one number to judge it by."
+      },
+      {
+        "s": ".sc-actions",
+        "t": "Save, share, export",
+        "p": "Save it to your account, share a link, or export a CSV or PDF. Prefer a spreadsheet? There's an Excel version with the same math."
+      },
+      {
+        "s": ".uc-tips",
+        "t": "Make it stick",
+        "p": "Score it with the people who'd use it, pilot one thing at a time, and re-run it after each pilot."
+      }
     ]
   },
   "ai-readiness": {
     "title": "the AI Readiness Checklist",
     "steps": [
-      { "s": ".page-head h1", "t": "AI Readiness Checklist", "p": "It checks whether your team, data, tools and guardrails are ready for AI work, and gives you your next three moves." },
-      { "s": "#rd-title", "t": "Name it", "p": "Name the check, for example by team and month." },
-      { "s": "#rd-areas", "t": "1 · Answer the statements", "p": "24 statements in six areas, for your team as it is today: yes, partly, no or not sure. A no is more useful than a hopeful yes." },
-      { "s": "#rd-level", "t": "Where you are", "p": "Your readiness score and what it means." },
-      { "s": "#rd-journey", "t": "2 · Your journey", "p": "Your stage on the AI adoption journey, from starting with you to organization-wide capability, and a score for each area." },
-      { "s": "#rd-moves", "t": "3 · Next three moves", "p": "They come from the gaps in your weakest areas first, with what you said that led to each." },
-      { "s": ".sc-actions", "t": "Save, share, export", "p": "Save it, share a link, export it, or download the Excel version. Answer it together, act on one move at a time, and re-run it each quarter." }
+      {
+        "s": ".page-head h1",
+        "t": "AI Readiness Checklist",
+        "p": "It checks whether your team, data, tools and guardrails are ready for AI work, and gives you your next three moves."
+      },
+      {
+        "s": "#rd-title",
+        "t": "Name it",
+        "p": "Name the check, for example by team and month."
+      },
+      {
+        "s": "#rd-areas",
+        "t": "1 · Answer the statements",
+        "p": "24 statements in six areas, for your team as it is today: yes, partly, no or not sure. A no is more useful than a hopeful yes."
+      },
+      {
+        "s": "#rd-level",
+        "t": "Where you are",
+        "p": "Your readiness score and what it means."
+      },
+      {
+        "s": "#rd-journey",
+        "t": "2 · Your journey",
+        "p": "Your stage on the AI adoption journey, from starting with you to organization-wide capability, and a score for each area."
+      },
+      {
+        "s": "#rd-moves",
+        "t": "3 · Next three moves",
+        "p": "They come from the gaps in your weakest areas first, with what you said that led to each."
+      },
+      {
+        "s": ".sc-actions",
+        "t": "Save, share, export",
+        "p": "Save it, share a link, export it, or download the Excel version. Answer it together, act on one move at a time, and re-run it each quarter."
+      }
     ]
   },
   "build-buy-partner": {
     "title": "the Build, Buy, or Partner Matrix",
     "steps": [
-      { "s": ".page-head h1", "t": "Build, Buy, or Partner", "p": "It helps you decide how to get a new capability (build it, buy it or partner for it) and record why." },
-      { "s": "#bb-title", "t": "Name it", "p": "Name the decision first." },
-      { "s": "#bb-table", "t": "Score the options", "p": "Score each option from 1 to 5 on ten criteria, from strategic differentiation to exit flexibility. Weights add up to 100. Fill in the worked example to see it." },
-      { "s": "#bb-cost", "t": "Three-year cost", "p": "Compare the cost over three years. Years two and three often decide the outcome." },
-      { "s": "#bb-result", "t": "The result", "p": "Each option's weighted score out of 5, its cost and its time to first value. Scores within a quarter point are a tie, which is common." },
-      { "s": "#bb-checks", "t": "Check before you commit", "p": "Where a small change in weights would change the answer, and the risks to plan for." },
-      { "s": "#bb-choice", "t": "Decide and record it", "p": "Why this option, the top risks, what would make you reopen it, and the next steps. It's saved with the matrix." },
-      { "s": ".sc-actions", "t": "Save, share, export", "p": "Save it, share a link, export it, or download the fillable PDF and spreadsheet versions." }
+      {
+        "s": ".page-head h1",
+        "t": "Build, Buy, or Partner",
+        "p": "It helps you decide how to get a new capability (build it, buy it or partner for it) and record why."
+      },
+      {
+        "s": "#bb-title",
+        "t": "Name it",
+        "p": "Name the decision first."
+      },
+      {
+        "s": "#bb-table",
+        "t": "Score the options",
+        "p": "Score each option from 1 to 5 on ten criteria, from strategic differentiation to exit flexibility. Weights add up to 100. Fill in the worked example to see it."
+      },
+      {
+        "s": "#bb-cost",
+        "t": "Three-year cost",
+        "p": "Compare the cost over three years. Years two and three often decide the outcome."
+      },
+      {
+        "s": "#bb-result",
+        "t": "The result",
+        "p": "Each option's weighted score out of 5, its cost and its time to first value. Scores within a quarter point are a tie, which is common."
+      },
+      {
+        "s": "#bb-checks",
+        "t": "Check before you commit",
+        "p": "Where a small change in weights would change the answer, and the risks to plan for."
+      },
+      {
+        "s": "#bb-choice",
+        "t": "Decide and record it",
+        "p": "Why this option, the top risks, what would make you reopen it, and the next steps. It's saved with the matrix."
+      },
+      {
+        "s": ".sc-actions",
+        "t": "Save, share, export",
+        "p": "Save it, share a link, export it, or download the fillable PDF and spreadsheet versions."
+      }
     ]
   },
   "impact-score": {
     "title": "the Organizational Impact Score",
     "steps": [
-      { "s": ".page-head h1", "t": "Organizational Impact Score", "p": "It rates initiatives against the KPIs your organization already tracks, adjusts for how sure you are, and suggests what to do with each." },
-      { "s": "#im-title", "t": "Name it", "p": "Name the sheet first." },
-      { "s": "#im-kpis", "t": "1 · Your KPIs", "p": "Keep the defaults or rename them, and set their weights. Weights total 100." },
-      { "s": "#im-table", "t": "2 · Score your initiatives", "p": "Up to six initiatives: how much each would move each KPI (0 to 5), your confidence, and how easy it is to deliver. Fill in the worked example to see it." },
-      { "s": "#im-matrix", "t": "3 · Where they land", "p": "The confidence-adjusted score against ease: do now, big bets, quick wins and revisit." },
-      { "s": "#im-plan", "t": "4 · The ranking", "p": "Every initiative in order, with a suggested action. Scores within five points are effectively tied." },
-      { "s": "#im-top", "t": "5 · Decide", "p": "Your top priority, sequencing, what you won't do now, and the assumptions to test first." },
-      { "s": ".sc-actions", "t": "Save, share, export", "p": "Save it, share a link, export it, or use the fillable PDF and spreadsheet versions." }
+      {
+        "s": ".page-head h1",
+        "t": "Organizational Impact Score",
+        "p": "It rates initiatives against the KPIs your organization already tracks, adjusts for how sure you are, and suggests what to do with each."
+      },
+      {
+        "s": "#im-title",
+        "t": "Name it",
+        "p": "Name the sheet first."
+      },
+      {
+        "s": "#im-kpis",
+        "t": "1 · Your KPIs",
+        "p": "Keep the defaults or rename them, and set their weights. Weights total 100."
+      },
+      {
+        "s": "#im-table",
+        "t": "2 · Score your initiatives",
+        "p": "Up to six initiatives: how much each would move each KPI (0 to 5), your confidence, and how easy it is to deliver. Fill in the worked example to see it."
+      },
+      {
+        "s": "#im-matrix",
+        "t": "3 · Where they land",
+        "p": "The confidence-adjusted score against ease: do now, big bets, quick wins and revisit."
+      },
+      {
+        "s": "#im-plan",
+        "t": "4 · The ranking",
+        "p": "Every initiative in order, with a suggested action. Scores within five points are effectively tied."
+      },
+      {
+        "s": "#im-top",
+        "t": "5 · Decide",
+        "p": "Your top priority, sequencing, what you won't do now, and the assumptions to test first."
+      },
+      {
+        "s": ".sc-actions",
+        "t": "Save, share, export",
+        "p": "Save it, share a link, export it, or use the fillable PDF and spreadsheet versions."
+      }
+    ]
+  },
+  "home": {
+    "title": "Product Advisory",
+    "steps": [
+      {
+        "s": ".hero h1",
+        "t": "Welcome to Product Advisory",
+        "p": "Product management consulting for startups and enterprises: market insight turned into roadmaps your team can defend."
+      },
+      {
+        "s": "#ask",
+        "t": "Ask anything",
+        "p": "Type a question about our services, tools or articles and get an answer drawn from this site, with links to where it came from."
+      },
+      {
+        "s": "#problems",
+        "t": "Sound familiar?",
+        "p": "Pick the problem that sounds most like your team and see what we'd do about it first."
+      },
+      {
+        "s": "#services",
+        "t": "Services",
+        "p": "Every service fixes a specific version of the same problem: product work that isn't connected to evidence or to the business."
+      },
+      {
+        "s": "#start",
+        "t": "Start where you are",
+        "p": "Tell us who's visiting and the site points you to the best first step. You can change it any time."
+      },
+      {
+        "s": "#skill-check",
+        "t": "The free skill check",
+        "p": "14 quick questions on product and AI skills, with a breakdown and where to learn next."
+      },
+      {
+        "s": ".nav-links a[href=\"/toolkits\"]",
+        "alt": ".menu-btn",
+        "t": "Free toolkits",
+        "p": "Interactive tools for prioritizing features, AI use cases, build-buy-partner decisions and more. No sign-up."
+      },
+      {
+        "s": ".nav-links a[href=\"/insights\"]",
+        "alt": ".menu-btn",
+        "t": "Insights",
+        "p": "Product+ articles you can read, listen to as a podcast, or watch."
+      },
+      {
+        "s": "[data-action=palette]",
+        "t": "Search",
+        "p": "Find any page, tool or article. Press Ctrl+K (⌘K on a Mac) from anywhere."
+      },
+      {
+        "s": ".prefs-btn",
+        "alt": ".menu-btn",
+        "t": "Make it yours",
+        "p": "Text size, contrast, motion and light or dark: set the site up the way you like to read."
+      },
+      {
+        "s": ".nav-cta",
+        "alt": ".menu-btn",
+        "t": "Book a call",
+        "p": "A free 30-minute call to talk through where you're stuck. No pitch deck required."
+      }
+    ]
+  },
+  "article": {
+    "title": "this article",
+    "steps": [
+      {
+        "s": ".fmts",
+        "t": "Read, listen or watch",
+        "p": "Every Product+ article comes as text and audio, and some as a video. These jump straight to each."
+      },
+      {
+        "s": ".listen-play",
+        "t": "Listen",
+        "p": "Press play to hear the article read aloud. It keeps playing in a small bar at the bottom as you scroll."
+      },
+      {
+        "s": ".listen-segs",
+        "t": "Chapters",
+        "p": "Each segment is a chapter. Tap one to jump to it."
+      },
+      {
+        "s": ".listen-controls",
+        "t": "Skip around",
+        "p": "Back 15 seconds, forward 30, or straight to the previous or next chapter."
+      },
+      {
+        "s": ".listen-ra",
+        "t": "Read along",
+        "p": "Highlights each paragraph and word as it's read, and scrolls with it. Scroll away and it waits for you."
+      },
+      {
+        "s": ".listen-speed",
+        "t": "Speed",
+        "p": "From 0.75x to 2x, remembered for next time."
+      },
+      {
+        "s": ".listen-more",
+        "t": "Download or subscribe",
+        "p": "Save the MP3, or follow Product+ Audio in Spotify or your podcast app."
+      },
+      {
+        "s": ".takeaways",
+        "t": "Key takeaways",
+        "p": "The short version, if you only have a minute."
+      },
+      {
+        "s": ".post-body p[data-t] + p[data-t]",
+        "t": "Listen from here",
+        "p": "Once it's playing, tap any paragraph to listen from that point."
+      },
+      {
+        "s": ".post-faq",
+        "t": "Questions people ask",
+        "p": "Short answers to the questions this topic usually raises."
+      }
     ]
   }
 }

@@ -1,7 +1,7 @@
 /* The quick tour: a click-through guide on the page itself. No video or audio to download.
-   A [data-guide] button holds the steps as JSON: {"title": ..., "restore": selector?, "steps": [{s, t, p, act?}]}.
+   A [data-guide] button holds the steps as JSON: {"title": ..., "restore": selector?, "steps": [{s, t, p, act?, alt?}]}.
    Each step dims the page, highlights its element (s) and shows a tip card with Back / Next. Steps whose element
-   isn't on the page (or is hidden) are skipped. `act` is clicked first (a tab, for example); `restore`, found when the
+   isn't on the page (or is hidden) are skipped, unless the step names an `alt` to point at instead. `act` is clicked first (a tab, for example); `restore`, found when the
    tour starts, is clicked when it ends so the page is left as it was. Esc closes; the arrow keys step.
    The same file runs on www (src/guides.json, built in by build.py) and on Learning (tour.js there is a copy). */
 (function () {
@@ -24,6 +24,7 @@
     ".guide-pop .g-dots{flex:1;display:flex;flex-wrap:wrap;gap:5px}.guide-pop .g-dots i{width:7px;height:7px;border-radius:50%;background:#d5deea}.guide-pop .g-dots i.on{background:#1c4587}" +
     ".guide-pop .g-b{min-height:38px;padding:0 16px;border-radius:19px;border:1.5px solid #c9d5e6;background:#fff;color:#1a4584;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}" +
     ".guide-pop .g-n{border-color:#1c4587;background:#1c4587;color:#fff}" +
+    ".guide-btn.guide-sm{margin:12px 0 0;padding:4px 14px 4px 4px;gap:8px;box-shadow:none}.guide-sm .guide-ico{width:28px;height:28px}.guide-sm .guide-ico svg{width:15px;height:15px}.guide-sm b{font-size:.85rem}" +
     "html.guide-on [class*=toast]{visibility:hidden!important}" +
     "html.pa-embed .guide-btn{display:none}@media print{.guide-btn{display:none!important}}" +
     "@media (prefers-reduced-motion:reduce){.guide-hole,.guide-pop{transition:none}}";
@@ -82,12 +83,13 @@
         var st = steps[k];
         if (st.act) { var a = document.querySelector(st.act); if (a) a.click(); }
         var t = document.querySelector(st.s);
+        if (!visible(t) && st.alt) t = document.querySelector(st.alt);   // e.g. a menu link hidden on phones: point at the menu button
         if (visible(t)) break;
         k += dir;
       }
       if (k < 0) return;
       if (k >= steps.length) return end(true);
-      i = k; el = document.querySelector(steps[k].s); furthest = Math.max(furthest, k);
+      i = k; el = t; furthest = Math.max(furthest, k);
       var shown = steps.length;
       pop.querySelector(".g-c").textContent = "Quick tour · " + (k + 1) + " of " + shown;
       pop.querySelector("h2").textContent = steps[k].t;
