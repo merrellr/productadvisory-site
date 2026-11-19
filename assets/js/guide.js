@@ -3,6 +3,11 @@
    Each step dims the page, highlights its element (s) and shows a tip card with Back / Next. Steps whose element
    isn't on the page (or is hidden) are skipped, unless the step names an `alt` to point at instead. `act` is clicked first (a tab, for example); `restore`, found when the
    tour starts, is clicked when it ends so the page is left as it was. Esc closes; the arrow keys step.
+   Once someone takes a tour (or closes its × ), its button leaves the page for good and the tour lives under Help.
+   It comes back only when the tour changes: give the button a higher data-tour-v and mark the new steps with "v"; the
+   button returns as "New on this page" and walks just the new steps. Which tours were taken is kept in this browser
+   (pa-tours-taken: "id" or "id@v") and, on Learning, on the person's account so it follows them to other devices.
+   ?tour=1 (or ?tour=<id>) in the address starts the page's tour once it has loaded.
    The same file runs on www (src/guides.json, built in by build.py) and on Learning (tour.js there is a copy). */
 (function () {
   "use strict";
@@ -26,14 +31,21 @@
     ".guide-pop .g-n{border-color:#1c4587;background:#1c4587;color:#fff}" +
     ".guide-btn.guide-sm{margin:12px 0 0;padding:4px 14px 4px 4px;gap:8px;box-shadow:none}.guide-sm .guide-ico{width:28px;height:28px}.guide-sm .guide-ico svg{width:15px;height:15px}.guide-sm b{font-size:.85rem}" +
     "html.guide-on [class*=toast]{visibility:hidden!important}" +
-    /* once someone has taken a page's tour, its button steps back: a quiet "Replay the tour" link (Learning hides it and
-       keeps it under Help) */
-    ".guide-btn.guide-taken{margin:6px 0;padding:2px 8px 2px 2px;gap:6px;border-color:transparent;background:none;box-shadow:none}" +
-    ".guide-btn.guide-taken:hover{border-color:var(--line,#e3e9f0);transform:none}" +
-    ".guide-taken .guide-ico{width:24px;height:24px;background:none;color:var(--muted,var(--ink-soft,#5a6678));border:1.5px solid currentColor}.guide-taken .guide-ico svg{width:13px;height:13px}" +
-    ".guide-taken b{font-size:.82rem;font-weight:600;color:var(--muted,var(--ink-soft,#5a6678))}.guide-taken small{display:none}" +
+    /* once taken (or closed with ×), a tour's button leaves the page; Help keeps the tour */
+    ".guide-btn.guide-taken,.guide-wrap.guide-taken{display:none!important}" +
+    ".guide-wrap{display:inline-flex;align-items:center;gap:2px;max-width:100%}.guide-wrap>.guide-btn{min-width:0}" +
+    ".guide-x{flex:none;display:grid;place-items:center;width:30px;height:30px;margin-left:2px;border:0;border-radius:50%;background:transparent;color:var(--muted,var(--ink-soft,#5a6678));font:inherit;font-size:1.15rem;line-height:1;cursor:pointer}" +
+    ".guide-x:hover{background:var(--line,#e3e9f0);color:var(--ink,#16213e)}.guide-x:focus-visible{outline:3px solid var(--cyan,#35c2e8);outline-offset:2px}" +
+    ".guide-tag{display:inline-block;margin-right:6px;padding:1px 7px;border-radius:9px;background:#35c2e8;color:#08202e;font-size:.68rem;font-style:normal;font-weight:800;letter-spacing:.04em;text-transform:uppercase;vertical-align:1px}" +
+    ".guide-btn.guide-new{border-color:#35c2e8}" +
+    ".guide-tip{position:fixed;z-index:2147483590;max-width:min(280px,calc(100vw - 24px));box-sizing:border-box;padding:10px 32px 10px 14px;border-radius:12px;background:#12305e;color:#fff;font-size:.86rem;line-height:1.45;box-shadow:0 12px 30px rgba(6,16,34,.3);animation:guideTipIn .25s ease-out}" +
+    ".guide-tip::before{content:\"\";position:absolute;top:-6px;right:var(--arrow,20px);width:12px;height:12px;background:#12305e;transform:rotate(45deg)}" +
+    ".guide-tip b{color:#7fdcf4}.guide-tip button{position:absolute;top:4px;right:4px;width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#fff;font-size:1.05rem;line-height:1;cursor:pointer}" +
+    ".guide-tip button:hover{background:rgba(255,255,255,.14)}.guide-tip button:focus-visible{outline:3px solid #35c2e8}" +
+    ".guide-ring{box-shadow:0 0 0 3px #35c2e8!important;border-radius:999px}" +
+    "@keyframes guideTipIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}" +
     "html.pa-embed .guide-btn{display:none}@media print{.guide-btn{display:none!important}}" +
-    "@media (prefers-reduced-motion:reduce){.guide-hole,.guide-pop{transition:none}}";
+    "@media (prefers-reduced-motion:reduce){.guide-hole,.guide-pop{transition:none}.guide-tip{animation:none}}";
 
   function visible(el) {
     if (!el) return false;
@@ -41,10 +53,14 @@
     return (r.width > 0 || r.height > 0) && getComputedStyle(el).visibility !== "hidden";
   }
 
-  function start(btn) {
+  function start(btn, full) {
     var cfg;
     try { cfg = JSON.parse(btn.getAttribute("data-guide")); } catch (e) { return; }
-    var steps = cfg.steps || [], tid = btn.getAttribute("data-tour") || "";
+    var steps = cfg.steps || [], tid = btn.getAttribute("data-tour") || "", ver = version(btn), had = seen(tid);
+    // a tour that changed since this person took it: walk just the new steps (Help's "Take the tour" walks them all)
+    var whatsNew = !full && had > 0 && had < ver && steps.some(function (st) { return (st.v || 1) > had; });
+    if (whatsNew) steps = steps.filter(function (st) { return (st.v || 1) > had; });
+    var before = document.activeElement;
     var restore = cfg.restore ? document.querySelector(cfg.restore) : null;
     var track = function (n, x) {   // the sites' analytics: GTM's dataLayer (www) and PAAnalytics (Learning)
       var d = Object.assign({ tour: tid }, x || {});
@@ -97,7 +113,7 @@
       if (k >= steps.length) return end(true);
       i = k; el = t; furthest = Math.max(furthest, k);
       var shown = steps.length;
-      pop.querySelector(".g-c").textContent = "Quick tour · " + (k + 1) + " of " + shown;
+      pop.querySelector(".g-c").textContent = (whatsNew ? "What's new · " : "Quick tour · ") + (k + 1) + " of " + shown;
       pop.querySelector("h2").textContent = steps[k].t;
       pop.querySelector(".g-p").textContent = steps[k].p;
       var dots = ""; for (var d = 0; d < shown; d++) dots += '<i class="' + (d === k ? "on" : "") + '"></i>';
@@ -118,8 +134,13 @@
       document.removeEventListener("keydown", key, true);
       shield.remove(); hole.remove(); pop.remove(); document.documentElement.classList.remove("guide-on");
       if (restore) restore.click();
-      track(done ? "tour_finish" : "tour_close", { step: furthest + 1 });
-      btn.focus({ preventScroll: true });
+      track(done ? "tour_finish" : "tour_close", { step: furthest + 1, whats_new: whatsNew });
+      // the first time through, the button leaves the page and Help points out where the tour lives now
+      var first = had < ver && !btn.classList.contains("guide-taken");
+      if (first) leave(btn);
+      var back = isShown(btn) ? btn : (before && before !== document.body && before.isConnected && isShown(before) ? before : helpAnchor());
+      if (back) back.focus({ preventScroll: true });
+      if (first) helpTip();
     }
     function key(e) {
       if (e.key === "Escape") { e.preventDefault(); end(false); }
@@ -137,30 +158,131 @@
     shield.addEventListener("click", function () { next.focus(); });
     window.addEventListener("scroll", later, true); window.addEventListener("resize", later);
     document.addEventListener("keydown", key, true);
-    track("tour_open");
-    taken(tid, true);
+    track("tour_open", { whats_new: whatsNew });
+    mark(tid, ver);
     go(0, 1);
   }
-
-  // Which tours this visitor has taken (this browser only): their buttons step back on the next visit.
-  var TAKEN = "pa-tours-taken";
-  function taken(id, add) {
-    var list = [];
-    try { list = JSON.parse(localStorage.getItem(TAKEN) || "[]") || []; } catch (e) { /* storage off */ }
-    if (!add) return !!id && list.indexOf(id) > -1;
-    if (id && list.indexOf(id) < 0) { list.push(id); try { localStorage.setItem(TAKEN, JSON.stringify(list)); } catch (e) { /* storage off */ } }
-    return true;
+  function isShown(el) { return !!el && el.getClientRects().length > 0; }
+  function version(b) { return Math.max(1, parseInt(b.getAttribute("data-tour-v"), 10) || 1); }
+  // the button and its × leave the page (the tour stays under Help)
+  function leave(b) {
+    b.classList.add("guide-taken");
+    var w = b.parentNode && b.parentNode.classList && b.parentNode.classList.contains("guide-wrap") ? b.parentNode : null;
+    if (w) w.classList.add("guide-taken");
   }
-  // For a Help menu or a search box: start this page's tour (the first one on the page), or say there isn't one.
+  // Help: the button that opens it (the first one showing: the header's Help, else the phone menu)
+  function helpAnchor() {
+    var a = document.querySelectorAll("[data-help-anchor]");
+    for (var n = 0; n < a.length; n++) if (isShown(a[n])) return a[n];
+    return null;
+  }
+  // "The tour is under Help now": a small note under the Help button, once, that goes by itself
+  function helpTip() {
+    var a = helpAnchor(), old = document.querySelector(".guide-tip");
+    if (old) old.remove();
+    if (!a) return;
+    var tip = document.createElement("div"), r = a.getBoundingClientRect();
+    tip.className = "guide-tip"; tip.setAttribute("role", "status");
+    tip.innerHTML = "You can take this tour again any time from <b>Help</b>.<button type=\"button\" aria-label=\"Close\">&times;</button>";
+    document.body.appendChild(tip);
+    var w = tip.offsetWidth, x = Math.min(Math.max(12, r.right - w), window.innerWidth - w - 12);
+    tip.style.top = (r.bottom + 12) + "px"; tip.style.left = x + "px";
+    tip.style.setProperty("--arrow", Math.max(10, Math.min(w - 22, r.left + r.width / 2 - x - 6)) + "px");
+    a.classList.add("guide-ring");
+    // it goes after 7 seconds, on its ×, or once the page is scrolled well away (not by the tour's own last scroll)
+    var y0 = -1, gone = function () { tip.remove(); a.classList.remove("guide-ring"); window.removeEventListener("scroll", moved, true); };
+    var moved = function () { if (y0 < 0) return; if (Math.abs(window.scrollY - y0) > 120) gone(); };
+    setTimeout(function () { y0 = window.scrollY; }, 900);
+    tip.querySelector("button").addEventListener("click", gone);
+    window.addEventListener("scroll", moved, true);
+    setTimeout(gone, 7000);
+  }
+
+  // Which tours this visitor has taken, and which version: "id" (version 1) or "id@2". This browser, plus (on
+  // Learning) the person's account: account-menu.js hands the account's list to PATour.merge and saves this
+  // browser's list when it changes (the pa-tours-changed event).
+  var TAKEN = "pa-tours-taken";
+  function list() {
+    try { var l = JSON.parse(localStorage.getItem(TAKEN) || "[]"); return Array.isArray(l) ? l : []; } catch (e) { return []; }
+  }
+  function parse(entries) {
+    var m = {};
+    (entries || []).forEach(function (e) {
+      if (typeof e !== "string") return;
+      var at = e.lastIndexOf("@"), id = at > 0 ? e.slice(0, at) : e, v = at > 0 ? parseInt(e.slice(at + 1), 10) || 1 : 1;
+      if (id && v > (m[id] || 0)) m[id] = v;
+    });
+    return m;
+  }
+  function save(m) {
+    var out = Object.keys(m).map(function (id) { return m[id] > 1 ? id + "@" + m[id] : id; }).slice(-60);
+    try { localStorage.setItem(TAKEN, JSON.stringify(out)); } catch (e) { /* storage off */ }
+    try { window.dispatchEvent(new CustomEvent("pa-tours-changed", { detail: out.slice() })); } catch (e) { /* old browser */ }
+    return out;
+  }
+  function seen(id) { return (id && parse(list())[id]) || 0; }
+  function mark(id, v) {
+    if (!id) return;
+    var m = parse(list());
+    if ((m[id] || 0) >= v) return;
+    m[id] = v; save(m);
+  }
+  // A button's state: "fresh" (never taken), "new" (taken, but the tour has changed since) or "taken".
+  function state(b) {
+    var s = seen(b.getAttribute("data-tour")), v = version(b);
+    return !s ? "fresh" : s < v ? "new" : "taken";
+  }
+  // The page's tour for Help: the first whose spot on the page is showing (the dashboard has one per tab).
+  function pageButton(id) {
+    if (id) return document.querySelector('[data-guide][data-tour="' + id + '"]');
+    var all = document.querySelectorAll("[data-guide]");
+    for (var n = 0; n < all.length; n++) {
+      var w = all[n].closest(".guide-wrap") || all[n];
+      if (isShown(w.parentNode)) return all[n];
+    }
+    return all[0] || null;
+  }
+  // For a Help menu or a search box: start this page's tour (all of it), or say there isn't one.
   window.PATour = {
     available: function () { return !!document.querySelector("[data-guide]"); },
+    // "new" when this page's tour has changed since this person took it (Help marks it New)
+    status: function () { var b = pageButton(); return b ? state(b) : ""; },
     start: function (id) {
-      var b = document.querySelector(id ? '[data-guide][data-tour="' + id + '"]' : "[data-guide]");
+      var b = pageButton(id);
       if (!b) return false;
-      start(b);
+      start(b, true);
       return true;
+    },
+    // the account's list (Learning): add it to this browser's, update the buttons, and return the combined list
+    merge: function (entries) {
+      var m = parse(list()), a = parse(entries), changed = false;
+      Object.keys(a).forEach(function (id) { if (a[id] > (m[id] || 0)) { m[id] = a[id]; changed = true; } });
+      var out = changed ? save(m) : list();
+      paint();
+      return out;
     }
   };
+
+  // Show each button as it should be: gone once taken, "New on this page" when the tour has changed since.
+  function paint() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-guide]"), function (b) {
+      var st = state(b), label = b.querySelector("b"), small = b.querySelector("small");
+      if (!b.hasAttribute("data-label") && label) { b.setAttribute("data-label", label.innerHTML); if (small) b.setAttribute("data-small", small.innerHTML); }
+      b.classList.toggle("guide-new", st === "new");
+      if (st === "taken") return leave(b);
+      var w = b.closest(".guide-wrap");   // back on the page (the tour has changed since)
+      b.classList.toggle("guide-taken", false); if (w) w.classList.toggle("guide-taken", false);
+      if (st === "new" && label) {
+        var had = seen(b.getAttribute("data-tour")), cfg = {};
+        try { cfg = JSON.parse(b.getAttribute("data-guide")); } catch (e) { /* keep the count off */ }
+        var n = (cfg.steps || []).filter(function (x) { return (x.v || 1) > had; }).length;
+        label.innerHTML = '<em class="guide-tag">New</em>See what\u2019s new on this page';
+        var count = n ? n + (n === 1 ? " new step" : " new steps") : "A quick look";
+        if (small) small.textContent = count; else b.title = count;
+        b.setAttribute("aria-label", "New on this page: see what's new. A short tour.");
+      }
+    });
+  }
 
   function init() {
     var btns = document.querySelectorAll("[data-guide]");
@@ -168,12 +290,37 @@
     var style = document.createElement("style"); style.textContent = CSS; document.head.appendChild(style);
     Array.prototype.forEach.call(btns, function (b) {
       b.addEventListener("click", function () { start(b); });
-      if (taken(b.getAttribute("data-tour"))) {
-        b.classList.add("guide-taken");
-        var label = b.querySelector("b");
-        if (label) { b.setAttribute("data-label", label.textContent); label.textContent = "Replay the tour"; }
+      // a × beside the button: hide it without taking the tour (it stays under Help)
+      if (!b.closest(".guide-wrap")) {
+        var w = document.createElement("span"), x = document.createElement("button");
+        w.className = "guide-wrap"; x.type = "button"; x.className = "guide-x"; x.innerHTML = "&times;";
+        x.setAttribute("aria-label", "Hide this tour. You can take it any time from Help.");
+        x.title = "Hide. It stays under Help.";
+        b.parentNode.insertBefore(w, b); w.appendChild(b); w.appendChild(x);
+        x.addEventListener("click", function () {
+          mark(b.getAttribute("data-tour"), version(b));
+          leave(b);
+          try { if (window.PAAnalytics && window.PAAnalytics.event) window.PAAnalytics.event("tour_dismiss", { tour: b.getAttribute("data-tour") }); else (window.dataLayer = window.dataLayer || []).push({ event: "tour_dismiss", tour: b.getAttribute("data-tour") }); } catch (e) { /* never break the page */ }
+          var h = helpAnchor(); if (h) h.focus({ preventScroll: true });
+          helpTip();
+        });
       }
     });
+    if (window.__paToursAccount) window.PATour.merge(window.__paToursAccount); else paint();
+    // ?tour=1 or ?tour=<id>: start it once the page has settled (Help's tour links from other pages)
+    var q = new URLSearchParams(location.search).get("tour");
+    if (q) {
+      var b = pageButton(q === "1" ? "" : q);
+      if (b) {
+        try { var u = new URL(location.href); u.searchParams.delete("tour"); history.replaceState(history.state, "", u.pathname + u.search + u.hash); } catch (e) { /* old browser */ }
+        // wait for its part of the page to show (the dashboard draws after sign-in), for up to 15 seconds
+        var tries = 0, wait = function () {
+          var w = b.closest(".guide-wrap") || b;
+          if (isShown(w.parentNode) || ++tries > 75) setTimeout(function () { start(b, true); }, 300); else setTimeout(wait, 200);
+        };
+        wait();
+      }
+    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

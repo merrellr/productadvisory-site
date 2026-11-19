@@ -1073,7 +1073,8 @@ def tour_link(tid, label="New here? Take the quick tour", small=False):
     cfg = escape(json.dumps({k: g[k] for k in ("title", "restore", "steps") if k in g}, ensure_ascii=False, separators=(",", ":")), quote=True)
     n = len(g["steps"])
     sub = "" if small else f"<small>{n} steps · about a minute</small>"
-    return (f'<button type="button" class="guide-btn{" guide-sm" if small else ""}" data-tour="{tid}" data-guide="{cfg}">'
+    ver = f' data-tour-v="{g["v"]}"' if g.get("v", 1) > 1 else ""   # a changed tour comes back as "New on this page"
+    return (f'<button type="button" class="guide-btn{" guide-sm" if small else ""}" data-tour="{tid}"{ver} data-guide="{cfg}">'
             f'<span class="guide-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>'
             f'<span><b>{label}</b>{sub}</span></button>')
 

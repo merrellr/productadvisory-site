@@ -107,6 +107,7 @@
         var a = b.getAttribute("data-action");
         if (a === "theme") toggleTheme();
         if (a === "palette") openPalette();
+        if (a === "help") { nav.classList.toggle("open", false); if (menu) menu.setAttribute("aria-expanded", "false"); openHelp(); }
         if (a === "copy-email") { e.preventDefault(); copyText(b.getAttribute("data-email") || EMAIL, "Email copied"); }
       });
     });
@@ -425,6 +426,7 @@
     { g: "Go to", t: "Learning & skill check", i: "◎", run: go("toolkits.html#learning") },
     { g: "Go to", t: "About", i: "i", run: go("about.html") },
     { g: "Go to", t: "Contact", i: "✉", run: go("contact.html") },
+    { g: "Do", t: "Help and tours", i: "?", hint: "Take a quick tour of any page", run: function () { openHelp(); } },
     { g: "Do", t: "Book a free 30-minute call", i: "☎", hint: "Pick a time", run: go("book.html") },
     { g: "Do", t: "Take the PM + AI skill assessment", i: "↗", hint: "assessment.productadvisory.co", run: open(ASSESSMENT) },
     { g: "Do", t: "Copy our email address", i: "@", hint: EMAIL, run: function () { copyText(EMAIL, "Email copied: " + EMAIL); } },
@@ -1664,6 +1666,104 @@
     document.body.appendChild(sc);
   }
 
+  /* ---------- Help ----------
+     The Help button in the header: this page's quick tour (guide.js), every other tour on the site (each link starts
+     it), search, a few quick answers and how to reach us. Once someone takes a tour its button leaves the page, so
+     Help is where tours live. The list comes from src/guides.json (built into the button's data-tours). A dot on Help
+     says a tour they took has changed since ("New"). */
+  var helpEl, helpFocus;
+  function toursTaken() {
+    var m = {};
+    try {
+      (JSON.parse(localStorage.getItem("pa-tours-taken") || "[]") || []).forEach(function (e) {
+        if (typeof e !== "string") return;
+        var at = e.lastIndexOf("@"), id = at > 0 ? e.slice(0, at) : e, v = at > 0 ? parseInt(e.slice(at + 1), 10) || 1 : 1;
+        if (v > (m[id] || 0)) m[id] = v;
+      });
+    } catch (e) { /* storage off */ }
+    return m;
+  }
+  function helpTours() {
+    var b = $(".help-btn");
+    try { return JSON.parse(b.getAttribute("data-tours")) || []; } catch (e) { return []; }
+  }
+  var HELP_FAQ = [
+    ["Are the toolkits free?", "Yes. Every toolkit is free and runs right here in your browser, with nothing to sign up for. Each one also comes as a spreadsheet template."],
+    ["Can I listen to or watch the articles?", "Yes. Every Insights article has a Listen button, and many have a video. The audio is also a podcast, Product+ Audio, on Spotify."],
+    ["How do I talk to someone?", "Book a free 30-minute call at a time that suits you, or send us a note from the Contact page."],
+    ["Can I change how the site looks?", "Yes. Make it yours (the sliders button) sets text size, contrast, motion and light or dark, and remembers it."]
+  ];
+  function buildHelp() {
+    helpEl = document.createElement("div");
+    helpEl.className = "help-backdrop";
+    var mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    var faq = HELP_FAQ.map(function (f) { return "<details><summary>" + esc(f[0]) + "</summary><p>" + esc(f[1]) + "</p></details>"; }).join("");
+    helpEl.innerHTML = '<div class="help-panel" role="dialog" aria-modal="true" aria-labelledby="helpTitle">' +
+      '<div class="help-head"><h2 id="helpTitle">Help</h2><button type="button" class="help-x" aria-label="Close Help">&times;</button></div>' +
+      '<div class="help-body">' +
+      '<button type="button" class="help-this" hidden><span class="help-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>' +
+      '<span><b><em class="help-new" hidden>New</em>Take the tour of this page</b><small>A click-through guide, about a minute</small></span></button>' +
+      '<h3>Tours</h3><ul class="help-tours"></ul>' +
+      '<h3>Find something</h3><button type="button" class="help-search"><span>Search the site, or ask a question</span><kbd>' + (mac ? "⌘" : "Ctrl") + "</kbd><kbd>K</kbd></button>" +
+      '<h3>Quick answers</h3><div class="help-faq">' + faq + "</div></div>" +
+      '<div class="help-foot"><a class="btn sm" href="/book">Book a free call</a><a class="btn sm ghost" href="/contact">Contact us</a>' +
+      '<a class="btn sm ghost" href="mailto:' + EMAIL + '">Email us</a></div></div>';
+    document.body.appendChild(helpEl);
+    helpEl.addEventListener("click", function (e) {
+      if (e.target === helpEl || e.target.closest(".help-x")) return closeHelp();
+      if (e.target.closest(".help-this")) { closeHelp(); track("help_tour", { tour: "this page" }); if (window.PATour) window.PATour.start(); return; }
+      if (e.target.closest(".help-search")) { closeHelp(); openPalette(); return; }
+      var a = e.target.closest(".help-tours a");
+      if (a) track("help_tour", { tour: a.getAttribute("data-id") });
+    });
+    helpEl.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { e.preventDefault(); closeHelp(); }
+      else if (e.key === "Tab") {   // keep focus in the panel
+        var f = $$("a[href], button, summary", helpEl).filter(function (x) { return x.getClientRects().length; }), at = f.indexOf(document.activeElement);
+        if (e.shiftKey && at <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && at === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      }
+    });
+  }
+  function openHelp() {
+    if (!helpEl) buildHelp();
+    track("help_open");
+    helpFocus = document.activeElement;
+    var taken = toursTaken(), here = window.PATour && window.PATour.available() ? window.PATour.status() : "";
+    var hereBtn = $("[data-guide]"), hereId = hereBtn ? hereBtn.getAttribute("data-tour") : "";
+    var me = $(".help-this", helpEl);
+    me.hidden = !here;
+    $(".help-new", me).hidden = here !== "new";
+    $("small", me).textContent = here === "new" ? "Updated with what’s new on this page" : "A click-through guide, about a minute";
+    $(".help-tours", helpEl).innerHTML = helpTours().filter(function (t) { return t.id !== hereId; }).map(function (t) {
+      var got = taken[t.id] || 0, tag = got && got < t.v ? '<em class="help-new">New</em>' : got ? '<span class="help-done">Taken</span>' : "";
+      return '<li><a href="' + esc(t.h) + '" data-id="' + esc(t.id) + '"><span><b>' + esc(t.n) + "</b><small>" + esc(t.a) + "</small></span>" + tag + "</a></li>";
+    }).join("");
+    helpEl.classList.add("open");
+    document.documentElement.classList.add("help-on");
+    $(".help-x", helpEl).focus();
+  }
+  function closeHelp() {
+    if (!helpEl || !helpEl.classList.contains("open")) return;
+    helpEl.classList.toggle("open", false);
+    document.documentElement.classList.toggle("help-on", false);
+    if (helpFocus && helpFocus.focus && helpFocus.getClientRects().length) helpFocus.focus(); else { var h = $(".help-btn"); if (h) h.focus(); }
+  }
+  // the dot: a tour they took has changed since
+  function helpDot() {
+    var b = $(".help-btn");
+    if (!b) return;
+    var taken = toursTaken();
+    b.classList.toggle("has-new", helpTours().some(function (t) { return taken[t.id] && taken[t.id] < t.v; }));
+  }
+  function initHelp() {
+    if (!$(".help-btn")) return;
+    helpDot();
+    window.addEventListener("pa-tours-changed", helpDot);
+    window.addEventListener("storage", function (e) { if (e.key === "pa-tours-taken") helpDot(); });
+    if (/[?&]help=1\b/.test(location.search)) openHelp();
+  }
+
   /* ---------- videos ----------
      One player for the whole site: YouTube's privacy-mode player, loaded only when someone presses play.
      Progress is kept in this browser (pa_watch: slug -> {t, d, at}) for "Continue watching", the progress bars
@@ -1940,6 +2040,7 @@
     initPostRail();
     initFeedCopy();
     initGuide();
+    initHelp();
     initFormatLanding();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

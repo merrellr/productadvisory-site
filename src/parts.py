@@ -68,6 +68,19 @@ SEARCH = tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')
 SLIDERS = tiny('<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>')
 MOON = tiny('<path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/>')
 MENU = tiny('<path d="M4 7h16M4 12h16M4 17h16"/>')
+HELP = tiny('<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/>')
+
+
+def help_tours():
+    """Every quick tour, for the Help panel (site.js): name, a line about it, the link that starts it, and its
+    version (so Help can mark a changed tour New). From src/guides.json."""
+    import json, os
+    from html import escape as _esc
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "guides.json")) as f:
+        g = json.load(f)
+    tours = sorted(((k, v) for k, v in g.items() if isinstance(v, dict) and v.get("help")), key=lambda kv: kv[1]["help"]["order"])
+    data = [{"id": k, "n": v["help"]["name"], "a": v["help"]["about"], "h": v["help"]["href"], "v": v.get("v", 1)} for k, v in tours]
+    return _esc(json.dumps(data, ensure_ascii=False, separators=(",", ":")), quote=True)
 CLOCK = tiny('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')
 
 WORDMARK = '<span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span>'
@@ -135,13 +148,14 @@ def header(page):
 <header class="nav">
   <div class="wrap">
     <a class="wm" href="index.html" aria-label="Product Advisory, home">{WORDMARK}</a>
-    <nav class="nav-links" aria-label="Main">{links}<a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{BOOK}">Book a free call</a></nav>
+    <nav class="nav-links" aria-label="Main">{links}<button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{BOOK}">Book a free call</a></nav>
     <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="{help_tours()}" aria-label="Help: tours of the site, answers and how to reach us" title="Help">{HELP}<span class="help-lbl">Help</span></button>
       <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)">{SEARCH}<span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
       <a class="icon-btn prefs-btn" href="preferences.html" aria-label="Make it yours: change how this site looks" title="Make it yours">{SLIDERS}</a>
       <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark">{MOON}</button>
       <a class="btn sm nav-cta" href="{BOOK}">Book a call</a>
-      <button class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false">{MENU}</button>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false">{MENU}</button>
     </div>
   </div>
   <div class="progress" aria-hidden="true"></div>

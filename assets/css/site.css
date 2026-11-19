@@ -173,14 +173,14 @@ kbd { font: 600 .72rem var(--sans); border: 1px solid var(--line); border-bottom
 .nav-tools { display: flex; gap: 6px; align-items: center; }
 .icon-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; min-width: 40px; padding: 0 10px; justify-content: center; border: 1px solid var(--line); background: var(--card); color: var(--ink-2); border-radius: 12px; cursor: pointer; font: inherit; text-decoration: none; }
 .icon-btn:hover { color: var(--navy); border-color: var(--cyan); }
-.icon-btn svg { width: 18px; height: 18px; }
+.icon-btn svg { flex: none; width: 18px; height: 18px; }
 .icon-btn .k-hint { display: inline-flex; gap: 2px; }
 .menu-btn { display: none; }
-.nav-cta { margin-left: 6px; }
-@media (max-width: 960px) {
+.nav-cta { margin-left: 6px; white-space: nowrap; }
+@media (max-width: 1080px) {
   .nav-tools .nav-cta { display: none; }
 }
-@media (max-width: 1100px) and (min-width: 881px) {   /* six nav links: tighten them, and drop the ⌘K hint, before the menu takes over */
+@media (max-width: 1240px) and (min-width: 881px) {   /* six nav links: tighten them, and drop the ⌘K hint, before the menu takes over */
   .nav-links { gap: 0; }
   .nav-links a { padding: 8px 9px; }
   .icon-btn .k-hint { display: none; }
@@ -743,6 +743,49 @@ a.pkg:hover .pkg-go, a.pkg:focus-visible .pkg-go { opacity: 1; transform: none; 
 .palette button .pi { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--band); color: var(--navy); font-size: .85rem; font-weight: 700; }
 .palette button small { margin-left: auto; color: var(--muted); font-size: .82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 45%; }
 .palette .foot { display: flex; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+
+/* Help: the header button and its panel (site.js initHelp). Tours live here once taken. */
+.help-btn { position: relative; font-weight: 700; color: var(--navy); }
+.help-btn .help-lbl { font-size: .92rem; }
+@media (max-width: 1240px) { .help-btn .help-lbl { display: none; } }
+@media (min-width: 1241px) { .nav-tools .icon-btn .k-hint { display: none; } }   /* the word Help takes the ⌘K hint's room (the footer still shows ⌘K) */
+.help-btn.has-new::after { content: ""; position: absolute; top: 5px; right: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 2px var(--card); }
+.nav-links .nav-help { color: var(--muted); text-decoration: none; text-align: left; font-size: 1.1rem; padding: 12px; border-radius: 10px; }
+.help-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(8, 18, 36, .5); backdrop-filter: blur(4px); display: none; justify-content: flex-end; }
+.help-backdrop.open { display: flex; }
+.help-panel { width: min(420px, 100%); height: 100%; display: flex; flex-direction: column; background: var(--card); color: var(--ink); border-left: 1px solid var(--line); box-shadow: -18px 0 50px rgba(0, 0, 0, .22); }
+.help-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 10px; }
+.help-head h2 { margin: 0; font-size: 1.35rem; color: var(--navy); }
+.help-x { width: 38px; height: 38px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.help-x:hover { background: var(--band); color: var(--ink); }
+.help-body { flex: 1; overflow: auto; padding: 4px 20px 20px; }
+.help-body h3 { margin: 22px 0 8px; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.help-this { display: flex; align-items: center; gap: 12px; width: 100%; margin: 6px 0 0; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--band); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.help-this[hidden] { display: none; }
+.help-this:hover { border-color: var(--primary); }
+.help-ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--primary); color: var(--btn-ink); }
+.help-ico svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.help-this b, .help-tours b { display: block; color: var(--navy); font-size: .98rem; }
+.help-this small, .help-tours small { display: block; color: var(--muted); font-size: .84rem; line-height: 1.4; }
+.help-new { display: inline-block; margin-right: 6px; padding: 1px 7px; border-radius: 9px; background: var(--cyan); color: #08202e; font-size: .68rem; font-style: normal; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+.help-new[hidden] { display: none; }
+.help-tours { list-style: none; margin: 0; padding: 0; }
+.help-tours a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin: 0 -12px; border-radius: 12px; text-decoration: none; color: var(--ink); }
+.help-tours a > span { flex: 1; min-width: 0; }
+.help-tours a:hover { background: var(--tint); }
+.help-tours .help-new { margin: 0; }
+.help-done { flex: none; font-size: .78rem; color: var(--muted); }
+.help-done::before { content: "✓ "; color: var(--primary); }
+.help-search { display: flex; align-items: center; gap: 4px; width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--muted); font: inherit; font-size: .95rem; text-align: left; cursor: pointer; }
+.help-search span { flex: 1; }
+.help-search:hover { border-color: var(--cyan); color: var(--ink); }
+.help-faq details { border-bottom: 1px solid var(--line); }
+.help-faq summary { padding: 11px 0; cursor: pointer; font-weight: 700; color: var(--ink); }
+.help-faq p { margin: 0 0 12px; color: var(--ink-2); font-size: .94rem; line-height: 1.55; }
+.help-foot { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); }
+.help-x:focus-visible, .help-this:focus-visible, .help-tours a:focus-visible, .help-search:focus-visible, .help-faq summary:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+html.help-on { overflow: hidden; }
+@media print { .help-backdrop, .guide-wrap, .guide-tip { display: none !important; } }
 
 /* shared-look bar and toast */
 .shared-bar { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 150; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 16px; padding: 10px 14px; font-size: .92rem; width: max-content; max-width: calc(100% - 32px); }

@@ -1,5 +1,5 @@
 {
-  "_about": "The quick tour on each tool page: a click-through guide on the page itself (assets/js/guide.js). Each step highlights `s` (a CSS selector; a step whose element isn't on the page is skipped) with a title `t` and a tip `p`. `act` clicks something first (for example a tab); `restore` names what to click when the tour ends so the page is left as it was. Built into each tool page by build.py tour_link().",
+  "_about": "The quick tour on each tool page: a click-through guide on the page itself (assets/js/guide.js). Each step highlights `s` (a CSS selector; a step whose element isn't on the page is skipped) with a title `t` and a tip `p`. `act` clicks something first (for example a tab); `restore` names what to click when the tour ends so the page is left as it was. Built into each tool page by build.py tour_link(). `help` is how Help lists the tour (its name, a line about it, and a link that starts it). `v` (on the tour and on its new steps) brings a taken tour back as \"New on this page\": raise the tour's `v` and give each new step the same `v`; the button then walks just those steps.",
   "scorecard": {
     "title": "the Scorecard",
     "restore": ".sc-methods [aria-checked=true]",
@@ -56,7 +56,13 @@
         "t": "Make it stick",
         "p": "Have two people score on their own, then compare. For a whole team, save it to your account and choose Score as a team."
       }
-    ]
+    ],
+    "help": {
+      "name": "Feature Prioritization Scorecard",
+      "about": "Rank features with your criteria or RICE",
+      "href": "/scorecard?tour=scorecard",
+      "order": 2
+    }
   },
   "ai-use-cases": {
     "title": "AI Use Case Prioritization",
@@ -101,7 +107,13 @@
         "t": "Make it stick",
         "p": "Score it with the people who'd use it, pilot one thing at a time, and re-run it after each pilot."
       }
-    ]
+    ],
+    "help": {
+      "name": "AI Use Case Prioritization",
+      "about": "Score AI ideas and pick what to pilot",
+      "href": "/ai-use-cases?tour=ai-use-cases",
+      "order": 3
+    }
   },
   "ai-readiness": {
     "title": "the AI Readiness Checklist",
@@ -141,7 +153,13 @@
         "t": "Save, share, export",
         "p": "Save it, share a link, export it, or download the Excel version. Answer it together, act on one move at a time, and re-run it each quarter."
       }
-    ]
+    ],
+    "help": {
+      "name": "AI Readiness Checklist",
+      "about": "Check your team, data, tools and guardrails",
+      "href": "/ai-readiness?tour=ai-readiness",
+      "order": 4
+    }
   },
   "build-buy-partner": {
     "title": "the Build, Buy, or Partner Matrix",
@@ -186,7 +204,13 @@
         "t": "Save, share, export",
         "p": "Save it, share a link, export it, or download the fillable PDF and spreadsheet versions."
       }
-    ]
+    ],
+    "help": {
+      "name": "Build, Buy, or Partner Matrix",
+      "about": "Decide how to deliver a capability",
+      "href": "/build-buy-partner?tour=build-buy-partner",
+      "order": 5
+    }
   },
   "impact-score": {
     "title": "the Organizational Impact Score",
@@ -231,7 +255,13 @@
         "t": "Save, share, export",
         "p": "Save it, share a link, export it, or use the fillable PDF and spreadsheet versions."
       }
-    ]
+    ],
+    "help": {
+      "name": "Organizational Impact Score",
+      "about": "Rate initiatives against your KPIs",
+      "href": "/impact-score?tour=impact-score",
+      "order": 6
+    }
   },
   "home": {
     "title": "Product Advisory",
@@ -295,7 +325,13 @@
         "t": "Book a call",
         "p": "A free 30-minute call to talk through where you're stuck. No pitch deck required."
       }
-    ]
+    ],
+    "help": {
+      "name": "Site tour",
+      "about": "Where everything is on productadvisory.co",
+      "href": "/?tour=home",
+      "order": 0
+    }
   },
   "article": {
     "title": "this article",
@@ -356,6 +392,12 @@
         "t": "Questions people ask",
         "p": "Short answers to the questions this topic usually raises."
       }
-    ]
+    ],
+    "help": {
+      "name": "Reading an article",
+      "about": "Listen, watch, sections and the article rail",
+      "href": "/insights/stop-enabling-individuals?tour=article",
+      "order": 1
+    }
   }
 }
