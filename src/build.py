@@ -1608,20 +1608,40 @@ def subscribe_form(where, heading="Get new articles by email"):
 </form>'''
 
 
+# The Watch view's rows: videos grouped by subject, in this order.
+VIDEO_ROWS = [
+    ("Pricing and business models", ["five-second-test", "367-listener", "100-staircase", "150-hot-dog"]),
+    ("AI agents for product teams", ["day-in-the-life", "product-focused-ai-agents", "squad-of-agents", "discovery-with-ai-agents", "pm-copilots", "roadmaps-to-rituals"]),
+    ("Bringing AI to your organization", ["stop-enabling-individuals", "ai-is-a-practice", "ai-accessibility", "beyond-automation"]),
+    ("Product strategy", ["rice-vs-weighted-scoring", "feature-fallacy", "healthcare-saas-pitfalls"]),
+]
+
+
 def watch_view():
     """Insights in Watch mode (site.js initWatchView): the newest video up top with what's next beside it, the videos
     someone started, then every video. Shown when the visitor picks Watch; the article list is hidden meanwhile."""
     vs = videos()
     if not vs:
         return ""
-    cards = "".join(f'<a class="vcard" href="/insights/{v["slug"]}#video" data-slug="{v["slug"]}"><span class="vthumb"><img src="{v["thumb"]}" alt="" width="960" height="540" loading="lazy">'
-                    f'<span class="vplay" aria-hidden="true"></span><span class="vlen">{v["mins"]} min</span></span>'
-                    f'<span class="vcard-body"><span class="eyebrow">{escape(v["topic"])}</span><b>{escape(v["title"])}</b></span></a>' for v in vs)
+    card = lambda v: (f'<a class="vcard" href="/insights/{v["slug"]}#video" data-slug="{v["slug"]}"><span class="vthumb"><img src="{v["thumb"]}" alt="" width="960" height="540" loading="lazy">'
+                      f'<span class="vplay" aria-hidden="true"></span><span class="vlen">{v["mins"]} min</span></span>'
+                      f'<span class="vcard-body"><span class="eyebrow">{escape(v["topic"])}</span><b>{escape(v["title"])}</b></span></a>')
+    # the videos by subject, one row each (VIDEO_ROWS); any video not in a row goes in "More videos"
+    by, placed, rows = {v["slug"]: v for v in vs}, set(), []
+    for name, slugs in VIDEO_ROWS + [("More videos", [v["slug"] for v in vs])]:
+        row = [by[x] for x in slugs if x in by and x not in placed]
+        placed.update(v["slug"] for v in row)
+        if row:
+            rid = "vrow-" + re.sub(r"[^a-z]+", "-", name.lower()).strip("-")
+            rows.append(f'<section class="vrow" aria-labelledby="{rid}"><div class="vrow-head"><h3 id="{rid}">{escape(name)} <em>{len(row)}</em></h3>'
+                        f'<span class="vrow-nav"><button type="button" class="vrow-btn" data-dir="-1" aria-label="Scroll {escape(name)} back">&#8249;</button>'
+                        f'<button type="button" class="vrow-btn" data-dir="1" aria-label="Scroll {escape(name)} forward">&#8250;</button></span></div>'
+                        f'<div class="vrow-track">{"".join(card(v) for v in row)}</div></section>')
     return f'''<section class="watch-view" id="watch-view" hidden aria-label="Videos" data-videos="{escape(json.dumps(vs), quote=True)}">
       <div class="watch-hero"><div class="watch-stage"></div><aside class="watch-next"><h2>Up next</h2><ol></ol></aside></div>
       <div class="watch-continue" hidden><h2>Continue watching</h2><div class="video-grid"></div></div>
-      <h2 class="watch-all">All videos <em>{len(vs)}</em></h2>
-      <div class="video-grid">{cards}</div>
+      <h2 class="watch-all">Browse by topic <em>{len(vs)} videos</em></h2>
+      {"".join(rows)}
       <div class="watch-sub"><div><b>New explainers on YouTube.</b> Every Product+ article as an animated video, with the numbers drawn on screen.</div>{yt_subscribe("btn sm yt-sub")}</div>
     </section>'''
 

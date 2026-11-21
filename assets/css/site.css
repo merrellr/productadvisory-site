@@ -2061,3 +2061,21 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
   .post-main > .wrap, .post-main > .post-head > .wrap { padding-left: 0; padding-right: 0; }
 }
 @media print { .post-rail { display: none; } }
+
+/* Watch: the videos by topic, one sideways row each (build.py VIDEO_ROWS, site.js initVideoRows) */
+.watch-view .vrow { margin: 0 0 30px; padding: 0; }
+.watch-view .watch-all { margin-bottom: 18px; }
+.vrow-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 12px; }
+.vrow-head h3 { margin: 0; font-size: 1.02rem; color: var(--navy); }
+.vrow-head h3 em { font-style: normal; font-weight: 600; color: var(--muted); margin-left: 4px; }
+.vrow-nav { display: flex; gap: 6px; }
+.vrow-nav[hidden] { display: none; }
+.vrow-btn { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: var(--card); color: var(--ink); font-size: 1.35rem; line-height: 1; cursor: pointer; }
+.vrow-btn:hover:not(:disabled) { border-color: var(--cyan); color: var(--navy); }
+.vrow-btn:disabled { opacity: .35; cursor: default; }
+.vrow-btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.vrow-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, calc((100% - 66px) / 4)); gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.vrow-track::-webkit-scrollbar { display: none; }
+.vrow-track .vcard { scroll-snap-align: start; }
+@media (max-width: 1000px) { .vrow-track { grid-auto-columns: calc((100% - 22px) / 2.3); } }
+@media (max-width: 600px) { .vrow-track { grid-auto-columns: 78%; gap: 14px; } }

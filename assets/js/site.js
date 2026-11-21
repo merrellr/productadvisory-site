@@ -1891,12 +1891,35 @@
       return '<a class="vcard" href="/insights/' + esc(v.slug) + '#video" data-slug="' + esc(v.slug) + '">' + thumbHtml(v) +
         '<span class="vcard-body"><span class="eyebrow">' + esc(v.topic) + "</span><b>" + esc(v.title) + "</b></span></a>";
     }).join("");
-    $$(".watch-all + .video-grid .vcard", view).forEach(function (a) {
+    $$(".vrow-track .vcard", view).forEach(function (a) {
       var v = vs.filter(function (x) { return x.slug === a.getAttribute("data-slug"); })[0];
       if (v) $(".vthumb", a).outerHTML = thumbHtml(v);
     });
   }
+  /* The topic rows in Watch: each scrolls sideways (a swipe, a trackpad, or its ‹ › buttons). A button greys out
+     at the end of its row, and both hide when the whole row fits. */
+  function initVideoRows() {
+    $$(".vrow").forEach(function (row) {
+      var track = $(".vrow-track", row), btns = $$(".vrow-btn", row);
+      var sync = function () {
+        var max = track.scrollWidth - track.clientWidth;
+        $(".vrow-nav", row).hidden = max < 4;
+        btns[0].disabled = track.scrollLeft < 4;
+        btns[1].disabled = track.scrollLeft > max - 4;
+      };
+      btns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          track.scrollBy({ left: +b.getAttribute("data-dir") * track.clientWidth * 0.85, behavior: reducedMotion() ? "auto" : "smooth" });
+        });
+      });
+      track.addEventListener("scroll", sync, { passive: true });
+      window.addEventListener("resize", sync);
+      new MutationObserver(sync).observe($("#watch-view"), { attributes: true, attributeFilter: ["hidden"] });
+      sync();
+    });
+  }
   function initVideos() {
+    initVideoRows();
     var view = $("#watch-view"), vs = view ? JSON.parse(view.getAttribute("data-videos") || "[]") : [];
     var bySlug = function (s) { return vs.filter(function (v) { return v.slug === s; })[0]; };
     if (view) {
