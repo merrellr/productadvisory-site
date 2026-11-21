@@ -1952,7 +1952,19 @@
         var go = b.getAttribute("data-go"), v = bySlug(card.getAttribute("data-id"));
         track("format_badge", { article: card.getAttribute("data-id"), format: go.replace("#", "") || "read" });
         if (go === "#video" && v) return openVideoBox(v, "insights_badge");
-        location.href = (card.getAttribute("data-href") || card.getAttribute("href")).split("#")[0] + (go === "#intro" ? "" : go);
+        location.href = (card.getAttribute("data-href") || card.getAttribute("href")).split("#")[0] + go;
+      });
+    });
+    /* A click on the card itself opens the article at its first paragraph (past the title and cover), so reading
+       starts straight away. Readers who chose Listen or Watch in Make it yours still land at the top, where the
+       player or video opens for them (initFormatLanding). */
+    $$("a.insight[href^='/insights/']").forEach(function (card) {
+      card.addEventListener("click", function (e) {
+        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+        var f = window.SitePrefs && window.SitePrefs.current().format;
+        if (f === "listen" || f === "watch") return;
+        e.preventDefault();
+        location.href = card.getAttribute("href").split("#")[0] + "#read";
       });
     });
     /* The article's video: a picture until play; "Watch this section" jumps in at that chapter. */

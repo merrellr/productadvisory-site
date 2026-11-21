@@ -1820,7 +1820,7 @@ def fmt_icon(k):
 
 def formats_html(a, m, linked=False):
     """Read · Listen · Watch. On the article page each one is a link (to the text, the player and the video)."""
-    items = [("read", "Read", f"{read_minutes(a)} min", "#intro")]
+    items = [("read", "Read", f"{read_minutes(a)} min", "#read")]
     if m:
         items.append(("listen", "Listen", f"{listen_minutes(m)} min", "#listen"))
     if YOUTUBE.get(a["slug"]):
@@ -2072,7 +2072,7 @@ def article_page(a, full):
     </div>
   </header>
   <div class="wrap post-cover"><img src="assets/insights/{a["slug"]}/cover.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
-  <div class="wrap narrow">
+  <div class="wrap narrow" id="read">
     {audio_player(a, m) if m else ""}
     {video_embed(a)}
     {takeaways}
