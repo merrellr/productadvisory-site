@@ -2020,6 +2020,9 @@ def podcast():
         f.write(head + items + "\n</channel>\n</rss>\n")
 
 
+NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n'   # highlights, notes and tags on articles and the book
+
+
 def article_page(a, full):
     url = f"{SITE}insights/{a['slug']}"
     m = audio_meta(a)
@@ -2097,7 +2100,7 @@ def article_page(a, full):
   </div>
 </section>'''
     write(f"insights/{a['slug']}.html", page(f"insights/{a['slug']}.html", a.get("seo_title") or a["title"], a.get("description") or a["dek"], body,
-          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld
+          extra_head=('<meta name="robots" content="noindex, nofollow">\n' if a.get("draft") else "") + head_ld + NOTES_JS
           + (f'\n<link rel="alternate" type="application/rss+xml" title="{PODCAST_TITLE}" href="{SITE}podcast.xml">' if m else ""),
           image=f"assets/insights/{a['slug']}/og.jpg", nav="insights.html", og_type="article"))
 

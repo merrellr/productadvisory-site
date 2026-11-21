@@ -43,7 +43,7 @@
 - [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): Why shipping more isn't helping your users, and what to do instead.
 
 ## Free book
-- [The Product Manager's Playbook](https://www.productadvisory.co/books/playbook/preface-to-the-second-edition): Second Edition: Building Products in the Age of AI. A free book, online and as a PDF (https://www.productadvisory.co/assets/books/playbook/the-product-managers-playbook-second-edition.pdf).
+- [The Product Manager's Playbook](https://www.productadvisory.co/books/product-managers-playbook): Second Edition: Building Products in the Age of AI. A free book, online and as a PDF (https://www.productadvisory.co/assets/books/playbook/the-product-managers-playbook-second-edition.pdf).
 - [The Essentials](https://www.productadvisory.co/books/playbook/essentials): the book in brief, every chapter's big idea, key points and checklist (PDF: https://www.productadvisory.co/assets/books/playbook/the-product-managers-playbook-essentials.pdf).
   - [Front matter: Preface to the Second Edition](https://www.productadvisory.co/books/playbook/preface-to-the-second-edition)
   - [Front matter: How to Use This Book](https://www.productadvisory.co/books/playbook/how-to-use-this-book)
