@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Requirements to Release, with Engineering and Design</title>
+<meta name="description" content="Chapter 9. From Requirements to Release, with Engineering and Design, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="From Requirements to Release, with Engineering and Design">
+<meta property="og:description" content="Chapter 9. From Requirements to Release, with Engineering and Design, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/from-requirements-to-release-with-engineering-and-design">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/from-requirements-to-release-with-engineering-and-design">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "From Requirements to Release, with Engineering and Design", "url": "https://www.productadvisory.co/books/playbook/from-requirements-to-release-with-engineering-and-design", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 9}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "From Requirements to Release, with Engineering and Design", "item": "https://www.productadvisory.co/books/playbook/from-requirements-to-release-with-engineering-and-design"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design" aria-current="page"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f10-the-forty-page-specification">The forty-page specification</a></li><li><a href="#f10-requirements-are-a-conversation-not-a-contract">Requirements are a conversation, not a contract</a></li><li><a href="#f10-working-with-design">Working with design</a></li><li><a href="#f10-working-with-engineering">Working with engineering</a></li><li><a href="#f10-from-idea-to-release-the-delivery-flow">From idea to release: the delivery flow</a></li><li><a href="#f10-launch-readiness">Launch readiness</a></li><li><a href="#f10-after-the-release-learning">After the release: learning</a></li><li><a href="#f10-brindlepath-in-practice-thin-slices">Brindlepath in practice: thin slices</a></li><li><a href="#f10-common-mistakes">Common mistakes</a></li><li><a href="#f10-try-this">Try this</a></li><li><a href="#f10-how-ai-changes-this">How AI changes this</a></li><li><a href="#f10-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design" aria-current="page"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 9 · Part 3: Building</div>
+      <h1>From Requirements to Release, with Engineering and Design</h1>
+      <blockquote class="epigraph"><p>“Simplicity, the art of maximizing the amount of work not done, is
+essential.”</p>
+<p>— Manifesto for Agile Software Development</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 11 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f10-the-forty-page-specification">The forty-page
+specification</h2>
+<p>Brindlepath’s first attempt at the ownership queue began the old way.
+A product manager on the struggling team, eager to get it right, wrote a
+forty-page specification. It covered every screen, every field, every
+edge case she could imagine. It took six weeks to write and two more to
+review. By the time engineering started, the design had changed twice,
+the pilot customer had changed its discharge workflow, and two of the
+edge cases had turned out not to exist.</p>
+<p>The second attempt began with a two-page brief: the problem, the
+outcome measure, what was known and unknown, what was out of scope, and
+the open questions. The trio sketched three approaches together on the
+first afternoon, tested the most promising with four navigators that
+week, and had a working slice in a pilot customer’s hands within a
+month. The brief grew as the team learned, and by launch it was a clear
+record of what had been built and why.</p>
+<p>The difference was not that the second team skipped the thinking. It
+was that they did the thinking together, in small steps, with customers
+in the loop, instead of alone, up front, in a document.</p>
+<h2 id="f10-requirements-are-a-conversation-not-a-contract">Requirements
+are a conversation, not a contract</h2>
+<p>A requirements document exists to create shared understanding across
+the team: what problem we are solving, for whom, how we will know it
+worked, and what constraints we must respect. It is not a contract
+between product and engineering, and it is not a substitute for
+talking.</p>
+<p>The best requirements documents I have seen share five traits:</p>
+<ol type="1">
+<li><strong>They start with the problem and the outcome,</strong> not
+the solution.</li>
+<li><strong>They separate what is known from what is assumed,</strong>
+and say how the assumptions will be tested.</li>
+<li><strong>They state what is out of scope,</strong> as explicitly as
+what is in scope.</li>
+<li><strong>They are short at the start and grow with learning,</strong>
+rather than being complete before work begins.</li>
+<li><strong>They are written for the whole team,</strong> in plain
+language, not for a review committee.</li>
+</ol>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/9-1.webp" alt="Figure 9.1. A one-page product brief. It begins with the problem and the measure, names what is out of scope, and lists the open questions the team will answer as it builds." width="1440" height="1174" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 9.1. A one-page product brief. It
+begins with the problem and the measure, names what is out of scope, and
+lists the open questions the team will answer as it builds.</figcaption>
+</figure>
+<p>Figure 9.1 shows the structure Brindlepath now uses for every
+significant piece of work. The full template is in the Appendix. The
+brief is the start of the conversation. User stories, designs, technical
+designs and test plans follow from it, written by the people closest to
+each.</p>
+<h3 id="f10-user-stories-and-acceptance-criteria">User stories and
+acceptance criteria</h3>
+<p>For day-to-day work, many teams express requirements as <strong>user
+stories</strong>: short descriptions of something a user needs, written
+from their point of view. The classic form is: <em>As a [type of user],
+I want [some goal] so that [some reason].</em></p>
+<p>“As an outpatient navigator, I want to see which newly discharged
+patients are assigned to me so that I can contact the highest-risk ones
+first.”</p>
+<p>A story is a placeholder for a conversation, not a complete
+specification. It becomes buildable through <strong>acceptance
+criteria</strong>: the specific conditions that must be true for the
+story to be done. Good acceptance criteria are concrete and
+testable:</p>
+<ul>
+<li>Patients discharged in the past 24 hours appear in the queue within
+two hours of discharge.</li>
+<li>Each patient shows risk level, discharging unit and inpatient
+contact.</li>
+<li>The queue is sorted by risk level, then by discharge time.</li>
+<li>Only patients assigned to the signed-in navigator, or to their team,
+are visible.</li>
+<li>Every view of a patient record is logged for audit.</li>
+</ul>
+<p>That last criterion is easy to forget and impossible to add cheaply
+later. In regulated products, privacy and audit requirements belong in
+acceptance criteria from the first story, not in a separate compliance
+phase.</p>
+<h2 id="f10-working-with-design">Working with design</h2>
+<p>Design is not decoration applied at the end. It is the discipline of
+making the product understandable, usable and coherent, and it starts at
+the first customer conversation.</p>
+<p><strong>Involve design in discovery.</strong> Designers who hear
+customers firsthand make better decisions than designers who receive a
+summary. Brindlepath’s head of design, Lena Park, joined the navigator
+interviews in Chapter 3; her sketches from those sessions became the
+first prototype.</p>
+<p><strong>Explore before converging.</strong> Ask for several
+directions before choosing one. The first idea is rarely the best, and
+comparing options is the fastest way to find out what really matters to
+users.</p>
+<p><strong>Test with real users, early and cheaply.</strong> A paper
+sketch tested with three navigators teaches more than a polished mock-up
+reviewed by the leadership team.</p>
+<p><strong>Respect the design system.</strong> A shared library of
+components and patterns makes the product consistent, accessible and
+faster to build. Deviations should be deliberate, not accidental.</p>
+<p><strong>Design for the real environment.</strong> Brindlepath’s
+navigators worked on aging hospital computers, often with a headset on
+and a phone ringing. Small fonts, low-contrast text and multi-step
+workflows failed in that setting even when they tested well in a quiet
+conference room. Accessibility, which Chapter 11 covers, is part of
+this: design for the full range of people who will use the product.</p>
+<h2 id="f10-working-with-engineering">Working with engineering</h2>
+<p>The relationship between product and engineering defines whether a
+team ships well. In healthy teams, product brings the <em>why</em> and
+the <em>what</em>, engineering brings the <em>how</em>, and both argue
+productively about the trade-offs.</p>
+<p><strong>Bring engineers in early.</strong> The best solutions often
+come from engineers who know what the technology can do cheaply that the
+product manager assumed was hard, or vice versa. Dev Raman’s suggestion
+to build the first version of the ownership queue on the hospital’s
+existing discharge feed, rather than a new integration, cut two months
+from the timeline.</p>
+<p><strong>Talk in outcomes and constraints, not tasks.</strong> “We
+need navigators to see new patients within two hours of discharge, and
+it must work with these two record systems” invites better solutions
+than “build a polling job that runs every five minutes.”</p>
+<p><strong>Make trade-offs visible.</strong> Every project trades scope,
+time, quality and cost. When something has to give, decide together what
+it will be, and write it down.</p>
+<p><strong>Protect quality.</strong> Pressure to ship always pushes
+against testing, security and reliability. A product leader who trades
+quality for speed without saying so is borrowing against the team’s
+future. Chapter 5’s capacity allocation exists so this trade-off is made
+deliberately.</p>
+<p><strong>Respect estimates as forecasts, not promises.</strong>
+Estimates are useful for sequencing and trade-offs. Treating them as
+commitments teaches teams to pad them.</p>
+<h2 id="f10-from-idea-to-release-the-delivery-flow">From idea to
+release: the delivery flow</h2>
+<p>Most product teams today use some form of agile delivery: small
+increments of work, frequent releases, and regular reflection. The
+ceremonies vary, whether two-week sprints, continuous flow or something
+in between. The underlying flow is similar.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/9-2.webp" alt="Figure 9.2. From idea to release. Discovery and delivery run side by side, and quality gates sit throughout the flow, not only at the end." width="1440" height="570" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 9.2. From idea to release.
+Discovery and delivery run side by side, and quality gates sit
+throughout the flow, not only at the end.</figcaption>
+</figure>
+<p>A few practices make the biggest difference.</p>
+<p><strong>Slice thin.</strong> Deliver the smallest piece of value that
+can be tested with real users, then grow it. The first slice of
+Brindlepath’s ownership queue showed only patient name, risk level and
+discharge time for one hospital unit. It was enough to learn whether
+navigators would use it every morning.</p>
+<p><strong>Release often.</strong> Small, frequent releases are less
+risky than large, infrequent ones, because each change is easier to
+understand, test and undo. Research by the DevOps Research and
+Assessment program, summarized in <em>Accelerate</em>, found that teams
+with high delivery performance deploy more often <em>and</em> have lower
+change failure rates: speed and stability go together rather than
+against each other.<a href="#f10-fn1" class="footnote-ref"
+id="f10-fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><strong>Separate deployment from release.</strong> Feature flags let
+teams deploy code without exposing it, then turn it on for one customer,
+one unit or a small percentage of users. In healthcare, where a change
+to a clinical workflow may require training or approval at the customer,
+this is invaluable.</p>
+<p><strong>Define “done” to include quality.</strong> A story is not
+done when the code is written. It is done when it is tested, secure,
+accessible, documented and measurable in production.</p>
+<p><strong>Measure delivery, but not just speed.</strong> The four
+delivery measures from <em>Accelerate</em>, deployment frequency, lead
+time for changes, change failure rate and time to restore service,
+balance speed with stability. Use them to improve the system, never to
+compare or rank individuals.</p>
+<h2 id="f10-launch-readiness">Launch readiness</h2>
+<p>A release is not a launch. A release puts code in production; a
+launch puts value in customers’ hands, with everything they need to use
+it. For significant changes, especially in regulated settings, a launch
+readiness review a week or two before launch saves a great deal of pain.
+It covers:</p>
+<ul>
+<li><strong>Product:</strong> acceptance criteria met, measures
+instrumented, known issues documented.</li>
+<li><strong>Quality and security:</strong> testing complete, security
+review done, privacy impact assessed.</li>
+<li><strong>Customers:</strong> release notes, training materials, and,
+for clinical workflows, any customer approvals required.</li>
+<li><strong>Support:</strong> support team trained, help articles ready,
+escalation paths clear.</li>
+<li><strong>Sales and marketing:</strong> positioning and messages
+agreed, as covered in Chapter 13.</li>
+<li><strong>Rollback:</strong> a clear plan to turn it off if something
+goes wrong.</li>
+</ul>
+<p>The full checklist is in the Appendix.</p>
+<h2 id="f10-after-the-release-learning">After the release: learning</h2>
+<p>The work is not finished at launch. For every significant change, the
+team should know in advance which measure it expects to move, and look
+at it after launch. Did navigators confirm ownership faster? Did missed
+follow-ups fall? If not, why not?</p>
+<p>Two practices help. A <strong>launch review</strong> a few weeks
+after release compares the result with the expectation and decides what
+to do next: iterate, expand, or stop. A <strong>blameless post-incident
+review</strong> after anything goes wrong asks what in the system
+allowed the failure, not who caused it. Both feed the team’s learning
+and, over time, its judgment.</p>
+<h2 id="f10-brindlepath-in-practice-thin-slices">Brindlepath in
+practice: thin slices</h2>
+<p>The ownership queue was delivered in five slices over three months,
+each one in a pilot customer’s hands within two weeks of the last.</p>
+<p><strong>Slice 1.</strong> For one hospital unit: patient name, risk
+level and discharge time, with a button to confirm ownership. No
+reassignment, no filtering, no reporting. The question it answered: will
+navigators open this every morning?</p>
+<p><strong>Slice 2.</strong> All units at the pilot hospital, with the
+discharge summary and inpatient contact attached. The question: does
+having the context in one place change how quickly navigators call?</p>
+<p><strong>Slice 3.</strong> Reassignment between navigators and teams.
+The question: how often does ownership change, and why?</p>
+<p><strong>Slice 4.</strong> Audit logging visible to the customer,
+role-based access by team, and the accessibility fixes found in testing.
+These were in the acceptance criteria from the start but were completed
+and verified here, before the second customer went live.</p>
+<p><strong>Slice 5.</strong> Outcome measures for the customer’s
+managers: owner within 24 hours, by team and by day.</p>
+<p>Each slice was released behind a feature flag and turned on for the
+pilot customer when its navigators were ready. Two slices changed
+significantly because of what the previous one taught. After slice 2,
+the team learned that navigators wanted to see whether the patient had a
+follow-up appointment already booked, which moved up the roadmap. After
+slice 3, they learned that most reassignments happened on Monday
+mornings for weekend discharges, which led directly to the bulk
+reassignment feature.</p>
+<p>The forty-page specification from the first attempt would have built
+none of those changes, and several things nobody needed.</p>
+<h2 id="f10-common-mistakes">Common mistakes</h2>
+<p><strong>Writing the whole specification up front.</strong> A complete
+document before any learning guarantees that parts of it will be wrong,
+and that the team will feel bound to build them anyway.</p>
+<p><strong>Leaving non-functional requirements out.</strong> Privacy,
+audit, accessibility, performance and security are the requirements most
+often forgotten and most expensive to add later.</p>
+<p><strong>Treating estimates as promises.</strong> Teams that are
+punished for missed estimates learn to pad them, and the organization
+loses the information it needed.</p>
+<p><strong>Releasing big batches.</strong> Large, infrequent releases
+are harder to test, harder to understand when something breaks, and
+harder to roll back.</p>
+<p><strong>Calling it done when the code is written.</strong> Work is
+done when it is tested, secure, accessible, documented, measurable and
+in customers’ hands.</p>
+<p><strong>Never checking the result.</strong> A launch without a review
+of the measure it was meant to move teaches the team nothing about
+whether its judgment is improving.</p>
+<h2 id="f10-try-this">Try this</h2>
+<p>Take the next significant piece of work your team will start and
+write a one-page brief using the template in Figure 9.1 and the
+Appendix, with the whole trio in the room, in under an hour. Pay special
+attention to two sections: “out of scope” and “must include.” Then write
+the acceptance criteria for the first story, and check that privacy,
+audit and accessibility appear in them. If writing the brief together
+surfaces a disagreement, you have saved weeks of rework by finding it
+now.</p>
+<h2 id="f10-how-ai-changes-this">How AI changes this</h2>
+<p><strong>AI drafts the paperwork.</strong> An assistant can turn a
+product brief into draft user stories and acceptance criteria, generate
+test cases from them, write release notes from merged changes, and keep
+the brief up to date as decisions are made. Review everything.
+AI-generated acceptance criteria often miss exactly the non-functional
+requirements, privacy, audit, accessibility and performance, that matter
+most in regulated products.</p>
+<p><strong>AI changes how code is written.</strong> AI coding assistants
+now write a large share of first-draft code in many teams. That makes
+prototyping and slicing faster, and puts more weight on code review,
+testing and architecture. A product leader should expect engineering to
+spend more time reviewing and less time typing, and should protect time
+for that review.</p>
+<p><strong>Prototypes get real.</strong> With AI design and coding
+tools, a working prototype connected to sample data can be built in a
+day. That blurs the line between discovery and delivery. Be explicit
+about which prototypes are throwaway experiments and which are the start
+of production code, because the quality bar is very different.</p>
+<p><strong>Requirements for AI features are different.</strong> An AI
+feature’s acceptance criteria are statistical: “summaries contain no
+fabricated facts in at least 99 percent of an evaluation set of 500 real
+discharge summaries, reviewed by a clinician.” They need evaluation
+sets, quality thresholds and monitoring in production. Chapter 17 covers
+this in depth.</p>
+<p><strong>Keep humans on the gates.</strong> AI can help at every stage
+of the delivery flow, but the quality gates, security review, clinical
+safety review and launch readiness, need accountable people.</p>
+<h2 id="f10-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Does every significant piece of work
+start with a short brief: problem, outcome measure, scope, out of scope
+and open questions?</label></li>
+<li><label><input type="checkbox" />Do user stories have concrete,
+testable acceptance criteria, including privacy, audit and
+accessibility?</label></li>
+<li><label><input type="checkbox" />Is design involved from the first
+customer conversation?</label></li>
+<li><label><input type="checkbox" />Are engineers involved early enough
+to shape solutions, not just estimate them?</label></li>
+<li><label><input type="checkbox" />Do you slice work thin and release
+often, with feature flags to separate deployment from
+release?</label></li>
+<li><label><input type="checkbox" />Does your definition of done include
+testing, security, accessibility and measurement?</label></li>
+<li><label><input type="checkbox" />Do you track delivery speed and
+stability together, and never use them to rank individuals?</label></li>
+<li><label><input type="checkbox" />Do significant launches have a
+readiness review and a rollback plan?</label></li>
+<li><label><input type="checkbox" />Do you review each launch against
+the measure you expected to move?</label></li>
+<li><label><input type="checkbox" />Are AI-generated requirements and
+code reviewed by people accountable for them?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f10-fn1"><p>Nicole Forsgren, Jez Humble and Gene Kim,
+<em>Accelerate: The Science of Lean Software and DevOps</em> (IT
+Revolution, 2018).<a href="#f10-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/building-and-leading-the-product-team"><small>← Previous</small><b>Building and Leading the Product Team</b></a><a class="next" href="/books/playbook/data-analytics-and-evidence-based-decisions"><small>Next →</small><b>Data, Analytics and Evidence-Based Decisions</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

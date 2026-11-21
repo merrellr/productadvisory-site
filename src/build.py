@@ -20,6 +20,7 @@ from content import SERVICES, PACKAGES, LEVELS, DOMAINS, SERVICES_FAQ, CONTACT_C
 from legal import PRIVACY, TERMS
 from art import path_art, orbit, toolkit_open, toolkit_tool, toolkit_thumb, signal, conversation, insight_lens
 from insights import ARTICLES, CATEGORIES, category
+from books import pages as playbook
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the repo root, one folder up
 OUT = ROOT
@@ -1670,6 +1671,7 @@ def insights():
       '<svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="5" height="7" rx="2"/><rect x="16" y="13" width="5" height="7" rx="2"/></svg></span>'
       '<div><b>New: Product+ Audio.</b> Every article, read aloud, with chapters. Press play on any article, or follow along in your podcast app.</div>'
       + podcast_links_html() + '</aside>') if any(audio_meta(x) for x in full) else ""}
+    {playbook.promo()}
     <div class="format-pick"><span>Read, listen or watch</span>{FORMAT_PICK}<small>Saved in Make it yours.</small></div>
     {watch_view()}
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
@@ -2105,6 +2107,7 @@ def sitemap():
     arts = published()
     newest = max((a.get("updated") or a["date"] for a in arts), default="")
     pages = [("", ""), ("services", ""), ("toolkits", ""), ("insights", newest)] + [(f"insights/{a['slug']}", a.get("updated") or a["date"]) for a in arts] + \
+            [(p, "") for p in playbook.sitemap_paths()] + \
             [(p, "") for p in ("listen", "about", "contact", "book", "scorecard", "ai-use-cases", "build-buy-partner", "impact-score", "privacy-policy", "terms-of-use")]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for p, d in pages)
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
@@ -2138,6 +2141,9 @@ def llms():
 ## Insights (Product+ articles)
 - [Insights]({SITE}insights): articles from the Product+ Newsletter on product strategy, AI agents and AI enablement.
 {arts}
+
+## Free book
+{playbook.llms_lines(SITE)}
 
 ## Questions people ask
 {faq}
@@ -2246,6 +2252,7 @@ def build_all():
     check_search_pages()
     toolkit_zip()
     home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json(); listen_page()
+    playbook.build(page, write, ld, ORG, SITE, cta_band)
 
 
 if __name__ == "__main__":

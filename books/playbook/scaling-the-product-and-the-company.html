@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scaling the Product and the Company | The Product Manager's Playbook</title>
+<meta name="description" content="Chapter 16. Scaling the Product and the Company, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Scaling the Product and the Company | The Product Manager's Playbook">
+<meta property="og:description" content="Chapter 16. Scaling the Product and the Company, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/scaling-the-product-and-the-company">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/scaling-the-product-and-the-company">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Scaling the Product and the Company", "url": "https://www.productadvisory.co/books/playbook/scaling-the-product-and-the-company", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 16}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Scaling the Product and the Company", "item": "https://www.productadvisory.co/books/playbook/scaling-the-product-and-the-company"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company" aria-current="page"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f17-twelve-customers-then-sixty">Twelve customers, then sixty</a></li><li><a href="#f17-configure-dont-customize">Configure, don’t customize</a></li><li><a href="#f17-scaling-the-technology">Scaling the technology</a></li><li><a href="#f17-balancing-quality-with-growth">Balancing quality with growth</a></li><li><a href="#f17-compliance-at-scale">Compliance at scale</a></li><li><a href="#f17-expanding-market-reach">Expanding market reach</a></li><li><a href="#f17-scaling-the-organization">Scaling the organization</a></li><li><a href="#f17-brindlepath-in-practice-the-configuration-rule">Brindlepath in practice: the configuration rule</a></li><li><a href="#f17-common-mistakes">Common mistakes</a></li><li><a href="#f17-try-this">Try this</a></li><li><a href="#f17-how-ai-changes-this">How AI changes this</a></li><li><a href="#f17-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company" aria-current="page"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 16 · Part 5: Growth</div>
+      <h1>Scaling the Product and the Company</h1>
+      <blockquote class="epigraph"><p>“Organizations which design systems are constrained to produce
+designs which are copies of the communication structures of these
+organizations.”</p>
+<p>— Melvin Conway</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 9 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f17-twelve-customers-then-sixty">Twelve customers, then
+sixty</h2>
+<p>When Maya joined Brindlepath, it had twelve customers. Three years
+later, it had sixty. Almost nothing that worked at twelve worked at
+sixty without change.</p>
+<p>At twelve customers, each implementation was a small craft project:
+an engineer spent weeks on each customer’s record integration, and the
+product had grown dozens of customer-specific settings, some of which
+nobody remembered the purpose of. At sixty, that approach would have
+needed a hundred engineers just for implementations. At twelve, Maya
+knew every customer’s chief nursing officer by name. At sixty, she could
+not. At twelve, two product teams coordinated over lunch. At sixty,
+seven teams needed a planning rhythm, shared standards and clear
+ownership, or they would trip over each other every week.</p>
+<p>Scaling is not just doing more of the same. It is changing how the
+product and the company work, so that growth makes things better instead
+of breaking them.</p>
+<h2 id="f17-configure-dont-customize">Configure, don’t customize</h2>
+<p>The single most important product decision in scaling business
+software is how you handle the differences between customers. Every
+customer believes its workflow is unique. Some differences are real;
+many are habits. How you respond shapes your margins, your speed and
+your product’s quality.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/16-1.webp" alt="Figure 16.1. The spectrum from standard to custom. Moving right wins individual deals and loses the ability to scale. Push customer differences as far left as you can." width="1440" height="768" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 16.1. The spectrum from standard
+to custom. Moving right wins individual deals and loses the ability to
+scale. Push customer differences as far left as you can.</figcaption>
+</figure>
+<p>At one end, every customer uses the same product in the same way. At
+the other, every customer has its own code. Healthy products sit near
+the left: one product, shared by all, with
+<strong>configuration</strong>, settings that customers or your team can
+change without engineering work, for the differences that genuinely
+matter, and <strong>extension points</strong>, such as open interfaces,
+where customers or partners can build what is unique to them.</p>
+<p>Customization, building special code for one customer, feels like
+good service. It wins the deal in front of you. It also creates code
+that must be maintained, tested, secured and upgraded for that one
+customer forever, which is why Chapter 6’s three smallest customers were
+losing money. Brindlepath adopted a simple rule: a request for something
+customer-specific is first examined as a potential configuration
+available to everyone; if it cannot be, it goes to a partner or a
+services engagement, not into the core product.</p>
+<h2 id="f17-scaling-the-technology">Scaling the technology</h2>
+<p>Product leaders do not need to design architectures, but they do need
+to understand the trade-offs, because scaling problems show up as
+product problems: slow screens, outages, failed integrations, delayed
+features.</p>
+<p><strong>Multi-tenancy.</strong> Most SaaS products serve many
+customers from shared infrastructure, with each customer’s data kept
+strictly separate. It is far more efficient than running separate
+copies, and it requires careful design to make sure no customer can ever
+see another’s data.</p>
+<p><strong>Standard integrations.</strong> Replace one-off integrations
+with a standard connector, configured per customer. Brindlepath’s record
+connector, from Chapter 7, cut the time to integrate a new hospital from
+months to weeks.</p>
+<p><strong>Reliability targets.</strong> As customers depend on the
+product, reliability becomes a feature. Many teams set <strong>service
+level objectives (SLOs)</strong>, explicit targets for availability and
+speed, and track how much of their allowed unreliability, their
+<strong>error budget</strong>, they have used. When the budget runs low,
+the team shifts effort from features to reliability. This turns an
+argument into a rule.</p>
+<p><strong>Observability.</strong> At scale, you cannot rely on
+customers to tell you when something is wrong. Monitoring, logging and
+alerting should show problems before customers notice them, especially
+for integrations, where a silent failure can mean patients missing from
+the queue.</p>
+<p><strong>Performance and cost.</strong> As usage grows, so do
+infrastructure and AI costs. Track cost per customer, as Chapter 6
+recommended, and treat sudden increases as bugs.</p>
+<h2 id="f17-balancing-quality-with-growth">Balancing quality with
+growth</h2>
+<p>Growth puts pressure on quality from every direction: more customers,
+more features, more engineers, more code. Without deliberate effort,
+quality erodes slowly and then all at once.</p>
+<p>A few practices protect it:</p>
+<ul>
+<li><strong>Protect the capacity allocation</strong> from Chapter 5.
+Reliability, security and technical debt get their share every quarter,
+especially when growth is fastest.</li>
+<li><strong>Automate testing and release,</strong> so quality checks
+scale with the team rather than depending on heroics.</li>
+<li><strong>Use feature flags and staged rollouts</strong> to limit the
+impact of any single change.</li>
+<li><strong>Watch quality measures alongside growth measures:</strong>
+incident counts, error budgets, support tickets per customer, time to
+resolve.</li>
+<li><strong>Do blameless reviews</strong> after every significant
+incident, and fix the system, not just the symptom.</li>
+</ul>
+<h2 id="f17-compliance-at-scale">Compliance at scale</h2>
+<p>Compliance obligations grow with the business. New customers bring
+new security reviews. New states and countries bring new privacy laws.
+Larger customers ask for independent certifications. AI features bring
+new regulations.</p>
+<p>Scale compliance the way you scale everything else: make it
+systematic.</p>
+<ul>
+<li><strong>Invest in certifications before you need them.</strong> A
+SOC 2 report or HITRUST certification takes months. Start before the big
+deal that requires it.</li>
+<li><strong>Build compliance into the platform.</strong> Audit logging,
+access controls, data retention and regional data storage built once,
+used everywhere.</li>
+<li><strong>Maintain the trust package</strong> from Chapter 11 as a
+living product.</li>
+<li><strong>Track regulatory change.</strong> Assign someone to watch
+the regulations that affect you and translate changes into product
+requirements early.</li>
+</ul>
+<h2 id="f17-expanding-market-reach">Expanding market reach</h2>
+<p>Growth eventually requires reaching beyond the first market. There
+are a few classic paths, each with its own risks.</p>
+<p><strong>Deeper in the same customers.</strong> More users, sites and
+modules within existing customers. Usually the cheapest growth, built on
+the customer success work in Chapter 14.</p>
+<p><strong>More customers in the same segment.</strong> Repeating what
+works with similar customers. Depends on a repeatable sales and
+implementation process.</p>
+<p><strong>Adjacent segments.</strong> New types of customers with
+similar problems. For Brindlepath, that meant large physician groups and
+health plans, which also needed to coordinate care after hospital
+discharges. Adjacent segments often need different buyers, messages and
+features, so treat each as a new product-market fit question, using the
+discovery methods in Chapters 2 and 3.</p>
+<p><strong>New geographies.</strong> New countries bring new
+regulations, languages, payment systems and buying habits. In
+healthcare, they also bring entirely different health systems.
+International expansion is rarely a matter of translation.</p>
+<p>Expand one direction at a time, and only when the core is strong. A
+company that expands while its core product is still struggling usually
+ends up with two struggling products.</p>
+<h2 id="f17-scaling-the-organization">Scaling the organization</h2>
+<p>Melvin Conway’s observation at the top of this chapter has become
+known as <strong>Conway’s law</strong>: the structure of a system tends
+to mirror the communication structure of the organization that builds
+it. If three teams must coordinate to change one workflow, the product
+will show the seams.</p>
+<p>The practical lesson is to design teams around the product you want.
+Brindlepath reorganized at about forty engineers from teams organized by
+technology layer to teams organized around customer journeys: the
+navigator’s day, discharge and integration, outcomes and reporting, and
+the patient’s experience, with a platform team providing shared
+services. Each journey team could deliver most changes on its own.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/16-2.webp" alt="Figure 16.2. How product practices change as the company grows (illustrative). What works at one stage becomes a constraint at the next. The skill is to change practices just before they break, not long after." width="1440" height="1072" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 16.2. How product practices change
+as the company grows (illustrative). What works at one stage becomes a
+constraint at the next. The skill is to change practices just before
+they break, not long after.</figcaption>
+</figure>
+<p>As the organization grows, the product leader’s job changes too:</p>
+<ul>
+<li><strong>From doing to enabling.</strong> Less time on individual
+features, more on strategy, hiring, coaching and the system that teams
+work within.</li>
+<li><strong>From conversations to written communication.</strong>
+Strategy pages, decision logs and product briefs replace hallway
+agreements.</li>
+<li><strong>From one roadmap to many.</strong> Each team owns its
+roadmap within a shared strategy and portfolio view.</li>
+<li><strong>From knowing every customer to knowing the
+patterns.</strong> Customer advisory boards, research programs and data
+replace personal relationships with every account, though product
+leaders should still talk to customers every week.</li>
+</ul>
+<h2 id="f17-brindlepath-in-practice-the-configuration-rule">Brindlepath
+in practice: the configuration rule</h2>
+<p>When Brindlepath adopted its configuration rule, the product had
+accumulated 47 customer-specific code paths, settings and integrations
+over its first years. Dev Raman’s team estimated that maintaining them
+consumed close to a quarter of engineering capacity, mostly in testing
+and upgrades.</p>
+<p>The team sorted them into three groups. Nineteen could become
+configuration available to every customer: for example, a
+customer-specific risk threshold became a setting any hospital could
+adjust, with sensible defaults. Fourteen belonged with partners or
+services: custom reports, for instance, moved to the outcomes module’s
+export and a reporting partner. And fourteen could simply be retired,
+because the customers who had asked for them no longer used them, or had
+never used them at all.</p>
+<p>The migration took most of a year, done customer by customer, with
+notice and support. Some conversations were difficult; one customer had
+built a workflow around a special integration and needed months of help
+to move. But by the end, the share of engineering capacity spent on
+customer-specific maintenance had fallen to a small fraction of its
+former level, and the time to onboard a new customer had dropped
+sharply.</p>
+<p>The rule also changed sales conversations. Instead of promising
+custom work, sellers could show prospects the configuration options
+available to every customer, the partner ecosystem for specialized
+needs, and the product’s open interfaces. Prospects who needed something
+truly unique were pointed to services or partners. A few deals were
+lost. Many more were won faster, and every customer benefited from a
+product that improved for all of them at once.</p>
+<h2 id="f17-common-mistakes">Common mistakes</h2>
+<p><strong>Saying yes to custom work to win deals.</strong> Each custom
+request looks small. Together they become the maintenance burden that
+slows every release and erodes your margins.</p>
+<p><strong>Scaling a product that has not found fit.</strong> More sales
+and marketing on top of weak retention accelerates churn, not
+growth.</p>
+<p><strong>Letting reliability become an afterthought.</strong> As
+customers depend on you, outages cost more. Service level objectives and
+error budgets turn reliability into a managed commitment.</p>
+<p><strong>Expanding in every direction at once.</strong> New segments,
+new geographies and new products together stretch a growing company past
+breaking point.</p>
+<p><strong>Ignoring Conway’s law.</strong> Teams organized by technology
+layer produce products whose seams show to customers.</p>
+<p><strong>Keeping early-stage habits too long.</strong> Practices that
+worked with two teams, such as decisions in the hallway and a roadmap in
+one person’s head, break quietly at seven.</p>
+<h2 id="f17-try-this">Try this</h2>
+<p>Make a list of every customer-specific setting, integration and code
+path in your product. For each, ask whether it could become a
+configuration available to every customer, whether it belongs with a
+partner, or whether it should be retired. Estimate the engineering time
+each one costs per year. Then pick the three most expensive and put a
+plan for each on the roadmap. Most teams find that a handful of special
+cases consume a surprising share of their capacity.</p>
+<h2 id="f17-how-ai-changes-this">How AI changes this</h2>
+<p><strong>AI changes the economics of scale.</strong> AI tools can
+automate parts of implementation, support, testing and documentation,
+reducing the people needed per customer. Companies can serve more
+customers with smaller teams than ever before. That is an opportunity to
+grow efficiently, but only if the core product is standardized enough
+for automation to work. AI does not rescue a product built on
+customization.</p>
+<p><strong>AI costs scale with usage.</strong> Unlike most software
+costs, AI inference costs grow with every request. At scale, small
+inefficiencies become large bills. Engineering for AI cost, by using
+smaller models where they are good enough, caching results and limiting
+unnecessary calls, becomes a real discipline.</p>
+<p><strong>AI governance must scale too.</strong> When many teams build
+AI features, they need shared standards: approved models and providers,
+evaluation requirements, safety reviews and monitoring. Chapter 17
+describes the practices; scaling means making them part of the platform
+rather than leaving each team to invent its own.</p>
+<p><strong>AI can help leaders see the whole system.</strong> Summaries
+of incidents, customer feedback, delivery measures and roadmap progress
+across many teams help a product leader spot patterns that would
+otherwise take weeks to assemble. The judgment about what to do remains
+human.</p>
+<h2 id="f17-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Do you handle customer differences
+through configuration and extension points rather than custom
+code?</label></li>
+<li><label><input type="checkbox" />Is there a rule for
+customer-specific requests: configuration for all, partner or services,
+but not core customization?</label></li>
+<li><label><input type="checkbox" />Do you have service level objectives
+and an error budget that shifts effort to reliability when
+needed?</label></li>
+<li><label><input type="checkbox" />Will monitoring tell you about
+problems, especially silent integration failures, before customers
+do?</label></li>
+<li><label><input type="checkbox" />Is cost per customer, including AI
+cost, tracked and acted on?</label></li>
+<li><label><input type="checkbox" />Are certifications started before
+the deals that will require them?</label></li>
+<li><label><input type="checkbox" />Are you expanding in one direction
+at a time, from a strong core?</label></li>
+<li><label><input type="checkbox" />Are teams organized around customer
+journeys, with a platform team for shared services?</label></li>
+<li><label><input type="checkbox" />Are AI standards, such as approved
+providers, evaluation and monitoring, built into the
+platform?</label></li>
+</ul>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/partnerships-and-ecosystems"><small>← Previous</small><b>Partnerships and Ecosystems</b></a><a class="next" href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><small>Next →</small><b>Building AI Products and Leading with AI Agents</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

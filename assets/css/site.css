@@ -2079,3 +2079,109 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .vrow-track .vcard { scroll-snap-align: start; }
 @media (max-width: 1000px) { .vrow-track { grid-auto-columns: calc((100% - 22px) / 2.3); } }
 @media (max-width: 600px) { .vrow-track { grid-auto-columns: 78%; gap: 14px; } }
+
+/* ---------- The Product Manager's Playbook: the book's landing page, chapters and The Essentials (src/books/pages.py) ---------- */
+.dl-ico { width: 1.05em; height: 1.05em; margin-right: 6px; vertical-align: -.15em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.btn small { font-weight: 500; opacity: .75; margin-left: 6px; font-size: .82em; }
+.book-hero { padding: 40px 0 56px; }
+.book-hero .wrap { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 48px; align-items: center; }
+.book-cover img { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 18px 40px rgba(16,30,60,.28), 0 2px 6px rgba(16,30,60,.18); }
+.book-intro h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); margin: 6px 0 4px; }
+.book-sub { font-size: 1.25rem; color: var(--ink-2); margin: 0 0 16px; }
+.book-intro > p { max-width: 640px; }
+.book-stats { display: flex; flex-wrap: wrap; gap: 8px 26px; list-style: none; padding: 0; margin: 18px 0 22px; color: var(--muted); }
+.book-stats b { display: block; font-size: 1.6rem; color: var(--navy); line-height: 1.1; }
+.book-by { color: var(--muted); font-size: .92rem; margin-top: 16px; }
+.ess-card { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 32px; align-items: center; max-width: 900px; margin: 0 auto; }
+.ess-card img { display: block; width: 100%; height: auto; border-radius: 4px; box-shadow: 0 10px 26px rgba(16,30,60,.22); }
+.ess-card h2 { margin: 4px 0 8px; }
+.bk-contents { display: grid; gap: 0 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.bk-part { grid-column: 1 / -1; display: flex; gap: 12px; align-items: baseline; margin: 26px 0 6px; padding-bottom: 8px; border-bottom: 2px solid var(--line); }
+.bk-part span { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); }
+.bk-part b { color: var(--navy); font-size: 1.15rem; }
+.bk-ch { display: flex; align-items: baseline; gap: 12px; padding: 11px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.bk-ch:hover .bk-t { color: var(--navy); text-decoration: underline; }
+.bk-n { flex: none; width: 1.6em; font-weight: 800; color: var(--primary); text-align: right; }
+.bk-t { flex: 1; font-weight: 600; }
+.bk-ch small { color: var(--muted); white-space: nowrap; }
+@media (max-width: 760px) {
+  .book-hero .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .book-cover { max-width: 220px; }
+  .book-hero { padding-top: 24px; }
+  .ess-card { grid-template-columns: 96px minmax(0, 1fr); gap: 18px; align-items: start; }
+}
+
+/* chapters */
+.book-page .epigraph { margin: 18px 0 14px; padding: 2px 0 2px 18px; border-left: 3px solid var(--primary); }
+.book-page .epigraph p { margin: 0; font-style: italic; color: var(--ink-2); font-size: 1.08rem; }
+.book-page .epigraph p + p { font-style: normal; font-size: .92rem; color: var(--muted); margin-top: 4px; }
+.book-page .byline a { color: inherit; }
+.book-page .post-body h3 { scroll-margin-top: 90px; }
+.book-page .post-body figure { margin: 2.2em 0; }
+.book-page .post-body figcaption { text-align: left; }
+.book-page .post-body table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: .95rem; display: block; overflow-x: auto; }
+.book-page .post-body th, .book-page .post-body td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.book-page .post-body th { color: var(--navy); border-bottom-width: 2px; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { margin: 8px 0; }
+.checklist label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.checklist input { flex: none; width: 1.15em; height: 1.15em; margin-top: .32em; accent-color: var(--primary); }
+.checklist input:checked + * , .checklist label:has(input:checked) { color: var(--muted); }
+.book-page .footnotes { margin-top: 3em; padding-top: 1em; border-top: 1px solid var(--line); font-size: .92rem; }
+.book-page .footnotes h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 .6em; }
+.book-page .footnotes li, .book-page .footnotes p { color: var(--ink-2); }
+.book-page .footnote-ref { text-decoration: none; }
+.book-page .footnote-ref sup { font-weight: 700; color: var(--primary); padding: 0 1px; }
+.book-page [id^="f"][id*="-fn"] { scroll-margin-top: 100px; }
+.book-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 48px 0 0; }
+.book-pager a { display: block; padding: 14px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); text-decoration: none; }
+.book-pager a:hover { border-color: var(--primary); }
+.book-pager small { display: block; color: var(--muted); font-size: .82rem; }
+.book-pager b { color: var(--navy); }
+.book-pager .next { text-align: right; }
+.book-foot .btn-row { margin-top: 12px; }
+.ess-part { margin: 3em 0 -1em; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.ess-sec { padding: 0; }
+.ess-sec h2 { margin-top: 1.6em; }
+.ess-more a { font-weight: 700; color: var(--navy); }
+
+/* the rail: the book's contents (wide screens) or a Contents menu (narrow) */
+.book-toc h2 { margin: 0 0 10px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.book-toc h3 { margin: 14px 0 4px; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.book-toc ol { list-style: none; margin: 0; padding: 0; }
+.book-toc a { display: flex; gap: 8px; padding: 4px 0; color: var(--ink-2); font-size: .86rem; line-height: 1.3; text-decoration: none; }
+.book-toc a:hover { color: var(--navy); }
+.book-toc a[aria-current="page"] { color: var(--navy); font-weight: 700; }
+.book-toc .bt-n { flex: none; width: 1.3em; text-align: right; color: var(--muted); }
+.book-toc-w, .book-rail-dl { display: none; }
+.book-toc-m { position: relative; }
+.book-toc-m summary { cursor: pointer; font-weight: 700; color: var(--navy); font-size: .95rem; list-style: none; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; }
+.book-toc-m summary::-webkit-details-marker { display: none; }
+.book-toc-m summary::after { content: " ▾"; color: var(--muted); }
+.book-toc-m[open] .book-toc { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(320px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto;
+  padding: 10px 16px 14px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 14px 34px rgba(16,30,60,.18); }
+.book-rail-dl a { display: block; margin: 6px 0; font-size: .88rem; color: var(--navy); font-weight: 600; text-decoration: none; }
+.book-rail-dl a:hover { text-decoration: underline; }
+@media (min-width: 1200px) {
+  .book-toc-m { display: none; }
+  .book-toc-w { display: block; margin-bottom: 22px; }
+  .book-rail-dl { display: block; padding-top: 14px; border-top: 1px solid var(--line); }
+  .book-rail .post-toc { max-height: none; }
+}
+
+/* the Books block on Insights */
+.books-promo { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; align-items: center; margin: 0 0 26px; padding: 22px 26px; border-radius: var(--radius); background: var(--tint); }
+.bp-covers { position: relative; display: block; height: 200px; }
+.bp-covers img { position: absolute; width: 120px; height: auto; border-radius: 3px; box-shadow: 0 10px 22px rgba(16,30,60,.28); }
+.bp-covers img:first-child { left: 0; top: 0; z-index: 1; }
+.bp-covers img:last-child { left: 66px; top: 26px; width: 104px; transform: rotate(4deg); }
+.bp-text h2 { margin: 4px 0 6px; font-size: 1.45rem; }
+.bp-text h2 a { color: var(--navy); text-decoration: none; }
+.bp-text h2 a:hover { text-decoration: underline; }
+.bp-text p { color: var(--ink-2); margin: 0 0 12px; }
+@media (max-width: 640px) {
+  .books-promo { grid-template-columns: 1fr; padding: 18px; gap: 14px; }
+  .bp-covers { height: 150px; }
+  .bp-covers img:first-child { width: 92px; }
+  .bp-covers img:last-child { width: 80px; left: 52px; top: 18px; }
+}

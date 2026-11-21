@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designing with Empathy | The Product Manager's Playbook</title>
+<meta name="description" content="Chapter 12. Designing with Empathy, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Designing with Empathy | The Product Manager's Playbook">
+<meta property="og:description" content="Chapter 12. Designing with Empathy, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/designing-with-empathy">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/designing-with-empathy">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Designing with Empathy", "url": "https://www.productadvisory.co/books/playbook/designing-with-empathy", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 12}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Designing with Empathy", "item": "https://www.productadvisory.co/books/playbook/designing-with-empathy"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy" aria-current="page"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f13-in-the-afternoon">4:30 in the afternoon</a></li><li><a href="#f13-empathy-is-a-method-not-a-feeling">Empathy is a method, not a feeling</a></li><li><a href="#f13-methods-for-understanding-people">Methods for understanding people</a></li><li><a href="#f13-designing-for-the-real-environment">Designing for the real environment</a></li><li><a href="#f13-the-users-who-never-log-in">The users who never log in</a></li><li><a href="#f13-balancing-empathy-and-innovation">Balancing empathy and innovation</a></li><li><a href="#f13-continuous-improvement-for-user-centricity">Continuous improvement for user-centricity</a></li><li><a href="#f13-accessibility-in-a-real-workflow">Accessibility in a real workflow</a></li><li><a href="#f13-common-mistakes">Common mistakes</a></li><li><a href="#f13-try-this">Try this</a></li><li><a href="#f13-how-ai-changes-this">How AI changes this</a></li><li><a href="#f13-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy" aria-current="page"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 12 · Part 4: Customers</div>
+      <h1>Designing with Empathy</h1>
+      <blockquote class="epigraph"><p>“Good design is as little design as possible.”</p>
+<p>— Dieter Rams</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 10 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f13-in-the-afternoon">4:30 in the afternoon</h2>
+<p>The ownership queue tested beautifully. In usability sessions held in
+a quiet room at Brindlepath’s office, navigators found their patients in
+seconds, confirmed ownership in two clicks and rated the experience
+highly. Three weeks after launch at the first pilot site, usage had
+fallen by a third.</p>
+<p>Lena Park went to find out why. She spent two days sitting beside
+navigators at the customer, from the start of their shift to the end. By
+mid-afternoon she understood. The navigators worked in an open-plan
+office with phones ringing constantly. They used aging computers with
+small screens, often with a headset on and a patient on the line. The
+queue’s confirm button was small and sat next to the reassign button;
+twice that afternoon, Lena watched a navigator reassign a patient by
+mistake and spend five minutes undoing it. Worse, the queue refreshed
+when new discharges arrived, so the list jumped under the navigator’s
+cursor in the middle of a call.</p>
+<p>None of that showed up in the usability lab, because the lab was not
+the navigator’s world. The product worked. It did not work
+<em>there</em>.</p>
+<p>The fixes were modest: a larger, separated confirm button, an undo
+for reassignment, and a queue that announced new arrivals instead of
+reshuffling. Usage recovered within two weeks and kept rising. The
+lesson cost Brindlepath a month. It is cheaper to learn it the way Lena
+eventually did: by going to where the work happens.</p>
+<h2 id="f13-empathy-is-a-method-not-a-feeling">Empathy is a method, not
+a feeling</h2>
+<p>Empathy in product work is not about being kind or caring, though
+both help. It is a disciplined practice of understanding the people you
+build for well enough to anticipate what they need, often before they
+can say it. It has three parts:</p>
+<ol type="1">
+<li><strong>Context:</strong> where, when and under what conditions
+people use the product.</li>
+<li><strong>Goals and emotions:</strong> what they are trying to
+achieve, what they fear, and what success feels like to them.</li>
+<li><strong>Constraints:</strong> what limits them: time, training,
+technology, rules, other people.</li>
+</ol>
+<p>In healthcare, the stakes of getting this wrong are high, and the
+people you design for are often exhausted. Clinicians already spend a
+large share of their day on screens. In a widely cited time-and-motion
+study of 57 physicians in four specialties, Christine Sinsky and
+colleagues found that only 27 percent of the office day went to direct
+clinical face time with patients, while 49 percent went to the
+electronic health record and desk work: nearly two hours of screen work
+for every hour with patients.<a href="#f13-fn1" class="footnote-ref"
+id="f13-fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/12-1.webp" alt="Figure 12.1. Where a physician’s office day goes. For every hour with patients, nearly two more go to the health record and desk work. Every product that adds a click adds to that burden. Source: Sinsky et al., Annals of Internal Medicine, 2016." width="1440" height="762" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 12.1. Where a physician’s office
+day goes. For every hour with patients, nearly two more go to the health
+record and desk work. Every product that adds a click adds to that
+burden. Source: Sinsky et al., Annals of Internal Medicine,
+2016.</figcaption>
+</figure>
+<p>Every product sold into that environment either adds to that burden
+or relieves it. Empathy is how you know which.</p>
+<h2 id="f13-methods-for-understanding-people">Methods for understanding
+people</h2>
+<p><strong>Contextual inquiry.</strong> Watch people do their real work
+in their real environment, and ask them to explain as they go. This is
+the single most powerful empathy method, and the one most often skipped
+because it takes time and travel. Lena’s two days beside navigators
+found more than a month of lab testing.</p>
+<p><strong>Shadowing.</strong> Follow one person through a whole shift
+or day. You see the transitions, interruptions and workarounds that no
+interview reveals.</p>
+<p><strong>Journey mapping.</strong> Map the steps a person goes through
+to achieve a goal, including what they do, think and feel at each step,
+and where your product touches the journey. Journey maps make pain
+points visible to the whole team, including people who never meet
+customers.</p>
+<p><strong>Diary studies.</strong> Ask participants to record their
+experiences over days or weeks. Useful for understanding behavior that
+unfolds over time, such as a patient’s recovery after discharge.</p>
+<p><strong>Personas, used carefully.</strong> A persona is a short
+description of a type of user, based on research. Personas help teams
+remember who they are building for. They become harmful when they are
+invented, or when they replace contact with real people. A persona
+should be a summary of evidence, revisited when the evidence
+changes.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/12-2.webp" alt="Figure 12.2. A navigator’s day as a journey map (illustrative). The emotion line shows where the work is hardest; the bottom row shows where Brindlepath helps and where it was getting in the way." width="1440" height="858" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 12.2. A navigator’s day as a
+journey map (illustrative). The emotion line shows where the work is
+hardest; the bottom row shows where Brindlepath helps and where it was
+getting in the way.</figcaption>
+</figure>
+<h2 id="f13-designing-for-the-real-environment">Designing for the real
+environment</h2>
+<p>Lena’s discovery generalizes into a few principles for products used
+under pressure.</p>
+<p><strong>Design for interruption.</strong> People will be pulled away
+mid-task. Save state automatically, make it obvious where they left off,
+and never lose work.</p>
+<p><strong>Prevent errors, and make them easy to undo.</strong> Separate
+destructive actions from common ones, confirm only when an action is
+truly hard to reverse, and offer undo everywhere else. Confirmation
+dialogs that appear constantly train people to click through them.</p>
+<p><strong>Keep the screen still.</strong> Do not move things under
+someone’s cursor. Announce changes; let the user choose when to see
+them.</p>
+<p><strong>Minimize clicks and typing for frequent tasks.</strong> A
+task done forty times a day deserves to be fast. Use keyboard shortcuts,
+sensible defaults and bulk actions.</p>
+<p><strong>Use plain language.</strong> Write for someone who is tired
+and distracted. Labels should say what happens, not what the system
+calls it.</p>
+<p><strong>Design for the hardware and the setting.</strong> Old
+screens, shared computers, gloves, glare, noise. Test on the actual
+devices in the actual place.</p>
+<p><strong>Design for everyone.</strong> The accessibility practices in
+Chapter 11 make products better for people with disabilities and for
+everyone working under strain.</p>
+<h2 id="f13-the-users-who-never-log-in">The users who never log in</h2>
+<p>In healthcare, the person who benefits most from your product often
+never sees it. Brindlepath’s real beneficiary was the patient who went
+home from the hospital and needed someone to notice if things went
+wrong. That patient never logged in, but the product’s design affected
+them directly: how quickly a navigator called, whether the navigator had
+the right information, whether the follow-up visit happened.</p>
+<p>Designing with empathy for the beneficiary means asking, at every
+decision, how it changes the experience of the person at the end of the
+chain. Brindlepath’s team began each design review with a short story of
+a real (anonymized) patient whose care depended on the workflow in
+question. It changed conversations. “This adds a step for navigators”
+became “this adds a step, and here is what it means for Mrs. Alvarez’s
+follow-up call.”</p>
+<p>The same principle applies in other industries: the student behind
+the teacher’s dashboard, the customer behind the support agent’s screen,
+the citizen behind the government caseworker’s system.</p>
+<h2 id="f13-balancing-empathy-and-innovation">Balancing empathy and
+innovation</h2>
+<p>Empathy keeps products grounded in real needs. Taken too literally,
+it can also keep them timid. Users describe their problems in terms of
+what they know, and their suggestions tend to be small improvements to
+today’s workflow. Breakthrough products often change the workflow
+itself.</p>
+<p>The answer is not to ignore users, but to separate their problems,
+which you should trust deeply, from their proposed solutions, which you
+should treat as one input among many. Brindlepath’s navigators asked for
+a better spreadsheet. What they needed was for ownership to be assigned
+before they arrived in the morning, which no spreadsheet could do. The
+insight came from empathy; the solution came from the team’s knowledge
+of what technology could do.</p>
+<p>A few practices help balance the two:</p>
+<ul>
+<li><strong>Test bold ideas with low-fidelity prototypes,</strong> so
+users react to the concept rather than the polish.</li>
+<li><strong>Introduce change gradually</strong> where workflows are
+safety-critical, with the option to use the old way during
+transition.</li>
+<li><strong>Measure whether the innovation actually relieves the
+burden,</strong> using time-on-task, error rates and the users’ own
+sense of workload.</li>
+<li><strong>Involve users as partners,</strong> not just test subjects.
+Brindlepath formed a small advisory group of navigators from three
+customers who saw designs early and helped shape them.</li>
+</ul>
+<h2 id="f13-continuous-improvement-for-user-centricity">Continuous
+improvement for user-centricity</h2>
+<p>Empathy is not a phase. People’s work changes, products change, and
+the gap between them opens again. Keep it closed with a few lasting
+habits:</p>
+<ul>
+<li><strong>Regular field visits</strong> for every product trio, at
+least once a quarter.</li>
+<li><strong>A steady stream of feedback</strong> from support tickets,
+in-product feedback and customer success, reviewed by the product team
+weekly.</li>
+<li><strong>Usability measures</strong> for key tasks, tracked over
+time: completion rates, time on task, error rates.</li>
+<li><strong>Satisfaction measures</strong> used with care. Net Promoter
+Score and similar surveys can show trends, but a score without the
+stories behind it says little about what to fix.</li>
+</ul>
+<h2
+id="f13-brindlepath-in-practice-the-navigator-advisory-group">Brindlepath
+in practice: the navigator advisory group</h2>
+<p>Lena’s discovery in the opening scene led to a lasting practice.
+Brindlepath formed a navigator advisory group: eight navigators and two
+navigator managers from four customers, who met with the product team
+for an hour every month and were paid a modest stipend, with their
+employers’ agreement, for their time.</p>
+<p>The group saw designs early, usually as sketches or rough prototypes,
+before the team had invested much in any direction. They tested new
+workflows in their own environments for a week before wider release. And
+they brought problems the product team had not heard about: the
+navigator who covered a rural clinic with an unreliable connection, the
+manager who needed to rebalance workloads when someone called in sick,
+the new hire who could not tell which patients were most urgent on her
+first day.</p>
+<p>Two rules kept the group useful. First, the product team presented
+problems and options, not finished solutions, and asked the group to
+argue about them. Second, the team closed the loop: every month began
+with a short review of what had changed because of the group’s input in
+previous months. Members said this was the reason they kept coming.
+Seeing their suggestions in the product made them advocates inside their
+own organizations, which customer success noticed in renewal
+conversations.</p>
+<p>The group did not replace field visits or broader research. Ten
+people cannot represent every navigator. But it gave the product team a
+standing relationship with real users, and it caught several problems,
+including a confusing change to how risk levels were displayed, before
+they reached hundreds of navigators.</p>
+<h2 id="f13-accessibility-in-a-real-workflow">Accessibility in a real
+workflow</h2>
+<p>When Brindlepath ran its first full accessibility review of the
+ownership queue, it found problems no usability session had surfaced.
+The risk level was shown only by color, so a navigator with color
+blindness could not tell high from medium risk. The queue could not be
+used with a keyboard alone. A screen reader announced each patient row
+as “button, button, button.”</p>
+<p>None of these was hard to fix. Risk levels gained text labels and
+icons. Every action gained a keyboard shortcut and a visible focus
+state. Rows were labelled with the patient’s name, risk level and
+discharge time. The fixes took one engineer two weeks, and the team
+added the checks to its definition of done so new screens would not
+repeat the mistakes. The keyboard shortcuts became one of the most
+popular features in the product, among navigators with and without
+disabilities.</p>
+<h2 id="f13-common-mistakes">Common mistakes</h2>
+<p><strong>Testing only in the lab.</strong> Quiet rooms, fast computers
+and focused participants hide the interruptions, noise and fatigue of
+real work.</p>
+<p><strong>Inventing personas.</strong> Personas made up in a workshop
+reflect the team’s assumptions. Build them from research and revisit
+them when the evidence changes.</p>
+<p><strong>Designing only for the logged-in user.</strong> Patients,
+students, citizens and customers who never see the product are often the
+people it most affects.</p>
+<p><strong>Taking users’ solutions literally.</strong> Users are experts
+in their problems. Their proposed solutions are one input, often a
+modest improvement on today’s workaround.</p>
+<p><strong>Adding confirmation dialogs everywhere.</strong> Constant
+confirmations train people to click through them. Prevent errors by
+design and offer undo instead.</p>
+<p><strong>Equating empathy with satisfaction scores.</strong> A score
+shows a trend; it rarely tells you what to fix. Stories and observation
+do.</p>
+<h2 id="f13-try-this">Try this</h2>
+<p>Arrange for every member of your product trio to spend half a day
+with a user in their real environment within the next month, watching
+rather than demonstrating. Each person should come back with three
+observations: one workaround, one moment of frustration and one moment
+where the product helped. Combine them into a simple journey map like
+Figure 12.2. Then pick the most painful moment on the map and make it
+the subject of your next round of discovery.</p>
+<h2 id="f13-how-ai-changes-this">How AI changes this</h2>
+<p><strong>AI can reduce burden, or add to it.</strong> The most
+promising AI features in healthcare, such as ambient documentation that
+drafts clinical notes from a conversation, aim directly at the screen
+time in Figure 12.1. But an AI feature that produces output clinicians
+must carefully check adds burden of a different kind. Design AI features
+around the reviewer’s time: make outputs easy to verify, highlight
+uncertainty, and make correction fast.</p>
+<p><strong>AI can scale empathy research.</strong> Assistants can
+transcribe and tag hours of field recordings, cluster support tickets by
+emotion and theme, and draft journey maps from research notes. That
+leaves more time for the field visits themselves, which no tool
+replaces.</p>
+<p><strong>Synthetic users are not users.</strong> As Chapter 3 warned,
+AI-generated personas can rehearse an interview guide, but they cannot
+tell you what it is like to be a navigator at 4:30 in the afternoon.
+Lena’s lesson does not change.</p>
+<p><strong>AI interfaces need empathy too.</strong> Conversational and
+agent-based features raise new design questions: how much the AI should
+do on its own, how to show what it did and why, how to let people stay
+in control, and how to avoid sounding more certain than it is. Chapter
+17 covers these in depth.</p>
+<h2 id="f13-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Has every member of your product
+trio watched real users work in their real environment in the last
+quarter?</label></li>
+<li><label><input type="checkbox" />Do you have a journey map for your
+most important workflow, built from field research?</label></li>
+<li><label><input type="checkbox" />Are your personas summaries of
+evidence, revisited when the evidence changes?</label></li>
+<li><label><input type="checkbox" />Does your product save work through
+interruptions, prevent errors and make them easy to undo?</label></li>
+<li><label><input type="checkbox" />Do you test on the devices and in
+the settings where the product is actually used?</label></li>
+<li><label><input type="checkbox" />Do design reviews consider the
+people who benefit from the product but never log in?</label></li>
+<li><label><input type="checkbox" />Do you separate users’ problems,
+which you trust, from their proposed solutions?</label></li>
+<li><label><input type="checkbox" />Do you track usability measures for
+key tasks over time?</label></li>
+<li><label><input type="checkbox" />Are AI features designed around the
+time it takes a person to check and correct them?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f13-fn1"><p>Christine Sinsky, Lacey Colligan, Ling Li et al.,
+“Allocation of Physician Time in Ambulatory Practice: A Time and Motion
+Study in 4 Specialties,” <em>Annals of Internal Medicine</em> 165, no.
+11 (2016): 753–760. The study observed 57 physicians for 430 hours.<a
+href="#f13-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/trust-by-design-security-privacy-and-compliance"><small>← Previous</small><b>Trust by Design: Security, Privacy and Compliance</b></a><a class="next" href="/books/playbook/go-to-market-and-launch"><small>Next →</small><b>Go-to-Market and Launch</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

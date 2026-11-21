@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Numbers: P&L, Unit Economics and Pricing · Product Advisory</title>
+<meta name="description" content="Chapter 6. The Numbers: P&L, Unit Economics and Pricing, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="The Numbers: P&L, Unit Economics and Pricing · Product Advisory">
+<meta property="og:description" content="Chapter 6. The Numbers: P&L, Unit Economics and Pricing, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/the-numbers-pl-unit-economics-and-pricing">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/the-numbers-pl-unit-economics-and-pricing">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "The Numbers: P&L, Unit Economics and Pricing", "url": "https://www.productadvisory.co/books/playbook/the-numbers-pl-unit-economics-and-pricing", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 6}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "The Numbers: P&L, Unit Economics and Pricing", "item": "https://www.productadvisory.co/books/playbook/the-numbers-pl-unit-economics-and-pricing"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing" aria-current="page"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f7-what-does-a-seat-cost-us">What does a seat cost us?</a></li><li><a href="#f7-reading-a-saas-pl">Reading a SaaS P&amp;L</a></li><li><a href="#f7-unit-economics-is-each-customer-worth-it">Unit economics: is each customer worth it?</a></li><li><a href="#f7-pricing-the-most-underused-lever">Pricing: the most underused lever</a></li><li><a href="#f7-making-the-business-case">Making the business case</a></li><li><a href="#f7-common-mistakes">Common mistakes</a></li><li><a href="#f7-try-this">Try this</a></li><li><a href="#f7-how-ai-changes-this">How AI changes this</a></li><li><a href="#f7-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing" aria-current="page"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 6 · Part 2: Strategy</div>
+      <h1>The Numbers: P&amp;L, Unit Economics and Pricing</h1>
+      <blockquote class="epigraph"><p>“Price is what you pay. Value is what you get.”</p>
+<p>— Warren Buffett</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 12 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f7-what-does-a-seat-cost-us">What does a seat cost us?</h2>
+<p>In Maya’s second month, Brindlepath’s chief financial officer, Priya
+Nair, asked her a question in the hallway that she could not answer:
+“What does it cost us to serve one navigator seat for a year?”</p>
+<p>Maya knew the price: Brindlepath charged per navigator seat, plus a
+platform fee per health system. She knew roughly what engineering cost.
+She did not know how much of the hosting bill, the support team, the
+implementation engineers and the integration maintenance each customer
+consumed. Nobody did. When Priya and Maya worked it out together over
+the following two weeks, they found that Brindlepath’s three smallest
+customers cost more to serve than they paid, mostly because each had
+needed a custom integration that the company now maintained for
+free.</p>
+<p>That discovery changed the roadmap more than any customer interview.
+It also changed the way the CEO, the board and the sales team listened
+to Maya. A product leader who can explain the economics of a decision is
+a different kind of colleague from one who can only explain its
+features.</p>
+<p>This chapter is the financial literacy that every product leader
+needs. It is not accounting. It is the handful of numbers that tell you
+whether your product is a good business.</p>
+<h2 id="f7-reading-a-saas-pl">Reading a SaaS P&amp;L</h2>
+<p>A profit and loss statement, or P&amp;L, shows revenue and costs over
+a period. For a software company, the structure is usually the same.</p>
+<p><strong>Revenue.</strong> For subscription businesses, the most
+watched figure is <strong>annual recurring revenue (ARR)</strong>: the
+yearly value of active subscriptions. One-time revenue, such as
+implementation fees, is reported separately, because it does not
+recur.</p>
+<p><strong>Cost of revenue</strong>, also called cost of goods sold
+(COGS). The costs of delivering the service: hosting and infrastructure,
+third-party software embedded in the product, customer support,
+implementation and integration work, and, for AI products, model and
+inference costs.</p>
+<p><strong>Gross profit and gross margin.</strong> Revenue minus cost of
+revenue. Gross margin, gross profit as a percentage of revenue, is the
+single most important number for judging whether a software product is a
+good business. Mature software companies typically target gross margins
+well above 70 percent; services-heavy or infrastructure-heavy products
+run lower.</p>
+<p><strong>Operating expenses.</strong> Sales and marketing, research
+and development (where most product and engineering salaries sit), and
+general and administrative costs.</p>
+<p><strong>Operating income.</strong> Gross profit minus operating
+expenses. Many growing software companies run at an operating loss by
+choice, investing in growth. That is a strategy, not a failure, as long
+as the unit economics underneath are sound.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/6-1.webp" alt="Figure 6.1. Brindlepath’s annual P&L as a waterfall (illustrative). Every product decision touches one of these bars: what it adds to revenue, what it adds to the cost of delivering, and what it costs to build and sell." width="1440" height="1000" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 6.1. Brindlepath’s annual P&amp;L
+as a waterfall (illustrative). Every product decision touches one of
+these bars: what it adds to revenue, what it adds to the cost of
+delivering, and what it costs to build and sell.</figcaption>
+</figure>
+<p>Figure 6.1 shows Brindlepath’s P&amp;L in simplified form. The
+product leader’s influence is everywhere in it. Features that reduce
+support tickets raise gross margin. Integrations that need custom work
+for each customer lower it. A product that sells itself reduces sales
+and marketing cost. A product that needs a six-month implementation
+increases cost of revenue and delays revenue recognition.</p>
+<h2 id="f7-unit-economics-is-each-customer-worth-it">Unit economics: is
+each customer worth it?</h2>
+<p>The P&amp;L tells you how the business did. Unit economics tell you
+whether each new customer makes the business better or worse. Five
+measures matter most.</p>
+<p><strong>Customer acquisition cost (CAC).</strong> Total sales and
+marketing spend in a period, divided by the number of new customers won.
+In enterprise healthcare, where sales cycles run nine to eighteen months
+and involve many stakeholders, CAC is high.</p>
+<p><strong>Annual gross profit per customer.</strong> Average annual
+revenue per customer multiplied by gross margin. This is what a customer
+contributes toward paying back acquisition cost and funding everything
+else.</p>
+<p><strong>CAC payback period.</strong> CAC divided by monthly gross
+profit per customer: how many months it takes to earn back the cost of
+winning the customer. Shorter is better; investors often look for well
+under two years.</p>
+<p><strong>Retention.</strong> <em>Gross revenue retention</em> is the
+share of last year’s recurring revenue you kept from existing customers,
+ignoring upsells. <em>Net revenue retention (NRR)</em> adds expansion:
+upsells, extra seats, new modules. NRR above 100 percent means existing
+customers grow faster than others leave, which is the engine of the best
+software businesses.</p>
+<p><strong>Customer lifetime value (LTV).</strong> Gross profit per
+customer per year multiplied by the expected years a customer stays. The
+ratio of LTV to CAC is a common shorthand for the health of a growth
+model; a ratio around three or higher is a frequently quoted rule of
+thumb.</p>
+<h3 id="f7-a-worked-example">A worked example</h3>
+<p>Here is Brindlepath’s typical mid-sized customer after Maya and Priya
+finished their analysis. The numbers are illustrative.</p>
+<ul>
+<li>30 navigator seats at $1,800 per seat per year, plus a $36,000
+platform fee: <strong>$90,000 annual recurring revenue</strong>.</li>
+<li>Cost to serve, including hosting, support, integration maintenance
+and model costs: $22,500 a year, so <strong>gross margin is 75
+percent</strong> and gross profit is $67,500 a year, or $5,625 a
+month.</li>
+<li>Acquisition cost, including a long sales cycle and a pilot:
+<strong>$120,000</strong>.</li>
+<li><strong>CAC payback</strong> is therefore $120,000 ÷ $5,625, or
+about <strong>21 months</strong>.</li>
+<li>With gross revenue retention of 90 percent, the average customer
+stays about ten years, giving a lifetime gross profit of roughly
+$675,000 and an <strong>LTV-to-CAC ratio of about 5.6</strong>.</li>
+</ul>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/6-2.webp" alt="Figure 6.2. One customer’s cumulative cash, from the day the deal is won (illustrative). The curve starts deep in the red and crosses zero at about 21 months. Product choices move both the depth of the dip and the slope of the climb." width="1440" height="940" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 6.2. One customer’s cumulative
+cash, from the day the deal is won (illustrative). The curve starts deep
+in the red and crosses zero at about 21 months. Product choices move
+both the depth of the dip and the slope of the climb.</figcaption>
+</figure>
+<p>Figure 6.2 shows why product decisions are financial decisions. A
+self-serve pilot that shortens the sales cycle makes the dip shallower.
+Fewer custom integrations raise gross margin and steepen the climb. A
+second module that customers buy in year two bends the curve upward. A
+clunky onboarding that causes churn in year three cuts it off before it
+pays back.</p>
+<p>The three small customers Brindlepath discovered were losing money
+for one reason: their custom integrations had pushed cost to serve so
+high that gross margin was close to zero. Their curves never crossed the
+line. The fix was not to fire them; it was to move their integrations
+onto Brindlepath’s standard connector, which became the first item on
+the Now column of the roadmap.</p>
+<h2 id="f7-pricing-the-most-underused-lever">Pricing: the most underused
+lever</h2>
+<p>Pricing is one of the most powerful levers a product leader has, and
+one of the least studied. In a widely cited analysis of 2,463 companies,
+Michael Marn and Robert Rosiello found that a 1 percent improvement in
+price, with volume unchanged, increased operating profit by 11.1 percent
+on average, far more than the same improvement in variable cost, volume
+or fixed cost.<a href="#f7-fn1" class="footnote-ref" id="f7-fnref1"
+role="doc-noteref"><sup>1</sup></a> Later McKinsey analyses of larger
+samples put the effect somewhat lower, at around 8 to 9 percent, but the
+conclusion holds: small changes in price have outsized effects on
+profit.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/6-3.webp" alt="Figure 6.3. Operating profit improvement from a 1 percent improvement in each lever, average of 2,463 companies. Price is the most powerful lever by a wide margin. Source: Marn and Rosiello, Harvard Business Review, 1992." width="1440" height="810" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 6.3. Operating profit improvement
+from a 1 percent improvement in each lever, average of 2,463 companies.
+Price is the most powerful lever by a wide margin. Source: Marn and
+Rosiello, Harvard Business Review, 1992.</figcaption>
+</figure>
+<h3 id="f7-price-to-value-not-to-cost">Price to value, not to cost</h3>
+<p>There are three broad ways to set a price. <strong>Cost-plus</strong>
+pricing adds a margin to what the product costs to deliver. It is simple
+and almost always leaves money on the table, because customers do not
+care about your costs. <strong>Competitor-based</strong> pricing anchors
+to what alternatives charge. It is necessary context, but it makes you a
+follower. <strong>Value-based</strong> pricing starts with the value the
+customer receives and captures a fair share of it.</p>
+<p>For Brindlepath, value was measurable. A mid-sized health system with
+meaningful readmission penalties, a few hundred high-risk discharges a
+month and a goal of preventing even a modest number of readmissions
+could point to savings and avoided penalties many times the price of the
+software. That calculation, built with the customer’s own numbers,
+became the heart of every proposal. In the United States, the Medicare
+Hospital Readmissions Reduction Program can reduce a hospital’s base
+Medicare payments by up to 3 percent for excess readmissions,<a
+href="#f7-fn2" class="footnote-ref" id="f7-fnref2"
+role="doc-noteref"><sup>2</sup></a> which gave finance teams a concrete
+number to put in the model.</p>
+<h3 id="f7-the-pricing-metric">The pricing metric</h3>
+<p>The <strong>pricing metric</strong> is the unit you charge for: per
+user, per seat, per transaction, per patient, per facility, per outcome.
+A good metric has three properties: it grows as the customer gets more
+value, it is easy to understand and predict, and it is hard to game.</p>
+<p>Brindlepath’s per-navigator seat price was easy to understand but had
+a flaw: as the product made navigators more efficient, customers needed
+fewer of them, so success shrank revenue. The company added a
+per-health-system platform fee scaled by annual discharges, which grew
+with the size of the problem the product solved. Finding the right
+metric is often worth more than finding the right price.</p>
+<h3 id="f7-packaging">Packaging</h3>
+<p>Most software is sold in tiers, often three, sometimes called
+<em>good, better, best</em>. Packaging decides which features go in
+which tier. Two principles help.</p>
+<ul>
+<li><strong>Put the features that define your best-fit customer in the
+middle tier,</strong> and price it to be the obvious choice. The top
+tier exists partly to make the middle look reasonable.</li>
+<li><strong>Use features to fence tiers that larger customers genuinely
+need,</strong> such as advanced security, audit reporting, single
+sign-on and integrations, rather than artificially limiting the core
+experience.</li>
+</ul>
+<p>Pricing deserves the same discovery as features: interviews about
+willingness to pay, tests of different packages with new prospects, and
+careful analysis of win and loss rates by price point.</p>
+<h2 id="f7-making-the-business-case">Making the business case</h2>
+<p>When you propose a significant investment, a new product, a major
+feature or an integration, bring a business case. It does not need to be
+long. It needs five things:</p>
+<ol type="1">
+<li><strong>The problem and the customers who have it,</strong> from
+your discovery work.</li>
+<li><strong>The revenue effect:</strong> new customers won, expansion,
+churn prevented, price increase supported. Show your assumptions.</li>
+<li><strong>The cost to build:</strong> engineering, design and product
+time, plus any third-party costs.</li>
+<li><strong>The cost to run:</strong> hosting, support, maintenance,
+model costs, partner fees. This is the part most business cases
+forget.</li>
+<li><strong>The risks and how you will know:</strong> what has to be
+true, and the measure you will check after launch.</li>
+</ol>
+<p>Show a range, not a single number. A case that says “between $400,000
+and $1.2 million of new ARR in the first year, most likely around
+$700,000, if pilots convert at our historical rate” is more credible,
+and more useful, than one that says “$1 million.”</p>
+<h2
+id="f7-brindlepath-in-practice-changing-the-pricing-metric">Brindlepath
+in practice: changing the pricing metric</h2>
+<p>As Chapter 6 described, Brindlepath’s per-seat price had a flaw: the
+more efficient the product made navigators, the fewer seats customers
+needed. At one customer, a successful rollout had let the health system
+cover more patients with the same team, and its finance department
+asked, reasonably, whether it could reduce seats at renewal.</p>
+<p>Maya and Priya spent a quarter on the problem. They interviewed
+finance leaders at eight customers about how they budgeted for the
+product and what they thought they were paying for. The answers were
+consistent: customers thought of Brindlepath as paying for covering
+their high-risk patients, not for navigator logins.</p>
+<p>The new model kept a smaller per-seat price, to cover the cost of
+each user, and moved most of the value into a platform fee scaled to the
+number of high-risk discharges the product covered each year. For a
+typical customer, the total price stayed about the same in the first
+year. As customers expanded coverage to more hospitals and more
+patients, revenue grew with the value delivered, regardless of how many
+navigators they employed.</p>
+<p>The team tested the model with new prospects before offering it to
+existing customers, and gave existing customers the choice to switch at
+renewal. Most did, because it made their budget easier to explain: the
+cost tracked the problem they were solving. Net revenue retention rose
+over the following year, and the conversation about reducing seats
+disappeared.</p>
+<p>The lesson is not that platform fees are better than seats. It is
+that the pricing metric should grow with the value customers receive,
+and that finding it took the same discovery work as any feature.</p>
+<h2 id="f7-common-mistakes">Common mistakes</h2>
+<p><strong>Pricing on cost.</strong> Customers do not care what your
+product costs to build. Cost-plus pricing systematically leaves money on
+the table for products that create real value.</p>
+<p><strong>Ignoring the cost to serve.</strong> Features that require
+custom work, heavy support or expensive AI calls can make customers
+unprofitable while revenue looks healthy.</p>
+<p><strong>Discounting to close.</strong> Deep discounts win this
+quarter’s deal and set expectations for every renewal. Discount scope or
+terms before price, and attach discounts to commitments.</p>
+<p><strong>Choosing a pricing metric that punishes success.</strong> If
+customers pay less as your product makes them more efficient, your
+growth works against you.</p>
+<p><strong>Business cases that forget running costs.</strong> A case
+that counts only the cost to build will overstate the return of almost
+everything.</p>
+<p><strong>Single-number forecasts.</strong> One revenue number invites
+false precision. A range with explicit assumptions is more honest, and
+more useful for decisions.</p>
+<h2 id="f7-try-this">Try this</h2>
+<p>Pick one typical customer and calculate, with help from finance if
+you need it, their annual revenue, their annual cost to serve (hosting,
+support, implementation, integration maintenance and AI costs), their
+gross margin, the cost of winning them and their payback period. Then
+repeat the exercise for your smallest customer and your most demanding
+one. Compare the three. Most product leaders who do this find at least
+one surprise, and at least one roadmap item that would change the
+numbers more than any new feature.</p>
+<h2 id="f7-how-ai-changes-this">How AI changes this</h2>
+<p><strong>AI changes your cost structure.</strong> Traditional software
+has very low marginal costs: serving one more user costs almost nothing.
+AI features add a real variable cost for every request, paid to a model
+provider or for your own infrastructure. A feature that summarizes every
+patient record every morning can quietly add meaningful cost per seat.
+Track AI costs per customer, per feature and per request from day one,
+and put them in your gross margin. Products that lean heavily on AI
+often run at lower gross margins than traditional software for exactly
+this reason, so plan for it rather than discovering it.</p>
+<p><strong>AI changes pricing.</strong> When software does work that a
+person used to do, pricing per seat can undercut the value you create,
+as Brindlepath found. Many AI products are experimenting with
+usage-based pricing (per request or per task), outcome-based pricing
+(per resolved case or prevented readmission) or hybrid models. Each
+shifts risk between you and the customer. Outcome-based pricing is
+compelling to buyers and hard to administer; agree in advance exactly
+how outcomes will be measured.</p>
+<p><strong>AI makes analysis cheap.</strong> An assistant can build a
+pricing model, a cohort analysis or a business-case spreadsheet in
+minutes, and run the sensitivity analysis you would never have had time
+for. Use it. Then check the formulas, because a confident spreadsheet
+with a broken formula is worse than none.</p>
+<h2 id="f7-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Do you know your product’s gross
+margin, and what drives it?</label></li>
+<li><label><input type="checkbox" />Do you know the cost to serve a
+typical customer, including support, integration and AI model
+costs?</label></li>
+<li><label><input type="checkbox" />Can you state your CAC, payback
+period, gross and net revenue retention, and LTV-to-CAC
+ratio?</label></li>
+<li><label><input type="checkbox" />Have you found any customers who
+cost more to serve than they pay?</label></li>
+<li><label><input type="checkbox" />Is your price based on the value
+customers receive, using their own numbers?</label></li>
+<li><label><input type="checkbox" />Does your pricing metric grow as
+customers get more value?</label></li>
+<li><label><input type="checkbox" />Does every major proposal include
+the cost to run, not just the cost to build?</label></li>
+<li><label><input type="checkbox" />Do your business cases show a range
+and the assumptions behind it?</label></li>
+<li><label><input type="checkbox" />Are AI costs tracked per customer
+and per feature, and included in gross margin?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f7-fn1"><p>Michael V. Marn and Robert L. Rosiello, “Managing
+Price, Gaining Profit,” <em>Harvard Business Review</em>,
+September–October 1992. The figures are based on the average economics
+of 2,463 companies in the Compustat database. Later McKinsey analyses of
+the Global 1200 and the S&amp;P 1500 put the effect of a
+one-percentage-point price improvement at roughly 8 to 9 percent of
+operating profit.<a href="#f7-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f7-fn2"><p>Centers for Medicare &amp; Medicaid Services,
+Hospital Readmissions Reduction Program. The maximum payment reduction
+is 3 percent of a hospital’s base operating diagnosis-related group
+payments.<a href="#f7-fnref2" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/prioritization-and-outcome-roadmaps"><small>← Previous</small><b>Prioritization and Outcome Roadmaps</b></a><a class="next" href="/books/playbook/managing-a-product-portfolio"><small>Next →</small><b>Managing a Product Portfolio</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

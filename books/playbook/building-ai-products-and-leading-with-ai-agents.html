@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building AI Products and Leading with AI Agents</title>
+<meta name="description" content="Chapter 17. Building AI Products and Leading with AI Agents, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Building AI Products and Leading with AI Agents">
+<meta property="og:description" content="Chapter 17. Building AI Products and Leading with AI Agents, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/building-ai-products-and-leading-with-ai-agents">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/building-ai-products-and-leading-with-ai-agents">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Building AI Products and Leading with AI Agents", "url": "https://www.productadvisory.co/books/playbook/building-ai-products-and-leading-with-ai-agents", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 17}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Building AI Products and Leading with AI Agents", "item": "https://www.productadvisory.co/books/playbook/building-ai-products-and-leading-with-ai-agents"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents" aria-current="page"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f18-the-demo-that-was-almost-perfect">The demo that was almost perfect</a></li><li><a href="#f18-where-organizations-are">Where organizations are</a></li><li><a href="#f18-when-ai-is-the-right-tool">When AI is the right tool</a></li><li><a href="#f18-how-much-should-ai-do-on-its-own">How much should AI do on its own?</a></li><li><a href="#f18-designing-ai-experiences-people-can-trust">Designing AI experiences people can trust</a></li><li><a href="#f18-grounding-ai-in-your-data">Grounding AI in your data</a></li><li><a href="#f18-cost-speed-and-model-choice">Cost, speed and model choice</a></li><li><a href="#f18-safety-security-and-responsibility">Safety, security and responsibility</a></li><li><a href="#f18-leading-teams-that-include-ai-agents">Leading teams that include AI agents</a></li><li><a href="#f18-from-idea-to-ai-product">From idea to AI product</a></li><li><a href="#f18-brindlepath-in-practice-the-evaluation-set">Brindlepath in practice: the evaluation set</a></li><li><a href="#f18-common-mistakes">Common mistakes</a></li><li><a href="#f18-try-this">Try this</a></li><li><a href="#f18-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents" aria-current="page"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 17 · Part 5: Growth</div>
+      <h1>Building AI Products and Leading with AI Agents</h1>
+      <blockquote class="epigraph"><p>“AI is the new electricity.”</p>
+<p>— Andrew Ng</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 13 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f18-the-demo-that-was-almost-perfect">The demo that was almost
+perfect</h2>
+<p>Brindlepath’s Horizon 3 team, introduced in Chapter 7, had a bold
+idea: an AI agent that would read a high-risk patient’s discharge
+summary, medication list and recent notes, then draft a post-discharge
+plan for the navigator, covering who to call, what to ask, which
+follow-up appointments were needed and which warning signs to watch for.
+If it worked, a navigator could prepare for a call in two minutes
+instead of fifteen.</p>
+<p>The first demo, to the leadership team, was stunning. The agent
+produced clear, well-organized plans in seconds. The CEO wanted to
+announce it at the industry’s biggest conference, six weeks away.</p>
+<p>Maya asked for one thing first: an evaluation. The team assembled 300
+real, anonymized discharge summaries and asked two experienced nurses to
+review the agent’s plans against the source documents. The plans were
+good, most of the time. But roughly one plan in thirty contained
+something that was not in the record: a medication the patient was not
+taking, or a follow-up appointment that had never been ordered. Every
+one of those errors was written as confidently as everything else.</p>
+<p>In a demo, one error in thirty is invisible. In a product used for
+thousands of patients a month, it is dozens of dangerous mistakes every
+week.</p>
+<p>The team did not abandon the idea. They changed it. The agent now
+cited the source line for every statement, flagged anything it could not
+find in the record, and presented its plan as a draft the navigator
+reviewed and confirmed, never as an instruction. They built an
+evaluation set that ran before every change, and monitored errors in
+production. They launched four months later, with one customer, and
+expanded as the evidence came in.</p>
+<p>This chapter is about building AI products that survive contact with
+reality, and about leading teams in which AI agents do real work.</p>
+<h2 id="f18-where-organizations-are">Where organizations are</h2>
+<p>AI adoption has moved fast. In McKinsey’s 2025 global survey, 88
+percent of respondents said their organizations used AI in at least one
+business function, and 62 percent said they were at least experimenting
+with AI agents. Far fewer had scaled them: 23 percent reported scaling
+an agentic AI system somewhere in their enterprise, and in no single
+business function did more than 10 percent report scaled use of
+agents.<a href="#f18-fn1" class="footnote-ref" id="f18-fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/17-1.webp" alt="Figure 17.1. From using AI to scaling AI agents. Most organizations use AI somewhere; few have scaled agents. Source: McKinsey & Company, The State of AI in 2025." width="1440" height="810" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 17.1. From using AI to scaling AI
+agents. Most organizations use AI somewhere; few have scaled agents.
+Source: McKinsey &amp; Company, The State of AI in 2025.</figcaption>
+</figure>
+<p>The gap between experimenting and scaling is where product leadership
+matters most. The technology to build an impressive demo is widely
+available. The discipline to build something reliable, safe, affordable
+and genuinely useful is not.</p>
+<h2 id="f18-when-ai-is-the-right-tool">When AI is the right tool</h2>
+<p>AI is not the answer to every problem, and using it where it does not
+fit creates cost and risk for no benefit. Before building an AI feature,
+ask what kind of problem it is.</p>
+<p><strong>AI tends to fit well when:</strong></p>
+<ul>
+<li>the work involves understanding or producing language, images or
+other unstructured content;</li>
+<li>inputs vary widely and cannot be handled by simple rules;</li>
+<li>a good draft saves significant time, even if a person reviews
+it;</li>
+<li>some errors are acceptable, or can be caught by review;</li>
+<li>there is enough data, or enough examples, to evaluate quality.</li>
+</ul>
+<p><strong>AI tends to fit poorly when:</strong></p>
+<ul>
+<li>the answer must be exactly right every time and can be computed with
+rules;</li>
+<li>the stakes of an undetected error are severe and there is no
+practical review step;</li>
+<li>the task is simple enough that ordinary software does it cheaply and
+reliably;</li>
+<li>you cannot measure whether the output is good.</li>
+</ul>
+<p>Brindlepath’s discharge-plan agent was a good fit for drafting,
+because summaries were long and varied and a draft saved real time, and
+a poor fit for acting alone, because an undetected error could harm a
+patient. The product design followed from that distinction.</p>
+<h2 id="f18-how-much-should-ai-do-on-its-own">How much should AI do on
+its own?</h2>
+<p>The most important design decision for an AI feature is its level of
+<strong>autonomy</strong>: how much it does without a person’s
+involvement. A useful way to think about it is as a ladder.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/17-2.webp" alt="Figure 17.2. The autonomy ladder. Each step up saves more human effort and raises the stakes of an error. Match the step to the consequences of being wrong, and climb only on evidence." width="1440" height="958" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 17.2. The autonomy ladder. Each
+step up saves more human effort and raises the stakes of an error. Match
+the step to the consequences of being wrong, and climb only on
+evidence.</figcaption>
+</figure>
+<ol type="1">
+<li><strong>Assist.</strong> AI answers questions or retrieves
+information when a person asks. The person decides what to do with
+it.</li>
+<li><strong>Suggest.</strong> AI proposes a draft or recommendation; a
+person reviews, edits and accepts or rejects it.</li>
+<li><strong>Act with approval.</strong> AI prepares an action, such as
+sending a message or updating a record, and a person approves it before
+it happens.</li>
+<li><strong>Act within limits.</strong> AI acts on its own within
+defined boundaries, with monitoring and the ability for people to review
+and reverse.</li>
+<li><strong>Act autonomously.</strong> AI acts on its own across a broad
+scope. Rarely appropriate in high-stakes domains today.</li>
+</ol>
+<p>Match the step to the consequences of being wrong. Drafting a
+patient-education handout might reasonably sit at <em>suggest</em>.
+Updating the ownership of a patient in the queue might sit at <em>act
+with approval</em>. Changing a medication should not sit anywhere on
+this ladder without a clinician’s decision. Start lower than you think
+you need to, measure, and climb only when the evidence supports it.</p>
+<h2 id="f18-designing-ai-experiences-people-can-trust">Designing AI
+experiences people can trust</h2>
+<p>AI features behave differently from traditional software. They are
+probabilistic: the same input can produce different outputs, and the
+output is sometimes wrong in ways that look right. Good AI design makes
+those properties visible and manageable.</p>
+<p><strong>Show the sources.</strong> Let people see where an answer
+came from. Brindlepath’s agent cites the line in the discharge summary
+behind every statement, so a navigator can verify it with one click.</p>
+<p><strong>Signal uncertainty.</strong> Flag what the AI could not find
+or is unsure about, instead of letting it guess confidently.</p>
+<p><strong>Make correction easy.</strong> Editing a draft should be
+faster than writing from scratch. If it is not, people will stop using
+the feature.</p>
+<p><strong>Keep people in control.</strong> Make it clear what the AI
+has done and what it will do next, and let people stop, undo or override
+it.</p>
+<p><strong>Label AI output.</strong> People should always know when
+content was produced by AI.</p>
+<p><strong>Capture feedback.</strong> Every acceptance, edit and
+rejection is a signal about quality. Collect it, with appropriate
+privacy protections, and use it to improve.</p>
+<p><strong>Design for the reviewer’s time.</strong> As Chapter 12 noted,
+AI that saves the author’s time but costs the reviewer more is not a
+gain. Measure total time, not just generation time.</p>
+<h2
+id="f18-evaluation-the-discipline-that-separates-demos-from-products">Evaluation:
+the discipline that separates demos from products</h2>
+<p>Traditional software is tested with expected outputs: given this
+input, the result must be exactly that. AI features need
+<strong>evaluation</strong>: systematic measurement of output quality
+across many realistic examples, against criteria people agree on.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/17-3.webp" alt="Figure 17.3. The evaluation loop. Quality is measured before launch, before every change and continuously in production, and what you learn in production feeds the next evaluation set." width="1440" height="1040" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 17.3. The evaluation loop. Quality
+is measured before launch, before every change and continuously in
+production, and what you learn in production feeds the next evaluation
+set.</figcaption>
+</figure>
+<p>A practical evaluation program has five parts.</p>
+<p><strong>1. An evaluation set.</strong> A collection of realistic
+inputs, including hard and unusual cases, ideally drawn from real data
+with sensitive details removed. Brindlepath’s started with 300 discharge
+summaries and grew to over 1,000, deliberately including the messiest
+records the team could find.</p>
+<p><strong>2. Clear criteria.</strong> What does good look like? For the
+discharge plan: every statement supported by the record; no missing
+high-risk medications; correct follow-up appointments; plain language.
+Criteria should be specific enough that two reviewers agree.</p>
+<p><strong>3. Scoring.</strong> Expert human review is the gold
+standard, especially in clinical settings. Automated checks, and AI
+models used as graders under careful supervision, can scale evaluation,
+but should be calibrated regularly against human judgment.</p>
+<p><strong>4. Thresholds.</strong> Decide in advance what quality is
+good enough to launch, and what change in quality blocks a release. For
+Brindlepath, any unsupported clinical statement in the evaluation set
+blocked a release until it was understood.</p>
+<p><strong>5. Production monitoring.</strong> Track quality in real use:
+acceptance and edit rates, user-reported errors, sampled expert review,
+cost and speed. Real-world inputs drift over time, and model updates can
+change behavior. Feed problems you find in production back into the
+evaluation set.</p>
+<p>Evaluation is not a one-time gate. It is the core quality process for
+any AI product, and it deserves the same investment as testing does for
+traditional software. A team that cannot measure its AI feature’s
+quality cannot improve it, and should not ship it.</p>
+<h2 id="f18-grounding-ai-in-your-data">Grounding AI in your data</h2>
+<p>General-purpose models know a great deal about the world and nothing
+about your customer. Most useful AI features combine a model with the
+right context: the customer’s records, documents, policies and history.
+A common approach, often called <strong>retrieval-augmented
+generation</strong>, finds the relevant information and provides it to
+the model with each request, instructing it to answer from that
+information.</p>
+<p>Grounding has several benefits: answers reflect the customer’s actual
+situation, sources can be cited, and errors are easier to detect. It
+also means your data quality, integrations and permissions become part
+of your AI quality. An agent that can see the wrong patient’s record, or
+none of the right ones, will produce the wrong answer however good the
+model is. The integration work in Chapters 15 and 16 is AI work too.</p>
+<h2 id="f18-cost-speed-and-model-choice">Cost, speed and model
+choice</h2>
+<p>Every AI request has a cost and a delay. At small scale, they are
+easy to ignore. At scale, they shape the product and its margins, as
+Chapter 6 warned.</p>
+<ul>
+<li><strong>Use the smallest model that meets the quality bar.</strong>
+Larger models are often more capable and more expensive. Many tasks are
+handled well by smaller, faster, cheaper models.</li>
+<li><strong>Don’t call a model when you don’t need to.</strong> Cache
+results, avoid regenerating unchanged content, and use ordinary code for
+anything deterministic.</li>
+<li><strong>Design for latency.</strong> Show progress, stream results,
+or run work in the background so people are not left waiting.</li>
+<li><strong>Keep the option to switch.</strong> Model providers change
+prices, capabilities and terms. An architecture that can swap models,
+with an evaluation set to confirm quality after a switch, protects you,
+as Chapter 15 recommended.</li>
+</ul>
+<h2 id="f18-safety-security-and-responsibility">Safety, security and
+responsibility</h2>
+<p>AI features introduce risks that product leaders must own, building
+on Chapter 11.</p>
+<p><strong>Harmful errors.</strong> In domains like healthcare, wrong
+outputs can hurt people. Keep humans in the loop for consequential
+decisions, evaluate rigorously, and monitor in production.</p>
+<p><strong>Bias and fairness.</strong> Models can perform worse for some
+groups of people than others. Evaluate quality across the groups your
+product serves, including by age, language and other relevant
+characteristics, and address gaps before launch.</p>
+<p><strong>Manipulation and misuse.</strong> AI systems can be tricked
+through their inputs, for example by instructions hidden in a document
+an agent reads. Limit what agents can access and do, treat external
+content as untrusted, and require approval for consequential
+actions.</p>
+<p><strong>Privacy.</strong> Know exactly what data reaches each model,
+where it is processed, whether it is retained, and whether it is used
+for training. Get the agreements in place before data flows.</p>
+<p><strong>Regulation.</strong> Requirements are evolving: medical
+device rules for clinical AI, the EU AI Act’s obligations for high-risk
+systems, state laws and sector guidance. The NIST AI Risk Management
+Framework offers a practical structure for governing, mapping, measuring
+and managing AI risks.<a href="#f18-fn2" class="footnote-ref"
+id="f18-fnref2" role="doc-noteref"><sup>2</sup></a> Involve legal and
+compliance partners early, as Chapter 11 recommended.</p>
+<h2 id="f18-leading-teams-that-include-ai-agents">Leading teams that
+include AI agents</h2>
+<p>AI agents increasingly do real work inside product organizations:
+drafting research syntheses, triaging support tickets, monitoring
+dashboards, writing and reviewing code, preparing release notes.
+Treating them well is now part of leadership.</p>
+<p>A practical way to think about it: manage an agent the way you would
+manage a new team member with specific, limited responsibilities.</p>
+<ul>
+<li><strong>Give it a job description.</strong> What exactly does it do,
+for whom, with what inputs, and what does good output look like?</li>
+<li><strong>Give it an owner.</strong> A named person is accountable for
+each agent’s instructions, permissions, quality and failures, as Chapter
+8 recommended.</li>
+<li><strong>Limit its permissions.</strong> Grant access only to the
+data and actions its job requires. Review those permissions
+regularly.</li>
+<li><strong>Review its work.</strong> Sample its output, track its
+quality, and correct it. Agents do not improve by themselves; their
+owners improve them.</li>
+<li><strong>Make it visible.</strong> Everyone should know which work is
+done by agents, and how to raise a concern about it.</li>
+<li><strong>Keep humans accountable for decisions.</strong> Agents can
+gather, draft, recommend and, within limits, act. Accountability for
+outcomes, especially those affecting customers, money, safety or people,
+stays with people.</li>
+</ul>
+<p>The product leader’s job is to design the system in which people and
+agents work together well: deciding which work suits agents, where human
+judgment must stay, and how quality is assured across both. That is the
+“orchestrator” role from Chapter 1, in practice.</p>
+<h2 id="f18-from-idea-to-ai-product">From idea to AI product</h2>
+<p>Pulling it together, a practical path for building an AI product or
+feature looks like this:</p>
+<ol type="1">
+<li><strong>Start with the problem,</strong> using the discovery methods
+in Chapters 2 and 3, not with the technology.</li>
+<li><strong>Check the fit:</strong> is AI the right tool, and what is
+the cost of an error?</li>
+<li><strong>Choose the autonomy level</strong> based on the consequences
+of being wrong.</li>
+<li><strong>Build the evaluation set early,</strong> before the feature,
+with experts defining good.</li>
+<li><strong>Prototype quickly</strong> and measure against the
+evaluation set, not against a demo.</li>
+<li><strong>Design the experience for trust:</strong> sources,
+uncertainty, easy correction, control.</li>
+<li><strong>Pilot with a small group,</strong> monitor closely, and
+expand on evidence.</li>
+<li><strong>Monitor quality, cost and safety in production,</strong> and
+feed what you learn back into evaluation.</li>
+</ol>
+<p>Brindlepath’s discharge-plan drafts followed that path. In the story,
+navigators accepted about seven in ten plans with minor or no edits,
+preparation time per high-risk patient fell substantially, and the share
+of high-risk patients contacted within 24 hours rose at the pilot
+customer. Those results are part of the fictional example; your numbers
+will depend on your product and data. The method is what transfers.</p>
+<h2 id="f18-brindlepath-in-practice-the-evaluation-set">Brindlepath in
+practice: the evaluation set</h2>
+<p>The evaluation set for the discharge-plan agent became one of the
+most valuable assets the company owned.</p>
+<p>It began with 300 discharge summaries from two pilot customers, used
+with permission under the customers’ agreements, with names, dates and
+other identifying details removed. The team deliberately over-sampled
+hard cases: patients with long medication lists, summaries with
+contradictory information, handwritten notes scanned into the record,
+and patients transferred between hospitals.</p>
+<p>Two experienced nurses wrote the quality criteria with the team.
+Every statement in a plan must be supported by the record. Every
+high-risk medication must be mentioned. Follow-up appointments must
+match what was ordered. Warning signs must be appropriate to the
+diagnosis. The language must be plain enough for a new navigator to act
+on. Each criterion was scored pass or fail, so that two reviewers would
+agree.</p>
+<p>The nurses reviewed the first runs by hand. As the set grew, the team
+added automated checks, for example matching every medication in a plan
+against the medication list, and an AI-assisted grader for criteria that
+were harder to automate. The grader’s scores were compared each month
+against a sample reviewed by the nurses, and recalibrated when they
+drifted apart.</p>
+<p>Every proposed change to the agent, whether a new instruction, a new
+model version or a new data source, ran against the full set before
+release. Twice, a change that looked better in a demo made the
+evaluation results worse, and was not released. Once, a model provider’s
+update changed behavior subtly; the evaluation caught it before any
+customer saw it.</p>
+<p>Production monitoring fed the set. Every plan a navigator flagged as
+wrong was reviewed, and the most instructive cases, with details
+removed, were added to the evaluation set. After a year it held over
+1,000 cases and reflected the real variety of the work far better than
+any test the team could have invented.</p>
+<h2 id="f18-common-mistakes">Common mistakes</h2>
+<p><strong>Starting with the model instead of the problem.</strong> “We
+should use AI” is not a product idea. A validated customer problem is
+where every AI feature should begin.</p>
+<p><strong>Judging quality by the demo.</strong> Demos show the best
+case. Evaluation across hundreds of realistic examples shows what
+customers will actually experience.</p>
+<p><strong>Too much autonomy, too soon.</strong> Letting AI act on its
+own before the evidence supports it turns occasional errors into
+customer incidents.</p>
+<p><strong>Hiding the AI.</strong> Unlabeled AI output, without sources,
+makes errors harder to catch and erodes trust when they are found.</p>
+<p><strong>Ignoring cost until the invoice arrives.</strong> AI costs
+scale with use. A feature that is affordable in a pilot can be ruinous
+at scale.</p>
+<p><strong>Agents without owners.</strong> An AI agent with broad
+permissions and nobody accountable for it is an incident waiting to
+happen.</p>
+<h2 id="f18-try-this">Try this</h2>
+<p>Pick one AI feature you have built, or are considering. Write its
+evaluation plan using the template in the Appendix: purpose, autonomy
+level, cost of an error, evaluation set, criteria, thresholds, fairness
+checks, monitoring and owner. If you cannot fill in the evaluation set
+and the criteria, stop and build them before you write another line of
+the feature. Then write a job description, from the Appendix template,
+for one AI agent your team uses, and check that its permissions match
+it.</p>
+<h2 id="f18-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Is each AI feature solving a real,
+validated problem, not a technology looking for one?</label></li>
+<li><label><input type="checkbox" />Have you assessed whether AI is the
+right tool, and what an undetected error would cost?</label></li>
+<li><label><input type="checkbox" />Is the autonomy level matched to the
+consequences of being wrong, and raised only on evidence?</label></li>
+<li><label><input type="checkbox" />Do AI outputs show sources, flag
+uncertainty, invite easy correction and carry a clear
+label?</label></li>
+<li><label><input type="checkbox" />Is there an evaluation set, with
+expert-defined criteria and launch thresholds, built before the
+feature?</label></li>
+<li><label><input type="checkbox" />Does evaluation run before every
+change, and is quality monitored in production?</label></li>
+<li><label><input type="checkbox" />Is the AI grounded in the right
+data, with permissions that match the user’s?</label></li>
+<li><label><input type="checkbox" />Are model cost and speed tracked,
+and could you switch providers if needed?</label></li>
+<li><label><input type="checkbox" />Have you evaluated fairness across
+the groups you serve, and protected against manipulation?</label></li>
+<li><label><input type="checkbox" />Does every AI agent have a job
+description, an owner, limited permissions and regular
+review?</label></li>
+<li><label><input type="checkbox" />Are humans accountable for every
+decision that affects customers, money, safety or people?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f18-fn1"><p>McKinsey &amp; Company, <em>The State of AI in 2025:
+Agents, Innovation, and Transformation</em>, survey of 1,993
+participants, June–July 2025.<a href="#f18-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f18-fn2"><p>National Institute of Standards and Technology,
+<em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>,
+January 2023.<a href="#f18-fnref2" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/scaling-the-product-and-the-company"><small>← Previous</small><b>Scaling the Product and the Company</b></a><a class="next" href="/books/playbook/the-integrated-playbook"><small>Next →</small><b>The Integrated Playbook</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

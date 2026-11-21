@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discovery and Validation, from Interviews to MVP</title>
+<meta name="description" content="Chapter 3. Discovery and Validation, from Interviews to MVP, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Discovery and Validation, from Interviews to MVP">
+<meta property="og:description" content="Chapter 3. Discovery and Validation, from Interviews to MVP, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/discovery-and-validation-from-interviews-to-mvp">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/discovery-and-validation-from-interviews-to-mvp">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Discovery and Validation, from Interviews to MVP", "url": "https://www.productadvisory.co/books/playbook/discovery-and-validation-from-interviews-to-mvp", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 3}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Discovery and Validation, from Interviews to MVP", "item": "https://www.productadvisory.co/books/playbook/discovery-and-validation-from-interviews-to-mvp"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp" aria-current="page"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f4-twelve-navigators-and-a-spreadsheet">Twelve navigators and a spreadsheet</a></li><li><a href="#f4-discovery-is-continuous-not-a-phase">Discovery is continuous, not a phase</a></li><li><a href="#f4-interviewing-well">Interviewing well</a></li><li><a href="#f4-map-your-assumptions">Map your assumptions</a></li><li><a href="#f4-the-evidence-ladder">The evidence ladder</a></li><li><a href="#f4-minimum-viable-product-done-right">Minimum viable product, done right</a></li><li><a href="#f4-pilots-that-end-in-a-decision">Pilots that end in a decision</a></li><li><a href="#f4-brindlepath-in-practice-the-pilot-agreement">Brindlepath in practice: the pilot agreement</a></li><li><a href="#f4-common-mistakes">Common mistakes</a></li><li><a href="#f4-try-this">Try this</a></li><li><a href="#f4-how-ai-changes-this">How AI changes this</a></li><li><a href="#f4-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp" aria-current="page"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 3 · Part 1: Foundations</div>
+      <h1>Discovery and Validation, from Interviews to MVP</h1>
+      <blockquote class="epigraph"><p>“There are no facts inside your building, so get outside.”</p>
+<p>— Steve Blank</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 14 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f4-twelve-navigators-and-a-spreadsheet">Twelve navigators and a
+spreadsheet</h2>
+<p>Maya had a problem worth solving. She did not yet have a product, and
+she knew better than to let the team start building one.</p>
+<p>Instead, she and Lena Park, Brindlepath’s head of design, recruited
+twelve outpatient navigators from three health systems: two existing
+customers and the hospital that had said no. They did not show them a
+prototype. They asked each navigator to walk them through the last three
+patients who had “fallen off the radar,” what had happened, when they
+had found out, and what they had done.</p>
+<p>The stories were remarkably consistent. The navigator usually found
+out late, from the patient, a family member or an emergency department
+visit. The information she needed existed somewhere: in the discharge
+summary, the inpatient care manager’s notes, the specialist’s referral.
+It just never arrived in one place, at the right time, with a name
+attached.</p>
+<p>Then Dev Raman, the engineering lead, did something that made the
+engineers on his team uncomfortable. Rather than build anything, he set
+up a shared spreadsheet for one navigator team at a customer site, and
+for two weeks a Brindlepath analyst filled it in by hand every morning:
+newly discharged patients, who the inpatient contact was, what the
+discharge summary said, and a suggested owner. The navigators used it
+every day. By the second week, they were asking for it before 8 a.m. One
+navigator caught two patients who would otherwise have been missed.</p>
+<p>Nobody at the customer knew there was no software behind it. Two
+weeks and one analyst’s time had answered the most expensive question
+Brindlepath faced: if we deliver this, will they use it? Now the team
+could build with confidence.</p>
+<h2 id="f4-discovery-is-continuous-not-a-phase">Discovery is continuous,
+not a phase</h2>
+<p>In older ways of working, discovery happened once, at the start of a
+project, and produced a requirements document. Then the team built for
+months and found out whether they had been right.</p>
+<p>Modern product teams treat discovery as a continuous practice that
+runs alongside delivery. Every week, the team learns something about its
+customers and tests at least one assumption. Teresa Torres calls this
+<em>continuous discovery</em> and offers a simple benchmark: a product
+team should be talking with customers at least weekly.<a href="#f4-fn1"
+class="footnote-ref" id="f4-fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<p>Continuous discovery matters for three reasons:</p>
+<ul>
+<li><strong>Markets move.</strong> What was true at the start of a
+project may not be true at the end.</li>
+<li><strong>Small bets beat big ones.</strong> Testing an assumption in
+a week is cheaper than building on it for a quarter.</li>
+<li><strong>Teams that hear from customers make better small
+decisions.</strong> Hundreds of tiny choices about wording, defaults and
+edge cases go better when the people making them have heard real users
+recently.</li>
+</ul>
+<p>The rhythm does not need to be elaborate. A product trio of a product
+manager, a designer and an engineering lead, holding one or two customer
+conversations a week and reviewing what they learned, will outperform
+most formal research programs.</p>
+<h2 id="f4-interviewing-well">Interviewing well</h2>
+<p>Customer interviews are the most important discovery tool and the
+most commonly done badly. The most common mistake is asking people to
+predict their own future behavior or to evaluate your idea. People are
+polite and optimistic. They will tell you your idea is great and that
+they would definitely use it. Then they won’t.</p>
+<p>Rob Fitzpatrick’s rule of thumb is to talk about their life, not your
+idea; ask about specifics in the past, not generics or opinions about
+the future; and talk less, listen more.<a href="#f4-fn2"
+class="footnote-ref" id="f4-fnref2" role="doc-noteref"><sup>2</sup></a>
+In practice:</p>
+<p><strong>Ask about the last time, not “usually.”</strong> “Tell me
+about the last patient you lost track of after discharge” produces a
+real story with real details. “How do you usually handle discharges?”
+produces an idealized process that matches the policy manual.</p>
+<p><strong>Follow the workaround.</strong> When someone mentions a
+spreadsheet, a sticky note or a daily phone call, ask to see it.
+Workarounds are evidence of a problem worth solving and a blueprint for
+the solution.</p>
+<p><strong>Ask what it cost.</strong> Time, money, stress, consequences.
+If they cannot name a cost, the problem may not be urgent.</p>
+<p><strong>Ask what they have already tried.</strong> Someone who has
+never looked for a solution probably does not feel the pain strongly
+enough to buy one.</p>
+<p><strong>Avoid pitching.</strong> The moment you describe your
+product, the interview becomes a sales call and the data becomes
+polite.</p>
+<p><strong>Interview the people who said no.</strong> Lost deals and
+churned customers teach more than happy ones. Maya’s most useful
+interviews were at the hospital that had rejected Brindlepath.</p>
+<p>After each interview, capture the evidence while it is fresh: quotes,
+stories, workarounds and surprises, separately from your interpretation.
+Your interpretation will change; the evidence should not.</p>
+<h2 id="f4-map-your-assumptions">Map your assumptions</h2>
+<p>Every product idea rests on a stack of assumptions. Most teams never
+write them down, which means they never test them. A simple exercise
+changes that.</p>
+<p>List every assumption that must be true for the idea to succeed,
+grouped by type:</p>
+<ul>
+<li><strong>Desirability:</strong> <em>Navigators will check a daily
+list of newly assigned patients.</em></li>
+<li><strong>Usability:</strong> <em>They can confirm or reassign
+ownership in under a minute per patient.</em></li>
+<li><strong>Feasibility:</strong> <em>We can get discharge data from the
+customer’s health record within a few hours of discharge.</em></li>
+<li><strong>Viability:</strong> <em>Health systems will pay per
+navigator seat, at a price that supports our margins.</em></li>
+<li><strong>Trust and compliance:</strong> <em>Customers’ security teams
+will approve the data flow without a six-month review.</em></li>
+</ul>
+<p>Then rate each assumption on two scales: how important it is (if it
+is wrong, does the idea fail?) and how much evidence you already have.
+The assumptions that are important and unproven are the ones to test
+first. This sounds obvious, yet many teams spend their first months
+polishing the user interface, the part they are most confident about,
+while the riskiest assumption, often a feasibility or viability
+question, waits untested until late.</p>
+<p>For Brindlepath, the riskiest assumption was not whether navigators
+wanted a list. The field work had largely answered that. It was whether
+discharge data could flow from five different health record
+configurations quickly and reliably. So the team’s first technical spike
+was an integration test with one customer’s health record, not a user
+interface.</p>
+<h2 id="f4-the-evidence-ladder">The evidence ladder</h2>
+<p>Not all evidence is equal. An enthusiastic comment in an interview is
+evidence; a customer changing their behavior is stronger evidence; a
+customer paying money is stronger still. Figure 3.1 arranges common
+validation methods by the strength of evidence they produce and the cost
+of running them.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/3-1.webp" alt="Figure 3.1. The evidence ladder. Each step up produces stronger evidence of real demand, and usually costs more. Climb only as high as the decision requires." width="1440" height="1040" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 3.1. The evidence ladder. Each
+step up produces stronger evidence of real demand, and usually costs
+more. Climb only as high as the decision requires.</figcaption>
+</figure>
+<p>The principle: <strong>match the strength of evidence to the size of
+the decision.</strong> A small feature change may need nothing more than
+a few interviews and a prototype test. A new product line with a
+dedicated team deserves evidence from the top of the ladder:
+commitments, pilots with success criteria, or paid pre-orders.</p>
+<h3 id="f4-the-experiments-in-detail">The experiments in detail</h3>
+<p><strong>Interviews and observation.</strong> The base of the ladder.
+Cheap, fast and essential for understanding the problem; weak as
+evidence that people will adopt a specific solution.</p>
+<p><strong>Surveys.</strong> Useful for sizing a problem you already
+understand, measuring how widespread a behavior is or prioritizing among
+known options. Poor for discovering problems, and poor at predicting
+behavior.</p>
+<p><strong>Prototype tests.</strong> Put a clickable prototype in front
+of users and give them a task. You learn whether they understand the
+design and can use it. You do not learn whether they will use it every
+day.</p>
+<p><strong>Smoke tests.</strong> Describe a product or feature as if it
+exists, on a landing page or in an in-app prompt, and measure how many
+people try to use it or sign up. Common in consumer products; in
+business software, a “request early access” button for existing
+customers works well.</p>
+<p><strong>Concierge tests.</strong> Deliver the outcome by hand,
+openly, to a small number of customers. You learn exactly what the
+service needs to do, and whether customers value it enough to keep using
+it.</p>
+<p><strong>Wizard of Oz tests.</strong> Deliver the outcome by hand
+behind something that looks like a product, as Brindlepath did with its
+spreadsheet. You learn whether customers will change their behavior when
+the experience feels real.</p>
+<p><strong>Letters of intent and pilots with success criteria.</strong>
+A customer formally commits time, data or money to a trial with agreed
+measures of success and a decision date.</p>
+<p><strong>Paid pilots and pre-orders.</strong> The strongest evidence
+short of a full sale: someone gives you money for something that is not
+finished.</p>
+<h2 id="f4-minimum-viable-product-done-right">Minimum viable product,
+done right</h2>
+<p>The term <em>minimum viable product</em> is one of the most misused
+in the industry. It does not mean “the first release, with fewer
+features.” It means the smallest thing you can build that delivers real
+value to real users and lets you learn whether your core assumption is
+true.</p>
+<p>Two words carry the weight. <strong>Minimum</strong> means you cut
+everything that is not needed to test the core value.
+<strong>Viable</strong> means what remains must genuinely work for the
+user; a broken or embarrassing product teaches you nothing, because
+users reject it for the wrong reasons.</p>
+<p>There is good evidence that most teams build far more than they need.
+In a 2019 analysis of usage across 615 of its software customers, the
+product-analytics company Pendo found that 80 percent of features in the
+average product were rarely or never used, and that about 12 percent of
+features generated 80 percent of daily usage.<a href="#f4-fn3"
+class="footnote-ref" id="f4-fnref3" role="doc-noteref"><sup>3</sup></a>
+The data comes from one vendor’s customers and is several years old, but
+it matches what most product leaders see in their own analytics.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/3-2.webp" alt="Figure 3.2. Most features are rarely or never used. In Pendo’s 2019 analysis, about 12 percent of features drove 80 percent of daily use. Source: Pendo, 2019 Feature Adoption Report." width="1440" height="932" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 3.2. Most features are rarely or
+never used. In Pendo’s 2019 analysis, about 12 percent of features drove
+80 percent of daily use. Source: Pendo, 2019 Feature Adoption
+Report.</figcaption>
+</figure>
+<p>Every feature that does not earn its place costs money to build,
+test, document, support, secure and maintain, for as long as the product
+exists. The cheapest feature is the one you were disciplined enough not
+to build.</p>
+<h3 id="f4-brindlepaths-mvp">Brindlepath’s MVP</h3>
+<p>After the spreadsheet test, Maya’s team defined the minimum viable
+product in one sentence: <em>Every morning, each outpatient navigator
+sees the patients discharged in the past 24 hours who are now theirs,
+with the discharge summary and the inpatient contact attached, and can
+accept or reassign each one.</em></p>
+<p>What they deliberately left out of the first release:</p>
+<ul>
+<li>Scheduling, the original product’s core feature. Navigators could
+keep using the existing tool.</li>
+<li>Analytics dashboards for managers.</li>
+<li>Patient-facing messaging.</li>
+<li>Support for every health record vendor. They started with the two
+configurations used by their pilot customers.</li>
+</ul>
+<p>What they insisted on including, even in the MVP:</p>
+<ul>
+<li>Role-based access controls and full audit logging, because patient
+data was involved and the customer’s security team would not approve
+anything less.</li>
+<li>A way to reassign a patient in one step, because the field work
+showed ownership disputes were common.</li>
+<li>A measure of the outcome: the share of high-risk discharged patients
+with a confirmed owner within 24 hours.</li>
+</ul>
+<p>The list of exclusions is as much a part of the MVP as the list of
+features. Write it down, share it, and defend it.</p>
+<h2 id="f4-pilots-that-end-in-a-decision">Pilots that end in a
+decision</h2>
+<p>In business-to-business software, and especially in healthcare,
+validation often takes the form of a pilot. Pilots are valuable. They
+are also where many promising products go to die, in what people in the
+industry sometimes call “pilot purgatory”: a trial that is never
+declared a success or a failure and simply fades.</p>
+<p>A pilot that ends in a decision has five things agreed in writing
+before it starts:</p>
+<ol type="1">
+<li><strong>The problem and the measure.</strong> What outcome are we
+trying to change, and how will we measure it? For Brindlepath: the share
+of high-risk discharges with a confirmed owner within 24 hours, and
+missed first follow-ups.</li>
+<li><strong>The baseline.</strong> What is the measure today? If nobody
+knows, measure it before the pilot begins.</li>
+<li><strong>The success threshold.</strong> What result would justify a
+purchase? Agree on a number, not on “a good result.”</li>
+<li><strong>The scope and duration.</strong> Which teams, how many
+users, how long. Long enough to see the outcome; short enough to keep
+momentum. For most workflow products, 60 to 90 days is enough.</li>
+<li><strong>The decision and the decision-maker.</strong> Who decides,
+on what date, and what happens next if the threshold is met: a signed
+contract, a wider rollout, a budget line.</li>
+</ol>
+<p>Get the economic buyer, not just the enthusiastic user, to agree to
+these terms. A pilot sponsored only by the people who love the product
+will produce a happy report and no purchase order. Chapter 13 returns to
+pilots as part of go-to-market.</p>
+<h2 id="f4-brindlepath-in-practice-the-pilot-agreement">Brindlepath in
+practice: the pilot agreement</h2>
+<p>The spreadsheet test answered the desirability question. The next
+step was a pilot that could turn into a contract. Maya, Lena and the
+sales lead wrote a one-page pilot agreement with the second health
+system, using the template in the Appendix.</p>
+<p>The measure was the share of high-risk discharges with a confirmed
+owner within 24 hours, along with missed first follow-up visits. The
+baseline took two weeks to establish, because nobody at the health
+system had measured it before: about 45 percent of high-risk patients
+had a clear owner within a day. The success threshold was 75 percent,
+sustained for the last four weeks of a 90-day pilot. The scope was one
+hospital and its outpatient navigator team of fourteen people. The
+health system paid a modest pilot fee and committed a navigator
+manager’s time each week. The decision-maker was the chief nursing
+officer, with the CFO’s agreement, and the decision date was written
+into the agreement, along with the price and timeline for a rollout to
+the system’s other four hospitals if the threshold was met.</p>
+<p>Three things went wrong during the pilot, which is normal. The
+discharge feed missed patients from one unit for a week. Two navigators
+were on leave in the second month. And a change to the hospital’s
+risk-scoring rules briefly flooded the queue with low-risk patients.
+Because the pilot had a clear measure and a weekly review, each problem
+was caught and fixed within days.</p>
+<p>By day 90, the measure stood at 82 percent. The decision meeting took
+twenty minutes, because nothing had to be negotiated: the terms had been
+agreed at the start. The rollout to four more hospitals began the
+following month.</p>
+<h2 id="f4-common-mistakes">Common mistakes</h2>
+<p><strong>Running discovery as a phase.</strong> Teams that do a burst
+of research at the start of a project and then stop are surprised by
+what they learn at launch. Discovery is a weekly habit.</p>
+<p><strong>Pitching instead of listening.</strong> The moment you
+describe your idea in an interview, the data becomes polite. Save demos
+for later, and keep early conversations about the customer’s world.</p>
+<p><strong>Testing the safe assumptions.</strong> It is tempting to test
+what you are already confident about, such as the interface, while the
+riskiest assumption, often feasibility or willingness to pay, waits.
+Test the assumption that would kill the idea first.</p>
+<p><strong>Building an MVP that is all minimum and no viable.</strong> A
+product so thin that it does not solve the problem teaches you nothing,
+because users reject it for the wrong reasons.</p>
+<p><strong>Treating the MVP as the finished product.</strong> The
+opposite error: launching the first slice and moving on. An MVP is the
+beginning of learning, not the end of the project.</p>
+<p><strong>Running pilots without a decision.</strong> A pilot with no
+agreed measure, threshold or decision-maker drifts into “pilot
+purgatory,” consuming time and goodwill on both sides.</p>
+<h2 id="f4-try-this">Try this</h2>
+<p>List the five assumptions your current idea depends on most, one each
+for desirability, usability, feasibility, viability and trust. Score
+each from one to five for how important it is and how much evidence you
+have. Pick the assumption with the highest importance and the least
+evidence, and design the cheapest experiment that could disprove it
+within two weeks. Use the evidence ladder in Figure 3.1 to choose the
+method. Then schedule the experiment, and decide in advance what result
+would change your plan.</p>
+<h2 id="f4-how-ai-changes-this">How AI changes this</h2>
+<p>Discovery is one of the areas where AI helps most, and also where it
+can do the most damage if used carelessly.</p>
+<p><strong>Synthesis is now fast.</strong> Interview transcripts,
+support tickets and sales-call recordings can be transcribed, tagged and
+clustered by an AI assistant within hours of collection. A product trio
+that used to spend a week synthesizing a research round can now spend
+that week running the next one.</p>
+<p><strong>Prototypes are now cheap.</strong> AI coding and design tools
+can turn a sketch into a working prototype in an afternoon. That moves
+prototype testing down the cost axis of the evidence ladder and makes it
+reasonable to test several directions instead of one.</p>
+<p><strong>Humans talk; agents synthesize.</strong> The order matters.
+Use people for the conversations and the sense-making, and AI for the
+transcription, tagging, first-pass clustering and drafting. Figure 3.3
+shows the division of labor that works in the teams I advise.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/3-3.webp" alt="Figure 3.3. Discovery with AI agents: humans own the conversations and the conclusions; agents do the heavy lifting in between." width="1440" height="1316" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 3.3. Discovery with AI agents:
+humans own the conversations and the conclusions; agents do the heavy
+lifting in between.</figcaption>
+</figure>
+<p><strong>Synthetic users are not users.</strong> Some tools now offer
+AI-generated “personas” that answer interview questions. They can help
+you rehearse an interview guide or anticipate obvious objections. They
+cannot tell you anything true about your actual customers’ behavior,
+because they have never had your customers’ problem. Never count a
+synthetic interview as evidence.</p>
+<p><strong>Beware the smooth summary.</strong> AI is good at producing
+coherent themes from messy data, which is exactly the risk. Real
+customer evidence is contradictory and specific. Keep the raw quotes
+attached to every theme, and read a sample of the source material
+yourself. The navigator who caught two patients in the spreadsheet test
+is worth more than any summary of her.</p>
+<p><strong>Keep the patient’s privacy in mind.</strong> In healthcare
+and other regulated settings, interview recordings and support tickets
+may contain personal or health information. Before you put them into any
+AI tool, confirm that the tool is approved for that data, and remove
+identifying details where you can. Chapter 11 covers this in depth.</p>
+<h2 id="f4-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Does your product team talk with
+customers every week?</label></li>
+<li><label><input type="checkbox" />Do your interviews ask about
+specific past events, not opinions about your idea?</label></li>
+<li><label><input type="checkbox" />Have you interviewed people who said
+no, or who left?</label></li>
+<li><label><input type="checkbox" />Have you listed your assumptions
+across desirability, usability, feasibility, viability and trust, and
+tested the riskiest first?</label></li>
+<li><label><input type="checkbox" />Is the strength of your evidence
+matched to the size of the decision?</label></li>
+<li><label><input type="checkbox" />Can you state your MVP in one
+sentence, with a written list of what it leaves out?</label></li>
+<li><label><input type="checkbox" />Does every pilot have a measure, a
+baseline, a success threshold, a duration and a named decision-maker,
+agreed in writing?</label></li>
+<li><label><input type="checkbox" />Are AI tools doing your synthesis
+while humans do the conversations and the conclusions?</label></li>
+<li><label><input type="checkbox" />Have you confirmed that any AI tool
+touching customer data is approved for it?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f4-fn1"><p>Teresa Torres, <em>Continuous Discovery Habits:
+Discover Products that Create Customer Value and Business Value</em>
+(Product Talk, 2021).<a href="#f4-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f4-fn2"><p>Rob Fitzpatrick, <em>The Mom Test: How to Talk to
+Customers and Learn If Your Business Is a Good Idea When Everyone Is
+Lying to You</em> (2013).<a href="#f4-fnref2" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f4-fn3"><p>Pendo, <em>The 2019 Feature Adoption Report</em>. The
+analysis covered 615 Pendo subscriptions over three months and counted
+features that customers had tagged in the product.<a href="#f4-fnref3"
+class="footnote-back" aria-label="Back to the text" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/finding-problems-worth-solving"><small>← Previous</small><b>Finding Problems Worth Solving</b></a><a class="next" href="/books/playbook/vision-strategy-and-positioning"><small>Next →</small><b>Vision, Strategy and Positioning</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

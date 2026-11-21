@@ -42,6 +42,31 @@
 - [How to Build Product-Focused AI Agents That Actually Make Better Decisions](https://www.productadvisory.co/insights/product-focused-ai-agents): How to shape LLMs to improve product judgment, decision quality and outcomes.
 - [The Feature Fallacy](https://www.productadvisory.co/insights/feature-fallacy): Why shipping more isn't helping your users, and what to do instead.
 
+## Free book
+- [The Product Manager's Playbook](https://www.productadvisory.co/books/product-managers-playbook): Second Edition: Building Products in the Age of AI. A free book, online and as a PDF (https://www.productadvisory.co/assets/books/playbook/the-product-managers-playbook-second-edition.pdf).
+- [The Essentials](https://www.productadvisory.co/books/playbook/essentials): the book in brief, every chapter's big idea, key points and checklist (PDF: https://www.productadvisory.co/assets/books/playbook/the-product-managers-playbook-essentials.pdf).
+  - [Front matter: Preface to the Second Edition](https://www.productadvisory.co/books/playbook/preface-to-the-second-edition)
+  - [Front matter: How to Use This Book](https://www.productadvisory.co/books/playbook/how-to-use-this-book)
+  - [Chapter 1: The Product Leader’s Job, Now](https://www.productadvisory.co/books/playbook/the-product-leaders-job-now)
+  - [Chapter 2: Finding Problems Worth Solving](https://www.productadvisory.co/books/playbook/finding-problems-worth-solving)
+  - [Chapter 3: Discovery and Validation, from Interviews to MVP](https://www.productadvisory.co/books/playbook/discovery-and-validation-from-interviews-to-mvp)
+  - [Chapter 4: Vision, Strategy and Positioning](https://www.productadvisory.co/books/playbook/vision-strategy-and-positioning)
+  - [Chapter 5: Prioritization and Outcome Roadmaps](https://www.productadvisory.co/books/playbook/prioritization-and-outcome-roadmaps)
+  - [Chapter 6: The Numbers: P&L, Unit Economics and Pricing](https://www.productadvisory.co/books/playbook/the-numbers-pl-unit-economics-and-pricing)
+  - [Chapter 7: Managing a Product Portfolio](https://www.productadvisory.co/books/playbook/managing-a-product-portfolio)
+  - [Chapter 8: Building and Leading the Product Team](https://www.productadvisory.co/books/playbook/building-and-leading-the-product-team)
+  - [Chapter 9: From Requirements to Release, with Engineering and Design](https://www.productadvisory.co/books/playbook/from-requirements-to-release-with-engineering-and-design)
+  - [Chapter 10: Data, Analytics and Evidence-Based Decisions](https://www.productadvisory.co/books/playbook/data-analytics-and-evidence-based-decisions)
+  - [Chapter 11: Trust by Design: Security, Privacy and Compliance](https://www.productadvisory.co/books/playbook/trust-by-design-security-privacy-and-compliance)
+  - [Chapter 12: Designing with Empathy](https://www.productadvisory.co/books/playbook/designing-with-empathy)
+  - [Chapter 13: Go-to-Market and Launch](https://www.productadvisory.co/books/playbook/go-to-market-and-launch)
+  - [Chapter 14: Customer Success and Retention](https://www.productadvisory.co/books/playbook/customer-success-and-retention)
+  - [Chapter 15: Partnerships and Ecosystems](https://www.productadvisory.co/books/playbook/partnerships-and-ecosystems)
+  - [Chapter 16: Scaling the Product and the Company](https://www.productadvisory.co/books/playbook/scaling-the-product-and-the-company)
+  - [Chapter 17: Building AI Products and Leading with AI Agents](https://www.productadvisory.co/books/playbook/building-ai-products-and-leading-with-ai-agents)
+  - [Chapter 18: The Integrated Playbook](https://www.productadvisory.co/books/playbook/the-integrated-playbook)
+  - [Appendix: Appendix: Templates](https://www.productadvisory.co/books/playbook/appendix-templates)
+
 ## Questions people ask
 - **What does a product management consultant do?** We help a company decide what to build and why, then make sure it gets built and launched well. That can mean an evidence-based product strategy, a roadmap tied to business goals, market and customer research, a repeatable lifecycle process, or coaching your product managers. We work alongside your team rather than replacing it.
 - **What is a Fractional CPO, and when do we need one?** A Fractional Chief Product Officer is senior product leadership for part of the week instead of a full-time executive hire. It fits when you have no clear product strategy or owner, your roadmap and growth goals live in separate documents, or your product team needs a leader to mentor them. Our Fractional CPO+ package sets product vision, builds your roadmap process and mentors your team, scaled to your stage and budget.

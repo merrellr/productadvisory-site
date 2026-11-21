@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prioritization and Outcome Roadmaps | The Product Manager's Playbook</title>
+<meta name="description" content="Chapter 5. Prioritization and Outcome Roadmaps, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Prioritization and Outcome Roadmaps | The Product Manager's Playbook">
+<meta property="og:description" content="Chapter 5. Prioritization and Outcome Roadmaps, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/prioritization-and-outcome-roadmaps">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/prioritization-and-outcome-roadmaps">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Prioritization and Outcome Roadmaps", "url": "https://www.productadvisory.co/books/playbook/prioritization-and-outcome-roadmaps", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 5}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Prioritization and Outcome Roadmaps", "item": "https://www.productadvisory.co/books/playbook/prioritization-and-outcome-roadmaps"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps" aria-current="page"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f6-two-hundred-and-twelve-ideas">Two hundred and twelve ideas</a></li><li><a href="#f6-output-versus-outcome">Output versus outcome</a></li><li><a href="#f6-the-outcome-roadmap">The outcome roadmap</a></li><li><a href="#f6-the-loudest-voice-in-the-room">The loudest voice in the room</a></li><li><a href="#f6-making-room-for-what-keeps-the-lights-on">Making room for what keeps the lights on</a></li><li><a href="#f6-brindlepath-in-practice-one-hard-no">Brindlepath in practice: one hard no</a></li><li><a href="#f6-common-mistakes">Common mistakes</a></li><li><a href="#f6-try-this">Try this</a></li><li><a href="#f6-how-ai-changes-this">How AI changes this</a></li><li><a href="#f6-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps" aria-current="page"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 5 · Part 2: Strategy</div>
+      <h1>Prioritization and Outcome Roadmaps</h1>
+      <blockquote class="epigraph"><p>“If everything is important, then nothing is.”</p>
+<p>— Patrick Lencioni</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 11 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f6-two-hundred-and-twelve-ideas">Two hundred and twelve
+ideas</h2>
+<p>The week after the offsite, Maya asked for an export of everything
+that had ever been requested of the product. The list had 212 items.
+Some were bugs. Some were feature requests from a single customer,
+logged three years earlier by a salesperson who had since left. Some
+were genuinely important. Eleven were labelled “top priority.”</p>
+<p>The list was not a backlog. It was an archaeological record of every
+conversation the company had ever had. And it had been driving the
+roadmap, because the loudest recent request usually won.</p>
+<p>Maya did three things in her first month. She archived every item
+older than a year that nobody could connect to a current customer
+problem; 130 items disappeared, and in the following year, nobody asked
+for any of them back. She grouped what remained under the outcomes in
+the new strategy. And she replaced the old roadmap, a list of features
+with quarter-end dates, with one organized around problems and outcomes,
+with dates only where a commitment was genuinely required.</p>
+<p>This chapter covers how to choose what to work on, and how to show
+those choices in a way that builds trust rather than false
+certainty.</p>
+<h2 id="f6-output-versus-outcome">Output versus outcome</h2>
+<p>The most important shift in modern product management is from output
+to outcome. <strong>Output</strong> is what the team ships: features,
+releases, documents. <strong>Outcome</strong> is the change in behavior
+or results that the output was meant to produce: more navigators
+confirming ownership within 24 hours, fewer missed follow-ups, higher
+renewal rates.</p>
+<p>Output is easy to measure and easy to celebrate. Outcomes are what
+customers and the business actually care about. A team can ship
+everything on its roadmap and change nothing that matters. Josh Seiden
+put it simply: an outcome is a change in human behavior that drives
+business results.<a href="#f6-fn1" class="footnote-ref" id="f6-fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<p>Working on outcomes changes how a team behaves:</p>
+<ul>
+<li>It starts each piece of work with a measurable goal, not a feature
+description.</li>
+<li>It treats the first release as a test, not a finish line.</li>
+<li>It stops or changes direction when the measure does not move,
+instead of shipping version two of something that did not work.</li>
+<li>It talks about results in reviews, not just about what was
+delivered.</li>
+</ul>
+<p>Outcomes are harder to commit to, because you cannot guarantee that a
+customer will change their behavior. That discomfort is honest. A
+roadmap full of committed features is promising something the team does
+not control: that those features will matter.</p>
+<h2 id="f6-the-outcome-roadmap">The outcome roadmap</h2>
+<p>A roadmap’s job is to communicate direction and sequencing, and to
+support decisions. It is not a release plan, and it is not a
+contract.</p>
+<p>The simplest and most useful format I know is <strong>Now, Next,
+Later</strong>, a format associated with Janna Bastow and the team at
+ProdPad.<a href="#f6-fn2" class="footnote-ref" id="f6-fnref2"
+role="doc-noteref"><sup>2</sup></a> Instead of dates on a timeline,
+items sit in three horizons:</p>
+<ul>
+<li><strong>Now:</strong> what the team is working on, with high
+confidence and detail.</li>
+<li><strong>Next:</strong> what comes after, with medium confidence;
+problems understood, solutions still open.</li>
+<li><strong>Later:</strong> what the team expects to tackle, with low
+confidence and no detail; mostly problems, not solutions.</li>
+</ul>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/5-1.webp" alt="Figure 5.1. Brindlepath’s outcome roadmap in the Now, Next, Later format. Each item is a problem tied to a measure. Confidence drops, and detail thins, from left to right." width="1440" height="1180" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 5.1. Brindlepath’s outcome roadmap
+in the Now, Next, Later format. Each item is a problem tied to a
+measure. Confidence drops, and detail thins, from left to
+right.</figcaption>
+</figure>
+<p>Three features make this format work.</p>
+<p><strong>Every item is a problem or an outcome, not a
+feature.</strong> “Navigators can confirm ownership of discharged
+patients within 24 hours” leaves room for the team to find the best
+solution. “Build a discharge dashboard” does not.</p>
+<p><strong>Confidence is visible.</strong> Moving from Now to Later, the
+detail thins out on purpose. Stakeholders can see what is committed and
+what is a direction.</p>
+<p><strong>Dates appear only where they are real.</strong> Some
+commitments need dates: a regulatory deadline, a contractual obligation,
+a conference launch. Put those dates on the roadmap explicitly.
+Everything else is ordered, not dated.</p>
+<h3 id="f6-different-roadmaps-for-different-audiences">Different
+roadmaps for different audiences</h3>
+<p>One roadmap rarely serves everyone. The board wants strategy and
+outcomes. The sales team wants to know what they can promise and when.
+Engineering needs sequencing and dependencies. Customers want to know
+whether their problem is being addressed.</p>
+<p>Keep one source of truth and present it differently for each
+audience. Never show customers anything you would be uncomfortable being
+held to, and never give sales a date that engineering has not agreed to.
+The fastest way to lose a team’s trust is to promise their work to a
+customer without asking them.</p>
+<h2
+id="f6-prioritization-frameworks-and-when-to-use-them">Prioritization
+frameworks, and when to use them</h2>
+<p>Frameworks do not make decisions. They make the reasoning behind a
+decision visible, so it can be challenged and improved. Choose the
+framework that fits the decision.</p>
+<p><strong>RICE</strong> scores each option on Reach, Impact, Confidence
+and Effort: (Reach × Impact × Confidence) ÷ Effort. It was popularized
+by Intercom and works well for comparing many independent features where
+reach is measurable.<a href="#f6-fn3" class="footnote-ref"
+id="f6-fnref3" role="doc-noteref"><sup>3</sup></a> Its weakness: it
+rewards things that touch many users a little over things that matter
+deeply to a few, and in business software the “few” are often the
+economic buyers.</p>
+<p><strong>Weighted scoring</strong> rates each option against criteria
+you choose, such as strategic fit, customer value, revenue impact, risk
+reduction and effort, each with a weight. It is flexible and makes
+strategy explicit. Its weakness: whoever sets the weights sets the
+answer.</p>
+<p><strong>Kano analysis</strong> sorts features into basic expectations
+(customers are angry if they are missing, but not delighted if present),
+performance features (more is better) and delighters (unexpected value).
+It is excellent for deciding what must be in a release and what will
+differentiate it.</p>
+<p><strong>Cost of delay</strong> asks how much value is lost for each
+week a feature is not available. Divided by duration, it gives
+<em>weighted shortest job first</em>, a sequencing rule popular in large
+organizations.<a href="#f6-fn4" class="footnote-ref" id="f6-fnref4"
+role="doc-noteref"><sup>4</sup></a> It is the right tool when timing
+matters: a regulatory deadline, a competitor launch, a renewal at
+risk.</p>
+<p>The same backlog can come out in a very different order depending on
+the framework. Figure 5.2 shows five Brindlepath candidates ranked both
+ways, using illustrative scores.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/5-2.webp" alt="Figure 5.2. The same five candidates, ranked by RICE and by weighted scoring (illustrative). Items that touch many users rise under RICE; items that serve strategy and the buyer rise under weighted scoring." width="1440" height="940" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 5.2. The same five candidates,
+ranked by RICE and by weighted scoring (illustrative). Items that touch
+many users rise under RICE; items that serve strategy and the buyer rise
+under weighted scoring.</figcaption>
+</figure>
+<p>The lesson is not that one framework is right. It is that the choice
+of framework is itself a strategic choice, and should be made openly. If
+two methods disagree sharply on an item, that item deserves a
+conversation, not a formula.</p>
+<h3 id="f6-the-opportunity-solution-tree">The opportunity solution
+tree</h3>
+<p>For discovery-heavy work, Teresa Torres’s opportunity solution tree
+is a useful complement to scoring.<a href="#f6-fn5" class="footnote-ref"
+id="f6-fnref5" role="doc-noteref"><sup>5</sup></a> It starts with the
+desired outcome at the top, branches into the customer opportunities
+(needs, pain points, desires) that could drive it, and only then into
+candidate solutions and the experiments that test them. It prevents the
+most common prioritization error of all: comparing solutions before
+agreeing on the problem.</p>
+<h2 id="f6-the-loudest-voice-in-the-room">The loudest voice in the
+room</h2>
+<p>Every product leader faces the same pressures: the CEO’s idea, the
+biggest customer’s demand, the deal that will close “if we just add this
+one thing.” Prioritization frameworks help, but the real skill is
+handling these conversations well.</p>
+<p><strong>For the executive’s idea:</strong> treat it as a hypothesis,
+like any other. Ask what problem it solves and what evidence would show
+it is working, and put it through the same discovery as everything else.
+Executives usually respect a product leader who takes their idea
+seriously enough to test it.</p>
+<p><strong>For the biggest customer:</strong> separate the need from the
+request, as in Chapter 1. Then ask whether the need is shared by other
+customers in your target segment. If it is, it may belong on the
+roadmap. If it is unique, consider whether it is better solved by
+configuration, a services engagement or a partner, rather than core
+product.</p>
+<p><strong>For the deal that needs one more feature:</strong> ask how
+many deals the feature has really decided in the past year. Sales teams
+are sincere, but every lost deal has many reasons, and the missing
+feature is the easiest one to name. Track requests by deal and outcome,
+and the pattern usually becomes clear.</p>
+<p>When you say no, say it with reasons and an alternative: “We’re not
+building that this half, because our focus is post-discharge ownership.
+Here’s what we can do instead, and here’s when we’ll revisit it.” A
+clear, reasoned no builds more trust than a vague maybe.</p>
+<h2 id="f6-making-room-for-what-keeps-the-lights-on">Making room for
+what keeps the lights on</h2>
+<p>A roadmap full of new features eventually collapses under its own
+weight. Technical debt, security work, performance, and maintenance of
+what already exists all need capacity, and they rarely win a
+head-to-head scoring contest against a shiny feature.</p>
+<p>The fix is to allocate capacity explicitly before prioritizing within
+each bucket. Figure 5.3 shows the split Maya agreed with Dev Raman for
+Brindlepath’s next two quarters.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/5-3.webp" alt="Figure 5.3. Capacity allocation for two quarters (illustrative). Deciding the split first stops new features from quietly consuming the time for reliability and security." width="1440" height="740" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 5.3. Capacity allocation for two
+quarters (illustrative). Deciding the split first stops new features
+from quietly consuming the time for reliability and
+security.</figcaption>
+</figure>
+<p>The exact split depends on the product’s stage and health. A young
+product may put most of its capacity into new outcomes; a mature product
+with aging infrastructure may need far more for reliability. What
+matters is that the split is a decision made in daylight, reviewed each
+quarter, rather than the result of a hundred small trade-offs nobody
+saw.</p>
+<h2 id="f6-brindlepath-in-practice-one-hard-no">Brindlepath in practice:
+one hard no</h2>
+<p>Six months after the new roadmap, Brindlepath’s largest prospect, a
+health system that would have doubled the company’s revenue in its
+region, asked for a patient-facing mobile app as a condition of
+purchase. The request came with a deadline: the app had to be live
+within six months.</p>
+<p>The sales team argued for it, reasonably: the deal was large, and a
+patient app was on the “Later” list anyway. Maya ran the request through
+the same process as everything else. She asked what problem the app
+would solve for the prospect, and learned that the real need was a way
+to confirm patients’ contact details and preferred call times after
+discharge. She checked the evidence: none of Brindlepath’s existing
+customers had asked for an app, and two had said patients rarely
+downloaded them. She estimated the cost: at least two-thirds of a team
+for six months, displacing the standard connector that every existing
+customer needed.</p>
+<p>The answer was no to the app, and yes to the need. Brindlepath
+offered a short text-message confirmation flow, built on the recently
+acquired messaging tool, which could be live in eight weeks and served
+the same purpose. Maya joined the sales call herself to explain the
+reasoning: the prospect’s patients would get what they needed sooner,
+and the prospect would be buying a product whose roadmap was not hostage
+to any single customer, including them.</p>
+<p>The prospect signed, three months later, without the app. Not every
+hard no ends that well. But a reasoned no with an alternative ends well
+far more often than sales teams fear, and a roadmap that bends to every
+large request does not stay a roadmap for long.</p>
+<h2 id="f6-common-mistakes">Common mistakes</h2>
+<p><strong>Treating the roadmap as a promise.</strong> Dates on features
+become commitments customers hold you to, whether or not the features
+turn out to matter. Commit to outcomes and to the few dates that are
+genuinely required.</p>
+<p><strong>Letting the backlog become a museum.</strong> A backlog of
+hundreds of items is not a plan. Archive anything no current customer
+problem supports; the important items will come back.</p>
+<p><strong>Scoring precisely, deciding badly.</strong> Frameworks
+produce numbers with decimal places that hide guesses. Use scores to
+structure the conversation, not to end it.</p>
+<p><strong>Saying maybe instead of no.</strong> “We’ll look at it”
+sounds kind and creates false expectations. A clear no, with reasons and
+an alternative, builds more trust.</p>
+<p><strong>Starving the foundations.</strong> Without an explicit
+capacity allocation, reliability, security and debt lose every
+head-to-head contest with new features, until an outage or breach forces
+the issue.</p>
+<p><strong>One roadmap for every audience.</strong> The board, sales and
+engineering need different views. A single document trying to serve them
+all usually serves none of them well.</p>
+<h2 id="f6-try-this">Try this</h2>
+<p>Export your current roadmap and backlog. For each item, write the
+problem it solves and the measure it should move. Any item where you
+cannot do both goes into a “needs a problem” list for review. Then
+rebuild the roadmap in the Now, Next, Later format, with only
+problem-framed items, and mark the commitments that genuinely need a
+date. Finally, agree a capacity split with your engineering lead for
+next quarter, and write it at the top of the roadmap where everyone can
+see it.</p>
+<h2 id="f6-how-ai-changes-this">How AI changes this</h2>
+<p><strong>AI can do the bookkeeping.</strong> An assistant can
+de-duplicate a sprawling backlog, link requests to the customers and
+deals that raised them, draft RICE or weighted scores from available
+data, and summarize the evidence behind each item. Maya’s 212-item
+cleanup would take an afternoon today rather than a month. Treat the
+scores as a first draft. The model does not know your strategy unless
+you tell it, and it does not know which customer is about to churn.</p>
+<p><strong>AI creates roadmap pressure.</strong> Since 2023, almost
+every product team has faced demands to “add AI.” Some of those demands
+are right; many are a solution looking for a problem. Run AI features
+through the same discipline as any other: what outcome will this change,
+for whom, and how will we know? An AI feature that does not move a
+measure is an expensive demo.</p>
+<p><strong>AI features need different confidence.</strong> A traditional
+feature either works or it does not. An AI feature works some of the
+time, at a quality that varies with the input. Put AI items on the
+roadmap with explicit quality targets and evaluation plans, not just a
+ship date. Chapter 17 covers how.</p>
+<p><strong>AI can help you say no.</strong> Ask an assistant to write
+the case against your top three priorities, or to find the items on your
+roadmap that do not connect to your stated strategy. It is easier to
+hear an uncomfortable argument from a machine than from a colleague, and
+easier still to act on it before the planning meeting.</p>
+<h2 id="f6-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Is every item on your roadmap framed
+as a problem or outcome, not a feature?</label></li>
+<li><label><input type="checkbox" />Does your roadmap show confidence
+levels, with dates only where commitments are real?</label></li>
+<li><label><input type="checkbox" />Do you have one source of truth,
+presented differently for each audience?</label></li>
+<li><label><input type="checkbox" />Have you chosen a prioritization
+framework deliberately, and do you know its biases?</label></li>
+<li><label><input type="checkbox" />Do you discuss items where two
+methods disagree, instead of trusting one formula?</label></li>
+<li><label><input type="checkbox" />When you say no, do you give reasons
+and an alternative?</label></li>
+<li><label><input type="checkbox" />Have you allocated capacity for
+reliability, security and debt before prioritizing
+features?</label></li>
+<li><label><input type="checkbox" />Do AI items on your roadmap have
+quality targets and evaluation plans?</label></li>
+<li><label><input type="checkbox" />Have you archived backlog items that
+no current customer problem supports?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f6-fn1"><p>Joshua Seiden, <em>Outcomes Over Output: Why Customer
+Behavior Is the Key Metric for Business Success</em> (Sense &amp;
+Respond Press, 2019).<a href="#f6-fnref1" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f6-fn2"><p>Janna Bastow developed the Now-Next-Later roadmap
+format and popularized it through ProdPad, the product-management
+software company she co-founded.<a href="#f6-fnref2"
+class="footnote-back" aria-label="Back to the text" role="doc-backlink">↩︎</a></p></li>
+<li id="f6-fn3"><p>Sean McBride, “RICE: Simple prioritization for
+product managers,” Intercom blog, 2016.<a href="#f6-fnref3"
+class="footnote-back" aria-label="Back to the text" role="doc-backlink">↩︎</a></p></li>
+<li id="f6-fn4"><p>Donald G. Reinertsen, <em>The Principles of Product
+Development Flow: Second Generation Lean Product Development</em>
+(Celeritas Publishing, 2009).<a href="#f6-fnref4" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+<li id="f6-fn5"><p>Teresa Torres, <em>Continuous Discovery Habits</em>
+(Product Talk, 2021).<a href="#f6-fnref5" class="footnote-back" aria-label="Back to the text"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/vision-strategy-and-positioning"><small>← Previous</small><b>Vision, Strategy and Positioning</b></a><a class="next" href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><small>Next →</small><b>The Numbers: P&amp;L, Unit Economics and Pricing</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

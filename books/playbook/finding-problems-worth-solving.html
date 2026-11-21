@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* An old link to /services.html or /index.html shows as /services or / (same page, no reload). */
+if (/\.html$/.test(location.pathname) && !/\/404\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "") + location.search + location.hash);</script>
+<script src="/assets/js/consent.js?v=2bd0f6a6"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N854VT4C');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finding Problems Worth Solving | The Product Manager's Playbook</title>
+<meta name="description" content="Chapter 2. Finding Problems Worth Solving, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:title" content="Finding Problems Worth Solving | The Product Manager's Playbook">
+<meta property="og:description" content="Chapter 2. Finding Problems Worth Solving, from The Product Manager's Playbook: Second Edition: Building Products in the Age of AI. Free to read online.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.productadvisory.co/books/playbook/finding-problems-worth-solving">
+<meta property="og:image" content="https://www.productadvisory.co/assets/books/playbook/cover-og.jpg">
+<meta property="og:site_name" content="Product Advisory">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.productadvisory.co/books/playbook/finding-problems-worth-solving">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a1526" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css?v=ee4c34ec">
+<script src="/assets/js/prefs.js?v=f9535568"></script>
+<script src="/assets/js/site.js?v=4fd3fb5d" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Chapter", "name": "Finding Problems Worth Solving", "url": "https://www.productadvisory.co/books/playbook/finding-problems-worth-solving", "isPartOf": {"@id": "https://www.productadvisory.co/books/product-managers-playbook#book"}, "author": {"@type": "Person", "name": "Robert Merrell"}, "position": 2}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.productadvisory.co/"}, {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.productadvisory.co/insights"}, {"@type": "ListItem", "position": 3, "name": "The Product Manager's Playbook", "item": "https://www.productadvisory.co/books/product-managers-playbook"}, {"@type": "ListItem", "position": 4, "name": "Finding Problems Worth Solving", "item": "https://www.productadvisory.co/books/playbook/finding-problems-worth-solving"}]}]}</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N854VT4C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+    <nav class="nav-links" aria-label="Main"><a href="/">Home</a><a href="/services">Services</a><a href="/toolkits">Toolkits</a><a href="/insights" aria-current="page">Insights</a><a href="/about">About</a><a href="/contact">Contact</a><button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="/preferences">Make it yours</a><a class="m-only" href="/book">Book a free call</a></nav>
+    <div class="nav-tools">
+      <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="[{&quot;id&quot;:&quot;home&quot;,&quot;n&quot;:&quot;Site tour&quot;,&quot;a&quot;:&quot;Where everything is on productadvisory.co&quot;,&quot;h&quot;:&quot;/?tour=home&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;article&quot;,&quot;n&quot;:&quot;Reading an article&quot;,&quot;a&quot;:&quot;Listen, watch, sections and the article rail&quot;,&quot;h&quot;:&quot;/insights/stop-enabling-individuals?tour=article&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;scorecard&quot;,&quot;n&quot;:&quot;Feature Prioritization Scorecard&quot;,&quot;a&quot;:&quot;Rank features with your criteria or RICE&quot;,&quot;h&quot;:&quot;/scorecard?tour=scorecard&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-use-cases&quot;,&quot;n&quot;:&quot;AI Use Case Prioritization&quot;,&quot;a&quot;:&quot;Score AI ideas and pick what to pilot&quot;,&quot;h&quot;:&quot;/ai-use-cases?tour=ai-use-cases&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;ai-readiness&quot;,&quot;n&quot;:&quot;AI Readiness Checklist&quot;,&quot;a&quot;:&quot;Check your team, data, tools and guardrails&quot;,&quot;h&quot;:&quot;/ai-readiness?tour=ai-readiness&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;build-buy-partner&quot;,&quot;n&quot;:&quot;Build, Buy, or Partner Matrix&quot;,&quot;a&quot;:&quot;Decide how to deliver a capability&quot;,&quot;h&quot;:&quot;/build-buy-partner?tour=build-buy-partner&quot;,&quot;v&quot;:1},{&quot;id&quot;:&quot;impact-score&quot;,&quot;n&quot;:&quot;Organizational Impact Score&quot;,&quot;a&quot;:&quot;Rate initiatives against your KPIs&quot;,&quot;h&quot;:&quot;/impact-score?tour=impact-score&quot;,&quot;v&quot;:1}]" aria-label="Help: tours of the site, answers and how to reach us" title="Help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17h.01"/></svg><span class="help-lbl">Help</span></button>
+      <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>
+      <a class="icon-btn prefs-btn" href="/preferences" aria-label="Make it yours: change how this site looks" title="Make it yours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></a>
+      <button class="icon-btn" data-action="theme" aria-label="Toggle light or dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+      <a class="btn sm nav-cta" href="/book">Book a call</a>
+      <button class="icon-btn menu-btn" data-help-anchor aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<article class="post book-page">
+ <div class="post-grid">
+  <aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in"><a class="link-back" href="/books/product-managers-playbook">← The Playbook</a><details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)"><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving" aria-current="page"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav></details><nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#f3-the-scheduling-problem-that-wasnt">The scheduling problem that wasn’t</a></li><li><a href="#f3-why-products-fail">Why products fail</a></li><li><a href="#f3-start-with-a-problem-statement">Start with a problem statement</a></li><li><a href="#f3-jobs-not-features">Jobs, not features</a></li><li><a href="#f3-who-has-the-problem-who-pays-who-decides">Who has the problem, who pays, who decides</a></li><li><a href="#f3-how-big-is-the-problem">How big is the problem?</a></li><li><a href="#f3-know-the-real-competition">Know the real competition</a></li><li><a href="#f3-constraints-are-part-of-the-problem">Constraints are part of the problem</a></li><li><a href="#f3-brindlepath-in-practice-sizing-the-problem">Brindlepath in practice: sizing the problem</a></li><li><a href="#f3-common-mistakes">Common mistakes</a></li><li><a href="#f3-try-this">Try this</a></li><li><a href="#f3-how-ai-changes-this">How AI changes this</a></li><li><a href="#f3-chapter-checklist">Chapter checklist</a></li></ol></nav><nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2><ol><li><a href="/books/playbook/preface-to-the-second-edition"><span class="bt-n"></span><span>Preface to the Second Edition</span></a></li><li><a href="/books/playbook/how-to-use-this-book"><span class="bt-n"></span><span>How to Use This Book</span></a></li></ol><h3>Part 1: Foundations</h3><ol><li><a href="/books/playbook/the-product-leaders-job-now"><span class="bt-n">1</span><span>The Product Leader’s Job, Now</span></a></li><li><a href="/books/playbook/finding-problems-worth-solving" aria-current="page"><span class="bt-n">2</span><span>Finding Problems Worth Solving</span></a></li><li><a href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><span class="bt-n">3</span><span>Discovery and Validation, from Interviews to MVP</span></a></li></ol><h3>Part 2: Strategy</h3><ol><li><a href="/books/playbook/vision-strategy-and-positioning"><span class="bt-n">4</span><span>Vision, Strategy and Positioning</span></a></li><li><a href="/books/playbook/prioritization-and-outcome-roadmaps"><span class="bt-n">5</span><span>Prioritization and Outcome Roadmaps</span></a></li><li><a href="/books/playbook/the-numbers-pl-unit-economics-and-pricing"><span class="bt-n">6</span><span>The Numbers: P&amp;L, Unit Economics and Pricing</span></a></li><li><a href="/books/playbook/managing-a-product-portfolio"><span class="bt-n">7</span><span>Managing a Product Portfolio</span></a></li></ol><h3>Part 3: Building</h3><ol><li><a href="/books/playbook/building-and-leading-the-product-team"><span class="bt-n">8</span><span>Building and Leading the Product Team</span></a></li><li><a href="/books/playbook/from-requirements-to-release-with-engineering-and-design"><span class="bt-n">9</span><span>From Requirements to Release, with Engineering and Design</span></a></li><li><a href="/books/playbook/data-analytics-and-evidence-based-decisions"><span class="bt-n">10</span><span>Data, Analytics and Evidence-Based Decisions</span></a></li><li><a href="/books/playbook/trust-by-design-security-privacy-and-compliance"><span class="bt-n">11</span><span>Trust by Design: Security, Privacy and Compliance</span></a></li></ol><h3>Part 4: Customers</h3><ol><li><a href="/books/playbook/designing-with-empathy"><span class="bt-n">12</span><span>Designing with Empathy</span></a></li><li><a href="/books/playbook/go-to-market-and-launch"><span class="bt-n">13</span><span>Go-to-Market and Launch</span></a></li><li><a href="/books/playbook/customer-success-and-retention"><span class="bt-n">14</span><span>Customer Success and Retention</span></a></li></ol><h3>Part 5: Growth</h3><ol><li><a href="/books/playbook/partnerships-and-ecosystems"><span class="bt-n">15</span><span>Partnerships and Ecosystems</span></a></li><li><a href="/books/playbook/scaling-the-product-and-the-company"><span class="bt-n">16</span><span>Scaling the Product and the Company</span></a></li><li><a href="/books/playbook/building-ai-products-and-leading-with-ai-agents"><span class="bt-n">17</span><span>Building AI Products and Leading with AI Agents</span></a></li><li><a href="/books/playbook/the-integrated-playbook"><span class="bt-n">18</span><span>The Integrated Playbook</span></a></li></ol><ol><li><a href="/books/playbook/appendix-templates"><span class="bt-n"></span><span>Appendix: Templates</span></a></li></ol></nav><div class="book-rail-dl"><a href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>PDF, 5.4 MB</a><a href="/books/playbook/essentials">The Essentials</a></div></div></aside>
+  <div class="post-main">
+  <header class="post-head">
+    <div class="wrap narrow">
+      <div class="eyebrow">Chapter 2 · Part 1: Foundations</div>
+      <h1>Finding Problems Worth Solving</h1>
+      <blockquote class="epigraph"><p>“People don’t want to buy a quarter-inch drill. They want a
+quarter-inch hole!”</p>
+<p>— Theodore Levitt, quoting Leo McGinneva</p></blockquote>
+      <p class="byline"><a href="/books/product-managers-playbook">The Product Manager's Playbook</a> · 14 min read</p>
+    </div>
+  </header>
+  <div class="wrap narrow">
+    <div class="prose post-body">
+<h2 id="f3-the-scheduling-problem-that-wasnt">The scheduling problem
+that wasn’t</h2>
+<p>Brindlepath was founded to fix scheduling. Its founders had watched
+patients leave the hospital with a stack of follow-up appointments they
+could not keep: the cardiology visit set for a Tuesday when the
+patient’s daughter, the only driver in the family, worked; the physical
+therapy slot across town with no bus route. Readmissions followed. The
+founders built a clever tool that let care managers book follow-ups
+around a patient’s real-life constraints.</p>
+<p>Hospitals liked the demo. Very few bought it.</p>
+<p>When Maya joined, she spent her first three weeks shadowing care
+managers at two customer sites and one hospital that had said no. What
+she found was that scheduling was a symptom. The deeper problem was that
+after discharge, nobody clearly owned the patient. The inpatient care
+manager’s job ended at the door. The primary care office did not know
+the patient had been admitted. The specialist had a referral but no
+context. A well-scheduled appointment did not help if nobody noticed the
+patient had missed it.</p>
+<p>The care managers did not describe it that way. They described a
+dozen small frustrations: phone tag, faxes that went nowhere, discharge
+summaries that arrived after the follow-up visit, patients who “fell off
+the radar.” Maya’s job was to see the shape underneath the complaints.
+Once she did, Brindlepath’s product strategy changed from <em>better
+scheduling</em> to <em>clear ownership of every patient through every
+handoff</em>, and its sales conversations changed from feature demos to
+a problem every chief nursing officer recognized.</p>
+<p>This chapter is about finding that shape, before you spend a year
+building the wrong thing.</p>
+<h2 id="f3-why-products-fail">Why products fail</h2>
+<p>Products rarely fail because the team could not build them. They fail
+because the team built something the market did not value enough, at a
+price or cost that did not work, at a time when nobody was ready.</p>
+<p>CB Insights, which has studied startup failures for over a decade,
+analyzed 431 venture-backed companies that shut down from 2023 onward.
+Running out of capital was nearly universal, cited in 70 percent of
+cases, but CB Insights is careful to note that it is usually the final
+cause of death, not the root one.<a href="#f3-fn1" class="footnote-ref"
+id="f3-fnref1" role="doc-noteref"><sup>1</sup></a> Underneath it sat the
+familiar culprits: poor product-market fit, bad timing, and unit
+economics that never worked.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/2-1.webp" alt="Figure 2.1. Why venture-backed startups shut down. Running out of money is usually the last step, not the root cause. Source: CB Insights analysis of 431 VC-backed companies that shut down since 2023." width="1440" height="820" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 2.1. Why venture-backed startups
+shut down. Running out of money is usually the last step, not the root
+cause. Source: CB Insights analysis of 431 VC-backed companies that shut
+down since 2023.</figcaption>
+</figure>
+<p>The lesson for product leaders inside established companies is the
+same. A new product line or major feature that fails rarely fails on
+engineering. It fails on the question this chapter is about: was this a
+problem worth solving, for people willing and able to pay for a
+solution?</p>
+<h2 id="f3-start-with-a-problem-statement">Start with a problem
+statement</h2>
+<p>Every product effort should begin with a written problem statement.
+Not a solution statement dressed up as a problem (“Users need a
+dashboard”) and not a vision (“Transform care coordination”). A problem
+statement names who is affected, what they are trying to do, what gets
+in the way, and what it costs them.</p>
+<p>A useful template:</p>
+<blockquote>
+<p><strong>[Who]</strong> need to <strong>[goal or job]</strong>, but
+<strong>[obstacle]</strong>, which leads to <strong>[consequence,
+ideally measurable]</strong>. Today they <strong>[current
+workaround]</strong>, which falls short because
+<strong>[gap]</strong>.</p>
+</blockquote>
+<p>Here is Brindlepath’s original problem statement, and the one Maya
+wrote after her field work:</p>
+<p><strong>Before:</strong> “Care managers need a better way to schedule
+post-discharge appointments.”</p>
+<p><strong>After:</strong> “Outpatient care navigators at health systems
+need to know, within 24 hours, which recently discharged patients are
+now theirs and what those patients need. But ownership after discharge
+is unclear, and information arrives by fax, phone and portal days late.
+As a result, a meaningful share of high-risk patients miss their first
+follow-up visit, which drives avoidable readmissions that the hospital
+is penalized for. Today navigators work from spreadsheets and daily
+phone calls with inpatient staff, which do not scale past a few dozen
+patients and break whenever someone is out.”</p>
+<p>The second version is longer, and much more useful. It tells the team
+who the user is (the outpatient navigator, not the inpatient care
+manager), what success looks like (knowing within 24 hours), what the
+business case is (readmission penalties), and what the real competitor
+is (a spreadsheet and the telephone). Every one of those facts will
+shape the product.</p>
+<p>A good problem statement passes four tests:</p>
+<ul>
+<li><strong>It contains no solution.</strong> If it names a feature,
+rewrite it.</li>
+<li><strong>It names a specific person,</strong> not “users” or “the
+market.”</li>
+<li><strong>It describes a consequence someone cares about,</strong> in
+their terms: time, money, risk, outcomes.</li>
+<li><strong>It can be wrong.</strong> A problem statement is a
+hypothesis. If no evidence could disprove it, it is too vague to be
+useful.</li>
+</ul>
+<h2 id="f3-jobs-not-features">Jobs, not features</h2>
+<p>The most durable way to understand a problem is to ask what job the
+customer is hiring a product to do. The jobs-to-be-done idea,
+popularized by Clayton Christensen, holds that people do not buy
+products for their features; they “hire” them to make progress in a
+particular circumstance.<a href="#f3-fn2" class="footnote-ref"
+id="f3-fnref2" role="doc-noteref"><sup>2</sup></a> Levitt’s quarter-inch
+hole is the same idea, decades earlier.</p>
+<p>Jobs have three layers:</p>
+<ul>
+<li><strong>Functional:</strong> the practical task. <em>Know which
+discharged patients are mine today.</em></li>
+<li><strong>Emotional:</strong> how the person wants to feel.
+<em>Confident that nobody is falling through the cracks on my
+watch.</em></li>
+<li><strong>Social:</strong> how they want to be seen. <em>The navigator
+the physicians trust to have it handled.</em></li>
+</ul>
+<p>Products that serve only the functional job are easy to copy and easy
+to replace. Products that serve all three become part of how someone
+sees their own work. Brindlepath’s navigators did not just want a list;
+they wanted to go home at night without the low-grade dread that a
+patient was in trouble and nobody knew.</p>
+<p>When you interview customers, listen for the job behind the request.
+When someone asks for a feature, ask what they would do with it, and
+then what that would let them do, until you reach something they
+genuinely care about. That is usually the job.</p>
+<h2 id="f3-who-has-the-problem-who-pays-who-decides">Who has the
+problem, who pays, who decides</h2>
+<p>In consumer software, the person with the problem, the person who
+chooses the product and the person who pays are often the same. In
+business software they almost never are, and in healthcare the gap is
+extreme.</p>
+<p>For a single Brindlepath deal, the cast typically includes:</p>
+<ul>
+<li><strong>The users:</strong> outpatient navigators and care managers,
+who live in the product every day.</li>
+<li><strong>The clinical champion:</strong> often a director of care
+management or a chief nursing officer, who feels the readmission problem
+and sponsors the purchase.</li>
+<li><strong>The economic buyer:</strong> a chief financial officer or
+chief operating officer, who signs off on the money and wants a
+return.</li>
+<li><strong>The technical gatekeepers:</strong> IT and information
+security, who must approve integration with the electronic health record
+and the handling of patient data.</li>
+<li><strong>The influencers:</strong> physicians, quality leaders and
+compliance officers, who can slow or stop a deal without ever being in
+the room.</li>
+<li><strong>The beneficiary who never logs in:</strong> the
+patient.</li>
+</ul>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/2-2.webp" alt="Figure 2.2. The buying group for a business-to-business healthcare product. Each role needs a different reason to say yes, and any one of them can say no." width="1440" height="1028" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 2.2. The buying group for a
+business-to-business healthcare product. Each role needs a different
+reason to say yes, and any one of them can say no.</figcaption>
+</figure>
+<p>Each of these people has a different version of the problem. The
+navigator cares about her day. The chief nursing officer cares about
+readmission rates and staff burnout. The CFO cares about penalties
+avoided and headcount not added. IT cares about integration effort and
+security risk. A product strategy that speaks only to the user will win
+enthusiastic pilots and lose the purchase.</p>
+<p>Map your buying group explicitly. For each role, write down what they
+need to believe to say yes, what would make them say no, and what
+evidence would convince them. You will use this map again for
+positioning in Chapter 4, for pricing in Chapter 6 and for go-to-market
+in Chapter 13.</p>
+<h2 id="f3-how-big-is-the-problem">How big is the problem?</h2>
+<p>Not every real problem is worth solving. You need some way to compare
+problems before committing a team to one. I use three questions:</p>
+<ol type="1">
+<li><strong>How often does it happen?</strong> A problem that occurs
+every day for every user beats one that occurs once a quarter.</li>
+<li><strong>How much does it hurt?</strong> Measure in the customer’s
+currency: hours lost, money spent, risk carried, outcomes harmed.</li>
+<li><strong>What are they doing about it now?</strong> If people have
+built elaborate workarounds, or are already paying for something
+imperfect, the problem is real and the budget exists. If they shrug, it
+may be real but not urgent.</li>
+</ol>
+<p>Plotting candidate problems by frequency and severity gives you a
+quick, honest picture of where to focus. Figure 2.3 shows the exercise
+Maya ran with her team after the field work. The positions are from that
+exercise, using the team’s own scoring; they are illustrative, not
+survey data.</p>
+<figure>
+<button type="button" class="fig-zoom" aria-label="Enlarge this figure"><img src="/assets/books/playbook/fig/2-3.webp" alt="Figure 2.3. Opportunity map: problems scored by how often they occur and how much they hurt (illustrative). The top-right quadrant is where to build. The original product sat in the lower half." width="1440" height="1260" loading="lazy" decoding="async"><span class="fig-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span></button>
+<figcaption aria-hidden="true">Figure 2.3. Opportunity map: problems
+scored by how often they occur and how much they hurt (illustrative).
+The top-right quadrant is where to build. The original product sat in
+the lower half.</figcaption>
+</figure>
+<p>The original scheduling product addressed a real but occasional pain.
+The ownership problem was frequent, severe and expensive. The map made
+the pivot obvious in a way no argument had.</p>
+<h3 id="f3-sizing-the-market">Sizing the market</h3>
+<p>Once you have a problem worth solving, estimate how many people have
+it and what they would pay. Investors and executives will ask for three
+numbers:</p>
+<ul>
+<li><strong>Total addressable market (TAM):</strong> everyone who has
+the problem, if you won every one of them.</li>
+<li><strong>Serviceable addressable market (SAM):</strong> the part you
+can realistically reach with your product, channels and geography.</li>
+<li><strong>Serviceable obtainable market (SOM):</strong> the share you
+can plausibly win in the next few years.</li>
+</ul>
+<p>Build these numbers from the bottom up, not from analyst reports.
+Top-down estimates (“the care-coordination market is $X billion; if we
+get 1 percent…”) are easy to produce and impossible to act on. A
+bottom-up estimate starts with countable units and a price.</p>
+<p>For Brindlepath, the bottom-up version looked like this: there are a
+few hundred health systems in the United States with enough
+post-discharge volume and readmission exposure to care; each employs a
+number of outpatient navigators and care managers; Brindlepath prices
+per navigator seat with a platform fee. Multiplying the number of target
+systems by a realistic number of seats and a realistic price gives a
+market estimate the sales team can build a plan around and the finance
+team can check. The exact figures matter less than the method: every
+number in the chain is something you can verify by talking to
+customers.</p>
+<h2 id="f3-know-the-real-competition">Know the real competition</h2>
+<p>When teams list competitors, they usually list companies that sell
+similar software. That is the smallest part of the competition. The
+biggest competitor for most new products is the status quo: the
+spreadsheet, the phone call, the weekly meeting, the person who “just
+knows.”</p>
+<p>For Brindlepath, the competitive set included:</p>
+<ul>
+<li><strong>Direct competitors:</strong> other care-coordination
+platforms.</li>
+<li><strong>The incumbent platform:</strong> the electronic health
+record vendor, which offered basic care-management modules that were
+“good enough” for some buyers and already paid for.</li>
+<li><strong>The status quo:</strong> spreadsheets, shared inboxes and
+daily huddle calls.</li>
+<li><strong>Doing nothing:</strong> accepting the readmission penalties
+as a cost of doing business.</li>
+</ul>
+<p>Each requires a different answer. Against direct competitors, you win
+on fit and outcomes. Against the incumbent platform, you win on depth
+and speed. Against the status quo, you win by making the cost of the
+workaround visible and the switch painless. Against doing nothing, you
+win only if the problem is urgent enough that someone’s job depends on
+fixing it.</p>
+<p>When you study competitors, study their customers more than their
+features. Read their reviews, talk to people who chose them and people
+who left them, and find out what job they were hired for and where they
+fall short.</p>
+<h2 id="f3-constraints-are-part-of-the-problem">Constraints are part of
+the problem</h2>
+<p>Every market has rules that shape what a solution can be. In
+healthcare, they include privacy law such as HIPAA in the United States,
+the need to integrate with electronic health records through standards
+like HL7 and FHIR, clinical safety expectations and, for some software,
+medical device regulation. Fintech has its licensing and
+anti-money-laundering rules; education has student-privacy laws; most
+enterprise software faces security reviews and procurement
+requirements.</p>
+<p>Treat these constraints as part of the problem definition, not as
+obstacles discovered at the end. Ask early:</p>
+<ul>
+<li>What data will the product touch, and what rules govern it?</li>
+<li>What systems must it connect to, and how open are they?</li>
+<li>Who has to approve it before a customer can buy or deploy it?</li>
+<li>Could any part of it be regulated as more than ordinary
+software?</li>
+</ul>
+<p>The answers change your cost, your timeline and sometimes your entire
+approach. A product that needs deep integration with five different
+electronic health records is a different business from one that works on
+a standalone basis. Better to know before you build. Chapter 11 covers
+trust and compliance in depth.</p>
+<h2 id="f3-brindlepath-in-practice-sizing-the-problem">Brindlepath in
+practice: sizing the problem</h2>
+<p>When Maya presented the new problem statement to the board, the first
+question was the one every board asks: how big is this? She answered
+with a bottom-up estimate, built with Priya Nair, the CFO, and checked
+against conversations with a dozen health systems.</p>
+<p>The chain of reasoning was simple. The team counted the health
+systems in Brindlepath’s target regions with enough post-discharge
+volume and readmission penalties to feel the problem, and found a few
+hundred. Field interviews suggested that a typical system in that group
+employed somewhere between twenty and sixty outpatient navigators and
+care managers who would use the product. At Brindlepath’s planned price
+of $1,800 per seat plus a platform fee, a typical customer would be
+worth roughly $70,000 to $150,000 a year. Multiplying the number of
+reachable systems by a conservative share and a typical contract value
+gave a serviceable market in the tens of millions of dollars of annual
+revenue, before any expansion into physician groups or health plans.</p>
+<p>The number itself mattered less than the conversation it enabled.
+Because every link in the chain was something a board member could
+question and a salesperson could verify, the debate moved from “is this
+big enough?” to “which assumptions are weakest?” The weakest turned out
+to be the number of navigators per customer, which varied widely. So the
+team made it a discovery question for the next round of interviews, and
+refined the estimate a quarter later.</p>
+<p>The same exercise exposed something uncomfortable about the old
+scheduling product. Fewer buyers felt that pain strongly, the budget for
+it was smaller, and the record vendor’s module already did “good enough”
+scheduling for many. The bottom-up math, as much as the field work, made
+the case for the new strategy.</p>
+<h2 id="f3-common-mistakes">Common mistakes</h2>
+<p><strong>Falling in love with a solution.</strong> Teams often start
+with an idea and then look for a problem to justify it. The tell is a
+problem statement that quietly describes the product. Brindlepath’s
+original scheduling tool was a solution in search of the real
+problem.</p>
+<p><strong>Asking customers what they want.</strong> Customers are
+experts in their problems and unreliable designers of solutions. “Would
+you use this?” invites a polite yes. “Tell me about the last time this
+happened” invites the truth.</p>
+<p><strong>Talking only to the people who like you.</strong> Existing
+champions confirm what you believe. Prospects who said no, and customers
+who left, tell you what you are missing.</p>
+<p><strong>Ignoring the buyer.</strong> A product that delights users
+but cannot win over the economic buyer, IT and compliance will collect
+enthusiastic pilots and few contracts.</p>
+<p><strong>Sizing the market from the top down.</strong> “One percent of
+a ten-billion-dollar market” convinces nobody who has sold enterprise
+software. Build the estimate from countable customers and a realistic
+price.</p>
+<p><strong>Discovering constraints last.</strong> Regulation,
+integration and procurement requirements discovered after the product is
+built can double its cost or delay it by a year.</p>
+<h2 id="f3-try-this">Try this</h2>
+<p>Write the problem statement for the most important thing your team is
+working on, using the template in this chapter. Then show it to three
+people: a customer, a colleague in sales or customer success, and an
+engineer. Ask each of them one question: “What is wrong with this?”
+Rewrite it after each conversation. If the statement changes
+substantially, you have learned something important before spending
+another week building. Finally, add the buying group: list each role,
+what they need to believe, and the evidence that would convince
+them.</p>
+<h2 id="f3-how-ai-changes-this">How AI changes this</h2>
+<p>AI is genuinely useful in problem discovery, as long as you use it
+for breadth and keep humans on depth.</p>
+<p><strong>Use AI to scan wide.</strong> An assistant can read hundreds
+of support tickets, app-store reviews, sales-call transcripts, forum
+threads and competitor release notes, and cluster them into candidate
+problems. Work that once took weeks now takes an afternoon. Treat the
+clusters as leads, not conclusions.</p>
+<p><strong>Use AI to pressure-test your thinking.</strong> Ask a model
+to argue against your problem statement, list the stakeholders you have
+missed, or role-play a skeptical CFO. It will not always be right, but
+it is a fast, tireless sparring partner.</p>
+<p><strong>Use AI to draft the market model.</strong> Give it your
+bottom-up assumptions and ask it to build the spreadsheet and the
+sensitivity analysis. Then check every assumption yourself.</p>
+<p><strong>Do not use AI as a substitute for the field.</strong> A model
+trained on the internet knows what has been written about a problem,
+which is the average, often outdated view. The insight that changed
+Brindlepath’s strategy came from standing behind a navigator at 4:30
+p.m. and watching her call three offices to find out who owned a
+patient. No dataset contained that. The most valuable discovery still
+happens in person, and it is the part of the job that AI makes more
+important, not less, because everyone else now has the same desk
+research you do.</p>
+<p><strong>Watch for synthetic certainty.</strong> AI summaries of
+customer feedback tend to smooth over disagreement and produce tidy
+themes. Real problems are messy. When a cluster looks too neat, read the
+raw material.</p>
+<h2 id="f3-chapter-checklist">Chapter checklist</h2>
+<ul class="task-list checklist">
+<li><label><input type="checkbox" />Have you written a problem statement
+that names a specific person, their goal, the obstacle, the consequence
+and the current workaround, with no solution in it?</label></li>
+<li><label><input type="checkbox" />Can you describe the functional,
+emotional and social job your product does?</label></li>
+<li><label><input type="checkbox" />Have you mapped the full buying
+group, and what each role needs to believe to say yes?</label></li>
+<li><label><input type="checkbox" />Have you scored candidate problems
+by frequency and severity, and do you know what customers do about them
+today?</label></li>
+<li><label><input type="checkbox" />Is your market estimate built from
+the bottom up, from numbers you could verify with
+customers?</label></li>
+<li><label><input type="checkbox" />Have you listed the status quo and
+“do nothing” as competitors?</label></li>
+<li><label><input type="checkbox" />Do you know the regulatory, data and
+integration constraints before you design a solution?</label></li>
+<li><label><input type="checkbox" />Have you used AI to scan widely, and
+then gone into the field to see the problem for yourself?</label></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<h2>Notes</h2>
+<ol>
+<li id="f3-fn1"><p>CB Insights, “The top reasons startups fail,”
+analysis of 431 venture-backed companies that shut down since 2023.
+Other causes cited include poor product-market fit (43 percent), bad
+timing (29 percent) and unsustainable unit economics (19 percent).
+Companies can cite more than one reason.<a href="#f3-fnref1"
+class="footnote-back" aria-label="Back to the text" role="doc-backlink">↩︎</a></p></li>
+<li id="f3-fn2"><p>Clayton M. Christensen, Taddy Hall, Karen Dillon and
+David S. Duncan, <em>Competing Against Luck: The Story of Innovation and
+Customer Choice</em> (Harper Business, 2016).<a href="#f3-fnref2"
+class="footnote-back" aria-label="Back to the text" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+    </div>
+    <nav class="book-pager" aria-label="Chapters"><a class="prev" href="/books/playbook/the-product-leaders-job-now"><small>← Previous</small><b>The Product Leader’s Job, Now</b></a><a class="next" href="/books/playbook/discovery-and-validation-from-interviews-to-mvp"><small>Next →</small><b>Discovery and Validation, from Interviews to MVP</b></a></nav>
+    <aside class="post-foot book-foot">
+      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <div class="btn-row"><a class="btn sm" href="/assets/books/playbook/the-product-managers-playbook-second-edition.pdf" download><svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>Download the PDF <small>5.4 MB</small></a><a class="btn sm ghost" href="/books/playbook/essentials">The Essentials</a></div>
+    </aside>
+  </div>
+  </div>
+ </div>
+</article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wm" href="/" aria-label="Product Advisory, home"><span class="wm-box">Product</span><span class="wm-adv"><span class="wm-a">&Lambda;</span>dvisory</span></a>
+        <span class="tagline">Building Market Driven Products</span>
+        <p>Product management consulting for startups and enterprises.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/contact">Contact Us</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/services">Services</a></li><li><a href="/toolkits">Toolkits</a></li><li><a href="/toolkits#learning">Learning</a></li><li><a href="/insights">Insights</a></li><li><a href="https://assessment.productadvisory.co/" target="_blank" rel="noopener">Product Skill Assessment<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="https://www.linkedin.com/company/productadvisory" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7391081463410196482" target="_blank" rel="noopener">Newsletter<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://join.slack.com/t/productadvisory-group/shared_invite/zt-44yvu9gg2-IKHEFs8A9CARJBsBhat2JQ" target="_blank" rel="noopener">Slack Community<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms-of-use">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Product Advisory, LLC. All rights reserved.</span>
+      <span><a href="/preferences">Make it yours</a> · <button type="button" class="linklike" data-action="cookies">Cookie settings</button> · Press <kbd class="mod-key">⌘</kbd> <kbd>K</kbd> to search</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
