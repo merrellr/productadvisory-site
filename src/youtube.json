@@ -2,7 +2,7 @@
   "_about": "Each article's YouTube video. Paste the video's link (any form: youtube.com/watch?v=..., youtu.be/..., shorts or embed links, or just the id) next to its article, then run python3 src/build.py. The Watch badge and the video player then appear on the article, on Insights cards, and on Learning's Listen & watch page. Leave \"\" for no video.",
   "367-listener": "https://youtu.be/BZlUHmMGaVc",
   "100-staircase": "https://youtu.be/jqhNAtVYJ5U",
-  "150-hot-dog": "",
+  "150-hot-dog": "https://youtu.be/jXXJKbJiTRc",
   "five-second-test": "https://youtu.be/89SQv50yxSE",
   "rice-vs-weighted-scoring": "https://youtu.be/jUX-3tOAKjw",
   "squad-of-agents": "https://youtu.be/gqAU3_DXm9s",
