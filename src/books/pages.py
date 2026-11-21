@@ -23,12 +23,19 @@ BLURB = ("A practical guide to product management in the age of AI: finding prob
          "and a checklist for every chapter. Free to read online or download.")
 
 
+def start():
+    return url(pages()[0])
+
+
 def pages():
     return [e for e in DATA["chapters"] if e["kind"] != "part"]
 
 
 def chapters():
     return [e for e in DATA["chapters"] if e["kind"] == "chapter"]
+
+
+START = None  # set below
 
 
 def part_of(entry):
@@ -91,15 +98,15 @@ def toc_list(current=None, numbered=True):
 
 
 def book_ld(ORG, SITE):
-    return {"@type": "Book", "@id": SITE + LANDING + "#book", "name": TITLE, "alternativeHeadline": SUBTITLE,
+    return {"@type": "Book", "@id": SITE + START[1:] + "#book", "name": TITLE, "alternativeHeadline": SUBTITLE,
             "author": {"@type": "Person", "name": AUTHOR}, "publisher": ORG, "bookEdition": "Second edition",
-            "inLanguage": "en", "isAccessibleForFree": True, "url": SITE + LANDING, "image": f"{SITE}{ASSETS}/cover-og.jpg",
+            "inLanguage": "en", "isAccessibleForFree": True, "url": SITE + START[1:], "image": f"{SITE}{ASSETS}/cover-og.jpg",
             "numberOfPages": PDF_PAGES, "description": BLURB,
             "workExample": [{"@type": "Book", "bookFormat": "https://schema.org/EBook", "encodingFormat": "application/pdf", "url": SITE + PDF}],
             "hasPart": [{"@type": "Chapter", "name": e["title"], "position": e["num"], "url": SITE + url(e)[1:]} for e in chapters()]}
 
 
-def rail(current, sections, back=(f"/{LANDING}", "← The Playbook")):
+def rail(current, sections, back=("/insights", "← Insights")):
     toc = "".join(f'<li><a href="#{s["id"]}">{escape(s["title"])}</a></li>' for s in sections)
     return (f'<aside class="post-rail book-rail" aria-label="About this book"><div class="post-rail-in">'
             f'<a class="link-back" href="{back[0]}">{back[1]}</a>'
@@ -111,55 +118,15 @@ def rail(current, sections, back=(f"/{LANDING}", "← The Playbook")):
 
 
 def landing(page, write, ld, ORG, SITE, cta_band):
-    ess = [e for e in DATA["essentials"] if e["kind"] == "section"]
-    words = sum(e["words"] for e in pages())
-    first = pages()[0]
-    contents = []
-    for e in DATA["chapters"]:
-        if e["kind"] == "part":
-            contents.append(f'<div class="bk-part"><span>Part {e["num"]}</span><b>{escape(e["title"])}</b></div>')
-        else:
-            n = f'<span class="bk-n">{e["num"]}</span>' if e["kind"] == "chapter" else '<span class="bk-n"></span>'
-            contents.append(f'<a class="bk-ch" href="{url(e)}">{n}<span class="bk-t">{escape(e["title"])}</span>'
-                            f'<small>{minutes(e["words"])} min</small></a>')
-    body = f'''<section class="book-hero">
-  <div class="wrap">
-    <div class="book-cover"><img src="{ASSETS}/cover.webp" alt="Cover: {TITLE}, second edition, by {AUTHOR}" width="720" height="1080" fetchpriority="high"></div>
-    <div class="book-intro">
-      <a class="link-back" href="insights.html">← Insights</a>
-      <div class="eyebrow">Free book · Second edition</div>
-      <h1>{TITLE}</h1>
-      <p class="book-sub">{SUBTITLE}</p>
-      <p>{BLURB}</p>
-      <ul class="book-stats"><li><b>18</b> chapters</li><li><b>49</b> figures</li><li><b>10</b> templates</li><li><b>{words // 1000}k</b> words</li></ul>
-      <div class="btn-row"><a class="btn" href="{url(first)}">Read online</a>{download_buttons("btn ghost")}</div>
-      <p class="book-by">By {AUTHOR}, Product Advisory. Audio edition coming soon.</p>
-    </div>
-  </div>
-</section>
-<section class="band">
-  <div class="wrap">
-    <div class="ess-card reveal">
-      <img src="{ASSETS}/cover-essentials.webp" alt="Cover: The Essentials" width="720" height="1080" loading="lazy">
-      <div>
-        <div class="eyebrow">The short version</div>
-        <h2>The Essentials</h2>
-        <p>Every chapter's big idea, key points, one figure, the checklist and one thing to try this week. The whole book in about {minutes(sum(len(re.sub(r"<[^>]+>", " ", e["html"]).split()) for e in ess))} minutes: read it before the book to see the map, or after it as a refresher.</p>
-        <div class="btn-row"><a class="btn" href="/{DIR}/essentials">Read The Essentials</a>{ess_download()}</div>
-      </div>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="section-head reveal"><h2>Contents</h2><p>Every chapter follows Brindlepath, a fictional healthcare software company, and ends with common mistakes, something to try, how AI changes the work, and a checklist.</p></div>
-    <div class="bk-contents">{"".join(contents)}</div>
-  </div>
-</section>
-{cta_band("Want help putting the playbook to work?", "We help product teams turn these ideas into a strategy, a roadmap and a rhythm that fits how you actually work.")}'''
-    write(f"{LANDING}.html", page(f"{LANDING}.html", f"{TITLE} (free book)", BLURB, body,
-          extra_head=ld(book_ld(ORG, SITE), crumbs=[("Insights", "insights"), (TITLE, LANDING)]),
-          image=f"{ASSETS}/cover-og.jpg", nav="insights.html", og_type="book"))
+    """The book's first address (briefly a landing page): now it just forwards to the start of the book."""
+    to = SITE + START[1:]
+    write(f"{LANDING}.html", f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>{TITLE}</title>
+<meta name="robots" content="noindex"><link rel="canonical" href="{to}">
+<meta http-equiv="refresh" content="0; url={START}">
+<script>location.replace("{START}" + location.hash)</script></head>
+<body><p><a href="{START}">{TITLE}</a></p></body></html>
+''')
 
 
 def chapter_page(e, page, write, ld, ORG, SITE):
@@ -175,7 +142,8 @@ def chapter_page(e, page, write, ld, ORG, SITE):
         (f'<a class="next" href="{url(nxt)}"><small>Next →</small><b>{escape(nxt["title"])}</b></a>' if nxt else
          f'<a class="next" href="/{DIR}/essentials"><small>Next →</small><b>The Essentials</b></a>') + '</nav>'
     name = f"{label(e)}. {e['title']}" if e["kind"] == "chapter" else e["title"]
-    node = {"@type": "Chapter", "name": e["title"], "url": SITE + url(e)[1:], "isPartOf": {"@id": SITE + LANDING + "#book"}, "author": {"@type": "Person", "name": AUTHOR}}
+    first = i == 0
+    node = {"@type": "Chapter", "name": e["title"], "url": SITE + url(e)[1:], "isPartOf": {"@id": SITE + START[1:] + "#book"}, "author": {"@type": "Person", "name": AUTHOR}}
     if e["num"]:
         node["position"] = e["num"]
     body = f'''<article class="post book-page">
@@ -187,7 +155,7 @@ def chapter_page(e, page, write, ld, ORG, SITE):
       <div class="eyebrow">{eyebrow}</div>
       <h1>{escape(e["title"])}</h1>
       {epi}
-      <p class="byline"><a href="/{LANDING}">{TITLE}</a> · {minutes(e["words"])} min read</p>
+      <p class="byline"><a href="{START}">{TITLE}</a> · {minutes(e["words"])} min read</p>
     </div>
   </header>
   <div class="wrap narrow">
@@ -205,7 +173,7 @@ def chapter_page(e, page, write, ld, ORG, SITE):
 </article>'''
     desc = f"{name}, from {TITLE}: {SUBTITLE}. Free to read online."
     write(f"{DIR}/{e['slug']}.html", page(f"{DIR}/{e['slug']}.html", f"{e['title']} | {TITLE}" if len(e["title"]) < 40 else e["title"], desc, body,
-          extra_head=ld(node, crumbs=[("Insights", "insights"), (TITLE, LANDING), (e["title"], f"{DIR}/{e['slug']}")]),
+          extra_head=ld(*([book_ld(ORG, SITE)] if first else []), node, crumbs=[("Insights", "insights"), (TITLE, START[1:]), (e["title"], f"{DIR}/{e['slug']}")]),
           image=f"{ASSETS}/cover-og.jpg", nav="insights.html", og_type="article"))
 
 
@@ -230,7 +198,7 @@ def essentials_page(page, write, ld, ORG, SITE):
       <div class="eyebrow">The short version</div>
       <h1>The Essentials</h1>
       <p class="dek">{TITLE}, chapter by chapter: the big idea, key points, one figure, the checklist and one thing to try this week.</p>
-      <div class="btn-row">{ess_download("btn sm")}<a class="btn sm ghost" href="/{LANDING}">The full book</a></div>
+      <div class="btn-row">{ess_download("btn sm")}<a class="btn sm ghost" href="{START}">The full book</a></div>
     </div>
   </header>
   <div class="wrap narrow">
@@ -248,20 +216,20 @@ def essentials_page(page, write, ld, ORG, SITE):
     write(f"{DIR}/essentials.html", page(f"{DIR}/essentials.html", f"The Essentials | {TITLE}",
           f"{TITLE} in brief: every chapter's big idea, key points, checklist and one thing to try this week. Free online and as a PDF.", body,
           extra_head=ld({"@type": "Book", "name": f"{TITLE}: The Essentials", "author": {"@type": "Person", "name": AUTHOR}, "publisher": ORG,
-                         "isAccessibleForFree": True, "url": SITE + DIR + "/essentials", "isBasedOn": {"@id": SITE + LANDING + "#book"}},
-                        crumbs=[("Insights", "insights"), (TITLE, LANDING), ("The Essentials", f"{DIR}/essentials")]),
+                         "isAccessibleForFree": True, "url": SITE + DIR + "/essentials", "isBasedOn": {"@id": SITE + START[1:] + "#book"}},
+                        crumbs=[("Insights", "insights"), (TITLE, START[1:]), ("The Essentials", f"{DIR}/essentials")]),
           image=f"{ASSETS}/cover-essentials-og.jpg", nav="insights.html", og_type="book"))
 
 
 def promo():
     """The Books block on the Insights page."""
     return f'''<aside class="books-promo reveal" aria-label="Free book" data-ask="{TITLE}: free book" data-kind="Book" data-keywords="book ebook pdf playbook essentials guide download free">
-      <a class="bp-covers" href="/{LANDING}" tabindex="-1" aria-hidden="true"><img src="{ASSETS}/cover.webp" alt="" width="720" height="1080" loading="lazy"><img src="{ASSETS}/cover-essentials.webp" alt="" width="720" height="1080" loading="lazy"></a>
+      <a class="bp-covers" href="{START}" tabindex="-1" aria-hidden="true"><img src="{ASSETS}/cover.webp" alt="" width="720" height="1080" loading="lazy"><img src="{ASSETS}/cover-essentials.webp" alt="" width="720" height="1080" loading="lazy"></a>
       <div class="bp-text">
         <div class="eyebrow">New · Free book</div>
-        <h2><a href="/{LANDING}">{TITLE}</a></h2>
+        <h2><a href="{START}">{TITLE}</a></h2>
         <p>{SUBTITLE}. Eighteen chapters on building and leading products, with AI inside every one. Read it online, download the PDF, or start with The Essentials.</p>
-        <div class="btn-row"><a class="btn sm" href="/{LANDING}">Read online</a>{download_buttons("btn sm ghost")}<a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a>{ess_download("btn sm ghost")}</div>
+        <div class="btn-row"><a class="btn sm" href="{START}">Read online</a>{download_buttons("btn sm ghost")}<a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a>{ess_download("btn sm ghost")}</div>
       </div>
     </aside>'''
 
@@ -274,10 +242,13 @@ def build(page, write, ld, ORG, SITE, cta_band):
 
 
 def sitemap_paths():
-    return [LANDING] + [url(e)[1:] for e in pages()] + [f"{DIR}/essentials"]
+    return [url(e)[1:] for e in pages()] + [f"{DIR}/essentials"]
 
 
 def llms_lines(SITE):
-    return "\n".join([f"- [{TITLE}]({SITE}{LANDING}): {SUBTITLE}. A free book, online and as a PDF ({SITE}{PDF}).",
+    return "\n".join([f"- [{TITLE}]({SITE}{START[1:]}): {SUBTITLE}. A free book, online and as a PDF ({SITE}{PDF}).",
                       f"- [The Essentials]({SITE}{DIR}/essentials): the book in brief, every chapter's big idea, key points and checklist (PDF: {SITE}{ESS_PDF})."]
                      + [f"  - [{label(e)}: {e['title']}]({SITE}{url(e)[1:]})" for e in pages()])
+
+
+START = start()
