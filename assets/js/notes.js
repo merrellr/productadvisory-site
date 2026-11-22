@@ -319,26 +319,44 @@
     toast("Saved. Find your highlights under Notes, bottom right.");
   }
 
-  /* ---------------------------------------------------------------- the Notes panel */
+  /* ---------------------------------------------------------------- the Notes panel
+     Notes lives on the left (Compass, the assistant, has the bottom right): in the page's left column on wide
+     screens, where it stays in view as you read, and as a small button bottom left otherwise. The list opens on the
+     left. */
   var fab = el("button", { type: "button", class: "pa-note-ui pa-notes-fab", "aria-expanded": "false", "aria-controls": "pa-notes-panel", html: ICON.list + '<span>Notes</span><b class="pa-fab-n"></b>' });
   var panel = el("aside", { class: "pa-note-ui pa-notes-panel", id: "pa-notes-panel", "aria-label": "Your highlights and notes", hidden: true });
   document.body.appendChild(fab);
   document.body.appendChild(panel);
+  var railBtn = null, opener = fab, rail = document.querySelector(".post-rail-in");
+  if (rail) {
+    railBtn = el("button", { type: "button", class: "pa-note-ui pa-notes-rail", "aria-expanded": "false", "aria-controls": "pa-notes-panel",
+      html: ICON.list + '<span>My notes</span><b class="pa-fab-n"></b>' });
+    var back = rail.querySelector(".link-back");
+    rail.insertBefore(railBtn, back ? back.nextSibling : rail.firstChild);
+    document.documentElement.classList.add("notes-railed");
+    railBtn.addEventListener("click", function () { panel.hidden ? openPanel(railBtn) : closePanel(); });
+  }
   var view = { scope: "page", tag: "" };
-  fab.addEventListener("click", function () { panel.hidden ? openPanel() : closePanel(); });
+  fab.addEventListener("click", function () { panel.hidden ? openPanel(fab) : closePanel(); });
   panel.addEventListener("keydown", function (e) { if (e.key === "Escape") closePanel(); });
-  function openPanel() {
-    panel.hidden = false; fab.setAttribute("aria-expanded", "true");
+  function setOpen(on) { [fab, railBtn].forEach(function (b) { if (b) b.setAttribute("aria-expanded", on ? "true" : "false"); }); }
+  function openPanel(from) {
+    opener = from || fab;
+    panel.classList.toggle("from-rail", opener === railBtn);
+    panel.hidden = false; setOpen(true);
     renderPanel(); bridge(); sync();
     var h = panel.querySelector("h2"); if (h) h.focus();
-    track("notes_open");
+    track("notes_open", { from: opener === railBtn ? "rail" : "button" });
   }
-  function closePanel() { panel.hidden = true; fab.setAttribute("aria-expanded", "false"); fab.focus(); }
+  function closePanel() { panel.hidden = true; setOpen(false); (opener && opener.offsetParent ? opener : fab).focus(); }
 
   function renderPanel() {
     var mine = here().length;
-    fab.querySelector(".pa-fab-n").textContent = mine ? String(mine) : "";
-    fab.classList.toggle("has", mine > 0);
+    [fab, railBtn].forEach(function (b) {
+      if (!b) return;
+      b.querySelector(".pa-fab-n").textContent = mine ? String(mine) : "";
+      b.classList.toggle("has", mine > 0);
+    });
     if (panel.hidden) return;
     var all = live(), list = view.scope === "page" ? here() : all.slice().sort(function (a, b) { return b.updated - a.updated; });
     var tags = {};
@@ -393,7 +411,7 @@
   function jump(id, edit) {
     var m = root.querySelector('mark.pa-hl[data-note="' + id + '"]');
     if (!m) return false;
-    if (matchMedia("(max-width: 760px)").matches) panel.hidden = true, fab.setAttribute("aria-expanded", "false");
+    if (matchMedia("(max-width: 760px)").matches) { panel.hidden = true; setOpen(false); }
     m.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
     root.querySelectorAll('mark.pa-hl[data-note="' + id + '"]').forEach(function (x) { x.classList.remove("flash"); void x.offsetWidth; x.classList.add("flash"); });
     if (edit) setTimeout(function () { openEditor(id, false); }, 450);

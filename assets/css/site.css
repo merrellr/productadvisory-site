@@ -2216,12 +2216,12 @@ mark.pa-hl.flash { animation: pa-flash 1.4s ease-out; }
 .pa-ed-foot { display: flex; justify-content: space-between; align-items: center; }
 .pa-ed-del { border: 0; background: none; color: var(--warn, #b4441c); font: inherit; font-size: .9rem; cursor: pointer; padding: 6px 4px; }
 .pa-ed-del:hover { text-decoration: underline; }
-.pa-notes-fab { position: fixed; right: 18px; bottom: 18px; z-index: 55; display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--navy); font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 22px rgba(16,30,60,.16); }
+.pa-notes-fab { position: fixed; left: 18px; bottom: 18px; z-index: 55; display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--navy); font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 22px rgba(16,30,60,.16); }
 .pa-notes-fab:hover { border-color: var(--primary); }
 .pa-notes-fab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 .pa-fab-n:empty { display: none; }
 .pa-fab-n { min-width: 20px; padding: 1px 6px; border-radius: 999px; background: var(--primary); color: #fff; font-size: .78rem; text-align: center; }
-.pa-notes-panel { position: fixed; right: 18px; bottom: 74px; z-index: 56; width: min(380px, calc(100vw - 24px)); max-height: min(70vh, 640px); display: flex; flex-direction: column; border-radius: 16px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 18px 44px rgba(16,30,60,.24); overflow: hidden; }
+.pa-notes-panel { position: fixed; left: 18px; bottom: 74px; z-index: 56; width: min(380px, calc(100vw - 24px)); max-height: min(70vh, 640px); display: flex; flex-direction: column; border-radius: 16px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 18px 44px rgba(16,30,60,.24); overflow: hidden; }
 .pa-np-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 6px; }
 .pa-np-head h2 { margin: 0; font-size: 1.1rem; }
 .pa-np-head h2:focus { outline: none; }
@@ -2248,13 +2248,13 @@ mark.pa-hl.flash { animation: pa-flash 1.4s ease-out; }
 .pa-note-toast button { border: 0; background: none; color: #7fd8f2; font: inherit; font-weight: 700; cursor: pointer; }
 .pa-note-bridge { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; left: -9999px; }
 @media (max-width: 760px) {
-  .pa-notes-fab { right: 12px; bottom: 12px; padding: 9px 14px; }
+  .pa-notes-fab { left: 12px; bottom: 12px; padding: 9px 14px; }
   .pa-notes-panel { right: 8px; left: 8px; width: auto; bottom: 64px; max-height: 72vh; }
 }
 @media (prefers-reduced-motion: reduce) { mark.pa-hl.flash { animation: none; } .pa-note-toast { transition: none; } }
 /* the slim audio player sits along the bottom: Notes moves up above it */
 body:has(.listen-mini:not([hidden])) .pa-notes-fab { bottom: 78px; }
-body:has(.listen-mini:not([hidden])) .pa-notes-panel { bottom: 134px; }
+body:has(.listen-mini:not([hidden])) .pa-notes-panel:not(.from-rail) { bottom: 134px; }
 
 /* ---------- e-books (EPUB): the download links and the "Read on your Kindle, Kobo or iPad" page ---------- */
 .ereader-how { color: var(--navy); font-weight: 700; font-size: .92rem; text-decoration: none; }
@@ -2301,13 +2301,27 @@ html.cp-open .pa-compass-fab { display: none; }
 @media (max-width: 760px) { .pa-compass-fab { right: 12px; bottom: 12px; padding: 10px 15px 10px 12px; } }
 @media print { .pa-compass-fab { display: none; } }
 @media (prefers-reduced-motion: reduce) { .pa-compass-fab:hover { transform: none; } }
-/* Notes sits just above Compass */
-html.has-compass .pa-notes-fab { bottom: 74px; }
-html.has-compass .pa-notes-panel { bottom: 130px; }
-@media (max-width: 760px) { html.has-compass .pa-notes-fab { bottom: 66px; } html.has-compass .pa-notes-panel { bottom: 116px; } }
+
 /* above the slim audio player when it's showing */
 body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
-html.has-compass body:has(.listen-mini:not([hidden])) .pa-notes-fab { bottom: 134px; }
 /* Learning's panel, in this site's colours (light and dark) */
 .cp { --surface: var(--card); --ink-soft: var(--ink-2); --gray: var(--muted); --navy-deep: var(--navy); --bg: var(--band); --btn-ink: #fff; --sans: inherit; --display: inherit; font-family: inherit; }
 .cp .cp-u, .cp .cp-send { background: #1c4587; color: #fff; }
+
+/* Notes in the page's left column (wide screens, where that column stays in view): the corner button steps aside,
+   and the list opens down the left */
+.pa-notes-rail { display: none; }
+@media (min-width: 1200px) {
+  html.notes-railed .pa-notes-fab { display: none; }
+  .pa-notes-rail { display: flex; align-items: center; gap: 8px; width: 100%; margin: 0 0 22px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--card); color: var(--navy); font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; text-align: left; }
+  .pa-notes-rail:hover { border-color: var(--primary); }
+  .pa-notes-rail[aria-expanded="true"] { background: var(--tint); border-color: var(--primary); }
+  .pa-notes-rail:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+  .pa-notes-rail svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pa-notes-rail span { flex: 1; }
+  .pa-notes-rail .pa-fab-n:empty { display: none; }
+  .pa-notes-rail .pa-fab-n { min-width: 20px; padding: 1px 6px; border-radius: 999px; background: var(--primary); color: #fff; font-size: .75rem; text-align: center; }
+  .pa-notes-panel.from-rail { left: 0; top: 0; bottom: 0; width: 400px; max-height: none; border-radius: 0; border-width: 0 1px 0 0; z-index: 170; box-shadow: 18px 0 44px rgba(16,30,60,.16); }
+  .pa-notes-panel.from-rail .pa-np-head { padding-top: 22px; }
+}
