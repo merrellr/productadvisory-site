@@ -2286,3 +2286,6 @@ body:has(.listen-mini:not([hidden])) .pa-notes-panel { bottom: 134px; }
 .er-list.compact a { padding: 10px 14px; }
 .er-list.compact b { font-size: .95rem; }
 .post-ereader > b { display: block; margin-bottom: 2px; }
+.er-pick { margin: 22px 0 0; }
+.er-steps.one { grid-template-columns: minmax(0, 640px); }
+.er-steps section[hidden] { display: none; }

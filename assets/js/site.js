@@ -1756,6 +1756,31 @@
     var taken = toursTaken();
     b.classList.toggle("has-new", helpTours().some(function (t) { return taken[t.id] && taken[t.id] < t.v; }));
   }
+  /* "Read on your Kindle, Kobo or iPad": All, or one device's steps. It starts on the device you seem to be using
+     (an iPhone, iPad or Mac shows Apple; Android shows Android; a Kindle's own browser shows Kindle), and remembers a choice. */
+  function initDevicePick() {
+    var pick = $("[data-er-pick]"), steps = $("#er-steps");
+    if (!pick || !steps) return;
+    var KEY = "pa-er-device";
+    var guess = function () {
+      var ua = navigator.userAgent || "";
+      if (/Kindle|Silk/i.test(ua)) return "kindle";
+      if (/Android/i.test(ua)) return "android";
+      if (/iPhone|iPad|iPod|Macintosh/i.test(ua)) return "apple";
+      return "all";
+    };
+    var show = function (d, save) {
+      $$("[role=radio]", pick).forEach(function (b) { b.setAttribute("aria-checked", b.getAttribute("data-device") === d ? "true" : "false"); });
+      $$("section[data-device]", steps).forEach(function (sec) { sec.hidden = d !== "all" && sec.getAttribute("data-device") !== d; });
+      steps.classList.toggle("one", d !== "all");
+      if (save) { try { localStorage.setItem(KEY, d); } catch (e) { /* storage off */ } track("ereader_device", { device: d }); }
+    };
+    $$("[role=radio]", pick).forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-device"), true); }); });
+    radioKeys(pick);
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) { /* storage off */ }
+    show(saved || guess(), false);
+  }
+
   function initHelp() {
     if (!$(".help-btn")) return;
     helpDot();
@@ -2076,6 +2101,7 @@
     initFeedCopy();
     initGuide();
     initHelp();
+    initDevicePick();
     initFormatLanding();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });

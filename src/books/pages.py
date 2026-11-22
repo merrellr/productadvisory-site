@@ -298,11 +298,18 @@ def guide(page, write, ld, ORG, SITE, articles):
     <div class="eyebrow">Free e-books</div>
     <h1>Read on your Kindle, Kobo or iPad</h1>
     <p class="dek">Every Product+ article and <i>{TITLE}</i> come as e-books (EPUB files). The text fits your screen, and your reader's own fonts, sizes and night mode all work.</p>
-    <div class="er-steps">
-      <section><h2>iPad, iPhone or Mac</h2><ol><li>Tap <b>Download</b> on the e-book you want.</li><li>Open the file and choose <b>Books</b> (on iPhone and iPad, from the Share button).</li><li>It's in your library, on every Apple device you use.</li></ol></section>
-      <section><h2>Kindle</h2><ol><li>Download the e-book.</li><li>Send it with Amazon's <b>Send to Kindle</b>: drag it onto <a href="https://www.amazon.com/sendtokindle" target="_blank" rel="noopener">amazon.com/sendtokindle</a>, share it to the Kindle app on your phone, or email it to your Kindle's address.</li><li>Amazon converts it, and it appears on your Kindle and in the Kindle app.</li></ol><p class="small">Emailing it? Add your own address to the approved list in your Amazon account first (Manage your content and devices, then Preferences, then Personal document settings).</p></section>
-      <section><h2>Kobo</h2><ol><li>Download the e-book on your computer.</li><li>Connect your Kobo by USB and drag the file onto it, or save it to your Dropbox or Google Drive if you've linked one to your Kobo.</li><li>Eject the Kobo; the book is in your library.</li></ol></section>
-      <section><h2>Android and others</h2><ol><li>Download the e-book.</li><li>Open it in Google Play Books (choose <b>Upload files</b>) or any e-book app.</li></ol><p class="small">Prefer a fixed page you can print? Every book is also a PDF.</p></section>
+    <div class="seg er-pick" role="radiogroup" aria-label="Show the steps for" data-er-pick>
+      <button type="button" role="radio" aria-checked="true" data-device="all">All</button>
+      <button type="button" role="radio" aria-checked="false" data-device="kindle">Kindle</button>
+      <button type="button" role="radio" aria-checked="false" data-device="apple">Apple</button>
+      <button type="button" role="radio" aria-checked="false" data-device="kobo">Kobo</button>
+      <button type="button" role="radio" aria-checked="false" data-device="android">Android</button>
+    </div>
+    <div class="er-steps" id="er-steps" aria-live="polite">
+      <section data-device="apple"><h2>iPad, iPhone or Mac</h2><ol><li>Tap <b>Download</b> on the e-book you want.</li><li>Open the file and choose <b>Books</b> (on iPhone and iPad, from the Share button).</li><li>It's in your library, on every Apple device you use.</li></ol></section>
+      <section data-device="kindle"><h2>Kindle</h2><ol><li>Download the e-book.</li><li>Send it with Amazon's <b>Send to Kindle</b>: drag it onto <a href="https://www.amazon.com/sendtokindle" target="_blank" rel="noopener">amazon.com/sendtokindle</a>, share it to the Kindle app on your phone, or email it to your Kindle's address.</li><li>Amazon converts it, and it appears on your Kindle and in the Kindle app.</li></ol><p class="small">Emailing it? Add your own address to the approved list in your Amazon account first (Manage your content and devices, then Preferences, then Personal document settings).</p></section>
+      <section data-device="kobo"><h2>Kobo</h2><ol><li>Download the e-book on your computer.</li><li>Connect your Kobo by USB and drag the file onto it, or save it to your Dropbox or Google Drive if you've linked one to your Kobo.</li><li>Eject the Kobo; the book is in your library.</li></ol></section>
+      <section data-device="android"><h2>Android and others</h2><ol><li>Download the e-book.</li><li>Open it in Google Play Books (choose <b>Upload files</b>) or any e-book app.</li></ol><p class="small">Prefer a fixed page you can print? Every book is also a PDF.</p></section>
     </div>
     <h2 id="all">Every e-book</h2>
     <ul class="er-list">
