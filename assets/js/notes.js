@@ -451,6 +451,7 @@
     var changed = false;
     list.forEach(function (r) {
       if (!r || typeof r.id !== "string" || !/^[a-z0-9]{6,24}$/.test(r.id)) return;
+      if (r.kind !== "article" && r.kind !== "book") return;   // lesson and toolkit notes live in Learning (My notes)
       var mine = store.notes[r.id];
       if (!mine || (r.updated || 0) > (mine.updated || 0)) { store.notes[r.id] = r; changed = true; }
     });
