@@ -48,7 +48,7 @@
     return bridge().then(function (f) {
       return new Promise(function (resolve) {
         var id = "c" + Date.now().toString(36) + (++seq);
-        var timer = setTimeout(function () { delete waiting[id]; resolve({ r: null, passages: [] }); }, 30000);
+        var timer = setTimeout(function () { delete waiting[id]; resolve({ r: null, passages: [] }); }, 50000);   // an answer can take a while
         waiting[id] = function (d) { clearTimeout(timer); resolve({ r: d.r, passages: d.passages || [] }); };
         f.contentWindow.postMessage({ pa: "notes", type: "compass-ask", id: id, q: q, h: JSON.stringify(hist || []), page: page ? JSON.stringify(page) : "" }, LEARNING);
       });
