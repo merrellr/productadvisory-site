@@ -2289,3 +2289,25 @@ body:has(.listen-mini:not([hidden])) .pa-notes-panel { bottom: 134px; }
 .er-pick { margin: 22px 0 0; }
 .er-steps.one { grid-template-columns: minmax(0, 640px); }
 .er-steps section[hidden] { display: none; }
+
+/* ---------- Compass, the assistant (assets/js/compass-www.js; the panel and its styles come from Learning) ---------- */
+.pa-compass-fab { position: fixed; right: 18px; bottom: 18px; z-index: 57; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px 11px 14px;
+  border-radius: 999px; border: 0; background: linear-gradient(135deg, #1c4587, #2a7fb8); color: #fff; font: inherit; font-size: .95rem; font-weight: 700; cursor: pointer;
+  box-shadow: 0 10px 26px rgba(16, 30, 60, .28); }
+.pa-compass-fab svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pa-compass-fab:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(16, 30, 60, .32); }
+.pa-compass-fab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+html.cp-open .pa-compass-fab { display: none; }
+@media (max-width: 760px) { .pa-compass-fab { right: 12px; bottom: 12px; padding: 10px 15px 10px 12px; } }
+@media print { .pa-compass-fab { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pa-compass-fab:hover { transform: none; } }
+/* Notes sits just above Compass */
+html.has-compass .pa-notes-fab { bottom: 74px; }
+html.has-compass .pa-notes-panel { bottom: 130px; }
+@media (max-width: 760px) { html.has-compass .pa-notes-fab { bottom: 66px; } html.has-compass .pa-notes-panel { bottom: 116px; } }
+/* above the slim audio player when it's showing */
+body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
+html.has-compass body:has(.listen-mini:not([hidden])) .pa-notes-fab { bottom: 134px; }
+/* Learning's panel, in this site's colours (light and dark) */
+.cp { --surface: var(--card); --ink-soft: var(--ink-2); --gray: var(--muted); --navy-deep: var(--navy); --bg: var(--band); --btn-ink: #fff; --sans: inherit; --display: inherit; font-family: inherit; }
+.cp .cp-u, .cp .cp-send { background: #1c4587; color: #fff; }

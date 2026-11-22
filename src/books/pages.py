@@ -9,7 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 DATA = json.load(open(os.path.join(HERE, "playbook.json")))
 
-NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n'   # highlights, notes and tags (assets/js/notes.js)
+NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n<script src="assets/js/compass-www.js" defer></script>\n'   # highlights, notes and tags (assets/js/notes.js)
 TITLE = "The Product Manager's Playbook"
 SUBTITLE = "Second Edition: Building Products in the Age of AI"
 AUTHOR = "Robert Merrell"

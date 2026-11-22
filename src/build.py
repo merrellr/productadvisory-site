@@ -2025,7 +2025,7 @@ def podcast():
         f.write(head + items + "\n</channel>\n</rss>\n")
 
 
-NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n'   # highlights, notes and tags on articles and the book
+NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n<script src="assets/js/compass-www.js" defer></script>\n'   # highlights, notes and tags on articles and the book
 
 
 def ereader_line(a):
