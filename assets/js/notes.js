@@ -331,8 +331,10 @@
   if (rail) {
     railBtn = el("button", { type: "button", class: "pa-note-ui pa-notes-rail", "aria-expanded": "false", "aria-controls": "pa-notes-panel",
       html: ICON.list + '<span>My notes</span><b class="pa-fab-n"></b>' });
-    var back = rail.querySelector(".link-back");
-    rail.insertBefore(railBtn, back ? back.nextSibling : rail.firstChild);
+    // after the page's own content and its "How this page works" button (so it moves up once that's dismissed);
+    // on the book, before the long list of chapters
+    var chapters = rail.querySelector(".book-toc-w");
+    if (chapters) rail.insertBefore(railBtn, chapters); else rail.appendChild(railBtn);
     document.documentElement.classList.add("notes-railed");
     railBtn.addEventListener("click", function () { panel.hidden ? openPanel(railBtn) : closePanel(); });
   }

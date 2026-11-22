@@ -2313,7 +2313,7 @@ body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
 .pa-notes-rail { display: none; }
 @media (min-width: 1200px) {
   html.notes-railed .pa-notes-fab { display: none; }
-  .pa-notes-rail { display: flex; align-items: center; gap: 8px; width: 100%; margin: 0 0 22px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line);
+  .pa-notes-rail { display: flex; align-items: center; gap: 8px; width: 100%; margin: 16px 0 22px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line);
     background: var(--card); color: var(--navy); font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; text-align: left; }
   .pa-notes-rail:hover { border-color: var(--primary); }
   .pa-notes-rail[aria-expanded="true"] { background: var(--tint); border-color: var(--primary); }
