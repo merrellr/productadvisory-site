@@ -1672,6 +1672,11 @@ def insights():
       '<div><b>New: Product+ Audio.</b> Every article, read aloud, with chapters. Press play on any article, or follow along in your podcast app.</div>'
       + podcast_links_html() + '</aside>') if any(audio_meta(x) for x in full) else ""}
     {playbook.promo()}
+    {('<aside class="listen-promo ereader-promo" aria-label="E-books"><span class="listen-promo-icon" aria-hidden="true">'
+      '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span>'
+      f'<div><b>Read on your e-reader.</b> Every Product+ article in one free e-book, for Kindle, Kobo and Apple Books.</div>'
+      f'<p class="listen-subscribe"><a href="{playbook.ESSAYS}" download>Product+ Essays <small>({os.path.getsize(os.path.join(ROOT, playbook.ESSAYS)) / 1e6:.1f} MB)</small></a> · <a href="/{playbook.GUIDE}">How it works</a></p></aside>')
+      if os.path.exists(os.path.join(ROOT, playbook.ESSAYS)) else ""}
     <div class="format-pick"><span>Read, listen or watch</span>{FORMAT_PICK}<small>Saved in Make it yours.</small></div>
     {watch_view()}
     <div class="insight-filter" role="radiogroup" aria-label="Show articles about" hidden>{chips}</div>
@@ -2023,6 +2028,18 @@ def podcast():
 NOTES_JS = '<script src="assets/js/notes.js" defer></script>\n'   # highlights, notes and tags on articles and the book
 
 
+def ereader_line(a):
+    """On each article: the article as an e-book, every article in one, and how to read them on an e-reader."""
+    mine, coll = f"assets/insights/{a['slug']}/{a['slug']}.epub", playbook.ESSAYS
+    if not os.path.exists(os.path.join(ROOT, mine)):
+        return ""
+    mb = lambda p: f"{os.path.getsize(os.path.join(ROOT, p)) / 1e6:.1f} MB"   # noqa: E731
+    return (f'<p class="post-ereader"><b>Read it on your Kindle, Kobo or iPad.</b> '
+            f'<a href="{mine}" download>This article as an e-book <small>{mb(mine)}</small></a> · '
+            f'<a href="{coll}" download>Every article in one e-book <small>{mb(coll)}</small></a> · '
+            f'<a href="/{playbook.GUIDE}">How to send it</a></p>')
+
+
 def article_page(a, full):
     url = f"{SITE}insights/{a['slug']}"
     m = audio_meta(a)
@@ -2086,6 +2103,7 @@ def article_page(a, full):
     {related_services(a)}
     <aside class="post-foot">
       <p>This article is part of <b>Product+</b>, the Product Advisory newsletter: product thinking, plus the AI and collaboration that turn it into results. {f' It is also <a href="{a["linkedin"]}" {EXT}>on LinkedIn</a>.' if a.get("linkedin") else ""}</p>
+      {ereader_line(a)}
       {subscribe_form("article")}
       <p class="post-call">Want to talk it through? <a href="{BOOK}">Book a free 30-minute call</a>.</p>
     </aside>
@@ -2255,7 +2273,7 @@ def build_all():
     check_search_pages()
     toolkit_zip()
     home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json(); listen_page()
-    playbook.build(page, write, ld, ORG, SITE, cta_band)
+    playbook.build(page, write, ld, ORG, SITE, cta_band, published())
 
 
 if __name__ == "__main__":

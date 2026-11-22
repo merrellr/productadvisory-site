@@ -2255,3 +2255,34 @@ mark.pa-hl.flash { animation: pa-flash 1.4s ease-out; }
 /* the slim audio player sits along the bottom: Notes moves up above it */
 body:has(.listen-mini:not([hidden])) .pa-notes-fab { bottom: 78px; }
 body:has(.listen-mini:not([hidden])) .pa-notes-panel { bottom: 134px; }
+
+/* ---------- e-books (EPUB): the download links and the "Read on your Kindle, Kobo or iPad" page ---------- */
+.ereader-how { color: var(--navy); font-weight: 700; font-size: .92rem; text-decoration: none; }
+.ereader-how:hover { text-decoration: underline; }
+.bp-dl { margin: 12px 0 0; font-size: .88rem; color: var(--muted); line-height: 1.7; }
+.bp-dl span { font-weight: 700; color: var(--ink-2); margin-right: 2px; }
+.bp-dl a { color: var(--navy); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.bp-dl a:hover { text-decoration: underline; }
+.bp-dl small, .post-ereader small, .book-rail-dl small { color: var(--muted); font-weight: 400; }
+.post-ereader { margin: 0 0 16px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); font-size: .95rem; line-height: 1.7; }
+.post-ereader a { color: var(--navy); font-weight: 600; white-space: nowrap; }
+.post-ereader .dl-ico { margin-right: 3px; }
+.ereader { padding: 34px 0 64px; }
+.ereader h1 { font-size: clamp(1.9rem, 4.4vw, 2.7rem); margin: 6px 0 8px; }
+.ereader .dek { font-size: 1.15rem; color: var(--ink-2); max-width: 720px; }
+.er-steps { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); margin: 26px 0 36px; }
+.er-steps section { padding: 18px 20px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.er-steps h2 { font-size: 1.12rem; margin: 0 0 8px; }
+.er-steps ol { margin: 0; padding-left: 1.2em; }
+.er-steps li { margin: 6px 0; color: var(--ink); }
+.er-steps .small { font-size: .85rem; color: var(--muted); margin: 10px 0 0; }
+.er-list { list-style: none; padding: 0; margin: 10px 0 26px; display: grid; gap: 10px; }
+.er-list a { display: flex; gap: 12px; align-items: center; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; }
+.er-list a:hover { border-color: var(--primary); }
+.er-list .dl-ico { flex: none; width: 20px; height: 20px; color: var(--navy); margin: 0; }
+.er-list b { display: block; color: var(--navy); }
+.er-list small { display: block; color: var(--muted); font-size: .85rem; }
+.er-list.compact { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.er-list.compact a { padding: 10px 14px; }
+.er-list.compact b { font-size: .95rem; }
+.post-ereader > b { display: block; margin-bottom: 2px; }

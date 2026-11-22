@@ -1,0 +1,84 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- E-book covers for the Product+ articles (src/books/make_epubs.py renders this with Playwright).
+     make_epubs.py sets window.COVER before the page draws:
+       { kind: 'essays', count, cats: ['strategy', 'agents', ...] }       the collection
+       { kind: 'article', title, dek, topic, cat, date, image }           one article (image: a file:// URL) -->
+<style>
+@font-face{font-family:Lato;font-weight:400;src:url(fonts/Lato-Regular.ttf)}
+@font-face{font-family:Lato;font-weight:700;src:url(fonts/Lato-Bold.ttf)}
+@font-face{font-family:Lato;font-weight:900;src:url(fonts/Lato-Black.ttf)}
+html,body{margin:0;padding:0}
+.c{width:6in;height:9in;box-sizing:border-box;position:relative;overflow:hidden;color:#fff;font-family:Lato,sans-serif}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1.2px);background-size:14px 14px;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.15) 0%,#000 60%);mask-image:linear-gradient(180deg,rgba(0,0,0,.15) 0%,#000 60%)}
+.top{position:absolute;left:.6in;right:.6in;top:.62in}
+.k{display:flex;align-items:center;gap:.1in;font-size:8.5pt;letter-spacing:.24em;text-transform:uppercase;font-weight:900;color:var(--k)}
+.k i{display:inline-block;width:.32in;height:2px;background:var(--acc)}
+h1{margin:.28in 0 0;font-weight:900;line-height:1.02;letter-spacing:-.02em}
+.s{margin-top:.2in;font-size:13pt;line-height:1.32;color:#e3e9f5;max-width:4.4in}
+.e{display:inline-flex;align-items:center;gap:.08in;margin-top:.22in;border:1.2px solid var(--pill);border-radius:99px;padding:.05in .15in;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#f3f6fb}
+.bot{position:absolute;left:.6in;right:.6in;bottom:.5in;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,255,255,.22);padding-top:.13in}
+.a{font-size:13pt;font-weight:900;letter-spacing:.01em}
+.a small{display:block;font-weight:400;font-size:8.5pt;color:#c9d3e6;margin-top:2px;letter-spacing:.02em}
+.wm{display:flex;align-items:center;gap:.06in;font-size:9pt;font-weight:700;color:#e3e9f5}
+.wm b{display:inline-grid;place-items:center;width:.24in;height:.24in;border-radius:4px;background:#fff;color:#12305e;font-weight:900;font-size:9pt}
+
+/* the collection */
+.essays{--k:#ffc8a8;--acc:#eb6834;--pill:rgba(255,200,168,.6);
+  background:radial-gradient(110% 70% at 90% 100%,#3a3f9e 0%,rgba(58,63,158,0) 60%),linear-gradient(165deg,#1d2a6b 0%,#141c4d 45%,#0b1030 100%)}
+.essays h1{font-size:44pt}
+.essays h1 span{display:block;font-weight:400;font-size:20pt;color:#cdd6f2;margin-bottom:.06in;letter-spacing:-.005em}
+.essays h1 b{color:#eb6834}
+svg.art{position:absolute;left:0;bottom:.95in;width:6in;height:3.9in}
+
+/* one article */
+.article{background:linear-gradient(165deg,var(--c1) 0%,var(--c2) 55%,var(--c3) 100%)}
+.article h1{font-size:30pt}
+.article .s{font-size:12.5pt}
+.frame{position:absolute;left:.6in;right:.6in;bottom:1.25in;height:2.95in;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);background:#fff}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-strategy{--c1:#7a3a06;--c2:#5c2a03;--c3:#331600;--k:#ffd29a;--acc:#f2b25c;--pill:rgba(255,210,154,.6)}
+.cat-agents{--c1:#4a2fa6;--c2:#34207a;--c3:#1b1045;--k:#d9ccff;--acc:#b9a2ff;--pill:rgba(217,204,255,.6)}
+.cat-enablement{--c1:#06614a;--c2:#044535;--c3:#01241b;--k:#b6f2db;--acc:#4fd1a5;--pill:rgba(182,242,219,.6)}
+</style></head><body><div class="c" id="c"></div>
+<script>
+const C = window.COVER || { kind: 'essays', count: 17, cats: [] };
+const esc = (t) => String(t).replace(/[&<>"]/g, (x) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[x]));
+const root = document.getElementById('c');
+const bot = '<div class="bot"><div class="a">Product Advisory<small>From the Product+ Newsletter</small></div><div class="wm"><b>P+</b>productadvisory.co</div></div>';
+if (C.kind === 'essays') {
+  root.className = 'c essays';
+  root.innerHTML = '<div class="dots"></div><div class="top"><div class="k"><i></i>Collected articles</div>' +
+    '<h1><span>Product<b>+</b></span>Essays</h1>' +
+    '<div class="s">Product strategy, AI agents and AI enablement. Every article from the Product+ Newsletter, in one book.</div>' +
+    '<div class="e">' + C.count + ' articles</div></div><svg class="art" viewBox="0 0 576 374" id="art"></svg>' + bot;
+  // one page per article, fanned into a rising arc and tinted by topic; the newest stands at the front, lit
+  const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('art');
+  const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; };
+  const defs = el('defs', {});
+  defs.innerHTML = '<filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>';
+  const tint = { strategy: '#f2b25c', agents: '#b9a2ff', enablement: '#4fd1a5' };
+  const n = C.count, cx = 288, cy = 505, R = 300, span = 96;
+  for (let i = 0; i < n; i++) {
+    const t = n === 1 ? 0 : i / (n - 1), ang = (-span / 2 + span * t) * Math.PI / 180;
+    const x = cx + R * Math.sin(ang), y = cy - R * Math.cos(ang), rot = (-span / 2 + span * t) * 0.55;
+    const col = tint[C.cats[i]] || '#cdd6f2', last = i === n - 1;
+    const g = el('g', { transform: 'translate(' + x + ' ' + y + ') rotate(' + rot + ')' });
+    const r = document.createElementNS(NS, 'rect');
+    Object.entries({ x: -21, y: -30, width: 42, height: 60, rx: 4, fill: last ? '#fff' : col, opacity: last ? 1 : 0.32 + 0.55 * t }).forEach(([k, v]) => r.setAttribute(k, v));
+    g.appendChild(r);
+    for (let l = 0; l < 4; l++) {
+      const ln = document.createElementNS(NS, 'rect');
+      Object.entries({ x: -14, y: -20 + l * 9, width: l === 0 ? 20 : 28 - (l % 2) * 6, height: 2.6, rx: 1.3, fill: last ? '#1d2a6b' : 'rgba(11,16,48,.45)' }).forEach(([k, v]) => ln.setAttribute(k, v));
+      g.appendChild(ln);
+    }
+    if (last) { const glow = el('circle', { cx: x, cy: y, r: 46, fill: '#eb6834', opacity: .35, filter: 'url(#g)' }); svg.insertBefore(glow, g); }
+  }
+  el('line', { x1: 40, x2: 536, y1: 364, y2: 364, stroke: 'rgba(255,255,255,.22)', 'stroke-width': 1 });
+} else {
+  root.className = 'c article cat-' + (C.cat || 'strategy');
+  root.innerHTML = '<div class="dots"></div><div class="top"><div class="k"><i></i>Product+ · ' + esc(C.topic || '') + '</div>' +
+    '<h1>' + esc(C.title) + '</h1><div class="s">' + esc(C.dek || '') + '</div></div>' +
+    (C.image ? '<div class="frame"><img src="' + esc(C.image) + '" alt=""></div>' : '') + bot;
+}
+</script></body></html>

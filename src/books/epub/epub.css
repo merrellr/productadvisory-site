@@ -1,0 +1,35 @@
+/* The e-books (EPUB) for the Playbook, The Essentials and the Product+ articles. Kept simple: e-readers apply their
+   own fonts and sizes, so this sets structure and spacing, not a look that fights the reader's settings. */
+body { line-height: 1.5; }
+h1, h2, h3, h4 { font-family: sans-serif; line-height: 1.25; page-break-after: avoid; break-after: avoid; }
+h1 { font-size: 1.6em; margin: 0 0 .6em; }
+h2 { font-size: 1.25em; margin: 1.6em 0 .5em; }
+h3 { font-size: 1.05em; margin: 1.3em 0 .4em; }
+p { margin: 0 0 .85em; }
+a { color: inherit; }
+figure { margin: 1.4em 0; text-align: center; page-break-inside: avoid; break-inside: avoid; }
+figure img, img { max-width: 100%; height: auto; }
+figcaption { font-size: .85em; font-style: italic; margin-top: .4em; text-align: left; }
+blockquote { margin: 1em 0 1em 1em; padding-left: .8em; border-left: 3px solid #888; font-style: italic; }
+blockquote p { margin-bottom: .3em; }
+ul, ol { margin: 0 0 .9em 1.2em; padding: 0; }
+li { margin: .25em 0; }
+table { border-collapse: collapse; width: 100%; font-size: .9em; margin: 1em 0; }
+th, td { border-bottom: 1px solid #999; padding: .3em .4em; text-align: left; vertical-align: top; }
+.dek { font-size: 1.1em; font-style: italic; margin-bottom: .4em; }
+.meta { font-size: .85em; margin-bottom: 1.4em; }
+.box { border: 1px solid #999; border-radius: 4px; padding: .6em .9em; margin: 1.2em 0; }
+.box h2 { margin-top: .2em; font-size: 1.05em; }
+.epigraph { margin: 0 0 1.4em; font-style: italic; }
+.epigraph p:last-child { font-style: normal; font-size: .9em; }
+.part { text-align: center; margin-top: 30%; }
+.part h1 { font-size: 1.9em; }
+.part p { font-variant: small-caps; letter-spacing: .1em; }
+.checklist p { margin: 0 0 .5em; padding-left: 1.3em; text-indent: -1.3em; }
+.foot { margin-top: 2em; padding-top: .8em; border-top: 1px solid #999; font-size: .85em; }
+.titlepage { text-align: center; margin-top: 20%; }
+.titlepage h1 { font-size: 2em; margin-bottom: .2em; }
+.titlepage .sub { font-size: 1.15em; font-style: italic; margin-bottom: 2em; }
+.titlepage .by { font-size: 1.05em; }
+.rights { font-size: .8em; margin-top: 3em; }
+section.footnotes, aside.footnotes { font-size: .85em; }

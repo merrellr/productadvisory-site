@@ -19,6 +19,10 @@ ASSETS = "assets/books/playbook"
 PDF = f"{ASSETS}/the-product-managers-playbook-second-edition.pdf"
 ESS_PDF = f"{ASSETS}/the-product-managers-playbook-essentials.pdf"
 PDF_PAGES = 219
+EPUB = f"{ASSETS}/the-product-managers-playbook-second-edition.epub"      # e-books: src/books/make_epubs.py
+ESS_EPUB = f"{ASSETS}/the-product-managers-playbook-essentials.epub"
+ESSAYS = "assets/insights/product-plus-essays.epub"
+GUIDE = "books/read-on-your-e-reader"
 BLURB = ("A practical guide to product management in the age of AI: finding problems worth solving, strategy, the numbers, "
          "teams, trust, customers and growth, with AI inside every chapter. Eighteen chapters, 49 figures, ten templates "
          "and a checklist for every chapter. Free to read online or download.")
@@ -68,12 +72,18 @@ def size(path):
 DL = ('<svg class="dl-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>')
 
 
-def download_buttons(cls="btn"):
-    return (f'<a class="{cls}" href="{PDF}" download>{DL}Download the PDF <small>{size(PDF)}</small></a>')
+def download_buttons(cls="btn", epub=True):
+    return (f'<a class="{cls}" href="{PDF}" download>{DL}Download the PDF <small>{size(PDF)}</small></a>'
+            + (f'<a class="{cls}" href="{EPUB}" download title="For Kindle, Kobo, Apple Books and other e-readers">{DL}E-book (EPUB) <small>{size(EPUB)}</small></a>' if epub and size(EPUB) else ""))
 
 
-def ess_download(cls="btn ghost"):
-    return f'<a class="{cls}" href="{ESS_PDF}" download>{DL}Essentials PDF <small>{size(ESS_PDF)}</small></a>'
+def ess_download(cls="btn ghost", epub=True):
+    return (f'<a class="{cls}" href="{ESS_PDF}" download>{DL}Essentials PDF <small>{size(ESS_PDF)}</small></a>'
+            + (f'<a class="{cls}" href="{ESS_EPUB}" download title="For Kindle, Kobo, Apple Books and other e-readers">{DL}Essentials e-book <small>{size(ESS_EPUB)}</small></a>' if epub and size(ESS_EPUB) else ""))
+
+
+def how_link(text="Reading on a Kindle, Kobo or iPad? Here's how"):
+    return f'<a class="ereader-how" href="/{GUIDE}">{text} →</a>'
 
 
 def toc_list(current=None, numbered=True):
@@ -114,7 +124,7 @@ def rail(current, sections, back=(f"/{LANDING}", "← The Playbook")):
             f'<details class="book-toc-m"><summary>Contents</summary><nav class="book-toc" aria-label="Book contents (menu)">{toc_list(current)}</nav></details>'
             + (f'<nav class="post-toc" aria-label="On this page"><h2>On this page</h2><ol>{toc}</ol></nav>' if toc else "")
             + f'<nav class="book-toc book-toc-w" aria-label="Book contents"><h2>The book</h2>{toc_list(current)}</nav>'
-            f'<div class="book-rail-dl"><a href="{PDF}" download>{DL}PDF, {size(PDF)}</a><a href="/{DIR}/essentials">The Essentials</a></div>'
+            f'<div class="book-rail-dl"><a href="{PDF}" download>{DL}PDF, {size(PDF)}</a><a href="{EPUB}" download>{DL}E-book, {size(EPUB)}</a><a href="/{DIR}/essentials">The Essentials</a><a href="/{GUIDE}">On a Kindle, Kobo or iPad</a></div>'
             '</div></aside>')
 
 
@@ -141,7 +151,8 @@ def landing(page, write, ld, ORG, SITE, cta_band):
       <p>{BLURB}</p>
       <ul class="book-stats"><li><b>18</b> chapters</li><li><b>49</b> figures</li><li><b>10</b> templates</li><li><b>{words // 1000}k</b> words</li></ul>
       <div class="btn-row"><a class="btn" href="{url(first)}">Read online</a>{download_buttons("btn ghost")}</div>
-      <p class="book-by">By {AUTHOR}, Product Advisory. Audio edition coming soon.</p>
+      <p class="book-by">By {AUTHOR}, Product Advisory. The e-book works on Kindle, Kobo, Apple Books and other e-readers. Audio edition coming soon.</p>
+      <p class="book-by">{how_link()}</p>
     </div>
   </div>
 </section>
@@ -204,7 +215,7 @@ def chapter_page(e, page, write, ld, ORG, SITE):
     </div>
     {pager}
     <aside class="post-foot book-foot">
-      <p><b>Read it your way.</b> Download the whole book as a PDF, or read The Essentials: every chapter on a page or two.</p>
+      <p><b>Read it your way.</b> Download the whole book as a PDF or an e-book for your Kindle, Kobo or iPad, or read The Essentials: every chapter on a page or two. {how_link("How to send it to your e-reader")}</p>
       <div class="btn-row">{download_buttons("btn sm")}<a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a></div>
     </aside>
   </div>
@@ -239,6 +250,7 @@ def essentials_page(page, write, ld, ORG, SITE):
       <h1>The Essentials</h1>
       <p class="dek">{TITLE}, chapter by chapter: the big idea, key points, one figure, the checklist and one thing to try this week.</p>
       <div class="btn-row">{ess_download("btn sm")}<a class="btn sm ghost" href="{START}">The full book</a></div>
+      <p class="byline" style="margin-top:10px">{how_link()}</p>
     </div>
   </header>
   <div class="wrap narrow">
@@ -268,26 +280,63 @@ def promo():
       <div class="bp-text">
         <div class="eyebrow">New · Free book</div>
         <h2><a href="/{LANDING}">{TITLE}</a></h2>
-        <p>{SUBTITLE}. Eighteen chapters on building and leading products, with AI inside every one. Read it online, download the PDF, or start with The Essentials.</p>
-        <div class="btn-row"><a class="btn sm" href="{START}">Read online</a>{download_buttons("btn sm ghost")}<a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a>{ess_download("btn sm ghost")}</div>
+        <p>{SUBTITLE}. Eighteen chapters on building and leading products, with AI inside every one. Read it online, download it, or start with The Essentials.</p>
+        <div class="btn-row"><a class="btn sm" href="{START}">Read online</a><a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a></div>
+        <p class="bp-dl"><span>Download:</span> <a href="{PDF}" download>PDF <small>{size(PDF)}</small></a> · <a href="{EPUB}" download>E-book <small>{size(EPUB)}</small></a> · <a href="{ESS_PDF}" download>Essentials PDF <small>{size(ESS_PDF)}</small></a> · <a href="{ESS_EPUB}" download>Essentials e-book <small>{size(ESS_EPUB)}</small></a> · <a href="/{GUIDE}">Kindle, Kobo or iPad?</a></p>
       </div>
     </aside>'''
 
 
-def build(page, write, ld, ORG, SITE, cta_band):
+def guide(page, write, ld, ORG, SITE, articles):
+    """How to read the e-books on a Kindle, Kobo, iPad or phone, and every e-book in one list."""
+    def row(href, title, sub):
+        return (f'<li><a href="{href}" download>{DL}<span><b>{escape(title)}</b><small>{escape(sub)} · EPUB, {size(href)}</small></span></a></li>' if size(href) else "")
+    arts = "".join(row(f"assets/insights/{a['slug']}/{a['slug']}.epub", a["title"], a["topic"]) for a in articles)
+    body = f'''<section class="ereader">
+  <div class="wrap narrow">
+    <a class="link-back" href="insights.html">← Insights</a>
+    <div class="eyebrow">Free e-books</div>
+    <h1>Read on your Kindle, Kobo or iPad</h1>
+    <p class="dek">Every Product+ article and <i>{TITLE}</i> come as e-books (EPUB files). The text fits your screen, and your reader's own fonts, sizes and night mode all work.</p>
+    <div class="er-steps">
+      <section><h2>iPad, iPhone or Mac</h2><ol><li>Tap <b>Download</b> on the e-book you want.</li><li>Open the file and choose <b>Books</b> (on iPhone and iPad, from the Share button).</li><li>It's in your library, on every Apple device you use.</li></ol></section>
+      <section><h2>Kindle</h2><ol><li>Download the e-book.</li><li>Send it with Amazon's <b>Send to Kindle</b>: drag it onto <a href="https://www.amazon.com/sendtokindle" target="_blank" rel="noopener">amazon.com/sendtokindle</a>, share it to the Kindle app on your phone, or email it to your Kindle's address.</li><li>Amazon converts it, and it appears on your Kindle and in the Kindle app.</li></ol><p class="small">Emailing it? Add your own address to the approved list in your Amazon account first (Manage your content and devices, then Preferences, then Personal document settings).</p></section>
+      <section><h2>Kobo</h2><ol><li>Download the e-book on your computer.</li><li>Connect your Kobo by USB and drag the file onto it, or save it to your Dropbox or Google Drive if you've linked one to your Kobo.</li><li>Eject the Kobo; the book is in your library.</li></ol></section>
+      <section><h2>Android and others</h2><ol><li>Download the e-book.</li><li>Open it in Google Play Books (choose <b>Upload files</b>) or any e-book app.</li></ol><p class="small">Prefer a fixed page you can print? Every book is also a PDF.</p></section>
+    </div>
+    <h2 id="all">Every e-book</h2>
+    <ul class="er-list">
+      {row(EPUB, TITLE, "The full book, second edition")}
+      {row(ESS_EPUB, "The Essentials", "The book in brief")}
+      {row(ESSAYS, "Product+ Essays", "Every Product+ article in one book")}
+    </ul>
+    <h3>Each article on its own</h3>
+    <ul class="er-list compact">{arts}</ul>
+  </div>
+</section>'''
+    write(f"{GUIDE}.html", page(f"{GUIDE}.html", "Read on your Kindle, Kobo or iPad",
+          "Free e-books of every Product+ article and The Product Manager's Playbook, with how to read them on a Kindle, Kobo, iPad or phone.", body,
+          extra_head=ld({"@type": "WebPage", "name": "Read on your Kindle, Kobo or iPad", "url": SITE + GUIDE, "publisher": ORG},
+                        crumbs=[("Insights", "insights"), ("Read on your e-reader", GUIDE)]),
+          image=f"{ASSETS}/cover-og.jpg", nav="insights.html"))
+
+
+def build(page, write, ld, ORG, SITE, cta_band, articles=()):
     landing(page, write, ld, ORG, SITE, cta_band)
+    guide(page, write, ld, ORG, SITE, articles)
     for e in pages():
         chapter_page(e, page, write, ld, ORG, SITE)
     essentials_page(page, write, ld, ORG, SITE)
 
 
 def sitemap_paths():
-    return [LANDING] + [url(e)[1:] for e in pages()] + [f"{DIR}/essentials"]
+    return [LANDING] + [url(e)[1:] for e in pages()] + [f"{DIR}/essentials", GUIDE]
 
 
 def llms_lines(SITE):
     return "\n".join([f"- [{TITLE}]({SITE}{LANDING}): {SUBTITLE}. A free book, online and as a PDF ({SITE}{PDF}).",
-                      f"- [The Essentials]({SITE}{DIR}/essentials): the book in brief, every chapter's big idea, key points and checklist (PDF: {SITE}{ESS_PDF})."]
+                      f"- [The Essentials]({SITE}{DIR}/essentials): the book in brief, every chapter's big idea, key points and checklist (PDF: {SITE}{ESS_PDF}).",
+                      f"- [Read on your Kindle, Kobo or iPad]({SITE}{GUIDE}): free e-books (EPUB) of the book, The Essentials and every Product+ article ({SITE}{ESSAYS})."]
                      + [f"  - [{label(e)}: {e['title']}]({SITE}{url(e)[1:]})" for e in pages()])
 
 
