@@ -12,7 +12,8 @@
   if (!body || window.PACompassWww) return;
   window.PACompassWww = true;
   var LEARNING = "https://assessment.productadvisory.co";
-  var ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>';
+  // CompassIcon: the same drawing as Learning's CompassCore.ICON (compass-core.js); keep the two identical.
+  var ICON = '<svg class="pa-cicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16.95 7.05 12.9 11.1M7.05 16.95l4.05-4.05M16.95 16.95 12.9 12.9M7.05 7.05l4.05 4.05" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".55"/><path d="M12 3.4 13.4 10.6 20.6 12 13.4 13.4 12 20.6 10.6 13.4 3.4 12 10.6 10.6Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M17.4 6.6 12.95 12.95 11.05 11.05Z" fill="#2563EB" stroke="#2563EB" stroke-width=".9" stroke-linejoin="round"/><path d="M6.6 17.4 11.05 11.05 12.95 12.95Z" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round" opacity=".75"/><circle cx="12" cy="12" r="1.05" fill="currentColor"/></svg>';
 
   /* ---------------------------------------------------------------- what Compass can see here */
   window.PACompassPage = function () {
@@ -62,11 +63,11 @@
     if (loading) return loading;
     loading = new Promise(function (resolve, reject) {
       var css = document.createElement("link");
-      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261122c";
+      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261123a";
       document.head.appendChild(css);
       var add = function (src, next) {
         var s = document.createElement("script");
-        s.src = LEARNING + "/" + src + "?v=20261122c"; s.onload = next;
+        s.src = LEARNING + "/" + src + "?v=20261123a"; s.onload = next;
         s.onerror = function () { loading = null; reject(new Error(src)); };
         document.head.appendChild(s);
       };
@@ -76,15 +77,15 @@
   }
   function open() {
     load().then(function () { if (window.PACompass) window.PACompass.toggle(); bridge(); })
-      .catch(function () { fab.querySelector("span").textContent = "Compass is offline"; });
+      .catch(function () { fab.setAttribute("data-tip", "Compass is offline"); fab.setAttribute("aria-label", "Compass is offline"); });
   }
 
   /* ---------------------------------------------------------------- the button */
   var fab = document.createElement("button");
   fab.type = "button"; fab.id = "paCompassFab"; fab.className = "pa-compass-fab";
   fab.setAttribute("data-pa", "compass"); fab.setAttribute("aria-expanded", "false"); fab.setAttribute("aria-controls", "paCompass");
-  fab.setAttribute("aria-label", "Compass: ask about this page"); fab.title = "Compass: ask about this page";
-  fab.innerHTML = ICON + "<span>Compass</span>";
+  fab.setAttribute("aria-label", "Ask Compass"); fab.setAttribute("data-tip", "Ask Compass");   // icon only, with a tooltip
+  fab.innerHTML = ICON;
   fab.addEventListener("click", function () {
     open();
     try { if (window.gtag) window.gtag("event", "compass_open_www", { kind: window.PACompassPage().k }); } catch (e) { /* no analytics */ }

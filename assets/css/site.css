@@ -2292,14 +2292,16 @@ body:has(.listen-mini:not([hidden])) .pa-notes-panel:not(.from-rail) { bottom: 1
 .er-steps section[hidden] { display: none; }
 
 /* ---------- Compass, the assistant (assets/js/compass-www.js; the panel and its styles come from Learning) ---------- */
-.pa-compass-fab { position: fixed; right: 18px; bottom: 18px; z-index: 57; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px 11px 14px;
-  border-radius: 999px; border: 0; background: linear-gradient(135deg, #1c4587, #2a7fb8); color: #fff; font: inherit; font-size: .95rem; font-weight: 700; cursor: pointer;
-  box-shadow: 0 10px 26px rgba(16, 30, 60, .28); }
-.pa-compass-fab svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.pa-compass-fab:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(16, 30, 60, .32); }
+.pa-compass-fab { position: fixed; right: 18px; bottom: 18px; z-index: 57; display: grid; place-items: center; width: 56px; height: 56px; padding: 0;
+  border-radius: 50%; border: 1px solid rgba(255, 255, 255, .14); background: #1e293b; color: #fff; cursor: pointer; box-shadow: 0 10px 26px rgba(15, 23, 42, .35); }
+.pa-compass-fab svg { width: 28px; height: 28px; }
+.pa-compass-fab::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap;
+  padding: 6px 10px; border-radius: 8px; background: #0f172a; color: #fff; font-size: .8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.pa-compass-fab:hover::after, .pa-compass-fab:focus-visible::after { opacity: 1; }
+.pa-compass-fab:hover { transform: translateY(-1px); background: #273449; box-shadow: 0 14px 30px rgba(15, 23, 42, .4); }
 .pa-compass-fab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
 html.cp-open .pa-compass-fab { display: none; }
-@media (max-width: 760px) { .pa-compass-fab { right: 12px; bottom: 12px; padding: 10px 15px 10px 12px; } }
+@media (max-width: 760px) { .pa-compass-fab { right: 12px; bottom: 12px; width: 52px; height: 52px; } }
 @media print { .pa-compass-fab { display: none; } }
 @media (prefers-reduced-motion: reduce) { .pa-compass-fab:hover { transform: none; } }
 
