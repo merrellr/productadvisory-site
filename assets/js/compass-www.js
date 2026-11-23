@@ -13,7 +13,7 @@
   window.PACompassWww = true;
   var LEARNING = "https://assessment.productadvisory.co";
   // CompassIcon: the same drawing as Learning's CompassCore.ICON (compass-core.js); keep the two identical.
-  var ICON = '<svg class="pa-cicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16.95 7.05 12.9 11.1M7.05 16.95l4.05-4.05M16.95 16.95 12.9 12.9M7.05 7.05l4.05 4.05" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".55"/><path d="M12 3.4 13.4 10.6 20.6 12 13.4 13.4 12 20.6 10.6 13.4 3.4 12 10.6 10.6Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M17.4 6.6 12.95 12.95 11.05 11.05Z" fill="#2563EB" stroke="#2563EB" stroke-width=".9" stroke-linejoin="round"/><path d="M6.6 17.4 11.05 11.05 12.95 12.95Z" fill="none" stroke="currentColor" stroke-width=".9" stroke-linejoin="round" opacity=".75"/><circle cx="12" cy="12" r="1.05" fill="currentColor"/></svg>';
+  var ICON = '<svg class="pa-cicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.7 13.2 10.8 20.3 12 13.2 13.2 12 20.3 10.8 13.2 3.7 12 10.8 10.8Z" fill="currentColor" stroke="none"/><path d="M18.15 5.85 12 12 13.94 13.94Z" fill="#2563EB" stroke="none"/><path d="M18.15 5.85 12 12 10.06 10.06Z" fill="#5B9BFF" stroke="none"/><path d="M5.85 18.15 12 12 13.94 13.94Z" fill="#64748B" stroke="none"/><path d="M5.85 18.15 12 12 10.06 10.06Z" fill="#94A3B8" stroke="none"/><circle cx="12" cy="12" r="1.05" fill="#0F172A" stroke="none"/></svg>';
 
   /* ---------------------------------------------------------------- what Compass can see here */
   window.PACompassPage = function () {
@@ -63,11 +63,11 @@
     if (loading) return loading;
     loading = new Promise(function (resolve, reject) {
       var css = document.createElement("link");
-      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261123a";
+      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261123b";
       document.head.appendChild(css);
       var add = function (src, next) {
         var s = document.createElement("script");
-        s.src = LEARNING + "/" + src + "?v=20261123a"; s.onload = next;
+        s.src = LEARNING + "/" + src + "?v=20261123b"; s.onload = next;
         s.onerror = function () { loading = null; reject(new Error(src)); };
         document.head.appendChild(s);
       };

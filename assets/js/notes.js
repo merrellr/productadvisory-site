@@ -323,7 +323,7 @@
      Notes lives on the left (Compass, the assistant, has the bottom right): in the page's left column on wide
      screens, where it stays in view as you read, and as a small button bottom left otherwise. The list opens on the
      left. */
-  var fab = el("button", { type: "button", class: "pa-note-ui pa-notes-fab", "aria-expanded": "false", "aria-controls": "pa-notes-panel", html: ICON.list + '<span>Notes</span><b class="pa-fab-n"></b>' });
+  var fab = el("button", { type: "button", class: "pa-note-ui pa-notes-fab", "aria-expanded": "false", "aria-controls": "pa-notes-panel", "aria-label": "My notes", "data-tip": "My notes", html: ICON.list + '<b class="pa-fab-n"></b>' });
   var panel = el("aside", { class: "pa-note-ui pa-notes-panel", id: "pa-notes-panel", "aria-label": "Your highlights and notes", hidden: true });
   document.body.appendChild(fab);
   document.body.appendChild(panel);

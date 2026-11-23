@@ -1881,7 +1881,7 @@
     helpEl.innerHTML = '<div class="help-panel" role="dialog" aria-modal="true" aria-labelledby="helpTitle">' +
       '<div class="help-head"><h2 id="helpTitle">Help</h2><button type="button" class="help-x" aria-label="Close Help">&times;</button></div>' +
       '<div class="help-body">' +
-      '<button type="button" class="help-this" hidden><span class="help-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.6 9 4.2l6 2.4 5.5-2.4v13.2L15 19.8l-6-2.4-5.5 2.4z"/><path d="M9 4.2v13.2M15 6.6v13.2"/></svg></span>' +
+      '<button type="button" class="help-this" hidden><span class="help-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.75 6.75v13L9 17.5l6 2.25 5.25-2.25v-13L15 6.75Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4.5v13M15 6.75v13" stroke-width="1.8" stroke-linecap="round"/></svg></span>' +
       '<span><b><em class="help-new" hidden>New</em>Take the tour of this page</b><small>A click-through guide, about a minute</small></span></button>' +
       '<h3>Tours</h3><ul class="help-tours"></ul>' +
       '<h3>Find something</h3><button type="button" class="help-search"><span>Search the site, or ask a question</span><kbd>' + (mac ? "⌘" : "Ctrl") + "</kbd><kbd>K</kbd></button>" +

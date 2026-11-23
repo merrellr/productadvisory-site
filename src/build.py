@@ -1076,7 +1076,7 @@ def tour_link(tid, label="New here? Take the quick tour", small=False):
     sub = "" if small else f"<small>{n} steps · about a minute</small>"
     ver = f' data-tour-v="{g["v"]}"' if g.get("v", 1) > 1 else ""   # a changed tour comes back as "New on this page"
     return (f'<button type="button" class="guide-btn{" guide-sm" if small else ""}" data-tour="{tid}"{ver} data-guide="{cfg}">'
-            f'<span class="guide-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.6 9 4.2l6 2.4 5.5-2.4v13.2L15 19.8l-6-2.4-5.5 2.4z"/><path d="M9 4.2v13.2M15 6.6v13.2"/></svg></span>'
+            f'<span class="guide-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.75 6.75v13L9 17.5l6 2.25 5.25-2.25v-13L15 6.75Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4.5v13M15 6.75v13" stroke-width="1.8" stroke-linecap="round"/></svg></span>'
             f'<span><b>{label}</b>{sub}</span></button>')
 
 
