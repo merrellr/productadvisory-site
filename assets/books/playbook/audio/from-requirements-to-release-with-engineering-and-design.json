@@ -1,0 +1,60 @@
+{
+ "duration": 1099.9,
+ "bytes": 8799705,
+ "hash": "4127b124dc7ba6dc",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   16.7,
+   "The forty-page specification"
+  ],
+  [
+   92.4,
+   "Requirements are a conversation, not a contract"
+  ],
+  [
+   254.4,
+   "Working with design"
+  ],
+  [
+   352.55,
+   "Working with engineering"
+  ],
+  [
+   452.19,
+   "From idea to release: the delivery flow"
+  ],
+  [
+   578.39,
+   "Launch readiness"
+  ],
+  [
+   640.8,
+   "After the release: learning"
+  ],
+  [
+   684.53,
+   "Brindlepath in practice: thin slices"
+  ],
+  [
+   804.36,
+   "Common mistakes"
+  ],
+  [
+   871.65,
+   "Try this"
+  ],
+  [
+   906.38,
+   "How AI changes this"
+  ],
+  [
+   1028.13,
+   "Chapter checklist"
+  ]
+ ]
+}

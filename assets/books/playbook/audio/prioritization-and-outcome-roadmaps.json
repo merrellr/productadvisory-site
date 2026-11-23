@@ -1,0 +1,56 @@
+{
+ "duration": 1025.2,
+ "bytes": 8202419,
+ "hash": "b744c79fc60cfffe",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   11.13,
+   "Two hundred and twelve ideas"
+  ],
+  [
+   91.99,
+   "Output versus outcome"
+  ],
+  [
+   182.7,
+   "The outcome roadmap"
+  ],
+  [
+   313.12,
+   "Prioritization frameworks, and when to use them"
+  ],
+  [
+   480.01,
+   "The loudest voice in the room"
+  ],
+  [
+   580.21,
+   "Making room for what keeps the lights on"
+  ],
+  [
+   638.01,
+   "Brindlepath in practice: one hard no"
+  ],
+  [
+   749.82,
+   "Common mistakes"
+  ],
+  [
+   826.55,
+   "Try this"
+  ],
+  [
+   860.28,
+   "How AI changes this"
+  ],
+  [
+   964.21,
+   "Chapter checklist"
+  ]
+ ]
+}

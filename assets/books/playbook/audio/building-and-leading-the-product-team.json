@@ -1,0 +1,56 @@
+{
+ "duration": 1068.3,
+ "bytes": 8547029,
+ "hash": "eebbf052adbefad6",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   13.26,
+   "The team that shipped and the team that didn\u2019t"
+  ],
+  [
+   99.68,
+   "The roles on a product team"
+  ],
+  [
+   248.66,
+   "What makes a team effective"
+  ],
+  [
+   414.84,
+   "Structure and clarity"
+  ],
+  [
+   492.97,
+   "Hiring and growing product managers"
+  ],
+  [
+   619.93,
+   "Remote and hybrid teams"
+  ],
+  [
+   668.33,
+   "Brindlepath in practice: turning a team around"
+  ],
+  [
+   782.51,
+   "Common mistakes"
+  ],
+  [
+   858.11,
+   "Try this"
+  ],
+  [
+   894.33,
+   "How AI changes this"
+  ],
+  [
+   1005.91,
+   "Chapter checklist"
+  ]
+ ]
+}

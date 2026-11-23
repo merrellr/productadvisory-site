@@ -1,0 +1,60 @@
+{
+ "duration": 1031.8,
+ "bytes": 8255264,
+ "hash": "32c7dcceeb9a2244",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   16.17,
+   "A. Problem statement"
+  ],
+  [
+   46.22,
+   "B. One-page product strategy"
+  ],
+  [
+   103.88,
+   "C. Product brief"
+  ],
+  [
+   165.17,
+   "D. One-page roadmap"
+  ],
+  [
+   188.35,
+   "E. Business case"
+  ],
+  [
+   233.09,
+   "F. Pilot agreement"
+  ],
+  [
+   275.11,
+   "G. Launch readiness checklist"
+  ],
+  [
+   352.43,
+   "H. Customer health score"
+  ],
+  [
+   366.17,
+   "I. AI feature evaluation plan"
+  ],
+  [
+   430.79,
+   "J. AI agent job description"
+  ],
+  [
+   476.65,
+   "K. Glossary"
+  ],
+  [
+   815.33,
+   "L. Further reading"
+  ]
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "duration": 1103.7,
+ "bytes": 8830418,
+ "hash": "466c1589ddde0f8a",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   12.15,
+   "The security questionnaire"
+  ],
+  [
+   91.05,
+   "Trust is a product feature"
+  ],
+  [
+   168.55,
+   "The landscape of obligations"
+  ],
+  [
+   326.05,
+   "Security by design"
+  ],
+  [
+   424.55,
+   "Privacy by design"
+  ],
+  [
+   501.49,
+   "Accessibility is part of quality"
+  ],
+  [
+   612.9,
+   "Working with compliance as a partner"
+  ],
+  [
+   674.65,
+   "Brindlepath in practice: the trust package"
+  ],
+  [
+   798.05,
+   "Common mistakes"
+  ],
+  [
+   865.85,
+   "Try this"
+  ],
+  [
+   903.61,
+   "How AI changes this"
+  ],
+  [
+   1026.84,
+   "Chapter checklist"
+  ]
+ ]
+}

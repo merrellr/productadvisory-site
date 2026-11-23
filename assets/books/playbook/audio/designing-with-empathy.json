@@ -1,0 +1,64 @@
+{
+ "duration": 995.2,
+ "bytes": 7962708,
+ "hash": "eba01aa1601780ec",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   10.25,
+   "4:30 in the afternoon"
+  ],
+  [
+   109.24,
+   "Empathy is a method, not a feeling"
+  ],
+  [
+   189.56,
+   "Methods for understanding people"
+  ],
+  [
+   276.75,
+   "Designing for the real environment"
+  ],
+  [
+   363.45,
+   "The users who never log in"
+  ],
+  [
+   435.91,
+   "Balancing empathy and innovation"
+  ],
+  [
+   527.46,
+   "Continuous improvement for user-centricity"
+  ],
+  [
+   574.35,
+   "Brindlepath in practice: the navigator advisory group"
+  ],
+  [
+   686.71,
+   "Accessibility in a real workflow"
+  ],
+  [
+   746.65,
+   "Common mistakes"
+  ],
+  [
+   811.07,
+   "Try this"
+  ],
+  [
+   842.92,
+   "How AI changes this"
+  ],
+  [
+   935.23,
+   "Chapter checklist"
+  ]
+ ]
+}

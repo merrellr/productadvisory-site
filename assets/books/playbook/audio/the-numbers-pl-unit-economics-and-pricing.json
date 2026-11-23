@@ -1,0 +1,52 @@
+{
+ "duration": 1144.9,
+ "bytes": 9159972,
+ "hash": "24fcd0d878921d98",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   11.92,
+   "What does a seat cost us?"
+  ],
+  [
+   96.22,
+   "Reading a SaaS P&L"
+  ],
+  [
+   229.19,
+   "Unit economics: is each customer worth it?"
+  ],
+  [
+   471.59,
+   "Pricing: the most underused lever"
+  ],
+  [
+   692.0,
+   "Making the business case"
+  ],
+  [
+   763.38,
+   "Brindlepath in practice: changing the pricing metric"
+  ],
+  [
+   877.22,
+   "Common mistakes"
+  ],
+  [
+   945.7,
+   "Try this"
+  ],
+  [
+   982.33,
+   "How AI changes this"
+  ],
+  [
+   1086.03,
+   "Chapter checklist"
+  ]
+ ]
+}

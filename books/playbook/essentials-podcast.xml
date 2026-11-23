@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+<channel>
+  <title>The Product Manager&#x27;s Playbook: The Essentials (audio)</title>
+  <link>https://www.productadvisory.co/books/playbook/essentials</link>
+  <atom:link href="https://www.productadvisory.co/books/playbook/essentials-podcast.xml" rel="self" type="application/rss+xml"/>
+  <language>en-us</language>
+  <copyright>© Product Advisory, LLC</copyright>
+  <description>The Essentials of The Product Manager&#x27;s Playbook, read aloud: every chapter&#x27;s big idea, key points, checklist and one thing to try this week. Free, from Product Advisory.</description>
+  <itunes:summary>The Essentials of The Product Manager&#x27;s Playbook, read aloud: every chapter&#x27;s big idea, key points, checklist and one thing to try this week. Free, from Product Advisory.</itunes:summary>
+  <itunes:author>Robert Merrell, Product Advisory</itunes:author>
+  <itunes:type>serial</itunes:type>
+  <itunes:owner><itunes:name>Product Advisory</itunes:name><itunes:email>info@productadvisory.co</itunes:email></itunes:owner>
+  <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-essentials-audio.jpg"/>
+  <image><url>https://www.productadvisory.co//assets/books/playbook/audio/cover-essentials-audio.jpg</url><title>The Product Manager&#x27;s Playbook: The Essentials (audio)</title><link>https://www.productadvisory.co/books/playbook/essentials</link></image>
+  <itunes:category text="Business"><itunes:category text="Management"/></itunes:category>
+  <itunes:category text="Technology"/>
+  <itunes:explicit>false</itunes:explicit>
+  <podcast:locked>no</podcast:locked>
+  <item>
+    <title>The Essentials</title>
+    <description>Every chapter of the book in brief, read aloud. Read along: https://www.productadvisory.co/books/playbook/essentials</description>
+    <link>https://www.productadvisory.co/books/playbook/essentials</link>
+    <guid isPermaLink="false">productadvisory-playbook-essentials</guid>
+    <pubDate>Mon, 23 Nov 2026 00:01:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/books/playbook/audio/essentials.mp3" length="15885747" type="audio/mpeg"/>
+    <itunes:duration>1986</itunes:duration>
+    <itunes:episode>1</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-essentials-audio.jpg"/>
+  </item>
+</channel>
+</rss>

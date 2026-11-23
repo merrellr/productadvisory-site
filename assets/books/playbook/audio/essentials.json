@@ -1,0 +1,92 @@
+{
+ "duration": 1985.6,
+ "bytes": 15885747,
+ "hash": "bb4f42eeddc8a1a2",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   11.19,
+   "About The Essentials"
+  ],
+  [
+   93.3,
+   "The book at a glance"
+  ],
+  [
+   144.58,
+   "1. The Product Leader\u2019s Job, Now"
+  ],
+  [
+   261.13,
+   "2. Finding Problems Worth Solving"
+  ],
+  [
+   367.4,
+   "3. Discovery and Validation, from Interviews to MVP"
+  ],
+  [
+   479.83,
+   "4. Vision, Strategy and Positioning"
+  ],
+  [
+   581.31,
+   "5. Prioritization and Outcome Roadmaps"
+  ],
+  [
+   681.95,
+   "6. The Numbers: P&L, Unit Economics and Pricing"
+  ],
+  [
+   788.34,
+   "7. Managing a Product Portfolio"
+  ],
+  [
+   890.49,
+   "8. Building and Leading the Product Team"
+  ],
+  [
+   984.66,
+   "9. From Requirements to Release, with Engineering and Design"
+  ],
+  [
+   1081.1,
+   "10. Data, Analytics and Evidence-Based Decisions"
+  ],
+  [
+   1174.01,
+   "11. Trust by Design: Security, Privacy and Compliance"
+  ],
+  [
+   1301.51,
+   "12. Designing with Empathy"
+  ],
+  [
+   1397.79,
+   "13. Go-to-Market and Launch"
+  ],
+  [
+   1486.9,
+   "14. Customer Success and Retention"
+  ],
+  [
+   1588.22,
+   "15. Partnerships and Ecosystems"
+  ],
+  [
+   1681.34,
+   "16. Scaling the Product and the Company"
+  ],
+  [
+   1775.63,
+   "17. Building AI Products and Leading with AI Agents"
+  ],
+  [
+   1896.85,
+   "18. The Integrated Playbook"
+  ]
+ ]
+}

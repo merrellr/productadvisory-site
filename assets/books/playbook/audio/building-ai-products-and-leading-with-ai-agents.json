@@ -1,0 +1,72 @@
+{
+ "duration": 1338.8,
+ "bytes": 10711233,
+ "hash": "8ccb6531423ce713",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   11.47,
+   "The demo that was almost perfect"
+  ],
+  [
+   141.25,
+   "Where organizations are"
+  ],
+  [
+   192.8,
+   "When AI is the right tool"
+  ],
+  [
+   277.59,
+   "How much should AI do on its own?"
+  ],
+  [
+   364.65,
+   "Designing AI experiences people can trust"
+  ],
+  [
+   456.57,
+   "Evaluation: the discipline that separates demos from products"
+  ],
+  [
+   602.39,
+   "Grounding AI in your data"
+  ],
+  [
+   663.51,
+   "Cost, speed and model choice"
+  ],
+  [
+   726.39,
+   "Safety, security and responsibility"
+  ],
+  [
+   825.18,
+   "Leading teams that include AI agents"
+  ],
+  [
+   933.6,
+   "From idea to AI product"
+  ],
+  [
+   1018.47,
+   "Brindlepath in practice: the evaluation set"
+  ],
+  [
+   1157.46,
+   "Common mistakes"
+  ],
+  [
+   1221.96,
+   "Try this"
+  ],
+  [
+   1258.39,
+   "Chapter checklist"
+  ]
+ ]
+}
