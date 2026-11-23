@@ -1402,7 +1402,10 @@
     var starts = chBtns.map(function (b) { return +b.getAttribute("data-t"); });
     var duration = +seek.max, slug = box.getAttribute("data-slug"), title = box.getAttribute("data-title");
     var started = false, dragging = false, cur = -1, marks = [25, 50, 75, 100], sent = {}, lastSave = 0;
-    var KEY = "pa-listen-pos:" + slug, SPEEDS = [1, 1.25, 1.5, 2];
+    var KEY = "pa-listen-pos:" + slug, SPEEDS = [0.75, 1, 1.25, 1.5, 1.75, 2];
+    var UNIT = box.getAttribute("data-unit") || "Chapter", BOOK = box.getAttribute("data-book") || "";
+    var nextUrl = box.getAttribute("data-next-url"), nextTitle = box.getAttribute("data-next-title"), nextSrc = box.getAttribute("data-next-src");
+    var away = null;   // a book: the next chapter playing on from here while the page was hidden ({url, title})
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     function clock(s) { s = Math.max(0, Math.round(s || 0)); var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = ("0" + s % 60).slice(-2); return h ? h + ":" + ("0" + m).slice(-2) + ":" + x : m + ":" + x; }
     function store(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { } }
@@ -1426,6 +1429,7 @@
     }
     function refresh(tt) {
       var t = typeof tt === "number" ? tt : audio.currentTime;
+      if (away) { awayTick(t); return; }
       if (!dragging) seek.value = Math.floor(t);
       at.textContent = clock(t);
       left.textContent = "-" + clock(duration - t);
@@ -1433,7 +1437,7 @@
       if (i !== cur) {
         cur = i;
         chBtns.forEach(function (b, j) { b.classList.toggle("on", j === i); b.classList.toggle("done", j < i); if (j === i) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); });
-        nowN.textContent = "Chapter " + (i + 1) + " of " + starts.length;
+        nowN.textContent = UNIT + " " + (i + 1) + " of " + starts.length;
         nowName.textContent = chBtns[i].querySelector(".listen-ch-name").textContent;
         if (mini) mini.querySelector(".listen-mini-ch").textContent = (i + 1) + " / " + starts.length + " · " + nowName.textContent;
         document.querySelectorAll(".listen-next").forEach(function (b) { b.disabled = i >= starts.length - 1; });
@@ -1446,7 +1450,8 @@
       if (mini) mini.querySelector(".listen-mini-bar i").style.width = (t / duration * 100).toFixed(1) + "%";
       var pct = t / duration * 100;
       marks.forEach(function (m) { if (pct >= m - 0.5 && !sent[m]) { sent[m] = true; track("audio_progress", { article: slug, percent: m }); } });
-      if (started && Math.abs(t - lastSave) > 5) { lastSave = t; store(KEY, t > 10 && t < duration - 15 ? String(Math.floor(t)) : null); }
+      if (started && Math.abs(t - lastSave) > 5) { lastSave = t; store(KEY, t > 10 && t < duration - 15 ? String(Math.floor(t)) : null); bookSave(location.pathname, title, t); }
+      sleepTick();
       if ("mediaSession" in navigator && navigator.mediaSession.setPositionState && audio.duration) {
         try { navigator.mediaSession.setPositionState({ duration: audio.duration, playbackRate: audio.playbackRate, position: Math.min(t, audio.duration) }); } catch (e) { }
       }
@@ -1470,21 +1475,26 @@
     // Each word of a block in its own <span>, with when it is spoken (its share of the block's time, by length).
     function wrapWords(el) {
       if (el._words) return el._words;
-      var list = [], walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+      var list = [], walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode: function (x) { return x.parentNode.closest("sup") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; } }), nodes = [], n;
       while ((n = walker.nextNode())) nodes.push(n);
+      // where each word sits in the block's text with spaces tidied (as the narration counts it), for the sentence marks
+      var flat = "";
       nodes.forEach(function (node) {
         var parts = node.nodeValue.split(/(\s+)/);
-        if (parts.length < 2 && !node.nodeValue.trim()) return;
+        if (parts.length < 2 && !node.nodeValue.trim()) { if (node.nodeValue && flat && flat.slice(-1) !== " ") flat += " "; return; }
         var frag = document.createDocumentFragment();
         parts.forEach(function (p) {
           if (!p) return;
-          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
-          var w = document.createElement("span"); w.className = "ra-w"; w.textContent = p; frag.appendChild(w); list.push(w);
+          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); if (flat && flat.slice(-1) !== " ") flat += " "; return; }
+          var w = document.createElement("span"); w.className = "ra-w"; w.textContent = p; w._ch = flat.length; flat += p; frag.appendChild(w); list.push(w);
         });
         node.parentNode.replaceChild(frag, node);
       });
       var total = list.reduce(function (a, w) { return a + w.textContent.length + 1; }, 0) || 1, acc = 0;
       list.forEach(function (w) { w._at = acc / total; acc += w.textContent.length + 1; });
+      // the book knows when each sentence starts (data-s: "offset:seconds,..."), so the words follow the voice closely
+      el._anchors = (el.getAttribute("data-s") || "").split(",").filter(Boolean).map(function (x) { var p = x.split(":"); return [+p[0], +p[1]]; });
+      el._chars = flat.length;
       el._words = list;
       return list;
     }
@@ -1502,8 +1512,17 @@
         if (follow) keepInView(blocks[i]);
       }
       if (!words || !words.length) return;
-      var f = (t - bt[active][0]) / Math.max(0.2, bt[active][1] - bt[active][0]), k = 0;
-      for (var j = 0; j < words.length; j++) { if (words[j]._at <= f) k = j; }
+      var el = blocks[active], A = el._anchors || [], k = 0, j;
+      if (A.length > 1) {
+        var s = 0;
+        for (j = 0; j < A.length; j++) if (A[j][1] <= t) s = j;
+        var sEnd = s + 1 < A.length ? A[s + 1][1] - 0.22 : bt[active][1], cEnd = s + 1 < A.length ? A[s + 1][0] : el._chars;
+        var ch = A[s][0] + Math.max(0, Math.min(1, (t - A[s][1]) / Math.max(0.2, sEnd - A[s][1]))) * (cEnd - A[s][0]);
+        for (j = 0; j < words.length; j++) { if (words[j]._ch <= ch) k = j; }
+      } else {
+        var f = (t - bt[active][0]) / Math.max(0.2, bt[active][1] - bt[active][0]);
+        for (j = 0; j < words.length; j++) { if (words[j]._at <= f) k = j; }
+      }
       if (k !== lastWord) {
         words.forEach(function (w, j) { w.classList.toggle("ra-done", j < k); w.classList.toggle("ra-now", j === k); });
         lastWord = k;
@@ -1586,7 +1605,14 @@
       status.textContent = "Paused";
       store(KEY, audio.currentTime > 10 && audio.currentTime < duration - 15 ? String(Math.floor(audio.currentTime)) : null);
     });
-    audio.addEventListener("ended", function () { status.textContent = "Finished. Thanks for listening."; store(KEY, null); clearActive(); });
+    audio.addEventListener("ended", function () {
+      if (away) { awayEnded(); return; }
+      store(KEY, null); clearActive();
+      if (nextUrl && sleep !== "end") return upNext();
+      if (sleep === "end") setSleep(0);
+      status.textContent = "Finished. Thanks for listening.";
+      if (BOOK) bookSave(location.pathname, title, null);
+    });
     audio.addEventListener("timeupdate", function () { refresh(); });
 
     // pick up where you left off
@@ -1628,8 +1654,7 @@
     // lock screen, headphones and car controls
     if ("mediaSession" in navigator) {
       try {
-        navigator.mediaSession.metadata = new MediaMetadata({ title: title, artist: "Product Advisory", album: "Product+ Audio",
-          artwork: [{ src: "/assets/audio/podcast-cover.jpg", sizes: "3000x3000", type: "image/jpeg" }] });
+        setMeta(title);
         var ms = navigator.mediaSession;
         ms.setActionHandler("play", play);
         ms.setActionHandler("pause", function () { audio.pause(); });
@@ -1641,9 +1666,164 @@
       } catch (e) { /* older browsers: the page controls still work */ }
     }
 
+    function setMeta(t) {
+      if (!("mediaSession" in navigator) || !window.MediaMetadata) return;
+      var cover = box.getAttribute("data-cover") || "/assets/audio/podcast-cover.jpg";
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({ title: t, artist: BOOK ? "Robert Merrell · Product Advisory" : "Product Advisory",
+          album: box.getAttribute("data-album") || "Product+ Audio", artwork: [{ src: cover, sizes: "3000x3000", type: "image/jpeg" }] });
+      } catch (e) { /* older browsers */ }
+    }
+
+    /* ---- the book: where you are in it, and going on to the next chapter ----
+       Each book page remembers its own place (above); the book also remembers the last page listened to, for
+       "Continue listening" on the book's landing page. At the end of a chapter the next one starts: on screen, after a
+       short "Up next" (which can be cancelled) by opening its page, where it plays on; with the phone locked or the tab
+       in the background, right here, without leaving the page, and the page offers to catch up when you come back. */
+    function bookSave(url, t, sec) {
+      if (!BOOK) return;
+      try {
+        if (sec === null) localStorage.removeItem("pa-book-pos:" + BOOK);
+        else localStorage.setItem("pa-book-pos:" + BOOK, JSON.stringify({ url: url, title: t, t: Math.floor(sec || 0), at: Date.now() }));
+      } catch (e) { }
+    }
+    var upTimer = 0;
+    function upNext() {
+      if (document.hidden) return goAway();
+      var n = 5, btn = box.querySelector(".listen-resume");
+      var tick = function () {
+        if (n <= 0) { btn.hidden = true; return goNext(0); }
+        status.textContent = "Up next in " + n + ": " + nextTitle;
+        n--; upTimer = setTimeout(tick, 1000);
+      };
+      btn.textContent = "Cancel"; btn.hidden = false;
+      btn.onclick = function () { clearTimeout(upTimer); btn.hidden = true; btn.onclick = null; status.textContent = "Finished. Up next: " + nextTitle; track("audio_next_cancel", { from: slug }); };
+      track("audio_next", { from: slug, how: "page" });
+      tick();
+    }
+    function goNext(t) {
+      try { sessionStorage.setItem("pa-listen-auto", nextUrl); } catch (e) { }
+      location.href = nextUrl + (t > 1 ? "#listen-t=" + Math.floor(t) : "#listen");
+    }
+    function goAway() {
+      away = { url: nextUrl, title: nextTitle };
+      track("audio_next", { from: slug, how: "background" });
+      clearActive();
+      audio.src = nextSrc; play();
+      setMeta(nextTitle);
+      status.textContent = "Now playing: " + nextTitle;
+      var btn = box.querySelector(".listen-resume");
+      btn.textContent = "Go to " + nextTitle; btn.hidden = false;
+      btn.onclick = function () { goNext(audio.currentTime); };
+    }
+    function awayTick(t) {
+      at.textContent = clock(t);
+      if (audio.duration) left.textContent = "-" + clock(audio.duration - t);
+      if (Math.abs(t - lastSave) > 5) { lastSave = t; bookSave(away.url, away.title, t); }
+      if ("mediaSession" in navigator && navigator.mediaSession.setPositionState && audio.duration) {
+        try { navigator.mediaSession.setPositionState({ duration: audio.duration, playbackRate: audio.playbackRate, position: Math.min(t, audio.duration) }); } catch (e) { }
+      }
+      sleepTick();
+    }
+    function awayEnded() { status.textContent = "Finished " + away.title + ". Open it to go on."; bookSave(away.url, away.title, 0); }
+    // back on the page after the next chapter started in the background: offer to catch up (it keeps playing either way)
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden && away) { var btn = box.querySelector(".listen-resume"); btn.textContent = "Go to " + away.title + " (" + clock(audio.currentTime) + ")"; btn.hidden = false; }
+    });
+
+    /* ---- sleep timer: off, 15, 30, 45 or 60 minutes, or the end of this chapter (or article) ---- */
+    var sleep = 0, sleepAt = 0, sleepBtn = box.querySelector(".listen-sleep"), SLEEPS = [0, 15, 30, 45, 60, "end"];
+    function setSleep(v) {
+      sleep = v; sleepAt = typeof v === "number" && v ? Date.now() + v * 60000 : 0;
+      if (!sleepBtn) return;
+      var lab = !v ? "Off" : v === "end" ? "End of " + (BOOK ? "chapter" : "article") : v + " min";
+      sleepBtn.querySelector("span").textContent = v ? lab : "Sleep";
+      sleepBtn.classList.toggle("on", !!v);
+      sleepBtn.setAttribute("aria-label", "Sleep timer: " + lab + ". Change it");
+    }
+    function sleepTick() {
+      if (!sleepAt) return;
+      var left = sleepAt - Date.now();
+      if (left <= 0) { setSleep(0); audio.pause(); status.textContent = "Sleep timer: paused. Sleep well."; track("audio_sleep_done", { article: slug }); return; }
+      if (sleepBtn) sleepBtn.querySelector("span").textContent = Math.ceil(left / 60000) + " min";
+    }
+    if (sleepBtn) {
+      setSleep(0);
+      sleepBtn.addEventListener("click", function () { setSleep(SLEEPS[(SLEEPS.indexOf(sleep) + 1) % SLEEPS.length]); track("audio_sleep", { article: slug, value: String(sleep) }); });
+    }
+
+    /* ---- "Save this moment": the sentence being read, as a highlight with a note (assets/js/notes.js) ---- */
+    var saveBtn = box.querySelector(".listen-save");
+    function sentenceRange(t) {
+      var i = blockAt(t);
+      if (i < 0) return null;
+      var el = blocks[i], ws = wrapWords(el), A = el._anchors || [], from = 0, to = el._chars;
+      for (var j = 0; j < A.length; j++) if (A[j][1] <= t) { from = A[j][0]; to = j + 1 < A.length ? A[j + 1][0] : el._chars; }
+      var inS = ws.filter(function (w) { return w._ch >= from && w._ch < to; });
+      if (!inS.length) inS = ws;
+      if (!inS.length) return null;
+      var r = document.createRange();
+      r.setStartBefore(inS[0]); r.setEndAfter(inS[inS.length - 1]);
+      return r;
+    }
+    function showSave() { if (saveBtn) saveBtn.hidden = !(window.PANotes && blocks.length && started && !away); }
+    if (saveBtn) {
+      saveBtn.addEventListener("click", function () {
+        var r = sentenceRange(audio.currentTime);
+        if (!r || !window.PANotes) return;
+        var wasPlaying = !audio.paused;
+        if (window.PANotes.saveRange(r, "Saved while listening, at " + clock(audio.currentTime) + ".")) {
+          track("audio_save_moment", { article: slug });
+          if (wasPlaying) status.textContent = "Saved to your notes. Still playing.";
+        }
+      });
+      document.addEventListener("pa:notes-ready", showSave);
+      audio.addEventListener("play", showSave);
+    }
+
+    // arriving from the previous chapter (it played on into this one), or from "Continue listening"
+    var auto = null, hm = /#listen-t=(\d+)/.exec(location.hash);
+    try { auto = sessionStorage.getItem("pa-listen-auto"); if (auto) sessionStorage.removeItem("pa-listen-auto"); } catch (e) { }
+    if (hm || (auto && location.pathname === auto.split("#")[0])) {
+      var from = hm ? +hm[1] : 0;
+      box.classList.add("open");
+      $$('.fmts [data-open="listen"]').forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
+      if (hm) history.replaceState(null, "", location.pathname + "#listen");
+      setTimeout(function () {
+        audio.currentTime = from; refresh(from);
+        var p = audio.play();
+        if (p && p.catch) p.catch(function () {   // the browser wants a tap first
+          var btn = box.querySelector(".listen-resume");
+          btn.textContent = "Continue listening" + (from ? " from " + clock(from) : ""); btn.hidden = false;
+          btn.onclick = function () { btn.hidden = true; go(from, "continue"); };
+          box.scrollIntoView({ block: "center" });
+        });
+      }, 60);
+    }
+
     setSpeed(SPEEDS.indexOf(+read("pa-listen-speed")) > -1 ? +read("pa-listen-speed") : 1);
     if (raBtn) raBtn.setAttribute("aria-pressed", String(readAlong));
     var dl = box.querySelector(".listen-dl"); if (dl) dl.addEventListener("click", function () { track("audio_download", { article: slug }); });
+  }
+
+  /* The book's landing page: "Continue listening" where you left off, from any chapter (saved by initListen). */
+  function initBookResume() {
+    // a chapter picked to listen to starts playing when its page opens
+    $$("a[data-listen-go]").forEach(function (a) {
+      a.addEventListener("click", function () { try { sessionStorage.setItem("pa-listen-auto", a.pathname); } catch (e) { } });
+    });
+    $$("[data-book-resume]").forEach(function (box) {
+      var p = null;
+      try { p = JSON.parse(localStorage.getItem("pa-book-pos:" + box.getAttribute("data-book-resume")) || "null"); } catch (e) { }
+      if (!p || !p.url || !/^\/books\//.test(p.url)) return;
+      var m = Math.floor((p.t || 0) / 60), s = ("0" + Math.floor((p.t || 0) % 60)).slice(-2);
+      var a = document.createElement("a");
+      a.className = "ae-continue"; a.href = p.url + (p.t > 5 ? "#listen-t=" + Math.floor(p.t) : "#listen");
+      a.innerHTML = "<b>Continue listening</b><span></span>";
+      a.querySelector("span").textContent = p.title + (p.t > 5 ? " · " + m + ":" + s : "");
+      a.addEventListener("click", function () { try { sessionStorage.setItem("pa-listen-auto", p.url); } catch (e) { } track("audio_book_continue", {}); });
+      box.appendChild(a); box.hidden = false;
+    });
   }
 
   /* "Copy the podcast feed (RSS)": copies the feed's address for pasting into a podcast app (opens the feed if copying isn't possible). */
@@ -2094,7 +2274,7 @@
     initSubscribe();
     initConsent();
     initFigureZoom();
-    initListen();
+    initListen(); initBookResume();
     initVideos();
     initMediaToggles();
     initPostRail();

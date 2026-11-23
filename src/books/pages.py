@@ -43,6 +43,26 @@ def chapters():
 START = None  # set below
 
 
+
+def chapter_body(e):
+    """A chapter's text, as on its page (also what src/books/make_book_audio.py reads aloud)."""
+    return e["html"].replace('role="doc-endnotes">\n<hr />', 'role="doc-endnotes">\n<h2>Notes</h2>')
+
+
+def essentials_body():
+    """The Essentials' text, as on its page (also what src/books/make_book_audio.py reads aloud)."""
+    by_num = {c["num"]: c for c in chapters()}
+    out = []
+    for b in DATA["essentials"]:
+        if b["kind"] == "part":
+            out.append(f'<p class="ess-part">Part {b["num"]}: {escape(b["title"])}</p>')
+            continue
+        num = b["title"].split(".")[0]
+        more = by_num.get(int(num)) if num.isdigit() else None
+        link = f'<p class="ess-more"><a href="{url(more)}">Read the full chapter →</a></p>' if more else ""
+        out.append(f'<section class="ess-sec"><h2 id="{b["id"]}">{escape(b["title"])}</h2>{b["html"]}{link}</section>')
+    return "".join(out)
+
 def part_of(entry):
     part = None
     for e in DATA["chapters"]:
@@ -140,6 +160,8 @@ def landing(page, write, ld, ORG, SITE, cta_band):
             n = f'<span class="bk-n">{e["num"]}</span>' if e["kind"] == "chapter" else '<span class="bk-n"></span>'
             contents.append(f'<a class="bk-ch" href="{url(e)}">{n}<span class="bk-t">{escape(e["title"])}</span>'
                             f'<small>{minutes(e["words"])} min</small></a>')
+    from books import audiobook
+    audio_line = (' Free audio edition too: <a href="#listen">listen to the book</a>.' if audiobook.totals()[0] and audiobook.TOOLS else " Audio edition coming soon.")
     body = f'''<section class="book-hero">
   <div class="wrap">
     <div class="book-cover"><img src="{ASSETS}/cover.webp" alt="Cover: {TITLE}, second edition, by {AUTHOR}" width="720" height="1080" fetchpriority="high"></div>
@@ -151,11 +173,12 @@ def landing(page, write, ld, ORG, SITE, cta_band):
       <p>{BLURB}</p>
       <ul class="book-stats"><li><b>18</b> chapters</li><li><b>49</b> figures</li><li><b>10</b> templates</li><li><b>{words // 1000}k</b> words</li></ul>
       <div class="btn-row"><a class="btn" href="{url(first)}">Read online</a>{download_buttons("btn ghost")}</div>
-      <p class="book-by">By {AUTHOR}, Product Advisory. The e-book works on Kindle, Kobo, Apple Books and other e-readers. Audio edition coming soon.</p>
+      <p class="book-by">By {AUTHOR}, Product Advisory. The e-book works on Kindle, Kobo, Apple Books and other e-readers.{audio_line}</p>
       <p class="book-by">{how_link()}</p>
     </div>
   </div>
 </section>
+{audiobook.listen_section()}
 <section class="band">
   <div class="wrap">
     <div class="ess-card reveal">
@@ -188,7 +211,8 @@ def chapter_page(e, page, write, ld, ORG, SITE):
     part = part_of(e)
     eyebrow = f'{label(e)}' + (f' · Part {part["num"]}: {escape(part["title"])}' if part else "")
     epi = f'<blockquote class="epigraph">{e["epigraph"]}</blockquote>' if e["epigraph"] else ""
-    html = e["html"].replace('role="doc-endnotes">\n<hr />', 'role="doc-endnotes">\n<h2>Notes</h2>')
+    from books import audiobook
+    html, player, fmts = audiobook.player_for(e, chapter_body(e))
     pager = '<nav class="book-pager" aria-label="Chapters">' + \
         (f'<a class="prev" href="{url(prev)}"><small>← Previous</small><b>{escape(prev["title"])}</b></a>' if prev else '<span></span>') + \
         (f'<a class="next" href="{url(nxt)}"><small>Next →</small><b>{escape(nxt["title"])}</b></a>' if nxt else
@@ -207,9 +231,11 @@ def chapter_page(e, page, write, ld, ORG, SITE):
       <h1>{escape(e["title"])}</h1>
       {epi}
       <p class="byline"><a href="/{LANDING}">{TITLE}</a> · {minutes(e["words"])} min read</p>
+      {fmts}
     </div>
   </header>
-  <div class="wrap narrow">
+  <div class="wrap narrow" id="read">
+    {player}
     <div class="prose post-body">
 {html}
     </div>
@@ -229,17 +255,9 @@ def chapter_page(e, page, write, ld, ORG, SITE):
 
 
 def essentials_page(page, write, ld, ORG, SITE):
-    by_num = {c["num"]: c for c in chapters()}
-    blocks, secs = [], []
-    for b in DATA["essentials"]:
-        if b["kind"] == "part":
-            blocks.append(f'<p class="ess-part">Part {b["num"]}: {escape(b["title"])}</p>')
-            continue
-        num = b["title"].split(".")[0]
-        more = by_num.get(int(num)) if num.isdigit() else None
-        link = f'<p class="ess-more"><a href="{url(more)}">Read the full chapter →</a></p>' if more else ""
-        blocks.append(f'<section class="ess-sec"><h2 id="{b["id"]}">{escape(b["title"])}</h2>{b["html"]}{link}</section>')
-        secs.append({"id": b["id"], "title": b["title"]})
+    secs = [{"id": b["id"], "title": b["title"]} for b in DATA["essentials"] if b["kind"] != "part"]
+    from books import audiobook
+    html, player, fmts = audiobook.player_for(None, essentials_body())
     body = f'''<article class="post book-page">
  <div class="post-grid">
   {rail(None, secs)}
@@ -251,11 +269,13 @@ def essentials_page(page, write, ld, ORG, SITE):
       <p class="dek">{TITLE}, chapter by chapter: the big idea, key points, one figure, the checklist and one thing to try this week.</p>
       <div class="btn-row">{ess_download("btn sm")}<a class="btn sm ghost" href="{START}">The full book</a></div>
       <p class="byline" style="margin-top:10px">{how_link()}</p>
+      {fmts}
     </div>
   </header>
-  <div class="wrap narrow">
+  <div class="wrap narrow" id="read">
+    {player}
     <div class="prose post-body">
-{"".join(blocks)}
+{html}
     </div>
     <aside class="post-foot book-foot">
       <p><b>Want the whole story?</b> The full book explains each idea in depth, with worked examples, common mistakes, templates and sources.</p>
@@ -280,8 +300,8 @@ def promo():
       <div class="bp-text">
         <div class="eyebrow">New · Free book</div>
         <h2><a href="/{LANDING}">{TITLE}</a></h2>
-        <p>{SUBTITLE}. Eighteen chapters on building and leading products, with AI inside every one. Read it online, download it, or start with The Essentials.</p>
-        <div class="btn-row"><a class="btn sm" href="{START}">Read online</a><a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a></div>
+        <p>{SUBTITLE}. Eighteen chapters on building and leading products, with AI inside every one. Read it online, listen to it, download it, or start with The Essentials.</p>
+        <div class="btn-row"><a class="btn sm" href="{START}">Read online</a><a class="btn sm ghost" href="/{LANDING}#listen">Listen</a><a class="btn sm ghost" href="/{DIR}/essentials">The Essentials</a></div>
         <p class="bp-dl"><span>Download:</span> <a href="{PDF}" download>PDF <small>{size(PDF)}</small></a> · <a href="{EPUB}" download>E-book <small>{size(EPUB)}</small></a> · <a href="{ESS_PDF}" download>Essentials PDF <small>{size(ESS_PDF)}</small></a> · <a href="{ESS_EPUB}" download>Essentials e-book <small>{size(ESS_EPUB)}</small></a> · <a href="/{GUIDE}">Kindle, Kobo or iPad?</a></p>
       </div>
     </aside>'''
@@ -328,7 +348,12 @@ def guide(page, write, ld, ORG, SITE, articles):
           image=f"{ASSETS}/cover-og.jpg", nav="insights.html"))
 
 
-def build(page, write, ld, ORG, SITE, cta_band, articles=()):
+def build(page, write, ld, ORG, SITE, cta_band, articles=(), tools=None, xml_escape=None):
+    from books import audiobook
+    audiobook.TOOLS.clear()
+    audiobook.TOOLS.update(tools or {})
+    if xml_escape:
+        audiobook.feeds(xml_escape)
     landing(page, write, ld, ORG, SITE, cta_band)
     guide(page, write, ld, ORG, SITE, articles)
     for e in pages():

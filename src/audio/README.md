@@ -79,3 +79,31 @@ The feed is `https://www.productadvisory.co/podcast.xml`.
 ## Lessons (in the PAAssessment repo)
 
 `tools/lesson-audio/` narrates every lesson the same way, in the same voice, into `audio/lessons/`. See its README.
+
+## The book, read aloud
+
+The Product Manager's Playbook and The Essentials have an audio edition, in the same voice and with the same
+pronunciation rules and finishing pass as the articles (it reuses `make_audio.py`).
+
+| File | What it is |
+|---|---|
+| `assets/books/playbook/audio/<slug>.mp3` | one page of the book (or `essentials.mp3`), 64 kbps mono |
+| `assets/books/playbook/audio/<slug>.json` | its length, size and sections |
+| `assets/books/playbook/audio/lines/<slug>.json` | when each paragraph, heading and list item is read, and when each sentence in it starts |
+| `assets/books/playbook/audio/cover-*.jpg` | square covers for podcast apps and lock screens (`--covers`) |
+| `books/playbook/podcast.xml`, `books/playbook/essentials-podcast.xml` | the two podcast feeds, built by `build.py` |
+
+What's read: `src/books/audio.py` decides, from the page's own HTML, so the read-along always matches the page.
+Figures and footnotes are skipped; a table is mentioned ("There's a table here...") but not read.
+
+After the book's text changes (`make_book.py`), narrate it again; only pages whose words changed are redone:
+
+    python src/books/make_book_audio.py --models <folder>          # the whole book and The Essentials
+    python src/books/make_book_audio.py --script <slug>           # what a page will say
+    python3 src/build.py
+
+If a page's text changes and it isn't narrated again, its player stays but the read-along switches itself off.
+
+On the site: each chapter has Read and Listen under its title. The player adds a sleep timer, "Save this moment"
+(the sentence being read becomes a highlight in My notes), and goes on to the next chapter by itself. The book's
+landing page has "Listen to the book": every chapter, MP3 downloads, "Continue listening" and the podcast feeds.

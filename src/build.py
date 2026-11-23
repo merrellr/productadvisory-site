@@ -1841,10 +1841,15 @@ def formats_html(a, m, linked=False):
         + '</span>')
 
 
-def audio_player(a, m):
-    """The article's player: chapters you can see and jump between, skip, speed, and read-along (the paragraph being read
-    is highlighted and followed). A slim player stays on screen while you read. All behaviour: assets/js/site.js, initListen."""
-    mp3 = f"/assets/audio/{a['slug']}.mp3"
+def audio_player(a, m, book=None):
+    """The player: chapters you can see and jump between, skip, speed, a sleep timer, read-along (the paragraph being read
+    is highlighted and followed) and "Save this moment" (a note at the sentence being read). A slim player stays on screen
+    while you read. All behaviour: assets/js/site.js, initListen.
+    For an article, a = the article. For a page of the book, book = {mp3, title, read_along, unit, album, cover, next_url,
+    next_title, next_src, feed, page_url}: the same player, plus going on to the next chapter by itself."""
+    mp3 = book["mp3"] if book else f"/assets/audio/{a['slug']}.mp3"
+    what = "chapter" if book else "article"
+    unit = book["unit"] if book else "Chapter"
     dur = m["duration"]
     chs = m["chapters"]
     ends = [c[0] for c in chs[1:]] + [dur]
@@ -1863,24 +1868,41 @@ def audio_player(a, m):
     back = ico('<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/><text x="12" y="15.5" text-anchor="middle">15</text>')
     fwd = ico('<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/><text x="12" y="15.5" text-anchor="middle">30</text>')
     ra = ico('<path d="M4 6h10M4 10h16M4 14h12M4 18h8"/>')
+    moon = ico('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>')
+    mark = ico('<path d="M6 4h12v16l-6-4-6 4z"/>')
     links = "".join(f'<a href="{u}" {EXT}>{escape(t)}</a>' for t, u in PODCAST_LINKS)
-    read_along = read_along_times(a) is not None
-    return (f'<section class="listen media-panel" id="listen" data-listen data-slug="{a["slug"]}" data-title="{escape(a["title"])}" aria-label="Listen to this article">'
+    read_along = book["read_along"] if book else read_along_times(a) is not None
+    if book:
+        menu = (f'<a class="listen-dl" href="{mp3}" download>Download this {what} (MP3)</a>'
+                f'<a href="{book["feed_page"]}">Listen to the whole book in your podcast app</a>'
+                f'<a href="{book["feed"]}" data-copy-feed>Copy the audiobook feed (RSS)</a>'
+                f'<p>Narrated with a natural AI voice. The figures and tables are in the text.</p>')
+        extra = (f' data-book="{book["book"]}" data-unit="{unit}" data-album="{escape(book["album"])}" data-cover="{book["cover"]}"'
+                 f' data-page-url="{book["page_url"]}"'
+                 + (f' data-next-url="{book["next_url"]}" data-next-title="{escape(book["next_title"])}" data-next-src="{book["next_src"]}"'
+                    if book.get("next_url") else ""))
+    else:
+        menu = (f'<a class="listen-dl" href="{mp3}" download>Download the MP3</a>'
+                f'<a href="/listen">Follow in your podcast app</a><a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a>{links}'
+                f'<p>Narrated with a natural AI voice. The charts are in the article.</p>')
+        extra = ""
+    n_label = f'{len(chs)} {"sections" if book else "chapters"}'
+    return (f'<section class="listen media-panel" id="listen" data-listen data-slug="{a["slug"]}" data-title="{escape(a["title"])}"{extra} aria-label="Listen to this {what}">'
             f'<audio preload="none" src="{mp3}"></audio>'
             f'<div class="listen-head">'
-            f'<button type="button" class="listen-play" aria-label="Play the article">{play}</button>'
-            f'<div class="listen-title"><b class="listen-status">Listen to this article</b>'
-            f'<span>{listen_minutes(m)} min · {len(chs)} chapters</span></div>'
+            f'<button type="button" class="listen-play" aria-label="Play the {what}">{play}</button>'
+            f'<div class="listen-title"><b class="listen-status">Listen to this {what}</b>'
+            f'<span>{listen_minutes(m)} min · {n_label}</span></div>'
             f'<div class="listen-tools">'
             + (f'<button type="button" class="listen-tool listen-ra" aria-pressed="true" title="Highlight and follow the words as they are read">{ra}<span>Read along</span></button>' if read_along else '')
             + f'<button type="button" class="listen-tool listen-speed" aria-label="Playback speed: 1x. Change it">1x</button>'
+            f'<button type="button" class="listen-tool listen-sleep" aria-label="Sleep timer: off. Set it" title="Sleep timer">{moon}<span>Off</span></button>'
+            f'<button type="button" class="listen-tool listen-save" hidden title="Save the sentence being read to your notes">{mark}<span>Save this moment</span></button>'
             f'<details class="listen-more"><summary class="listen-tool" aria-label="More: download and podcast apps">'
             f'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></summary>'
-            f'<div class="listen-menu"><a class="listen-dl" href="{mp3}" download>Download the MP3</a>'
-            f'<a href="/listen">Follow in your podcast app</a><a href="/podcast.xml" data-copy-feed>Copy the podcast feed (RSS)</a>{links}'
-            f'<p>Narrated with a natural AI voice. The charts are in the article.</p></div></details>'
+            f'<div class="listen-menu">{menu}</div></details>'
             f'</div></div>'
-            f'<div class="listen-nowrow"><div class="listen-now"><span class="listen-now-n">Chapter 1 of {len(chs)}</span>'
+            f'<div class="listen-nowrow"><div class="listen-now"><span class="listen-now-n">{unit} 1 of {len(chs)}</span>'
             f'<span class="listen-now-name">{escape(chs[0][1])}</span></div>'
             f'<button type="button" class="listen-resume" hidden></button></div>'
             f'<div class="listen-track"><div class="listen-segs" aria-hidden="true">{segs}</div>'
@@ -1888,17 +1910,17 @@ def audio_player(a, m):
             f'<div class="listen-times"><span class="listen-at">0:00</span><span class="listen-left">-{clock(dur)}</span></div>'
             f'<div class="listen-controls">'
             f'<button type="button" class="listen-skip" data-skip="-15" aria-label="Back 15 seconds">{back}</button>'
-            f'<button type="button" class="listen-prev" aria-label="Previous chapter">{prev}</button>'
-            f'<button type="button" class="listen-next" aria-label="Next chapter">{nxt}</button>'
+            f'<button type="button" class="listen-prev" aria-label="Previous {unit.lower()}">{prev}</button>'
+            f'<button type="button" class="listen-next" aria-label="Next {unit.lower()}">{nxt}</button>'
             f'<button type="button" class="listen-skip" data-skip="30" aria-label="Forward 30 seconds">{fwd}</button>'
-            f'<button type="button" class="listen-chtoggle" aria-expanded="true" aria-controls="listen-ch-list">Chapters <span>{len(chs)}</span></button></div>'
+            f'<button type="button" class="listen-chtoggle" aria-expanded="true" aria-controls="listen-ch-list">{unit}s <span>{len(chs)}</span></button></div>'
             f'<ol class="listen-chapters" id="listen-ch-list">{chapters}</ol>'
             f'</section>'
             f'<div class="listen-mini" hidden role="region" aria-label="Now playing">'
             f'<button type="button" class="listen-play" aria-label="Pause">{play}</button>'
             f'<div class="listen-mini-info"><div class="listen-mini-ch"></div><div class="listen-mini-bar"><i></i></div></div>'
             f'<button type="button" class="listen-follow" hidden>Back to where I\'m listening</button>'
-            f'<button type="button" class="listen-next" aria-label="Next chapter">{nxt}</button>'
+            f'<button type="button" class="listen-next" aria-label="Next {unit.lower()}">{nxt}</button>'
             f'<button type="button" class="listen-mini-up" aria-label="Show the full player">Player</button></div>')
 
 
@@ -2273,7 +2295,8 @@ def build_all():
     check_search_pages()
     toolkit_zip()
     home(); services(); toolkits(); insights(); about(); contact(); book(); scorecard(); ai_use_cases(); build_buy_partner(); impact_score(); ai_readiness(); preferences(); legal(); notfound(); sitemap(); llms(); podcast(); episodes_json(); listen_page()
-    playbook.build(page, write, ld, ORG, SITE, cta_band, published())
+    playbook.build(page, write, ld, ORG, SITE, cta_band, published(),
+                   tools={"player": audio_player, "minutes": listen_minutes, "clock": clock, "fmt_icon": fmt_icon}, xml_escape=escape)
 
 
 if __name__ == "__main__":

@@ -2043,8 +2043,9 @@ html.pa-embed main .wrap { max-width: none; padding: 4px 4px 12px; margin: 0; }
 .post-toc a:hover { color: var(--navy); }
 .post-toc a[aria-current="true"] { color: var(--navy); font-weight: 700; border-left-color: var(--primary); }
 .post-toc a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
-.fmts a.fmt[aria-expanded="true"] { background: var(--navy); color: var(--btn-ink, #fff); }
-.fmts a.fmt[aria-expanded="true"] span { color: inherit; opacity: .8; }
+.fmts a.fmt[aria-expanded="true"] { background: var(--primary); color: #fff; }   /* --navy turns light in dark mode */
+.fmts a.fmt[aria-expanded="true"] span, .fmts a.fmt[aria-expanded="true"] b { color: inherit; }
+.fmts a.fmt[aria-expanded="true"] span { opacity: .85; }
 .media-panel.open { animation: panel-in .22s ease-out; }
 @keyframes panel-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .media-panel.open { animation: none; } }
@@ -2325,3 +2326,34 @@ body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
   .pa-notes-panel.from-rail { left: 0; top: 0; bottom: 0; width: 400px; max-height: none; border-radius: 0; border-width: 0 1px 0 0; z-index: 170; box-shadow: 18px 0 44px rgba(16,30,60,.16); }
   .pa-notes-panel.from-rail .pa-np-head { padding-top: 22px; }
 }
+
+/* ---------- the book's audio edition (src/books/audiobook.py, site.js initListen and initBookResume) ---------- */
+.listen-sleep.on, .listen-save { border-color: var(--primary); background: var(--tint); color: var(--navy); }
+.listen-sleep svg, .listen-save svg { width: 17px; height: 17px; }
+.listen-save:hover, .listen-sleep:hover { border-color: var(--primary); }
+.listen-tools { flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 640px) { .listen-save span, .listen-sleep:not(.on) span { display: none; } }
+.audio-ed .ae-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: start; }
+.audio-ed h2 { margin: 6px 0 12px; }
+.audio-ed h3 { margin: 26px 0 6px; font-size: 1rem; }
+.ae-small { color: var(--ink-2); font-size: .92rem; }
+.ae-subs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.ae-subs .sub-btn { min-height: 44px; padding: 8px 14px; border-radius: 22px; font-weight: 700; font-size: .9rem; }
+.ae-resume { margin: 14px 0 6px; }
+.ae-continue { display: inline-flex; flex-direction: column; gap: 2px; padding: 12px 18px; border-radius: 14px; border: 1.5px solid var(--primary); background: var(--tint); color: var(--navy); text-decoration: none; }
+.ae-continue b { font-size: .95rem; }
+.ae-continue span { font-size: .85rem; color: var(--ink-2); }
+.ae-continue:hover { transform: translateY(-1px); }
+.ae-list { list-style: none; margin: 0; padding: 6px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); max-height: 560px; overflow-y: auto; }
+.ae-list li { display: flex; align-items: center; gap: 6px; }
+.ae-list .al-part { padding: 12px 10px 4px; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.al-play { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px; color: var(--ink); text-decoration: none; }
+.al-play:hover, .al-play:focus-visible { background: var(--tint); }
+.al-n { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--tint); color: var(--navy); font-size: .78rem; font-weight: 800; }
+.al-n:empty::before { content: ""; width: 0; height: 0; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin-left: 2px; }
+.al-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; font-size: .93rem; }
+.al-d { flex: none; color: var(--muted); font-size: .82rem; font-variant-numeric: tabular-nums; }
+.al-dl { flex: none; padding: 6px 9px; border-radius: 8px; color: var(--ink-2); font-size: .72rem; font-weight: 800; text-decoration: none; border: 1px solid var(--line); }
+.al-dl:hover { border-color: var(--primary); color: var(--navy); }
+@media (max-width: 860px) { .audio-ed .ae-grid { grid-template-columns: 1fr; gap: 24px; } .ae-list { max-height: none; } }
+.book-page .fmts { margin-top: 14px; }

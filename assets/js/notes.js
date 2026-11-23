@@ -499,6 +499,29 @@
   // another tab of this site changed the notes
   addEventListener("storage", function (e) { if (e.key === KEY) { store = load(); paint(); renderPanel(); } });
 
+  /* ---------------------------------------------------------------- for the audio player
+     "Save this moment" (site.js, initListen): the sentence being read becomes a highlight with a note, and the note
+     opens so the listener can add a thought. Returns true when it was saved. */
+  window.PANotes = {
+    saveRange: function (r, note) {
+      if (!r || !root.contains(r.commonAncestorContainer)) return false;
+      var f = flat(), s = boundary(f, r.startContainer, r.startOffset), e = boundary(f, r.endContainer, r.endOffset);
+      if (s < 0 || e <= s) return false;
+      var now = Date.now(), n = {
+        id: uid(), url: PAGE, title: TITLE, kind: KIND, color: "b",
+        quote: f.text.slice(s, Math.min(e, s + 3000)), prefix: f.text.slice(Math.max(0, s - 32), s), suffix: f.text.slice(e, e + 32), pos: s,
+        note: String(note || "").slice(0, 2000), tags: ["listening"], created: now, updated: now
+      };
+      touch(n);
+      wrap(n, flat());
+      renderPanel();
+      toast("Saved to your notes", "Add a thought", function () { openEditor(n.id, true); });
+      track("note_create", { color: "b", with_note: 1, from: "audio" });
+      return true;
+    }
+  };
+  try { document.dispatchEvent(new CustomEvent("pa:notes-ready")); } catch (e) { /* old browser */ }
+
   /* ---------------------------------------------------------------- start */
   paint();
   renderPanel();

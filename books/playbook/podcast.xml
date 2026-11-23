@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+<channel>
+  <title>The Product Manager&#x27;s Playbook (audiobook)</title>
+  <link>https://www.productadvisory.co/books/product-managers-playbook</link>
+  <atom:link href="https://www.productadvisory.co/books/playbook/podcast.xml" rel="self" type="application/rss+xml"/>
+  <language>en-us</language>
+  <copyright>© Product Advisory, LLC</copyright>
+  <description>The Product Manager&#x27;s Playbook, Second Edition: Building Products in the Age of AI, by Robert Merrell, read aloud: a practical guide to product management in the age of AI, one chapter per episode. Free, from Product Advisory. Read along at https://www.productadvisory.co/books/product-managers-playbook</description>
+  <itunes:summary>The Product Manager&#x27;s Playbook, Second Edition: Building Products in the Age of AI, by Robert Merrell, read aloud: a practical guide to product management in the age of AI, one chapter per episode. Free, from Product Advisory. Read along at https://www.productadvisory.co/books/product-managers-playbook</itunes:summary>
+  <itunes:author>Robert Merrell, Product Advisory</itunes:author>
+  <itunes:type>serial</itunes:type>
+  <itunes:owner><itunes:name>Product Advisory</itunes:name><itunes:email>info@productadvisory.co</itunes:email></itunes:owner>
+  <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-audiobook.jpg"/>
+  <image><url>https://www.productadvisory.co//assets/books/playbook/audio/cover-audiobook.jpg</url><title>The Product Manager&#x27;s Playbook (audiobook)</title><link>https://www.productadvisory.co/books/product-managers-playbook</link></image>
+  <itunes:category text="Business"><itunes:category text="Management"/></itunes:category>
+  <itunes:category text="Technology"/>
+  <itunes:explicit>false</itunes:explicit>
+  <podcast:locked>no</podcast:locked>
+  <item>
+    <title>Preface to the Second Edition</title>
+    <description>Preface to the Second Edition, from The Product Manager&#x27;s Playbook: Second Edition: Building Products in the Age of AI, by Robert Merrell. Read along with the text: https://www.productadvisory.co/books/playbook/preface-to-the-second-edition</description>
+    <link>https://www.productadvisory.co/books/playbook/preface-to-the-second-edition</link>
+    <guid isPermaLink="false">productadvisory-playbook-preface-to-the-second-edition</guid>
+    <pubDate>Mon, 23 Nov 2026 00:01:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/books/playbook/audio/preface-to-the-second-edition.mp3" length="1611185" type="audio/mpeg"/>
+    <itunes:duration>201</itunes:duration>
+    <itunes:episode>1</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-audiobook.jpg"/>
+  </item>
+  <item>
+    <title>How to Use This Book</title>
+    <description>How to Use This Book, from The Product Manager&#x27;s Playbook: Second Edition: Building Products in the Age of AI, by Robert Merrell. Read along with the text: https://www.productadvisory.co/books/playbook/how-to-use-this-book</description>
+    <link>https://www.productadvisory.co/books/playbook/how-to-use-this-book</link>
+    <guid isPermaLink="false">productadvisory-playbook-how-to-use-this-book</guid>
+    <pubDate>Mon, 23 Nov 2026 00:02:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/books/playbook/audio/how-to-use-this-book.mp3" length="1729041" type="audio/mpeg"/>
+    <itunes:duration>216</itunes:duration>
+    <itunes:episode>2</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-audiobook.jpg"/>
+  </item>
+  <item>
+    <title>Chapter 1: The Product Leader’s Job, Now</title>
+    <description>Chapter 1: The Product Leader’s Job, Now, from The Product Manager&#x27;s Playbook: Second Edition: Building Products in the Age of AI, by Robert Merrell. Read along with the text: https://www.productadvisory.co/books/playbook/the-product-leaders-job-now</description>
+    <link>https://www.productadvisory.co/books/playbook/the-product-leaders-job-now</link>
+    <guid isPermaLink="false">productadvisory-playbook-the-product-leaders-job-now</guid>
+    <pubDate>Mon, 23 Nov 2026 00:03:00 +0000</pubDate>
+    <enclosure url="https://www.productadvisory.co/assets/books/playbook/audio/the-product-leaders-job-now.mp3" length="9643538" type="audio/mpeg"/>
+    <itunes:duration>1205</itunes:duration>
+    <itunes:episode>3</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.productadvisory.co//assets/books/playbook/audio/cover-audiobook.jpg"/>
+  </item>
+</channel>
+</rss>
