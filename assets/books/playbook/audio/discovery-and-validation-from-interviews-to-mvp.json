@@ -1,0 +1,60 @@
+{
+ "duration": 1310.3,
+ "bytes": 10483444,
+ "hash": "59891c96d7cb7df8",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   12.41,
+   "Twelve navigators and a spreadsheet"
+  ],
+  [
+   126.63,
+   "Discovery is continuous, not a phase"
+  ],
+  [
+   211.91,
+   "Interviewing well"
+  ],
+  [
+   334.5,
+   "Map your assumptions"
+  ],
+  [
+   440.89,
+   "The evidence ladder"
+  ],
+  [
+   597.95,
+   "Minimum viable product, done right"
+  ],
+  [
+   771.06,
+   "Pilots that end in a decision"
+  ],
+  [
+   875.45,
+   "Brindlepath in practice: the pilot agreement"
+  ],
+  [
+   989.78,
+   "Common mistakes"
+  ],
+  [
+   1069.49,
+   "Try this"
+  ],
+  [
+   1106.89,
+   "How AI changes this"
+  ],
+  [
+   1247.11,
+   "Chapter checklist"
+  ]
+ ]
+}

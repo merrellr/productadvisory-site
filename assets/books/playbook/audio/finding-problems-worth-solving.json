@@ -1,0 +1,64 @@
+{
+ "duration": 1306.4,
+ "bytes": 10451661,
+ "hash": "9faf94903c5d898f",
+ "voice": "am_michael",
+ "chapters": [
+  [
+   0.0,
+   "Opening"
+  ],
+  [
+   13.8,
+   "The scheduling problem that wasn\u2019t"
+  ],
+  [
+   125.39,
+   "Why products fail"
+  ],
+  [
+   194.59,
+   "Start with a problem statement"
+  ],
+  [
+   337.61,
+   "Jobs, not features"
+  ],
+  [
+   422.63,
+   "Who has the problem, who pays, who decides"
+  ],
+  [
+   539.49,
+   "How big is the problem?"
+  ],
+  [
+   711.74,
+   "Know the real competition"
+  ],
+  [
+   799.82,
+   "Constraints are part of the problem"
+  ],
+  [
+   883.56,
+   "Brindlepath in practice: sizing the problem"
+  ],
+  [
+   1009.32,
+   "Common mistakes"
+  ],
+  [
+   1093.47,
+   "Try this"
+  ],
+  [
+   1129.85,
+   "How AI changes this"
+  ],
+  [
+   1243.83,
+   "Chapter checklist"
+  ]
+ ]
+}
