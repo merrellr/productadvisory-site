@@ -2381,6 +2381,9 @@ body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
 .ask-ai { display: inline-flex; align-items: center; gap: 7px; }
 .ask-ai .cmark { width: 22px; height: 22px; }
 .ask-ai .cmark .pa-cicon { width: 16px; height: 16px; }
-.ask-compass > .cmark { width: 30px; height: 30px; margin-left: 2px; }
-.ask-compass > .cmark .pa-cicon { width: 22px; height: 22px; }
+/* the icon keeps its own look wherever it sits (some containers style every svg: ".ask-form svg" moves and recolours it) */
+.cmark > svg.pa-cicon { margin: 0; padding: 0; color: inherit; display: block; flex: none; }
+.ask-form.ask-compass { gap: 10px; }
+.ask-form.ask-compass > .cmark { width: 36px; height: 36px; margin-left: 6px; }
+.ask-form.ask-compass > .cmark > svg.pa-cicon { width: 26px; height: 26px; }
 details.assist > summary .cmark, .art-finder-head .cmark { margin-right: 4px; }

@@ -670,7 +670,7 @@ def contact_assist():
     rows = "".join(f'<div class="chip-row" data-assist-help="{k}" hidden>{assist_chips(v)}</div>' for k, v in CONTACT_HELP.items())
     copy = escape(json.dumps({k: list(v) for k, v in CONTACT_COPY.items()}), quote=True)
     return f'''<details class="assist" id="contact-assist" data-copy="{copy}" hidden>
-        <summary>{CMARK} Not sure what to write? Compass can help: answer a few quick questions</summary>
+        <summary>{CMARK} Not sure what to write? Let Compass help</summary>
         <div class="assist-body">
           <div class="field"><label for="a-context" id="a-context-label">What are you working on?</label><input id="a-context" maxlength="400"></div>
           <fieldset class="assist-q"><legend id="a-help-label">Where could we help?</legend>{rows}</fieldset>
@@ -1314,7 +1314,7 @@ def book():
         <div class="field"><label for="b-company">Company <span class="opt">(optional)</span></label><input id="b-company" name="company" autocomplete="organization" maxlength="120"></div>
         <div class="field"><label for="b-topic">What would you like to talk about? <span class="opt">(optional)</span></label><textarea id="b-topic" name="topic" rows="4" maxlength="1000"></textarea></div>
         <details class="assist" id="book-assist">
-          <summary>{CMARK} Not sure what to write? Compass can help: answer a few quick questions</summary>
+          <summary>{CMARK} Not sure what to write? Let Compass help</summary>
           <div class="assist-body">
             <div class="field"><label for="a-wins">What's going well for your product team?</label><input id="a-wins" maxlength="400" placeholder="For example: we ship every two weeks and customers love the new onboarding"></div>
             <fieldset class="assist-q"><legend>Where would you like help? <span class="opt">(choose any)</span></legend><div class="chip-row" data-assist="needs">{assist_chips(BOOKING_NEEDS)}</div></fieldset>
