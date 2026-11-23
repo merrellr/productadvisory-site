@@ -1874,7 +1874,8 @@ def audio_player(a, m, book=None):
     read_along = book["read_along"] if book else read_along_times(a) is not None
     if book:
         menu = (f'<a class="listen-dl" href="{mp3}" download>Download this {what} (MP3)</a>'
-                f'<a href="{book["feed_page"]}">Listen to the whole book in your podcast app</a>'
+                + (f'<a href="{book["spotify"]}" {EXT}>Listen on Spotify</a>' if book.get("spotify") else "")
+                + f'<a href="{book["feed_page"]}">Listen to the whole book in your podcast app</a>'
                 f'<a href="{book["feed"]}" data-copy-feed>Copy the audiobook feed (RSS)</a>'
                 f'<p>Narrated with a natural AI voice. The figures and tables are in the text.</p>')
         extra = (f' data-book="{book["book"]}" data-unit="{unit}" data-album="{escape(book["album"])}" data-cover="{book["cover"]}"'

@@ -12,6 +12,9 @@ ESS_FEED = f"{P.DIR}/essentials-podcast.xml"   # The Essentials as a podcast
 COVER = f"{AUDIO.WEB}/cover-audiobook.jpg"     # square covers, for podcast apps and phone lock screens
 COVER_ESS = f"{AUDIO.WEB}/cover-essentials-audio.jpg"
 SITE_URL = "https://www.productadvisory.co/"
+# Where the shows are listed (add Apple Podcasts here once it approves them)
+SPOTIFY = "https://open.spotify.com/show/1gRpfoIYfUzxu8N7XD2Eas"
+SPOTIFY_ESS = "https://open.spotify.com/show/6jwBwBQ1KVExXKwrrYwXN5"
 TOOLS = {}   # build.py's player and helpers: {player, minutes, clock, fmt_icon}
 
 
@@ -30,7 +33,7 @@ def player_for(e, body):
     book = {"book": "playbook", "mp3": f"{AUDIO.WEB}/{slug}.mp3", "read_along": marked != body, "unit": "Section",
             "album": P.TITLE if e else f"{P.TITLE}: The Essentials", "cover": "/" + (COVER if e else COVER_ESS),
             "page_url": P.url(e) if e else f"/{P.DIR}/essentials", "feed": "/" + (FEED if e else ESS_FEED),
-            "feed_page": f"/{P.LANDING}#listen"}
+            "feed_page": f"/{P.LANDING}#listen", "spotify": SPOTIFY if e else SPOTIFY_ESS}
     if e:
         ps = P.pages()
         i = ps.index(e)
@@ -97,11 +100,13 @@ def listen_section():
             f'<a class="btn ghost" data-listen-go href="/{P.DIR}/essentials#listen">The Essentials, {hours(ess_s)}</a></div>\n'
             f'        <h3>In your podcast app</h3>\n'
             f'        <p class="ae-small">Follow the book like a podcast, one episode per chapter: offline, in the car or on a walk.</p>\n'
-            f'        <div class="ae-subs"><a class="sub-btn" href="podcast://{bare(feed)}">Apple Podcasts</a>'
+            f'        <div class="ae-subs"><a class="sub-btn" href="{SPOTIFY}" target="_blank" rel="noopener">Spotify</a>'
+            f'<a class="sub-btn" href="podcast://{bare(feed)}">Apple Podcasts</a>'
             f'<a class="sub-btn" href="https://overcast.fm/itunes?url={feed}" target="_blank" rel="noopener">Overcast</a>'
             f'<a class="sub-btn" href="https://pocketcasts.com/submit?url={feed}" target="_blank" rel="noopener">Pocket Casts</a>'
             f'<a class="sub-btn" href="/{FEED}" data-copy-feed>Copy the feed</a></div>\n'
-            f'        <p class="ae-small">The Essentials has its own feed: <a href="podcast://{bare(efeed)}">Apple Podcasts</a> · '
+            f'        <p class="ae-small">The Essentials is its own show: <a href="{SPOTIFY_ESS}" target="_blank" rel="noopener">Spotify</a> · '
+            f'<a href="podcast://{bare(efeed)}">Apple Podcasts</a> · '
             f'<a href="/{ESS_FEED}" data-copy-feed>copy the feed</a>. Other apps: <a href="/listen">how to add a feed</a>.</p>\n'
             f'      </div>\n      <ol class="ae-list reveal" aria-label="Chapters to listen to">{"".join(rows)}</ol>\n'
             f'    </div>\n  </div>\n</section>')
