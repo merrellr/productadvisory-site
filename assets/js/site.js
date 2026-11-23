@@ -19,6 +19,8 @@
   // A Google Apps Script web app that writes AI answers and receives contact messages
   // (same pattern as the portfolio's apps-script/ask.gs). Leave empty and Ask is a plain
   // site search, and the contact form opens a pre-filled email instead.
+  // CompassIcon (the same drawing as src/build.py COMPASS_ICON and Learning's compass-core.js)
+  var CMARK = '<span class="cmark" aria-hidden="true"><svg class="pa-cicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.7 13.2 10.8 20.3 12 13.2 13.2 12 20.3 10.8 13.2 3.7 12 10.8 10.8Z" fill="currentColor" stroke="none"/><path d="M18.15 5.85 12 12 13.94 13.94Z" fill="#2563EB" stroke="none"/><path d="M18.15 5.85 12 12 10.06 10.06Z" fill="#5B9BFF" stroke="none"/><path d="M5.85 18.15 12 12 13.94 13.94Z" fill="#64748B" stroke="none"/><path d="M5.85 18.15 12 12 10.06 10.06Z" fill="#94A3B8" stroke="none"/><circle cx="12" cy="12" r="1.05" fill="#0F172A" stroke="none"/></svg></span>';
   var ASK_ENDPOINT = "https://script.google.com/macros/s/AKfycbzhpNvZQUpdchS4ZwXtD7uAV2pYic728ktZkAT5hDGjrg680BYeg98zBAPNaVahXSPyyg/exec";
   var PAGES = ["index.html", "services.html", "toolkits.html", "insights.html", "about.html", "contact.html",
     "insights/day-in-the-life.html", "insights/stop-enabling-individuals.html", "insights/feature-fallacy.html", "insights/roadmaps-to-rituals.html", "insights/rice-vs-weighted-scoring.html", "insights/beyond-automation.html", "insights/product-focused-ai-agents.html", "insights/150-hot-dog.html", "insights/100-staircase.html", "insights/pm-copilots.html", "insights/ai-is-a-practice.html", "insights/healthcare-saas-pitfalls.html", "insights/discovery-with-ai-agents.html", "insights/squad-of-agents.html", "insights/ai-accessibility.html", "insights/367-listener.html", "insights/five-second-test.html"];
@@ -339,7 +341,7 @@
           if (ASK_ENDPOINT) fetch(ASK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ type: "unanswered", q: q, cid: visitorId() }) }).catch(function () {});
           return;
         }
-        if (ASK_ENDPOINT) html += '<div class="ask-answer" aria-busy="true"><span class="ask-ai">AI answer</span><p class="ask-thinking">Reading the sections below…</p></div>';
+        if (ASK_ENDPOINT) html += '<div class="ask-answer" aria-busy="true"><span class="ask-ai">' + CMARK + 'Compass</span><p class="ask-thinking">Reading the sections below…</p></div>';
         html += '<div class="ask-src-label">' + (ASK_ENDPOINT ? "Sources" : "Best matches on the site") + "</div>";
         html += r.results.map(function (d, i) {
           return '<a class="ask-hit" href="' + clean(d.url) + '"><small>' + (ASK_ENDPOINT ? "[" + (i + 1) + "] " : "") + esc(d.kind) + "</small><b>" + esc(d.title) + "</b><p>" + snippet(d.text, r.terms) + "</p></a>";
@@ -362,17 +364,17 @@
         slot.removeAttribute("aria-busy");
         track("ask_answer", { outcome: data && data.ok ? "answered" : (data && data.error) || "error" });
         if (data && data.ok && data.answer) {
-          slot.innerHTML = '<span class="ask-ai">AI answer</span>' + renderAnswer(data.answer, results) +
-            '<p class="ask-fine">Written by AI from the sections below. Check the linked sources for the detail.</p>' +
+          slot.innerHTML = '<span class="ask-ai">' + CMARK + 'Compass</span>' + renderAnswer(data.answer, results) +
+            '<p class="ask-fine">Written by Compass from the sections below. Check the linked sources for the detail.</p>' +
             '<button type="button" class="ask-share">Copy a link to this question</button>';
           $(".ask-share", slot).addEventListener("click", function () { copyText(askLink(q), "Link copied. It opens the site and asks this question"); });
         } else {
-          slot.innerHTML = '<p class="ask-fine">' + (data && data.error === "daily_limit" ? "AI answers have reached today's limit." : "The AI answer isn't available right now.") + " The best matches are below.</p>";
+          slot.innerHTML = '<p class="ask-fine">' + (data && data.error === "daily_limit" ? "Compass has reached today's limit." : "Compass isn't available right now.") + " The best matches are below.</p>";
         }
       }).catch(function () {
         if (mine !== seq || !slot) return;
         slot.removeAttribute("aria-busy");
-        slot.innerHTML = '<p class="ask-fine">The AI answer isn\'t available right now. The best matches are below.</p>';
+        slot.innerHTML = '<p class="ask-fine">Compass isn\'t available right now. The best matches are below.</p>';
       });
     }
     form.addEventListener("submit", function (e) { e.preventDefault(); run(input.value); });
@@ -1174,7 +1176,7 @@
         return '<a class="pick cat-' + p.d.cat + '" href="' + esc(p.d.href) + '"' + (p.d.ext ? ' target="_blank" rel="noopener"' : "") + '><span class="num">' + (i + 1) + "</span><span><b>" + esc(p.d.title) +
           (p.d.ext ? ' <span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (on LinkedIn, opens in a new tab)</span>' : "") +
           "</b><small>" + esc(p.d.topic) + (p.d.ext ? " · on LinkedIn" : "") + "</small><span class=\"why\">" + esc(p.why || p.d.desc) + "</span></span></a>";
-      }).join("") + (ai ? '<p class="ask-fine" style="margin:2px 0 0">Suggested by AI from the article summaries. The numbered cards below are highlighted.</p>' : "") + toolFor(q, picks);
+      }).join("") + (ai ? '<p class="ask-fine" style="margin:2px 0 0">Suggested by Compass from the article summaries. The numbered cards below are highlighted.</p>' : "") + toolFor(q, picks);
     }
     // "Put it into practice": the free tool whose keywords best match the request (and, a little, the picked articles).
     var tools = [];
@@ -1884,7 +1886,7 @@
       '<button type="button" class="help-this" hidden><span class="help-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.75 6.75v13L9 17.5l6 2.25 5.25-2.25v-13L15 6.75Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4.5v13M15 6.75v13" stroke-width="1.8" stroke-linecap="round"/></svg></span>' +
       '<span><b><em class="help-new" hidden>New</em>Take the tour of this page</b><small>A click-through guide, about a minute</small></span></button>' +
       '<h3>Tours</h3><ul class="help-tours"></ul>' +
-      '<h3>Find something</h3><button type="button" class="help-search"><span>Search the site, or ask a question</span><kbd>' + (mac ? "⌘" : "Ctrl") + "</kbd><kbd>K</kbd></button>" +
+      '<h3>Find something</h3><button type="button" class="help-search"><span>Search the site, or ask Compass</span><kbd>' + (mac ? "⌘" : "Ctrl") + "</kbd><kbd>K</kbd></button>" +
       '<h3>Quick answers</h3><div class="help-faq">' + faq + "</div></div>" +
       '<div class="help-foot"><a class="btn sm" href="/book">Book a free call</a><a class="btn sm ghost" href="/contact">Contact us</a>' +
       '<a class="btn sm ghost" href="mailto:' + EMAIL + '">Email us</a></div></div>';

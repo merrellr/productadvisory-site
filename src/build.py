@@ -203,10 +203,10 @@ def home():
       <p class="lede">Professional end-to-end product consulting for startups and enterprises. We turn market insight into roadmaps your team can defend, and products people actually want.</p>
       {tour_link("home", "New here? Take the site tour")}
       <div class="ask" id="ask">
-        <form class="ask-form" role="search">
-          {tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}
-          <label class="hp" for="ask-input">Ask Product Advisory</label>
-          <input id="ask-input" type="search" placeholder="What are you working on?" autocomplete="off">
+        <form class="ask-form ask-compass" role="search">
+          {CMARK}
+          <label class="hp" for="ask-input">Ask Compass</label>
+          <input id="ask-input" type="search" placeholder="Ask Compass: what are you working on?" autocomplete="off">
           <button class="btn" type="submit">Ask</button>
         </form>
       </div>
@@ -670,14 +670,14 @@ def contact_assist():
     rows = "".join(f'<div class="chip-row" data-assist-help="{k}" hidden>{assist_chips(v)}</div>' for k, v in CONTACT_HELP.items())
     copy = escape(json.dumps({k: list(v) for k, v in CONTACT_COPY.items()}), quote=True)
     return f'''<details class="assist" id="contact-assist" data-copy="{copy}" hidden>
-        <summary><span class="assist-spark" aria-hidden="true">✦</span> Not sure what to write? Answer a few quick questions</summary>
+        <summary>{CMARK} Not sure what to write? Compass can help: answer a few quick questions</summary>
         <div class="assist-body">
           <div class="field"><label for="a-context" id="a-context-label">What are you working on?</label><input id="a-context" maxlength="400"></div>
           <fieldset class="assist-q"><legend id="a-help-label">Where could we help?</legend>{rows}</fieldset>
           <fieldset class="assist-q" id="a-timing-q"><legend>How soon?</legend><div class="seg" role="radiogroup" aria-label="How soon" data-assist="timing"><button type="button" role="radio" aria-checked="false" data-value="now">This month</button><button type="button" role="radio" aria-checked="false" data-value="quarter">This quarter</button><button type="button" role="radio" aria-checked="false" data-value="exploring">Just exploring</button></div></fieldset>
           <div class="field"><label for="a-extra">Anything else? <span class="opt">(optional)</span></label><input id="a-extra" maxlength="400"></div>
-          <div class="assist-foot"><button type="button" class="btn sm" id="a-write">✦ Write my message</button><p class="assist-status" role="status" aria-live="polite"></p></div>
-          <p class="assist-note">AI drafts the message from your answers only. You can edit it before sending.</p>
+          <div class="assist-foot"><button type="button" class="btn sm" id="a-write">Write my message</button><p class="assist-status" role="status" aria-live="polite"></p></div>
+          <p class="assist-note">Compass drafts the message from your answers only. You can edit it before sending.</p>
         </div>
       </details>'''
 
@@ -1314,14 +1314,14 @@ def book():
         <div class="field"><label for="b-company">Company <span class="opt">(optional)</span></label><input id="b-company" name="company" autocomplete="organization" maxlength="120"></div>
         <div class="field"><label for="b-topic">What would you like to talk about? <span class="opt">(optional)</span></label><textarea id="b-topic" name="topic" rows="4" maxlength="1000"></textarea></div>
         <details class="assist" id="book-assist">
-          <summary><span class="assist-spark" aria-hidden="true">✦</span> Not sure what to write? Answer a few quick questions</summary>
+          <summary>{CMARK} Not sure what to write? Compass can help: answer a few quick questions</summary>
           <div class="assist-body">
             <div class="field"><label for="a-wins">What's going well for your product team?</label><input id="a-wins" maxlength="400" placeholder="For example: we ship every two weeks and customers love the new onboarding"></div>
             <fieldset class="assist-q"><legend>Where would you like help? <span class="opt">(choose any)</span></legend><div class="chip-row" data-assist="needs">{assist_chips(BOOKING_NEEDS)}</div></fieldset>
             <fieldset class="assist-q"><legend>Which services interest you? <span class="opt">(choose any)</span></legend><div class="chip-row" data-assist="services">{assist_chips(BOOKING_SERVICES)}</div></fieldset>
             <fieldset class="assist-q"><legend>How soon?</legend><div class="seg" role="radiogroup" aria-label="How soon" data-assist="timing"><button type="button" role="radio" aria-checked="false" data-value="now">This month</button><button type="button" role="radio" aria-checked="false" data-value="quarter">This quarter</button><button type="button" role="radio" aria-checked="false" data-value="exploring">Just exploring</button></div></fieldset>
             <div class="field"><label for="a-extra">Anything else? <span class="opt">(optional)</span></label><input id="a-extra" maxlength="400"></div>
-            <div class="assist-foot"><button type="button" class="btn sm" data-book="assist">✦ Write my note</button><p class="assist-status" role="status" aria-live="polite"></p></div>
+            <div class="assist-foot"><button type="button" class="btn sm" data-book="assist">Write my note</button><p class="assist-status" role="status" aria-live="polite"></p></div>
           </div>
         </details>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -1658,9 +1658,8 @@ def insights():
 <section>
   <div class="wrap">
     <div class="art-finder" id="insight-finder" data-tools="{escape(json.dumps(FINDER_TOOLS), quote=True)}" hidden>
-      <div class="art-finder-head"><span class="assist-spark" aria-hidden="true">✦</span> <b>Tell me what you're looking for</b> <span class="muted">and we'll suggest where to start.</span></div>
-      <form class="ask-form" role="search">
-        {tiny('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}
+      <div class="art-finder-head">{CMARK} <b>Ask Compass</b> <span class="muted">Tell it what you're looking for and it suggests where to start.</span></div>
+      <form class="ask-form ask-compass" role="search">
         <input type="search" placeholder="For example: only a few people on my team really use AI" aria-label="What are you looking for?" maxlength="300">
         <button class="btn" type="submit">Suggest</button>
       </form>
@@ -1817,6 +1816,11 @@ FMT_ICONS = {
     "listen": '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/>',
     "watch": '<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M10 9.2v5.6a.6.6 0 0 0 .9.5l4.5-2.8a.6.6 0 0 0 0-1l-4.5-2.8a.6.6 0 0 0-.9.5z" fill="currentColor"/>',
 }
+
+
+# CompassIcon: the same drawing as Learning's CompassCore.ICON (compass-core.js) and assets/js/compass-www.js.
+COMPASS_ICON = '<svg class="pa-cicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.7 13.2 10.8 20.3 12 13.2 13.2 12 20.3 10.8 13.2 3.7 12 10.8 10.8Z" fill="currentColor" stroke="none"/><path d="M18.15 5.85 12 12 13.94 13.94Z" fill="#2563EB" stroke="none"/><path d="M18.15 5.85 12 12 10.06 10.06Z" fill="#5B9BFF" stroke="none"/><path d="M5.85 18.15 12 12 13.94 13.94Z" fill="#64748B" stroke="none"/><path d="M5.85 18.15 12 12 10.06 10.06Z" fill="#94A3B8" stroke="none"/><circle cx="12" cy="12" r="1.05" fill="#0F172A" stroke="none"/></svg>'
+CMARK = f'<span class="cmark" aria-hidden="true">{COMPASS_ICON}</span>'   # the small Compass disc
 
 
 def fmt_icon(k):

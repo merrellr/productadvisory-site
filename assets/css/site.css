@@ -2299,12 +2299,12 @@ body:has(.listen-mini:not([hidden])) .pa-notes-panel:not(.from-rail) { bottom: 1
 
 /* ---------- Compass, the assistant (assets/js/compass-www.js; the panel and its styles come from Learning) ---------- */
 .pa-compass-fab { position: fixed; right: 18px; bottom: 18px; z-index: 57; display: grid; place-items: center; width: 56px; height: 56px; padding: 0;
-  border-radius: 50%; border: 1px solid rgba(255, 255, 255, .14); background: #1e293b; color: #fff; cursor: pointer; box-shadow: 0 10px 26px rgba(15, 23, 42, .35); }
+  border-radius: 50%; border: 1px solid var(--pa-cfab-line); background: var(--pa-cfab); color: var(--pa-cfab-ink); cursor: pointer; box-shadow: 0 10px 26px rgba(15, 23, 42, .22); }
 .pa-compass-fab svg { width: 28px; height: 28px; }
 .pa-compass-fab::after { content: attr(data-tip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap;
   padding: 6px 10px; border-radius: 8px; background: #0f172a; color: #fff; font-size: .8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .15s; }
 .pa-compass-fab:hover::after, .pa-compass-fab:focus-visible::after { opacity: 1; }
-.pa-compass-fab:hover { transform: translateY(-1px); background: #273449; box-shadow: 0 14px 30px rgba(15, 23, 42, .4); }
+.pa-compass-fab:hover { transform: translateY(-1px); border-color: var(--primary); box-shadow: 0 14px 30px rgba(15, 23, 42, .3); }
 .pa-compass-fab:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
 html.cp-open .pa-compass-fab { display: none; }
 @media (max-width: 760px) { .pa-compass-fab { right: 12px; bottom: 12px; width: 52px; height: 52px; } }
@@ -2365,3 +2365,22 @@ body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
 .al-dl:hover { border-color: var(--primary); color: var(--navy); }
 @media (max-width: 860px) { .audio-ed .ae-grid { grid-template-columns: 1fr; gap: 24px; } .ae-list { max-height: none; } }
 .book-page .fmts { margin-top: 14px; }
+
+/* ---------- Compass's colours (its icon draws in currentColor; the needle is always blue) ----------
+   Light: a soft blue disc with a navy star, and a white button like Notes'. Dark: the slate disc with a white star. */
+:root { --pa-cdisc: #e6eefa; --pa-cdisc-ink: #1c4587; --pa-cdisc-line: rgba(28, 69, 135, .16); --pa-cfab: #ffffff; --pa-cfab-ink: #1c4587; --pa-cfab-line: #d3dce9; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --pa-cdisc: #1e293b; --pa-cdisc-ink: #ffffff; --pa-cdisc-line: rgba(255, 255, 255, .12); --pa-cfab: #1e293b; --pa-cfab-ink: #ffffff; --pa-cfab-line: rgba(255, 255, 255, .14); }
+}
+:root[data-theme="dark"] { --pa-cdisc: #1e293b; --pa-cdisc-ink: #ffffff; --pa-cdisc-line: rgba(255, 255, 255, .12); --pa-cfab: #1e293b; --pa-cfab-ink: #ffffff; --pa-cfab-line: rgba(255, 255, 255, .14); }
+
+/* the small Compass disc beside Compass's features (site.js CMARK, src/build.py CMARK) */
+.cmark { display: inline-grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--pa-cdisc); color: var(--pa-cdisc-ink);
+  box-shadow: inset 0 0 0 1px var(--pa-cdisc-line); vertical-align: middle; }
+.cmark .pa-cicon { width: 19px; height: 19px; }
+.ask-ai { display: inline-flex; align-items: center; gap: 7px; }
+.ask-ai .cmark { width: 22px; height: 22px; }
+.ask-ai .cmark .pa-cicon { width: 16px; height: 16px; }
+.ask-compass > .cmark { width: 30px; height: 30px; margin-left: 2px; }
+.ask-compass > .cmark .pa-cicon { width: 22px; height: 22px; }
+details.assist > summary .cmark, .art-finder-head .cmark { margin-right: 4px; }

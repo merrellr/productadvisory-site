@@ -63,11 +63,11 @@
     if (loading) return loading;
     loading = new Promise(function (resolve, reject) {
       var css = document.createElement("link");
-      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261123b";
+      css.rel = "stylesheet"; css.href = LEARNING + "/compass.css?v=20261123c";
       document.head.appendChild(css);
       var add = function (src, next) {
         var s = document.createElement("script");
-        s.src = LEARNING + "/" + src + "?v=20261123b"; s.onload = next;
+        s.src = LEARNING + "/" + src + "?v=20261123c"; s.onload = next;
         s.onerror = function () { loading = null; reject(new Error(src)); };
         document.head.appendChild(s);
       };
