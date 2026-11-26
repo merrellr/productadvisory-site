@@ -2387,3 +2387,7 @@ body:has(.listen-mini:not([hidden])) .pa-compass-fab { bottom: 78px; }
 .ask-form.ask-compass > .cmark { width: 36px; height: 36px; margin-left: 6px; }
 .ask-form.ask-compass > .cmark > svg.pa-cicon { width: 26px; height: 26px; }
 details.assist > summary .cmark, .art-finder-head .cmark { margin-right: 4px; }
+
+/* Toolkits > For teams & organizations: the extra links under the buttons */
+.team-links { list-style: none; margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line, rgba(0,0,0,.08)); display: grid; gap: 8px; }
+.team-links .link-arrow { font-size: .95rem; }
