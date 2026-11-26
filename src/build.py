@@ -331,7 +331,7 @@ def home():
 
 # ---------------------------------------------------------------- services
 def services():
-    index_links = "".join(f'<a href="#{i}">{t}</a>' for i, _, t, *_ in SERVICES) + '<a href="#finder">Find your fit</a><a href="#packages">Service packages</a><a href="#also">Also ask us about</a><a href="#faq">FAQ</a>'
+    index_links = "".join(f'<a href="#{i}">{t}</a>' for i, _, t, *_ in SERVICES) + '<a href="#different">Why our learning is different</a><a href="#finder">Find your fit</a><a href="#packages">Service packages</a><a href="#also">Also ask us about</a><a href="#faq">FAQ</a>'
     details = "".join(f'''<article class="svc-detail reveal" id="{i}" data-ask="{t}" data-kind="Service">
   {icon(ic)}
   <div>
@@ -375,6 +375,15 @@ def services():
       <nav class="side-index" aria-label="On this page">{index_links}</nav>
       <div>{details}</div>
     </div>
+  </div>
+</section>
+
+<section id="different" data-ask="Why our learning platform is different" data-kind="Service" data-keywords="learning platform training assessment coach compass adaptive practice study plan readiness lms">
+  <div class="wrap">
+    <div class="section-head reveal"><div class="eyebrow">Custom Assessments &amp; Interactive Learning</div><h2>Why our learning platform is different</h2>
+      <p>Most training is a course library and a completion report. Ours is built around a coach that knows where each person stands and what to do next. You can try it yourself: it's live in Beta.</p></div>
+    <div class="grid g3"><div class="card tint lift reveal">{icon("assess")}<h3>It starts with where each person is</h3><p>A short skill check across seven product and AI areas sets each person's starting level. Nobody sits through what they already know.</p></div><div class="card tint lift reveal">{icon("eye")}<h3>Every suggestion shows its evidence</h3><p>Compass, the built-in coach, names one next step and why: the score behind it, the recent answers and how long it takes. People see the reasoning, not a black box.</p></div><div class="card tint lift reveal">{icon("search")}<h3>It finds the kind of gap, not just the topic</h3><p>It tracks which kind of question someone misses: understanding the idea, applying it, making the call or reading the evidence. Knowing the idea but missing it in practice needs a different fix.</p></div><div class="card tint lift reveal">{icon("scale")}<h3>Practice adapts as you go</h3><p>Two right in a row brings harder questions; two misses brings an offer to teach the idea first. Every answer explains why.</p></div><div class="card tint lift reveal">{icon("calendar")}<h3>A plan around real goals</h3><p>Each person tells Compass what they're working toward, by when and how much time they have. It plans each week, ticks it off from real activity, and the weekly email follows it.</p></div><div class="card tint lift reveal">{icon("proven")}<h3>Honest about what it measures</h3><p>Readiness comes from the skill check and real answers, by area. We say plainly that it isn't a grade or a prediction, and it moves as people practise.</p></div></div>
+    <div class="btn-row" style="margin-top:28px"><a class="btn" href="book.html?service={quote("Custom Assessments & Interactive Learning")}">See it on a call</a><a class="btn ghost" href="{ASSESS}" {EXT}>Try the skill check</a></div>
   </div>
 </section>
 
