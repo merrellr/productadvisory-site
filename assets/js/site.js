@@ -2287,4 +2287,14 @@
     initFormatLanding();
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
   });
+
+  // The training framework graphic (src/framework_graphic.py): "Show all 28 competencies" opens every domain tile
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fg] .fg-toggle'), function (b) {
+    var box = b.closest('[data-fg]'), total = b.getAttribute('data-total');
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', String(open)); box.classList.toggle('open', open);
+      b.textContent = open ? 'Show the counts only' : 'Show all ' + total + ' competencies';
+    });
+  });
 })();

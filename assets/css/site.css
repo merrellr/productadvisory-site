@@ -2391,3 +2391,51 @@ details.assist > summary .cmark, .art-finder-head .cmark { margin-right: 4px; }
 /* Toolkits > For teams & organizations: the extra links under the buttons */
 .team-links { list-style: none; margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line, rgba(0,0,0,.08)); display: grid; gap: 8px; }
 .team-links .link-arrow { font-size: .95rem; }
+
+/* The training framework graphic (src/framework_graphic.py), on Toolkits and Services; the same design as Learning's framework page */
+.fg-card { padding: 22px 24px; }
+.fg { --fg-core: #1f3b63; --fg-ai: #0f8a8a; }
+.fg-levels { list-style: none; margin: 0 0 22px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 26px; }
+.fg-levels li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 8px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); font-size: .85rem; font-weight: 700; text-align: center; }
+.fg-levels li:not(:last-child)::after { content: '→'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 400; }
+.fg-dots { display: inline-flex; gap: 4px; }
+.fg-dots i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--navy); box-sizing: border-box; }
+.fg-dots i.on { background: var(--navy); }
+.fg-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 10px; }
+.fg-h { font-size: 1.2rem; margin: 0; }
+.fg-toggle { font: inherit; font-size: .85rem; font-weight: 700; color: var(--navy); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.fg-toggle:hover { border-color: var(--navy); }
+.fg-groups { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.25fr); gap: 16px; align-items: start; }
+.fg-group { min-width: 0; }
+.fg-gh { margin: 0 0 10px; padding: 9px 14px; border-radius: 10px; color: #fff; font-size: .8rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-align: center; }
+.fg-gh span { font-weight: 400; opacity: .85; }
+.fg-core .fg-gh { background: var(--fg-core); } .fg-ai .fg-gh { background: var(--fg-ai); }
+.fg-tiles { display: grid; gap: 10px; }
+.fg-core .fg-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fg-ai .fg-tiles { grid-template-columns: minmax(0, 1fr); }
+.fg-tile { border-radius: 12px; background: var(--bg); border: 1px solid var(--line); border-top: 3px solid var(--fg-c); }
+.fg-tile-a { display: flex; flex-direction: column; gap: 4px; padding: 12px 12px 10px; color: var(--ink); text-decoration: none; border-radius: 12px; }
+.fg-tile-a:hover .fg-name { color: var(--navy); text-decoration: underline; }
+.fg-tile-a .ext { display: none; }
+.fg-ico { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 9px; background: var(--card); margin-bottom: 2px; }
+.fg-ico .fg-svg { width: 24px; height: 24px; stroke: var(--navy); }
+.fg-name { font-weight: 700; font-size: .9rem; line-height: 1.3; }
+.fg-n { font-size: .78rem; color: var(--muted); }
+.fg-comps { display: none; list-style: none; margin: 0; padding: 0 12px 10px; }
+.fg.open .fg-comps { display: block; }
+.fg-comps li { padding: 4px 0; border-top: 1px solid var(--line); font-size: .8rem; color: var(--ink-2); }
+.fg-band { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.fg-band-h { text-align: center; font-size: 1.05rem; margin: 0 0 12px; }
+.fg-sites { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg-site { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.fg-site > b { display: block; padding: 10px 14px; color: #fff; text-align: center; font-size: .95rem; }
+.fg-site-pa > b { background: var(--fg-core); } .fg-site-learn > b { background: var(--fg-ai); }
+.fg-site ul { list-style: none; margin: 0; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; }
+.fg-site a { font-size: .88rem; font-weight: 600; }
+.fg-toggle:focus-visible, .fg-tile-a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+@media (max-width: 760px) {
+  .fg-levels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg-levels li:nth-child(2)::after { display: none; }
+  .fg-groups, .fg-sites { grid-template-columns: 1fr; }
+  .fg-core .fg-tiles, .fg-ai .fg-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
