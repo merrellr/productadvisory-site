@@ -338,9 +338,12 @@ def services():
   <div>
     <h2 style="font-size:1.5rem">{t}{' <span class="tag on">New</span>' if new else ''}</h2>
     <p class="for">{fw}</p>
-    <div class="deep"><p>{body}</p><ul>{"".join(f"<li>{b}</li>" for b in bullets)}</ul></div>
-    {related_reading(i)}
-    {SVC_TOOLS.get(i, '')}
+    <button type="button" class="svc-more" aria-expanded="false" aria-controls="svc-body-{i}"><span>Show the details</span></button>
+    <div class="svc-body" id="svc-body-{i}">
+      <p>{body}</p><ul>{"".join(f"<li>{b}</li>" for b in bullets)}</ul>
+      {related_reading(i)}
+      {SVC_TOOLS.get(i, '')}
+    </div>
   </div>
 </article>''' for i, ic, t, fw, body, bullets, new in SERVICES)
     details = details.replace("assessment.productadvisory.co, a real", f'<a href="{ASSESS}" {EXT}>assessment.productadvisory.co</a>, a real')
@@ -533,7 +536,7 @@ def toolkits():
               ("Reassess", "Retake the assessment to see how far you've come, and what's next.")]
     lsteps_html = "".join(f'<div class="card reveal"><span class="num">{n}</span><h3>{t}</h3><p>{d}</p></div>' for n, (t, d) in enumerate(lsteps, 1))
     body = f'''{page_head("Toolkits &amp; Learning", "Free tools and a skill check for better product decisions.", toolkit_open())}
-<div class="sticky-tabs"><nav class="tabs" aria-label="On this page"><a href="#tools">Toolkits</a><a href="#coming-soon">Coming soon</a><a href="#learning">Skill check &amp; learning</a><a href="#framework">Framework</a><a href="#grow">For teams</a></nav></div>
+<div class="sticky-tabs"><nav class="tabs" aria-label="On this page"><a href="#tools">Toolkits</a><a href="#learning">Skill check &amp; learning</a><a href="#grow">For teams</a></nav></div>
 
 <section style="padding-top:24px">
   <div class="wrap">
@@ -602,14 +605,11 @@ def toolkits():
       </div>
       {mock()}
     </div>
-  </div>
-</section>
-
-<section id="framework" data-ask="The training framework: seven domains, 28 competencies, four levels" data-kind="Learning" data-keywords="framework domains competencies levels skills ai core product management">
-  <div class="wrap">
-    <div class="section-head reveal"><div class="eyebrow">The training framework</div><h2>Seven domains, 28 competencies, four levels</h2>
-      <p>The skill check, the courses and the skills shape all use one framework: five core product management domains and two on AI, each with four competencies, each described at four levels.</p></div>
-    <div class="card reveal fg-card">{framework_graphic("tk", ASSESS, EXT)}</div>
+    <div id="framework" style="margin-top:56px" data-ask="The training framework: seven domains, 28 competencies, four levels" data-kind="Learning" data-keywords="framework domains competencies levels skills ai core product management">
+      <div class="section-head reveal"><div class="eyebrow">The framework behind the skill check</div><h2>Seven domains, 28 competencies, four levels</h2>
+        <p>The skill check, the courses and the skills shape all use one framework: five core product management domains and two on AI, each with four competencies, each described at four levels.</p></div>
+      <div class="card reveal fg-card">{framework_graphic("tk", ASSESS, EXT)}</div>
+    </div>
   </div>
 </section>
 

@@ -1433,6 +1433,15 @@ footer.site { padding: 56px 0 32px; border-top: 1px solid var(--line); margin-to
 .uc-thumb .uc-thumb-row b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--q); color: var(--card); font-size: .75rem; }
 .uc-thumb .uc-thumb-row em { font-style: normal; font-weight: 800; font-size: .8rem; color: var(--q); background: color-mix(in srgb, var(--q) 14%, var(--card)); border-radius: 999px; padding: 3px 10px; justify-self: start; }
 .svc-tool { font-size: .95rem; margin: 10px 0 0; }
+/* Services in Brief: each service shows its title and who it's for; "Show the details" opens that one in place */
+.svc-more { display: none; align-items: center; gap: 6px; margin: 6px 0 0; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--navy); font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+.svc-more::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform .2s; }
+.svc-more[aria-expanded="true"]::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.svc-more:hover { border-color: var(--cyan); }
+.svc-more:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+:root[data-depth="brief"] .svc-more { display: inline-flex; }
+:root[data-depth="brief"] .svc-detail:not(.open) .svc-body { display: none; }
+:root[data-depth="brief"] .svc-detail.open .svc-body { margin-top: 14px; }
 .tool h3 .pill { display: inline-block; font-family: var(--sans); font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan-ink); border: 1px solid currentColor; border-radius: var(--pill); padding: 2px 9px; vertical-align: 5px; margin-left: 6px; }
 @media print { .uc-left { position: static; } }
 @media print {
@@ -2424,18 +2433,10 @@ details.assist > summary .cmark, .art-finder-head .cmark { margin-right: 4px; }
 .fg-comps { display: none; list-style: none; margin: 0; padding: 0 12px 10px; }
 .fg.open .fg-comps { display: block; }
 .fg-comps li { padding: 4px 0; border-top: 1px solid var(--line); font-size: .8rem; color: var(--ink-2); }
-.fg-band { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
-.fg-band-h { text-align: center; font-size: 1.05rem; margin: 0 0 12px; }
-.fg-sites { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.fg-site { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
-.fg-site > b { display: block; padding: 10px 14px; color: #fff; text-align: center; font-size: .95rem; }
-.fg-site-pa > b { background: var(--fg-core); } .fg-site-learn > b { background: var(--fg-ai); }
-.fg-site ul { list-style: none; margin: 0; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; }
-.fg-site a { font-size: .88rem; font-weight: 600; }
 .fg-toggle:focus-visible, .fg-tile-a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
 @media (max-width: 760px) {
   .fg-levels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fg-levels li:nth-child(2)::after { display: none; }
-  .fg-groups, .fg-sites { grid-template-columns: 1fr; }
+  .fg-groups { grid-template-columns: 1fr; }
   .fg-core .fg-tiles, .fg-ai .fg-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

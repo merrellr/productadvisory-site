@@ -100,7 +100,7 @@ def _icon(paths):
             'aria-hidden="true">' + paths + '</svg>')
 
 
-def framework_graphic(uid, assess, ext, sites_band=True):
+def framework_graphic(uid, assess, ext):
     """The graphic's HTML. uid keeps ids unique when it appears twice on a site; assess is the Learning address;
     ext the attributes for a link that opens in a new tab."""
     by = {a["key"]: a for a in FRAMEWORK["areas"]}
@@ -118,17 +118,6 @@ def framework_graphic(uid, assess, ext, sites_band=True):
                       f'<span class="fg-n">{len(d["comps"])} competencies</span></a><ul class="fg-comps">{comps}</ul></div>')
         groups += (f'<div class="fg-group fg-{key}" role="group" aria-labelledby="fg{uid}-{key}"><h3 class="fg-gh" id="fg{uid}-{key}">{label} '
                    f'<span>({len(areas)})</span></h3><div class="fg-tiles">{tiles}</div></div>')
-    band = ""
-    if sites_band:
-        band = f'''<div class="fg-band">
-  <h3 class="fg-band-h">One framework, across Product Advisory and Learning</h3>
-  <div class="fg-sites">
-    <div class="fg-site fg-site-pa"><b>productadvisory.co</b><ul>
-      <li><a href="services.html">B2B product consulting</a></li><li><a href="toolkits.html#tools">Interactive toolkits</a></li><li><a href="insights.html">Data-backed insights</a></li></ul></div>
-    <div class="fg-site fg-site-learn"><b>assessment.productadvisory.co</b><ul>
-      <li><a href="{assess}" {ext}>Skill assessment</a></li><li><a href="{assess}lms-dashboard" {ext}>Personalized course plans</a></li><li><a href="{assess}framework#articles" {ext}>Companion articles</a></li></ul></div>
-  </div>
-</div>'''
     return (f'<div class="fg" data-fg>{levels}<div class="fg-head"><h3 class="fg-h">The seven skill domains</h3>'
             f'<button type="button" class="fg-toggle" aria-expanded="false" aria-controls="fgGroups{uid}" data-total="{total}">Show all {total} competencies</button></div>'
-            f'<div class="fg-groups" id="fgGroups{uid}">{groups}</div>{band}</div>')
+            f'<div class="fg-groups" id="fgGroups{uid}">{groups}</div></div>')

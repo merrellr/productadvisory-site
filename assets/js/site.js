@@ -148,6 +148,26 @@
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- Services in Brief: open one service's details in place ---------- */
+  function initServiceMore() {
+    var setOpen = function (art, open) {
+      var b = art.querySelector(".svc-more"); if (!b) return;
+      art.classList.toggle("open", open);
+      b.setAttribute("aria-expanded", String(open));
+      b.querySelector("span").textContent = open ? "Hide the details" : "Show the details";
+    };
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest(".svc-more"); if (!b) return;
+      var art = b.closest(".svc-detail"); setOpen(art, !art.classList.contains("open"));
+    });
+    // a link to one service (services.html#ai, the side index, an article's "Putting this into practice") opens it
+    var fromHash = function () {
+      var id = (location.hash || "").slice(1), art = id && document.getElementById(id);
+      if (art && art.classList.contains("svc-detail")) setOpen(art, true);
+    };
+    fromHash(); window.addEventListener("hashchange", fromHash);
+  }
+
   /* ---------- in-page index that follows the scroll ---------- */
   function initScrollSpy() {
     var links = $$(".side-index a, .sticky-tabs a");
@@ -2263,6 +2283,7 @@
     initNav();
     initReveal();
     initScrollSpy();
+    initServiceMore();
     initAsk();
     initPrefs();
     initSharedBar();
