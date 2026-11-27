@@ -536,7 +536,7 @@ def toolkits():
               ("Reassess", "Retake the assessment to see how far you've come, and what's next.")]
     lsteps_html = "".join(f'<div class="card reveal"><span class="num">{n}</span><h3>{t}</h3><p>{d}</p></div>' for n, (t, d) in enumerate(lsteps, 1))
     body = f'''{page_head("Toolkits &amp; Learning", "Free tools and a skill check for better product decisions.", toolkit_open())}
-<div class="sticky-tabs"><nav class="tabs" aria-label="On this page"><a href="#tools">Toolkits</a><a href="#learning">Skill check &amp; learning</a><a href="#grow">For teams</a></nav></div>
+<div class="sticky-tabs"><nav class="tabs" aria-label="On this page"><a href="#tools">Toolkits</a><a href="#learning">Skill Check</a><a href="#grow">For Teams</a></nav></div>
 
 <section style="padding-top:24px">
   <div class="wrap">
