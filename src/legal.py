@@ -52,6 +52,7 @@ PRIVACY = """
 <li><b>GitHub Pages:</b> hosts the main site and the assessment, learning, and portfolio pages. It may see standard request data such as your IP address.</li><!-- HOSTING: added "the main site" -->
 <li><b>AI service provider:</b> grades free text assessment answers, writes answers to Ask questions, and writes a short note from what you tell us when booking a call. It sees the text of those answers, questions, and booking notes.</li>
 <li><b>LinkedIn:</b> hosts our newsletter and company page. It sees whatever you do on LinkedIn.</li>
+<li><b>Your company, if you joined Product Advisory Learning through it:</b> its admins see your name and email, your latest assessment (scores and answers), your lesson progress, and when you were last active. If they assign you a role, they also see your skills shape against it: your estimated level in each competency and how much evidence is behind each, never your practice answers. They never see your private reflections, notes, or phone number.</li>
 </ul>
 <p>We may also disclose information if the law requires it, to protect our rights or safety, or as part of a sale or merger of the business, in which case we will tell you if your information is affected.</p>
 
@@ -90,6 +91,7 @@ TERMS = """
 <h2>Assessment, learning, and accounts</h2>
 <p>The assessment and learning content are for professional development and information. They are not a certification, license, or credential, and we do not guarantee any career, hiring, or business result from using them.</p>
 <p>If you create an account, give us accurate information and keep your sign in details private. You are responsible for activity under your account. Tell us promptly if you think someone else has used it. Assessment results are based on the answers you give and are an estimate, not a final judgment of your skills.</p>
+<p><b>Company accounts.</b> If you join through your company, its admins can see what you share with them: your name, email, latest assessment, lesson progress, and when you were last active. If your company assigns you a role, its admins can also see your skills shape against that role, meaning your estimated level in each competency and how much evidence is behind it. That is the consent for sharing it, and you are told on My Learning and My Profile when a role is assigned. Your practice answers, private reflections, and notes are never shared. Skills shapes and levels are estimates for development, not a performance rating.</p>
 
 <h2>Your submissions, votes, and suggestions</h2>
 <p>You keep ownership of anything you submit, including written answers, reflections, tool suggestions, and messages. You give us a non exclusive, worldwide, royalty free license to use it to run, review, and improve the Site and our offerings. We may use suggestions without owing you credit or payment.</p>
