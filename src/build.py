@@ -157,9 +157,10 @@ def level_picker(toggle=True, cls="levels"):
 
 # ---------------------------------------------------------------- home
 def home():
+    # on phones the first three show, and "View all" opens the rest in place (site.css .svc-extra, site.js initServiceList)
     svc = "".join(
-        f'<a class="svc{" new" if new else ""} reveal" href="services.html#{i}">{icon(ic)}<div><b>{t}</b><span>{fw}</span></div></a>'
-        for i, ic, t, fw, _, _, new in SERVICES)
+        f'<a class="svc{" new" if new else ""}{" svc-extra" if n >= 3 else ""} reveal" href="services.html#{i}">{icon(ic)}<div><b>{t}</b><span>{fw}</span></div></a>'
+        for n, (i, ic, t, fw, _, _, new) in enumerate(SERVICES))
     problems = [
         ("guesses", "Problem 1", "Roadmaps built on guesses, not evidence",
          "Your roadmap looks confident on paper. But if you're honest, a lot of it is built on opinions, competitor-watching, and whoever spoke loudest in the last planning meeting, not real customer evidence.",
@@ -247,7 +248,8 @@ def home():
       <h2>Find the problem, then the fix</h2>
       <p>Every service exists to fix a specific version of the same problem: product work that isn't connected to evidence or to the business.</p>
     </div>
-    <div class="svc-grid">{svc}</div>
+    <div class="svc-grid" id="svcGrid">{svc}</div>
+    <button type="button" class="btn ghost svc-toggle" aria-expanded="false" aria-controls="svcGrid">View all {len(SERVICES)} services</button>
     <p style="margin-top:24px"><a class="link-arrow" href="services.html">All services and packages</a></p>
   </div>
 </section>

@@ -152,6 +152,20 @@
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- Home, on phones: three services, then "View all" opens the rest in place ---------- */
+  function initServiceList() {
+    var btn = $(".svc-toggle"), grid = $("#svcGrid");
+    if (!btn || !grid) return;
+    var label = btn.textContent;
+    btn.addEventListener("click", function () {
+      var all = grid.classList.toggle("all");
+      btn.setAttribute("aria-expanded", String(all));
+      btn.textContent = all ? "Show fewer services" : label;
+      if (all) { var first = $(".svc-extra", grid); if (first) first.focus(); } else btn.scrollIntoView({ block: "nearest" });
+      track("services_toggle", { all: all });
+    });
+  }
+
   /* ---------- Services in Brief: open one service's details in place ---------- */
   function initServiceMore() {
     var setOpen = function (art, open) {
@@ -2289,6 +2303,7 @@
     initReveal();
     initScrollSpy();
     initServiceMore();
+    initServiceList();
     initAsk();
     initPrefs();
     initSharedBar();
