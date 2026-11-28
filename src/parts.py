@@ -148,7 +148,7 @@ def header(page):
 <header class="nav">
   <div class="wrap">
     <a class="wm" href="index.html" aria-label="Product Advisory, home">{WORDMARK}</a>
-    <nav class="nav-links" aria-label="Main">{links}<button type="button" class="m-only linklike nav-help" data-action="help">Help</button><a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{BOOK}">Book a free call</a></nav>
+    <nav class="nav-links" aria-label="Main">{links}<button type="button" class="m-only linklike nav-help" data-action="help">Help</button><button type="button" class="m-only linklike nav-help" data-action="tour" hidden>Take the site tour</button><button type="button" class="m-only linklike nav-help" data-action="theme">Light / dark mode</button><a class="m-only" href="preferences.html">Make it yours</a><a class="m-only" href="{BOOK}">Book a free call</a></nav>
     <div class="nav-tools">
       <button type="button" class="icon-btn help-btn" data-action="help" data-help-anchor data-tours="{help_tours()}" aria-label="Help: tours of the site, answers and how to reach us" title="Help">{HELP}<span class="help-lbl">Help</span></button>
       <button class="icon-btn" data-action="palette" aria-label="Search the site (command menu)">{SEARCH}<span class="k-hint"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></span></button>

@@ -102,6 +102,9 @@
     var menu = $(".menu-btn");
     if (menu) menu.addEventListener("click", function () {
       var open = nav.classList.toggle("open");
+      // the menu's "Take the site tour" shows only on pages that have a tour (guide.js, which may load after this)
+      var tourItem = $('.nav-links [data-action="tour"]');
+      if (tourItem) tourItem.hidden = !(window.PATour && window.PATour.available());
       menu.setAttribute("aria-expanded", open ? "true" : "false");
     });
     $$("[data-action]").forEach(function (b) {
@@ -110,6 +113,7 @@
         if (a === "theme") toggleTheme();
         if (a === "palette") openPalette();
         if (a === "help") { nav.classList.toggle("open", false); if (menu) menu.setAttribute("aria-expanded", "false"); openHelp(); }
+        if (a === "tour") { nav.classList.toggle("open", false); if (menu) menu.setAttribute("aria-expanded", "false"); if (!(window.PATour && window.PATour.start())) openHelp(); }
         if (a === "copy-email") { e.preventDefault(); copyText(b.getAttribute("data-email") || EMAIL, "Email copied"); }
       });
     });
@@ -398,7 +402,8 @@
       });
     }
     form.addEventListener("submit", function (e) { e.preventDefault(); run(input.value); });
-    $$(".ask-suggest button", box).forEach(function (b) { b.addEventListener("click", function () { run(b.textContent); }); });
+    // the "Try:" suggestions sit next to #ask, not inside it
+    $$(".ask-suggest button", box.parentNode).forEach(function (b) { b.addEventListener("click", function () { run(b.textContent); }); });
     input.addEventListener("focus", function () { buildIndex(); }, { once: true });
     var q = new URLSearchParams(location.search).get("ask");
     if (q) { run(q); setTimeout(function () { box.scrollIntoView({ block: "center" }); }, 50); }

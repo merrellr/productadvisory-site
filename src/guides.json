@@ -272,14 +272,14 @@
         "p": "Product management consulting for startups and enterprises: market insight turned into roadmaps your team can defend."
       },
       {
-        "s": "#ask",
-        "t": "Ask anything",
-        "p": "Type a question about our services, tools or articles and get an answer drawn from this site, with links to where it came from."
-      },
-      {
         "s": "#problems",
         "t": "Sound familiar?",
         "p": "Pick the problem that sounds most like your team and see what we'd do about it first."
+      },
+      {
+        "s": "#ask",
+        "t": "Ask anything",
+        "p": "Not sure which problem fits? Type what you are working on and Compass answers from this site, with links to where it came from."
       },
       {
         "s": "#services",

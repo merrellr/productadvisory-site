@@ -128,34 +128,25 @@ def cta_band(h="Have a project in mind? Let's talk.", p="Whether you're validati
 </section>'''
 
 
-def radar():
-    cx, cy, R = 130, 120, 80
-    n = len(DOMAINS)
-    short = ["Discovery", "Strategy", "Prioritization", "Execution", "Stakeholder", "AI · Individual", "AI · Org"]
-
-    def pt(i, r):
-        a = -math.pi / 2 + 2 * math.pi * i / n
-        return cx + r * math.cos(a), cy + r * math.sin(a)
-    webs = "".join('<polygon class="web" points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in (pt(i, R * k / 4) for i in range(n))) + '"/>' for k in range(1, 5))
-    spokes = "".join(f'<line class="web" x1="{cx}" y1="{cy}" x2="{pt(i, R)[0]:.1f}" y2="{pt(i, R)[1]:.1f}"/>' for i in range(n))
-    shape = " ".join(f"{x:.1f},{y:.1f}" for x, y in (pt(i, R * v / 100) for i, (_, v) in enumerate(DOMAINS)))
-    labels = ""
-    for i, s in enumerate(short):
-        x, y = pt(i, R + 16)
-        anchor = "middle" if abs(x - cx) < 10 else ("start" if x > cx else "end")
-        labels += f'<text x="{x:.1f}" y="{y + 3:.1f}" text-anchor="{anchor}">{s}</text>'
-    return f'<svg class="radar" viewBox="0 0 260 240" role="img" aria-label="Example result: a radar chart across seven skill areas">{webs}{spokes}<polygon class="shape" points="{shape}"/>{labels}</svg>'
+# The example skill check result (home and Toolkits): one experienced PM's competency profile, as bars.
+# High scores (75+) in green, middling (55-74) in the accent, lower in amber: the colours are theme tokens (site.css).
+EXAMPLE_SCORES = [("Stakeholder Communication & Influence", 90, "Core"), ("Execution & Delivery", 81, "Core"),
+                  ("Customer & Market Discovery", 72, "Core"), ("Prioritization & Trade-offs", 64, "Core"),
+                  ("Product Strategy & Roadmapping", 58, "Core"), ("AI Fluency (Individual)", 55, "AI"),
+                  ("AI Fluency (Organizational)", 38, "AI")]
 
 
 def mock():
-    bars = "".join(f'<div class="bar-row"><span>{escape(d)}</span><em>{v}%</em><span class="track"><span class="fill" data-w="{v}%"></span></span></div>' for d, v in DOMAINS)
-    return f'''<div class="mock reveal" aria-label="Example skill check result">
-  <div class="mock-head">
-    <svg class="mock-ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--band)" stroke-width="6"/><circle cx="27" cy="27" r="22" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-linecap="round" stroke-dasharray="138" stroke-dashoffset="47" transform="rotate(-90 27 27)"/></svg>
-    <div><b>Experienced</b><small>Example result · 14 questions · about 10 minutes</small></div>
+    band = lambda v: "hi" if v >= 75 else "mid" if v >= 55 else "lo"
+    rows = "".join(f'<li class="cp-row"><div class="cp-lbl"><span>{escape(l)}{' <i class="cp-ai">AI</i>' if c == "AI" else ""}</span><b>{v}%</b></div>'
+                   f'<span class="cp-track"><span class="fill cp-{band(v)}" data-w="{v}%"></span></span></li>' for l, v, c in EXAMPLE_SCORES)
+    return f'''<div class="cp-card reveal" role="figure" aria-label="Example result: an experienced product manager's competency profile across seven areas">
+  <div class="cp-head">
+    <div><span class="cp-pill">Example benchmark · Experienced PM</span><h3>Your Product + AI Competency Profile</h3></div>
+    <span class="cp-meta">14 questions · ~10 min</span>
   </div>
-  {radar()}
-  <div class="bars">{bars}</div>
+  <ul class="cp-list">{rows}</ul>
+  <p class="cp-key"><span><i class="cp-dot cp-hi"></i>Strength</span><span><i class="cp-dot cp-mid"></i>Solid</span><span><i class="cp-dot cp-lo"></i>Room to grow</span></p>
 </div>'''
 
 
@@ -202,18 +193,8 @@ def home():
       <div class="eyebrow">Product management consulting</div>
       <h1>Building <em>Market Driven</em> Products</h1>
       <p class="lede">Professional end-to-end product consulting for startups and enterprises. We turn market insight into roadmaps your team can defend, and products people actually want.</p>
-      {tour_link("home", "New here? Take the site tour")}
-      <div class="ask" id="ask">
-        <form class="ask-form ask-compass" role="search">
-          {CMARK}
-          <label class="hp" for="ask-input">Ask Compass</label>
-          <input id="ask-input" type="search" placeholder="Ask Compass: what are you working on?" autocomplete="off">
-          <button class="btn" type="submit">Ask</button>
-        </form>
-      </div>
-      <div class="ask-suggest"><span>Try:</span><button type="button">How do you help with AI adoption?</button><button type="button">What is a Fractional CPO?</button><button type="button">Do you have free templates?</button></div>
-      <div class="ask-out" aria-live="polite"></div>
-      <div class="btn-row" style="margin-top:28px"><a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="services.html">Explore services</a></div>
+      <div class="btn-row hero-cta"><a class="btn" href="{BOOK}">Book a free 30-minute call</a><a class="btn ghost" href="{ASSESS}" {EXT}>Take the free assessment</a></div>
+      <div class="hero-tour">{tour_link("home", "New here? Take the site tour", small=True)}</div>
     </div>
     <div class="hero-art">{path_art()}</div>
   </div>
@@ -240,6 +221,22 @@ def home():
     <div class="problems reveal" id="problems">{pcards}</div>
     <div class="prescription" id="prescription" hidden aria-live="polite"><div><h3></h3><p></p></div><a class="btn" href="services.html">See how →</a></div>
     <p class="reveal" style="margin-top:22px">If any of this sounds familiar, you don't need more effort. You need a clearer process. That's exactly where Product Advisory comes in.</p>
+  </div>
+</section>
+
+<section class="compass-sec" id="ask-compass" data-ask="Ask Compass: questions about our services, tools and articles" data-kind="Home" data-keywords="ask question search help compass">
+  <div class="wrap">
+    <div class="section-head reveal"><div class="eyebrow">Not quite any of these?</div><h2>Ask Compass</h2><p>Tell Compass what you're working on. It answers from this site and links to where the answer came from.</p></div>
+    <div class="ask" id="ask">
+      <form class="ask-form ask-compass" role="search">
+        {CMARK}
+        <label class="hp" for="ask-input">Ask Compass</label>
+        <input id="ask-input" type="search" placeholder="Ask Compass: what are you working on?" autocomplete="off">
+        <button class="btn" type="submit">Ask</button>
+      </form>
+    </div>
+    <div class="ask-suggest"><span>Try:</span><button type="button">How do you help with AI adoption?</button><button type="button">What is a Fractional CPO?</button><button type="button">Do you have free templates?</button></div>
+    <div class="ask-out" aria-live="polite"></div>
   </div>
 </section>
 
