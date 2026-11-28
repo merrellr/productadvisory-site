@@ -625,6 +625,10 @@ def toolkits():
         <div class="btn-row"><a class="btn sm" href="{ASSESS}request-info?src=site-learning&amp;who=org" {EXT}>Talk to us about team assessments</a><a class="btn sm ghost" href="{ASSESS}lms-dashboard?demo=1&amp;src=site-toolkits" {EXT}>See a live demo</a></div>
         <ul class="team-links"><li><a class="link-arrow" href="services.html#different">Why our learning is different</a></li><li><a class="link-arrow" href="{ASSESS}why" {EXT}>How Compass works</a></li><li><a class="link-arrow" href="{ASSESS}framework" {EXT}>The skill framework</a></li></ul></div>
     </div>
+    <div class="card reveal" style="margin-top:20px" data-ask="DISC Work Styles: how you and your team like to work" data-kind="Learning" data-keywords="disc work styles personality dominance influence steadiness conscientiousness team behaviour communication">
+      <div class="eyebrow">New in Learning</div><h3>DISC Work Styles</h3>
+      <p>How you like to work: fast or measured, focused on the task or on people. A free check of about eight minutes places you on those two lines, with a report on working at your best and working well with others. Built for product teams, based on Marston’s DISC model.</p>
+      <div class="btn-row"><a class="btn sm" href="{ASSESS}work-styles?src=site-toolkits" {EXT}>Find your work style</a></div></div>
   </div>
 </section>
 {cta_band("Ready to see where you stand?", "Take the free skill check in about ten minutes, or talk to us about benchmarking your whole team.")}'''
